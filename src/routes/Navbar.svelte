@@ -1,7 +1,7 @@
 <script>
   import { Navbar, NavBrand, NavHamburger, Avatar, Dropdown, DropdownItem, DropdownHeader, DropdownDivider,Sidebar, SidebarGroup, SidebarItem, SidebarWrapper, SidebarDropdownItem, SidebarDropdownWrapper,Drawer, CloseButton} from 'flowbite-svelte'
   import Icon from '@iconify/svelte';
-
+  import { page } from '$app/stores';
   import { sineIn } from 'svelte/easing';
 
   import userIcon from '$lib/images/user.png';
@@ -12,9 +12,11 @@
     duration: 200,
     easing: sineIn
   };
+  
+  $: activeUrl = $page.url.pathname
 </script>
 
-<Navbar navClass="absolute px-2 sm:px-4 py-3 w-full border-b">
+<Navbar navClass="absolute z-40 px-2 sm:px-4 py-3 w-full border-b drop-shadow-md">
   <NavHamburger class="block md:hidden" on:click={() => (hidden1 = false)}/>
   <Drawer transitionType="fly" {transitionParams} bind:hidden={hidden1} id='sidebar1'>
     <div class='flex items-end'>
@@ -24,44 +26,52 @@
       <SidebarWrapper divClass="overflow-y-auto min-h-screen py-4 px-3 bg-white rounded dark:bg-gray-800">
         <SidebarGroup>
           <!-- List Menu -->
-          <SidebarItem label="Dashboard" on:click={() => (hidden1 = true)}>
+          <SidebarItem label="Dashboard" on:click={() => (hidden1 = true)} active={activeUrl === '/'}>
             <svelte:fragment slot="icon">
               <Icon icon="carbon:meter" width="35" height="35"/>
             </svelte:fragment>
           </SidebarItem>
-          <SidebarDropdownWrapper label="Formulir Rekam Medis" >
+          <SidebarDropdownWrapper label="Pendaftaran" >
             <svelte:fragment slot="icon">
-              <Icon icon="ep:files" width="32" height="32" />
+              <Icon icon="mdi:file-sign" width="35" height="35"/>
             </svelte:fragment>
-            <SidebarDropdownItem href="/forms/asesmen-rawat-inap" label="Asesmen Rawat Inap" />
-            <SidebarDropdownItem href="/forms/asesmen-medis-awal" label="Asesmen Medis Awal" />
-            <SidebarDropdownItem href="/forms/transfer-pasien-internal" label="Transfer Pasien Internal" />
-            <SidebarDropdownItem href="/forms/daftar-dokter-penanggungjawab-pasien" label="Daftar DPJP" />
-            <SidebarDropdownItem href="/" label="Rekonsiliasi" />
-            <SidebarDropdownItem href="/" label="Edukasi Pasien & Keluarga Terintegrasi" />
-            <SidebarDropdownItem href="/" label="Observasi Cairan" />
-            <SidebarDropdownItem href="/" label="Hasil Pemeriksaan Penunjang & Tempelan" />
-            <SidebarDropdownItem href="/" label="Tempelan Kopi Resep" />
-            <SidebarDropdownItem href="/forms/catatan-perkembangan-pasien-terintegrasi" label="Catatan Perkembangan Pasien Terintegrasi" />
-            <SidebarDropdownItem href="/" label="Pemberian Obat Pasien" />
-            <SidebarDropdownItem href="/" label="NEWS" />
-            <SidebarDropdownItem href="/" label="Ringkasan Pasien Pulang" />
+            <SidebarDropdownItem href="/pendaftaran" label="Rawat Inap" active={activeUrl === '/pendaftaran'} on:click={() => (hidden1 = true)}/>
           </SidebarDropdownWrapper>
+          <SidebarItem label="Ruangan" on:click={() => (hidden1 = true)} active={activeUrl === '/ruangan'}>
+            <svelte:fragment slot="icon">
+              <Icon icon="fluent:conference-room-24-filled" width="35" height="35"/>
+            </svelte:fragment>
+          </SidebarItem>
+          <SidebarItem label="Obat" on:click={() => (hidden1 = true)} active={activeUrl === '/obat'}>
+            <svelte:fragment slot="icon">
+              <Icon icon="game-icons:medicines" width="35" height="35"/>
+            </svelte:fragment>
+          </SidebarItem>
+          <SidebarDropdownWrapper label="Rekam Medis" >
+            <svelte:fragment slot="icon">
+              <Icon icon="ri:contacts-book-fill" width="35" height="35"/>
+            </svelte:fragment>
+            <SidebarDropdownItem href="/rekam-medis" label="Rawat Inap" active={activeUrl === '/rekam-medis'} on:click={() => (hidden1 = true)}/>
+          </SidebarDropdownWrapper>
+          <SidebarItem label="Transaksi" on:click={() => (hidden1 = true)} active={activeUrl === '/transaksi'}>
+            <svelte:fragment slot="icon">
+              <Icon icon="fluent:money-hand-20-filled" width="35" height="35"/>
+            </svelte:fragment>
+          </SidebarItem>
           <SidebarDropdownWrapper label="User Management" >
             <svelte:fragment slot="icon">
               <Icon icon="carbon:events" width="35" height="35"/>
             </svelte:fragment>
-            <SidebarDropdownItem href="/users/dokter" label="Dokter" on:click={() => (hidden1 = true)}/>
-            <SidebarDropdownItem href="/users/pasien" label="Pasien" on:click={() => (hidden1 = true)}/>
-            <SidebarDropdownItem href="/users/staff" label="Staff" on:click={() => (hidden1 = true)}/>
+            <SidebarDropdownItem href="/users/dokter" label="Dokter" active={activeUrl === '/users/dokter'} on:click={() => (hidden1 = true)}/>
+            <SidebarDropdownItem href="/users/pasien" label="Pasien" active={activeUrl === '/users/pasien'} on:click={() => (hidden1 = true)}/>
+            <SidebarDropdownItem href="/users/petugas" label="Petugas" active={activeUrl === '/users/petugas'} on:click={() => (hidden1 = true)}/>
           </SidebarDropdownWrapper>
-  
         </SidebarGroup>
       </SidebarWrapper>
     </Sidebar>
   </Drawer>
   <NavBrand href="/">
-    <span class="self-center whitespace-nowrap text-md lg:text-lg xl:text-xl font-semibold dark:text-white">Welcome, Stephanus!</span>
+    <span class="self-center whitespace-nowrap text-md lg:text-lg xl:text-xl font-semibold dark:text-white">Selamat Datang, Stephanus!</span>
   </NavBrand>
   <div class="flex items-center md:order-2">
     <Avatar id="avatar-menu" src={userIcon} />
@@ -69,7 +79,7 @@
   <Dropdown placement="bottom" triggeredBy="#avatar-menu">
     <DropdownHeader>
     <span class="block text-sm"> Stephanus Yogi </span>
-    <span class="block truncate text-sm font-medium"> Staff </span>
+    <span class="block truncate text-sm font-medium"> Petugas </span>
     </DropdownHeader>
     <DropdownItem>Sign out</DropdownItem>
   </Dropdown>

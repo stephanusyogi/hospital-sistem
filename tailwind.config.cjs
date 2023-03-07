@@ -5,7 +5,11 @@ const config = {
   ],
 
   theme: {
-    extend: {},
+    extend: {
+      transitionProperty: {
+          'width': 'width'
+      },
+    },
   },
 
   plugins: [require('flowbite/plugin')],

@@ -5,55 +5,78 @@
   import logo from '$lib/images/logo-icon-tab.png';
 
   import { page } from '$app/stores';
-
-  let spanClass = 'self-center font-semibold whitespace-nowrap dark:text-white text-lg xl:text-xl';
+  let aClass = "my-2 flex items-center p-2 text-base font-normal text-gray-900 rounded-lg dark:text-white hover:bg-gray-100 dark:hover:bg-gray-700"
+  let btnClass = "my-2 flex items-center p-2 w-full text-base font-normal text-gray-900 rounded-lg transition duration-75 group hover:bg-gray-100 dark:text-white dark:hover:bg-gray-700"
   let site = {
     name: 'RSIA-Hospital Sistem',
     href: '/',
     img: logo
   };
-
+  let openSideBar = false
   $: activeUrl = $page.url.pathname
 </script>
-<Sidebar asideClass="w-80 hidden md:block">
-  <SidebarWrapper divClass="overflow-y-auto min-h-screen py-4 px-3 bg-white rounded dark:bg-gray-800">
-    <SidebarGroup>
-      <SidebarBrand class="text-gray-700 text-md lg:text-lg xl:text-xl" {site} {spanClass}/>
+<Sidebar asideClass="{openSideBar ? 'w-80' : 'w-24'} relative hidden md:block transition-width transition-slowest ease bg-gray-50 rounded dark:bg-gray-800">
+  <SidebarWrapper divClass="py-3 px-4 bg-white rounded dark:bg-gray-800  drop-shadow-md border-r border-gray-100">
+    <SidebarBrand class="text-gray-700 text-md lg:text-lg xl:text-xl" aClass="flex items-center justify-center" imgClass="{openSideBar ? 'mr-3' : ''} h-6 sm:h-10" {site} spanClass="{openSideBar ? '' : 'hidden'} self-center font-semibold whitespace-nowrap dark:text-white text-lg xl:text-xl"/>
+  </SidebarWrapper>
+  <SidebarWrapper divClass="mt-5 overflow-y-auto max-h-screen pb-4 px-3 bg-gray-50 rounded dark:bg-gray-800">
+    <SidebarGroup ulClass="space-y-2">
       <!-- List Menu -->
-      <div class="border-t pt-5">
-        <SidebarItem label="Dashboard" href='/' active={activeUrl === '/'}>
+      <div class="" on:mouseenter={()=>{openSideBar = true}} on:mouseleave={()=>{openSideBar ? openSideBar = true : openSideBar = false}}>
+        <SidebarItem class="{!openSideBar ? 'justify-center' : ''}" {aClass} label="Dashboard" href='/' active={activeUrl === '/'} spanClass="{openSideBar ? 'ml-1 text-left' : 'hidden'}">
           <svelte:fragment slot="icon">
             <Icon icon="carbon:meter" width="32" height="32"/>
           </svelte:fragment>
         </SidebarItem>
-        <SidebarDropdownWrapper ulClass="overflow-y-auto h-60" label="Formulir Rekam Medis" >
+        <hr class="my-1">
+        <SidebarDropdownWrapper isOpen={!openSideBar ? false  : (activeUrl === '/pendaftaran' ? true : false)} {btnClass} label="Pendaftaran" spanClass="{openSideBar ? 'ml-1 text-left' : 'hidden'}">
           <svelte:fragment slot="icon">
-            <Icon icon="ep:files" width="32" height="32" />
+            <Icon icon="mdi:file-sign" width="32" height="32"/>
           </svelte:fragment>
-          <SidebarDropdownItem href="/forms/asesmen-rawat-inap" label="Asesmen Rawat Inap" />
-          <SidebarDropdownItem href="/forms/asesmen-medis-awal" label="Asesmen Medis Awal" />
-          <SidebarDropdownItem href="/forms/transfer-pasien-internal" label="Transfer Pasien Internal" />
-          <SidebarDropdownItem href="/forms/daftar-dokter-penanggungjawab-pasien" label="Daftar DPJP" />
-          <SidebarDropdownItem href="/" label="Rekonsiliasi" />
-          <SidebarDropdownItem href="/" label="Edukasi Pasien & Keluarga Terintegrasi" />
-          <SidebarDropdownItem href="/" label="Observasi Cairan" />
-          <SidebarDropdownItem href="/" label="Hasil Pemeriksaan Penunjang & Tempelan" />
-          <SidebarDropdownItem href="/" label="Tempelan Kopi Resep" />
-          <SidebarDropdownItem href="/forms/catatan-perkembangan-pasien-terintegrasi" label="Catatan Perkembangan Pasien Terintegrasi" />
-          <SidebarDropdownItem href="/" label="Pemberian Obat Pasien" />
-          <SidebarDropdownItem href="/" label="NEWS" />
-          <SidebarDropdownItem href="/" label="Ringkasan Pasien Pulang" />
+          <SidebarDropdownItem href="/pendaftaran" label="Rawat Inap" active={activeUrl === '/pendaftaran'}/>
         </SidebarDropdownWrapper>
-        <SidebarDropdownWrapper label="User Management" >
+        <hr class="my-1">
+        <SidebarItem class="{!openSideBar ? 'justify-center' : ''}" {aClass} label="Ruangan" active={activeUrl === '/ruangan'} href='/ruangan' spanClass="{openSideBar ? 'ml-1 text-left' : 'hidden'}">
           <svelte:fragment slot="icon">
-            <Icon icon="carbon:events" width="32" height="32"/>
+            <Icon icon="fluent:conference-room-24-filled" width="32" height="32"/>
           </svelte:fragment>
-          <SidebarDropdownItem href="/users/dokter" label="Dokter" />
-          <SidebarDropdownItem href="/users/pasien" label="Pasien" />
-          <SidebarDropdownItem href="/users/staff" label="Staff" />
+        </SidebarItem>
+        <SidebarItem class="{!openSideBar ? 'justify-center' : ''}" {aClass} label="Obat" href='/obat' active={activeUrl === '/obat'}  spanClass="{openSideBar ? 'ml-1 text-left' : 'hidden'}">
+          <svelte:fragment slot="icon">
+            <Icon icon="game-icons:medicines" width="32" height="32"/>
+          </svelte:fragment>
+        </SidebarItem>
+        <hr class="my-1">
+        <SidebarDropdownWrapper isOpen={!openSideBar ? false  : (activeUrl === '/rekam-medis' ? true : false)} {btnClass} label="Rekam Medis" spanClass="{openSideBar ? 'ml-1 text-left' : 'hidden'}">
+          <svelte:fragment slot="icon">
+            <Icon icon="ri:contacts-book-fill" width="32" height="32"/>
+          </svelte:fragment>
+          <SidebarDropdownItem href="/rekam-medis" label="Rawat Inap" active={activeUrl === '/rekam-medis'}/>
+        </SidebarDropdownWrapper>
+        <hr class="my-1">
+        <SidebarItem class="{!openSideBar ? 'justify-center' : ''}" {aClass} label="Daftar Transaksi" active={activeUrl === '/transaksi'} href='/transaksi' spanClass="{openSideBar ? 'ml-1 text-left' : 'hidden'}">
+          <svelte:fragment slot="icon">
+            <Icon icon="fluent:money-hand-20-filled" width="32" height="32"/>
+          </svelte:fragment>
+        </SidebarItem>
+        <hr class="my-1">
+        <SidebarDropdownWrapper {btnClass} isOpen={!openSideBar ? false  : false} label="Users Management" spanClass="{openSideBar ? 'ml-1 text-left' : 'hidden'}">
+          <svelte:fragment slot="icon">
+            <Icon icon="ph:users-four-bold" width="32" height="32"/>
+          </svelte:fragment>
+          <SidebarDropdownItem href="/users/pasien" label="Pasien" active={activeUrl === '/users/pasien'}/>
+          <SidebarDropdownItem href="/users/dokter" label="Dokter" active={activeUrl === '/users/dokter'}/>
+          <SidebarDropdownItem href="/users/petugas" label="Petugas" active={activeUrl === '/users/petugas'}/>
         </SidebarDropdownWrapper>
       </div>
-
     </SidebarGroup>
   </SidebarWrapper>
+  <!-- svelte-ignore a11y-click-events-have-key-events -->
+  <div class="cursor-pointer py-6 absolute top-[100px] -right-7 text-gray-700 z-40 bg-gray-50 rounded-br-lg rounded-tr-lg dark:bg-gray-800" on:click={()=>{openSideBar ? openSideBar = false : openSideBar = true}}>
+    {#if openSideBar}
+      <Icon icon="material-symbols:double-arrow-rounded" width="30" rotate={2} />
+    {:else}
+      <Icon icon="material-symbols:double-arrow-rounded" width="30" />
+    {/if}
+  </div>
 </Sidebar>
