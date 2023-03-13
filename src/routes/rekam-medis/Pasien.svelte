@@ -2,8 +2,13 @@
   import Icon from "@iconify/svelte";
   export let no_rm, nama_pasien, pronounce, tgl_masuk, tgl_pulang, ruangan, jenis_ruangan, status_rawat
   import { Button, TableBodyCell, TableBodyRow } from "flowbite-svelte";
+  import { goto } from '$app/navigation';
 
   let tdClass = "text-center px-6 py-4 whitespace-nowrap font-medium"
+
+  const handleGoToDokumen = (no_rm) => {
+    goto(`/rekam-medis/${no_rm}`)
+  }
 </script>
 
 <TableBodyRow>
@@ -20,7 +25,7 @@
     {/if}
   </TableBodyCell>
   <TableBodyCell {tdClass}>
-    <Button>
+    <Button on:click={()=>handleGoToDokumen(no_rm)}>
       <Icon icon="mdi:file-document-edit" class="mr-2" width="27" height="27"/>
       Rekam Medis
     </Button>

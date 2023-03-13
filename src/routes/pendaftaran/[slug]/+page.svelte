@@ -1,7 +1,7 @@
 <script>
   import { page } from '$app/stores';
   import { Breadcrumb, BreadcrumbItem, Button, Input, Label, Radio, Select, Textarea } from 'flowbite-svelte';
- 
+  import { goto } from '$app/navigation';
   const no_rm = $page.params.slug;
   
   let jenisRuangan = [
@@ -20,8 +20,8 @@
     {value:"Kamar Rama", name: "Kamar Rama"},
   ]
 
-  const handleSubmit = () => {
-    console.log("submitted")
+  const handleSubmit = (no_rm) => {
+    goto(`/rekam-medis/${no_rm}`)
   }
 </script>
 
@@ -32,7 +32,7 @@
     <BreadcrumbItem>Pendaftaran Rawat Inap</BreadcrumbItem>
   </Breadcrumb>
   <section class="px-4 py-6 bg-gray-50 dark:bg-gray-800 shadow rounded-lg">
-    <form on:submit={handleSubmit}>
+    <form on:submit|preventDefault={()=>handleSubmit(no_rm)}>
       <div class="flex items-center justify-between py-5">
         <p class="font-semibold text-2xl">Formulir Pendaftaran Rawat Inap</p>
         <p class="p-4 border border-gray-300 font-normal text-md">No. Rekam Medis: <span class="font-semibold">{no_rm}</span></p>

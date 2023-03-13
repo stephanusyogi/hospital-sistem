@@ -29,12 +29,23 @@
           </svelte:fragment>
         </SidebarItem>
         <hr class="my-1">
-        <SidebarDropdownWrapper isOpen={!openSideBar ? false  : (activeUrl === '/pendaftaran' ? true : false)} {btnClass} label="Pendaftaran" spanClass="{openSideBar ? 'ml-1 text-left' : 'hidden'}">
+        <SidebarItem class="{!openSideBar ? 'justify-center' : ''}" {aClass} label="Pendaftaran" href='/pendaftaran' active={activeUrl === '/pendaftaran'} spanClass="{openSideBar ? 'ml-1 text-left' : 'hidden'}">
           <svelte:fragment slot="icon">
             <Icon icon="mdi:file-sign" width="32" height="32"/>
           </svelte:fragment>
-          <SidebarDropdownItem href="/pendaftaran" label="Rawat Inap" active={activeUrl === '/pendaftaran'}/>
-        </SidebarDropdownWrapper>
+        </SidebarItem>
+        <hr class="my-1">
+        <SidebarItem class="{!openSideBar ? 'justify-center' : ''}" {aClass} label="Rekam Medis" href='/rekam-medis' active={activeUrl === '/rekam-medis'} spanClass="{openSideBar ? 'ml-1 text-left' : 'hidden'}">
+          <svelte:fragment slot="icon">
+            <Icon icon="ri:contacts-book-fill" width="32" height="32"/>
+          </svelte:fragment>
+        </SidebarItem>
+        <hr class="my-1">
+        <SidebarItem class="{!openSideBar ? 'justify-center' : ''}" {aClass} label="Daftar Transaksi" active={activeUrl === '/transaksi'} href='/transaksi' spanClass="{openSideBar ? 'ml-1 text-left' : 'hidden'}">
+          <svelte:fragment slot="icon">
+            <Icon icon="fluent:money-hand-20-filled" width="32" height="32"/>
+          </svelte:fragment>
+        </SidebarItem>
         <hr class="my-1">
         <SidebarItem class="{!openSideBar ? 'justify-center' : ''}" {aClass} label="Ruangan" active={activeUrl === '/ruangan'} href='/ruangan' spanClass="{openSideBar ? 'ml-1 text-left' : 'hidden'}">
           <svelte:fragment slot="icon">
@@ -44,19 +55,6 @@
         <SidebarItem class="{!openSideBar ? 'justify-center' : ''}" {aClass} label="Obat" href='/obat' active={activeUrl === '/obat'}  spanClass="{openSideBar ? 'ml-1 text-left' : 'hidden'}">
           <svelte:fragment slot="icon">
             <Icon icon="game-icons:medicines" width="32" height="32"/>
-          </svelte:fragment>
-        </SidebarItem>
-        <hr class="my-1">
-        <SidebarDropdownWrapper isOpen={!openSideBar ? false  : (activeUrl === '/rekam-medis' ? true : false)} {btnClass} label="Rekam Medis" spanClass="{openSideBar ? 'ml-1 text-left' : 'hidden'}">
-          <svelte:fragment slot="icon">
-            <Icon icon="ri:contacts-book-fill" width="32" height="32"/>
-          </svelte:fragment>
-          <SidebarDropdownItem href="/rekam-medis" label="Rawat Inap" active={activeUrl === '/rekam-medis'}/>
-        </SidebarDropdownWrapper>
-        <hr class="my-1">
-        <SidebarItem class="{!openSideBar ? 'justify-center' : ''}" {aClass} label="Daftar Transaksi" active={activeUrl === '/transaksi'} href='/transaksi' spanClass="{openSideBar ? 'ml-1 text-left' : 'hidden'}">
-          <svelte:fragment slot="icon">
-            <Icon icon="fluent:money-hand-20-filled" width="32" height="32"/>
           </svelte:fragment>
         </SidebarItem>
         <hr class="my-1">
