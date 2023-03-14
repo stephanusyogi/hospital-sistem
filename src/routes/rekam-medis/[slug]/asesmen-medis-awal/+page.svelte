@@ -5,13 +5,6 @@
 </script>
 
 <main class="overflow-y-auto max-h-screen p-6 sm:p-10 space-y-6">
-  <div class="text-center">
-    <h1 class="text-2xl font-normal mt-10 mb-2">Form Rekam Medis 12.15</h1>
-  </div>
-  <div class="text-center">
-    <p class="text-xl mb-2">ASESMEN MEDIS AWAL DAN RENCANA PELAYANAN</p>
-  </div>
-  <hr class="border-2">
   <Tabs style="underline" defaultClass="flex overflow-x-auto rounded-lg divide-x divide-gray-200 shadow dark:divide-gray-700">
     <TabItem open title="Anamnesa" defaultClass="inline-block text-sm font-medium text-center disabled:cursor-not-allowed h-full">
       <div class="mb-5">
@@ -238,7 +231,7 @@
       </div>
       <br>
       <div class="text-right">
-        <Button color="green">Submit</Button>
+        <Button color="green">Update & Simpan</Button>
       </div>
     </TabItem>
   </Tabs>

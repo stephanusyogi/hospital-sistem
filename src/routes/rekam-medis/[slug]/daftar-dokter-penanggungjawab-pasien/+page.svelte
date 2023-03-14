@@ -5,13 +5,6 @@
 </script>
 
 <main class="overflow-y-auto max-h-screen p-6 sm:p-10 space-y-6">
-  <div class="text-center">
-    <h1 class="text-2xl font-normal mt-10 mb-2">Form Rekam Medis 12.54</h1>
-  </div>
-  <div class="text-center">
-    <p class="text-xl mb-2">DAFTAR DOKTER PENANGGUNG JAWAB PELAYANAN</p>
-  </div>
-  <hr class="border-2">
   <Tabs style="underline" defaultClass="flex overflow-x-auto rounded-lg divide-x divide-gray-200 shadow dark:divide-gray-700">
     <TabItem open title="Form Utama" defaultClass="inline-block text-sm font-medium text-center disabled:cursor-not-allowed h-full">
       <p class="font-semibold mb-5">DPJP Utama</p>

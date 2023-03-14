@@ -5,13 +5,6 @@
 </script>
 
 <main class="overflow-y-auto max-h-screen p-6 sm:p-10 space-y-6">
-  <div class="text-center">
-    <h1 class="text-2xl font-normal mt-10 mb-2">Form Rekam Medis 12.31</h1>
-  </div>
-  <div class="text-center">
-    <p class="text-xl mb-2">ASESMEN RAWAT INAP</p>
-  </div>
-  <hr class="border-2">
   <Tabs style="pill" defaultClass="flex space-x-2">
     <TabItem open title="Bagian 1: Informasi">
       <Tabs style="underline" defaultClass="flex overflow-x-auto rounded-lg divide-x divide-gray-200 shadow dark:divide-gray-700" >
