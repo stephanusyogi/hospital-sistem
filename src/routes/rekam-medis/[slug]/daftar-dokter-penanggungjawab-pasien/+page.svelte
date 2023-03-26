@@ -1,87 +1,60 @@
 <script>
   import Icon from '@iconify/svelte';
   import { Button, Checkbox, Input, Label, Radio, TabItem, Table, TableBody, TableBodyCell, TableBodyRow, TableHead, TableHeadCell, Tabs, Textarea } from "flowbite-svelte";
+  import Dpjp from './Dpjp.svelte';
 
+
+  let dummyDPJP = [
+    {
+      "diagnosa": "Pilek",
+      "nama_dokter": "dr. Khal Drogo, Sp PD FINASIM",
+      "spesialis": "Spesialis Penyakit Dalam",
+      "tgl_mulai": "05/28/2023",
+      "tgl_selesai": "08/28/2023",
+      "status_dpjp": "DPJP Utama",
+    },
+    {
+      "diagnosa": "Kebanyakan Es",
+      "nama_dokter": "dr. Viserys Targaryen, Sp B",
+      "spesialis": "Spesialis Bedah Umum",
+      "tgl_mulai": "05/28/2023",
+      "tgl_selesai": "08/28/2023",
+      "status_dpjp": "DPJP Utama",
+    },
+    {
+      "diagnosa": "Kurang Tidur",
+      "nama_dokter": "dr. Ramsay Bolton, Sp AN",
+      "spesialis": "Spesialis Anestesi",
+      "tgl_mulai": "05/28/2023",
+      "tgl_selesai": "08/28/2023",
+      "status_dpjp": "DPJP",
+    },
+    {
+      "diagnosa": "Sepertinya Stress",
+      "nama_dokter": "dr. Viserys II S, Sp.KJ",
+      "spesialis": "Spesialis Penyakit Dalam",
+      "tgl_mulai": "05/28/2023",
+      "tgl_selesai": "08/28/2023",
+      "status_dpjp": "DPJP",
+    },
+  ];
 </script>
 
 <main class="overflow-y-auto max-h-screen p-6 sm:p-10 space-y-6">
-  <Tabs style="underline" defaultClass="flex overflow-x-auto rounded-lg divide-x divide-gray-200 shadow dark:divide-gray-700">
-    <TabItem open title="Form Utama" defaultClass="inline-block text-sm font-medium text-center disabled:cursor-not-allowed h-full">
-      <p class="font-semibold mb-5">DPJP Utama</p>
-      <div class="mb-5">
-        <Label for="" class="mb-2">Nama:</Label>
-        <Textarea id="nama_dpjp_utama" placeholder="Masukkan nama" rows="2" name="nama_dpjp_utama"/>
-      </div>
-      <div class="mb-5">
-        <div class="flex flex-wrap lg:flex-nowrap gap-6">
-          <div class="content">
-            <Label for="" class="mb-2">Tanggal Mulai:</Label>
-            <Input type="date" name="tgl_mulai_dpjp_utama"/>
-          </div>
-          <div class="content">
-            <Label for="" class="mb-2">Tanggal Selesai:</Label>
-            <Input type="date" name="tgl_selesai_dpjp_utama"/>
-          </div>
-        </div>
-      </div>
-      <hr class="my-5">
-      <p class="font-semibold mb-5">DPJP</p>
-      <div class="mb-5">
-        <Label for="" class="mb-2">Nama:</Label>
-        <Textarea id="nama_dpjp" placeholder="Masukkan nama" rows="2" name="nama_dpjp"/>
-      </div>
-      <div class="mb-5">
-        <div class="flex flex-wrap lg:flex-nowrap gap-6">
-          <div class="content">
-            <Label for="" class="mb-2">Tanggal Mulai:</Label>
-            <Input type="date" name="tgl_mulai_dpjp"/>
-          </div>
-          <div class="content">
-            <Label for="" class="mb-2">Tanggal Selesai:</Label>
-            <Input type="date" name="tgl_selesai_dpjp"/>
-          </div>
-        </div>
-      </div>
-      <br>
-      <div class="text-right">
-        <Button color="green">Submit</Button>
-      </div>
-    </TabItem>
-    <TabItem title="Form Permintaan DPJP Pribadi" defaultClass="inline-block text-sm font-medium text-center disabled:cursor-not-allowed h-full">
-      <div class="grid grid-cols-2 gap-6">
-        <div class="content">
-          <div class="mb-5">
-            <Label for="" class="mb-2">Nama Penanggung Jawab:</Label>
-            <Textarea id="nama_penanggungjawab" placeholder="Masukkan nama" rows="2" name="nama_penanggungjawab"/>
-          </div>
-          <div class="mb-5">
-            <Label for="" class="mb-2">Alamat:</Label>
-            <Textarea id="alamat_penanggungjawab" placeholder="Masukkan alamat" rows="4" name="alamat_penanggungjawab"/>
-          </div>
-        </div>
-        <div class="content">
-          <div class="mb-5">
-            <Label for="" class="mb-2">Nama Pasien:</Label>
-            <Textarea id="nama_pasien" placeholder="Masukkan nama" rows="2" name="nama_pasien"/>
-          </div>
-          <div class="mb-5">
-            <Label for="" class="mb-2">No. RM:</Label>
-            <Textarea id="nomor_rm" placeholder="Masukkan nomor" rows="2" name="nomor_rm"/>
-          </div>
-        </div>
-      </div>
-      <div class="mb-5">
-        <Label for="" class="mb-2">Nama Dokter:</Label>
-        <Textarea id="nama_dokter" placeholder="Masukkan nama" rows="2" name="nama_dokter"/>
-      </div>
-      <div class="mb-5">
-        <Label for="" class="mb-2">Jabatan / Keahlian:</Label>
-        <Textarea id="jabatan_keahlian_dokter" placeholder="Masukkan jabatan atau keahlian" rows="2" name="jabatan_keahlian_dokter"/>
-      </div>
-      <br>
-      <div class="text-right">
-        <Button color="green">Submit</Button>
-      </div>
-    </TabItem>
-  </Tabs>
+  <Table hoverable={true}>
+    <TableHead>
+      <TableHeadCell class="text-center">Diagnosa</TableHeadCell>
+      <TableHeadCell class="text-center">Nama Dokter</TableHeadCell>
+      <TableHeadCell class="text-center">Spesialis</TableHeadCell>
+      <TableHeadCell class="text-center">Tanggal Mulai</TableHeadCell>
+      <TableHeadCell class="text-center">Tanggal Selesai</TableHeadCell>
+      <TableHeadCell class="text-center">Status DPJP</TableHeadCell>
+      <TableHeadCell class="text-center">Aksi</TableHeadCell>
+    </TableHead>
+    <TableBody> 
+      {#each dummyDPJP as { diagnosa, nama_dokter, spesialis, tgl_mulai, tgl_selesai, status_dpjp }}
+        <Dpjp diagnosa={diagnosa} nama_dokter={nama_dokter} spesialis={spesialis} tgl_mulai={tgl_mulai} tgl_selesai={tgl_selesai} status_dpjp={status_dpjp}/>
+      {/each}   
+    </TableBody>
+  </Table>
 </main>

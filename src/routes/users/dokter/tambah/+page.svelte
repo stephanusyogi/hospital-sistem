@@ -1,6 +1,8 @@
 <script>
 
   import { Breadcrumb, BreadcrumbItem, Button, Input, Label, Select } from "flowbite-svelte";
+  import { goto } from '$app/navigation';
+  import Swal from "sweetalert2";
 
   let spesialis = [
     {value:"Spesialis Penyakit Dalam", name: "Spesialis Penyakit Dal"},
@@ -13,7 +15,32 @@
   ]
   
   const handleSubmit = () => {
-    console.log("test")
+    Swal.fire({
+      title: 'Tambahkan Dokter?',
+      text: 'Mohon berhati-hati, aksi ini bersifat permanen pada database.',
+      showDenyButton: true,
+      showCancelButton: true,
+      confirmButtonText: 'Tambah',
+      denyButtonText: `Batal`,
+    }).then((result) => {
+      if (result.isConfirmed) {
+        Swal.fire({
+          icon: 'success',
+          title: 'Dokter Berhasil Ditambahkan',
+          showConfirmButton: false,
+          timer: 1500
+        }).then(()=>{
+          goto("/users/dokter")
+        })
+      } else if (result.isDenied) {
+        Swal.fire({
+          icon: 'info',
+          title: 'Aksi Dibatalkan',
+          showConfirmButton: false,
+          timer: 1500
+        })
+      }
+    })
   }
 </script>
 
@@ -28,7 +55,7 @@
       <p class="font-semibold text-2xl">Formulir Dokter Baru</p>
     </div>
     <hr class="my-5">
-    <form on:submit={handleSubmit}>
+    <form on:submit|preventDefault={handleSubmit}>
       <div class="group mb-4">
         <Label for='nama' class='block mb-2'>Nama Dokter:</Label>
         <Input id="nama" name="nama" placeholder="Masukkan nama dokter"/>

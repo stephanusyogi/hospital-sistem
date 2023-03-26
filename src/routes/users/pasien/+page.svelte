@@ -41,7 +41,7 @@
       <TableHead>
         <TableHeadCell class="text-center">Nomor Rekam Medis</TableHeadCell>
         <TableHeadCell class="text-center">Nama</TableHeadCell>
-        <TableHeadCell class="text-center">Detail</TableHeadCell>
+        <TableHeadCell class="text-center">Aksi</TableHeadCell>
       </TableHead>
       <TableBody>    
         {#each dummyUsers as {no_rm, nama_pasien, pronounce}}

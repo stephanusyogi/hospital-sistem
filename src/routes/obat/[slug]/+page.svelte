@@ -6,17 +6,17 @@
   
   const handleSubmit = () => {
     Swal.fire({
-      title: 'Tambahkan Obat/Bahan?',
+      title: 'Update Obat/Bahan?',
       text: 'Mohon berhati-hati, aksi ini bersifat permanen pada database.',
       showDenyButton: true,
       showCancelButton: true,
-      confirmButtonText: 'Tambah',
+      confirmButtonText: 'Simpan',
       denyButtonText: `Batal`,
     }).then((result) => {
       if (result.isConfirmed) {
         Swal.fire({
           icon: 'success',
-          title: 'Obat/Bahan Berhasil Ditambahkan',
+          title: 'Obat/Bahan Berhasil Diperbarui',
           showConfirmButton: false,
           timer: 1500
         }).then(()=>{
@@ -38,11 +38,11 @@
   <Breadcrumb class="mt-10" aria-label="Solid background breadcrumb example" solid>
     <BreadcrumbItem href="/"  home>Dashboard</BreadcrumbItem>
     <BreadcrumbItem href="/ruangan">Data Obat & Bahan Habis Pakai</BreadcrumbItem>
-    <BreadcrumbItem>Tambah</BreadcrumbItem>
+    <BreadcrumbItem>Update</BreadcrumbItem>
   </Breadcrumb>
   <section class="px-4 py-6 bg-gray-50 dark:bg-gray-800 shadow rounded-lg">
     <div class="flex items-center justify-between">
-      <p class="font-semibold text-2xl">Formulir Obat Baru</p>
+      <p class="font-semibold text-2xl">Update Informasi Obat/Bahan Habis Pakai</p>
     </div>
     <hr class="my-5">
     <form on:submit|preventDefault={handleSubmit}>
