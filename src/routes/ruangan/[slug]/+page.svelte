@@ -18,7 +18,7 @@
       title: 'Update Ruangan?',
       text: 'Mohon berhati-hati, aksi ini bersifat permanen pada database.',
       showDenyButton: true,
-      showCancelButton: true,
+      showCancelButton: false,
       confirmButtonText: 'Simpan',
       denyButtonText: `Batal`,
     }).then((result) => {

@@ -1,13 +1,27 @@
 <script>
+  import { onMount, tick } from 'svelte';
   import { page } from '$app/stores'; 
   import { Breadcrumb, BreadcrumbItem } from "flowbite-svelte";
   import MenuDrawer from './MenuDrawer.svelte';
+  import JsBarcode from 'jsbarcode';
 
   const no_rm = $page.params.slug;
   let judulHalaman = ""
   let judulBreadcrumb = ""
   let hrefBreadcrumb = ""
 
+  let barcode;
+  const defaultOptions = {
+    format: 'CODE128',
+    height: 30,
+    displayValue: false,
+    background: '#ffffff',
+    lineColor: '#000000',
+  };
+  onMount(async () => {
+    await tick();
+    JsBarcode(barcode, "1910391301", defaultOptions);
+  });
 </script>
 
 <div class="overflow-y-auto relative max-h-screen p-6 sm:p-10 space-y-6">
@@ -23,10 +37,17 @@
         <p class="font-semibold text-2xl">{($page.route.id === "/rekam-medis/[slug]" || judulHalaman === "") ? "Dokumen Rekam Medis Rawat Inap" : judulHalaman}</p>
         <MenuDrawer no_rm={no_rm} bind:judulHalaman={judulHalaman} bind:judulBreadcrumb={judulBreadcrumb} bind:hrefBreadcrumb={hrefBreadcrumb}/>
       </div>
-      <div class="p-4 border border-gray-300 font-normal text-md">
-        <p>No. Rekam Medis: <span class="font-semibold">{no_rm}</span></p>
-        <p>Nama Pasien: <span class="font-semibold">Jon Snow, <span class="italic">Tn</span></span></p>
-        <p>Ruangan: <span class="font-semibold">Kamar Wisnu</span></p>
+      <div class="p-4 border border-gray-300 w-max">
+        <div class="flex justify-between gap-6">
+          <p class="font-bold text-xs">No. RM: {no_rm}</p>
+          <p class="font-bold text-xs uppercase">Jon Snow <span>(L)</span></p>
+        </div>
+        <div class="flex justify-between gap-6">
+          <p class="font-bold text-xs">TGL LHR: 02/06/2000</p>
+          <p class="font-bold text-xs">23th</p>
+        </div>
+        <p class="font-bold text-xs">Jln. Mayjend Pandjaitan No. 22 Malang</p>
+        <canvas class="w-full" bind:this={barcode}></canvas>
       </div>
     </div>
     <hr class="my-2">

@@ -25,6 +25,7 @@
   },
   "type": "module",
   "dependencies": {
+    "svelte-barcode": "^2.0.0",
     "sweetalert2": "^11.7.3"
   }
 }

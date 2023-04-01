@@ -1,5 +1,4 @@
 <script>
-
   import { Breadcrumb, BreadcrumbItem, Button, Table, TableBody, TableHead, TableHeadCell } from "flowbite-svelte";
   import Pasien from "./Pasien.svelte";
 
@@ -45,6 +44,7 @@
       "status_rawat" : 0,
     },
   ];
+  
 </script>
 
 <div class="overflow-y-auto relative max-h-screen p-6 sm:p-10 space-y-6">

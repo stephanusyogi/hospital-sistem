@@ -11,19 +11,12 @@
       title: 'Daftarkan Pasien Berikut Ke Admisi Rawat Inap?',
       html: '<p>No. RM: 000012023</p><p>Nama: Jon Snow</p><p>Jenis Kelamin: Laki-Laki</p>',
       showDenyButton: true,
-      showCancelButton: true,
+      showCancelButton: false,
       confirmButtonText: 'Daftarkan ke Admisi',
       denyButtonText: `Batal`,
     }).then((result) => {
       if (result.isConfirmed) {
-        Swal.fire({
-          icon: 'success',
-          title: 'Pasien Berhasil Didaftarkan',
-          showConfirmButton: false,
-          timer: 1500
-        }).then(()=>{
-          goto("/pendaftaran/admisi-rawat-inap")
-        })
+        goto(`/pendaftaran/loket-pasien/${id}`)
       } else if (result.isDenied) {
         Swal.fire({
           icon: 'info',
@@ -45,6 +38,8 @@
   <TableBodyCell {tdClass}>{ttl}</TableBodyCell>
   <TableBodyCell {tdClass}>{alamat}</TableBodyCell>
   <TableBodyCell {tdClass}>
-    <Button color="green" on:click={()=>{handlePasien("1")}}>Pilih</Button>
+    <Button color="green" on:click={()=>{handlePasien("0000012023")}}>
+        Pilih
+    </Button>
   </TableBodyCell>
 </TableBodyRow>

@@ -11,7 +11,7 @@
       title: 'Hapus Ruangan?',
       text: 'Mohon berhati-hati, aksi ini bersifat permanen pada database.',
       showDenyButton: true,
-      showCancelButton: true,
+      showCancelButton: false,
       confirmButtonText: 'Hapus',
       denyButtonText: `Batal`,
     }).then((result) => {
