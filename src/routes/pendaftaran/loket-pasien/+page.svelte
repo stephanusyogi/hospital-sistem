@@ -97,7 +97,6 @@
 
   let helperPagination = {start: 1, end: 10, total: 100}
 
-
   const previous = () => {
     if (activeUrlPagination === "1") {
       goto(`/pendaftaran/loket-pasien?page=1`)

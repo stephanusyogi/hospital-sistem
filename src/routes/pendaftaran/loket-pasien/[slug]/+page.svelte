@@ -100,7 +100,7 @@
     format: 'CODE128',
     height: 30,
     displayValue: false,
-    background: '#ffffff',
+    background: 'rgb(249 250 251)',
     lineColor: '#000000',
   };
   onMount(async () => {

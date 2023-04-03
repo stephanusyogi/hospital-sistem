@@ -14,7 +14,12 @@
     <div class="px-4 py-2 bg-gray-50 dark:bg-gray-800 shadow rounded-lg">
       <div class="grid grid-cols-2 gap-4">
         <div class="p-8 bg-white shadow rounded-lg flex justify-center">
-          <img src={bg_dashboard} alt="">
+          <!-- <img src={bg_dashboard} alt=""> -->
+          <lottie-player 
+          src="https://assets10.lottiefiles.com/packages/lf20_olluraqu.json"  
+          background="transparent"  speed="1"  style="height: 300px;"  
+          loop autoplay>
+        </lottie-player>
         </div>
         <div class="bg-white grid grid-cols-3 shadow rounded-lg">
             <div class="p-8 flex items-center">
