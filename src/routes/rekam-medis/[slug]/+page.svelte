@@ -68,7 +68,7 @@
   };
   
 </script>
-<div class="my-5">
+<div>
   <div class="flex flex-wrap items-centere justify-between">
     <div>
       <p class="font-medium text-xl">Data Riwayat Aktivitas Perawatan Pasien (Hari Ini)</p>
@@ -101,7 +101,8 @@
     <Search size="md"/>
   </div>
 </div>
-<Table hoverable={true}>
+<hr class="my-5">
+<Table hoverable={true} shadow>
   <TableHead>
     <TableHeadCell class="text-center">Tanggal & Jam</TableHeadCell>
     <TableHeadCell class="text-center">Profesional Pemberi Asuhan</TableHeadCell>
