@@ -49,7 +49,7 @@
           icon: 'info',
           title: 'Aksi Dibatalkan',
           showConfirmButton: false,
-          timer: 1500
+          timer: 1000
         })
       }
     })
@@ -852,7 +852,7 @@
           <!-- Pemeriksaan Nyeri (Bila ada nyeri lakukan Asesmen Lanjutan Nyeri) -->
           <AccordionItem>
             <span slot="header">Pemeriksaan Nyeri (Bila ada nyeri lakukan Asesmen Lanjutan Nyeri) <span class="text-sm text-red-500 italic">*</span></span>
-            <div class="grid grid-cols-4 gap-4">
+            <div class="grid grid-cols-2 gap-4">
               <div class="my-2">
                 <Label for="" class="mb-2">Nyeri:</Label>
                 <div class="flex flex-wrap gap-2">

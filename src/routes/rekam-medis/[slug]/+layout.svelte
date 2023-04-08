@@ -34,7 +34,7 @@
           icon: 'info',
           title: 'Aksi Dibatalkan',
           showConfirmButton: false,
-          timer: 1500
+          timer: 1000
         })
       }
     })
