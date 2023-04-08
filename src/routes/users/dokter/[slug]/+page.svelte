@@ -28,7 +28,7 @@
           icon: 'success',
           title: 'Dokter Berhasil Diperbarui',
           showConfirmButton: false,
-          timer: 1500
+          timer: 1000
         }).then(()=>{
           goto("/users/dokter")
         })
@@ -37,7 +37,7 @@
           icon: 'info',
           title: 'Aksi Dibatalkan',
           showConfirmButton: false,
-          timer: 1500
+          timer: 1000
         })
       }
     })

@@ -42,7 +42,7 @@
           icon: 'success',
           title: 'Obat Berhasil Ditambahkan',
           showConfirmButton: false,
-          timer: 1500
+          timer: 1000
         }).then(()=>{
           goto("/rekam-medis/00123141/rekonsiliasi")
         })
@@ -51,7 +51,7 @@
           icon: 'info',
           title: 'Aksi Dibatalkan',
           showConfirmButton: false,
-          timer: 1500
+          timer: 1000
         })
       }
     })
@@ -72,7 +72,7 @@
       </div>
     </div>
     <hr class="my-5">
-    <div class="grid grid-cols-4 gap-4">
+    <div class="grid grid-cols-2 gap-4">
       <div class="my-2">
         <Label>Resep/Non-Resep: <span class="text-sm text-red-500 italic">*</span>
           <Select class="mt-2" items={status_obat}/>

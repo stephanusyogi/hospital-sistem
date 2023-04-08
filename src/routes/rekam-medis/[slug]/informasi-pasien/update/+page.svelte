@@ -82,7 +82,7 @@
           icon: 'success',
           title: 'Informasi Pasien Berhasil Disimpan & Diperbarui',
           showConfirmButton: false,
-          timer: 1500
+          timer: 1000
         }).then(()=>{
           goto(`/rekam-medis/${no_rm}/informasi-pasien`)
         })

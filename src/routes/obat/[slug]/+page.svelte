@@ -18,7 +18,7 @@
           icon: 'success',
           title: 'Obat/Bahan Berhasil Diperbarui',
           showConfirmButton: false,
-          timer: 1500
+          timer: 1000
         }).then(()=>{
           goto("/obat")
         })
@@ -27,7 +27,7 @@
           icon: 'info',
           title: 'Aksi Dibatalkan',
           showConfirmButton: false,
-          timer: 1500
+          timer: 1000
         })
       }
     })

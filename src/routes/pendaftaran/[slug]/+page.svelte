@@ -84,7 +84,7 @@
           icon: 'success',
           title: 'Pasien Berhasil Disimpan & Diperbarui',
           showConfirmButton: false,
-          timer: 1500
+          timer: 1000
         }).then(()=>{
           goto(`/rekam-medis/${no_rm}`)
         })
@@ -93,7 +93,7 @@
           icon: 'info',
           title: 'Aksi Dibatalkan',
           showConfirmButton: false,
-          timer: 1500
+          timer: 1000
         })
       }
     })

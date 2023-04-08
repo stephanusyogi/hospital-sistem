@@ -7,7 +7,6 @@
 
   const no_rm = $page.params.slug;
 
-  
   const handleSubmit = (no_rm) => {
     Swal.fire({
       title: 'Simpan & Perbarui Asesmen Medis Awal?',
@@ -22,7 +21,7 @@
           icon: 'success',
           title: 'Asesmen Medis Awal Berhasil Disimpan & Diperbarui',
           showConfirmButton: false,
-          timer: 1500
+          timer: 1000
         }).then(()=>{
           goto(`/rekam-medis/${no_rm}/asesmen-medis-awal`)
         })

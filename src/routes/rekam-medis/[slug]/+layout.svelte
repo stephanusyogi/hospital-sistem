@@ -21,7 +21,7 @@
   const handlePasienPulang = () => {
     Swal.fire({
       title: 'Ubah Status Pasien Pulang?',
-      text: 'Mohon berhati-hati, aksi ini bersifat permanen pada database.',
+      text: 'Periksa kembali kelengkapan dokumen rekam medis. Hati-hati, aksi ini bersifat permanen pada database.',
       showDenyButton: true,
       showCancelButton: false,
       confirmButtonText: 'Ubah',

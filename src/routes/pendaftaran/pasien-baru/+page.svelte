@@ -27,7 +27,7 @@
           icon: 'success',
           title: 'Pasien Berhasil Ditambahkan',
           showConfirmButton: false,
-          timer: 1500
+          timer: 1000
         }).then(()=>{
           goto("/pendaftaran/loket-pasien")
         })
@@ -36,7 +36,7 @@
           icon: 'info',
           title: 'Aksi Dibatalkan',
           showConfirmButton: false,
-          timer: 1500
+          timer: 1000
         })
       }
     })

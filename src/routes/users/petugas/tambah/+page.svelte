@@ -18,7 +18,7 @@
           icon: 'success',
           title: 'Petugas Berhasil Ditambahkan',
           showConfirmButton: false,
-          timer: 1500
+          timer: 1000
         }).then(()=>{
           goto("/users/petugas")
         })
@@ -27,7 +27,7 @@
           icon: 'info',
           title: 'Aksi Dibatalkan',
           showConfirmButton: false,
-          timer: 1500
+          timer: 1000
         })
       }
     })

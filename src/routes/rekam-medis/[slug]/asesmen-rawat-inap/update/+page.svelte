@@ -40,7 +40,7 @@
           icon: 'success',
           title: 'Asesmen Rawat Inap Berhasil Disimpan & Diperbarui',
           showConfirmButton: false,
-          timer: 1500
+          timer: 1000
         }).then(()=>{
           goto(`/rekam-medis/${no_rm}/asesmen-rawat-inap`)
         })

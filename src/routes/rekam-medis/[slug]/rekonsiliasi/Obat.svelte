@@ -19,14 +19,14 @@
           icon: 'success',
           title: 'Rekonsiliasi Obat Berhasil Dihapus',
           showConfirmButton: false,
-          timer: 1500
+          timer: 1000
         })
       } else if (result.isDenied) {
         Swal.fire({
           icon: 'info',
           title: 'Aksi Dibatalkan',
           showConfirmButton: false,
-          timer: 1500
+          timer: 1000
         })
       }
     })
