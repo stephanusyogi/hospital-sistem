@@ -108,7 +108,7 @@
     <Accordion>
       <AccordionItem open>
         <span slot="header">General <span class="text-sm text-red-500 italic">*</span></span>
-        <div class="grid grid-cols-2 gap-4">
+        <div class="grid grid-cols-2 gap-4 overflow-y-auto max-h-screen">
           <div class="my-2">
             <Label for="" class="mb-2">Ruangan Asal: <span class="text-sm text-red-500 italic">*</span></Label>
             <Textarea id="" placeholder="" name=""/>
@@ -171,7 +171,7 @@
       </AccordionItem>
       <AccordionItem>
         <span slot="header">Catatan Klinis <span class="text-sm text-red-500 italic">*</span></span>
-        <div class="grid grid-cols-2 gap-4">
+        <div class="grid grid-cols-2 gap-4 overflow-y-auto max-h-screen">
           <div class="my-2">
             <Label for="" class="mb-2">Anamnesis: <span class="text-sm text-red-500 italic">*</span></Label>
             <Textarea id="" placeholder="" name=""/>
