@@ -101,7 +101,7 @@
           <a href="/rekam-medis/{no_rm}/catatan-perkembangan-pasien-terintegrasi"  class=" {(activeUrl === "/rekam-medis/[slug]/catatan-perkembangan-pasien-terintegrasi") ? "font-semibold" : ""} text-md font-base hover:text-gray-500">Catatan Perkembangan Pasien Terintegrasi <span class="text-red-600">*</span></a>
           <a href="/rekam-medis/{no_rm}/pemberian-obat-pasien"  class="{(activeUrl === "/rekam-medis/[slug]/pemberian-obat-pasien") ? "font-semibold" : ""} text-md font-base hover:text-gray-500" >Pemberian Obat Pasien <span class="text-red-600">*</span></a>
           <a href="/rekam-medis/{no_rm}/news"  class="{(activeUrl === "/rekam-medis/[slug]/news") ? "font-semibold" : ""} text-md font-base hover:text-gray-500" >National Early Warning Score <span class="text-red-600">(opsional)</span></a>
-          <a href="/rekam-medis/{no_rm}/transfer-pasien-internal"  class="{(activeUrl === "/rekam-medis/[slug]/transfer-pasien-inte") ? "font-semibold" : ""} text-md font-base hover:text-gray-500" >Transfer Pasien Internal <span class="text-red-600">(opsional)</span></a>
+          <a href="/rekam-medis/{no_rm}/transfer-pasien-internal"  class="{(activeUrl === "/rekam-medis/[slug]/transfer-pasien-internal") ? "font-semibold" : ""} text-md font-base hover:text-gray-500" >Transfer Pasien Internal <span class="text-red-600">(opsional)</span></a>
           <a href="/rekam-medis/{no_rm}/ringkasan-pasien-pulang"  class="{(activeUrl === "/rekam-medis/[slug]/ringkasan-pasien-pulang") ? "font-semibold" : ""} text-md font-base hover:text-gray-500" >Ringkasan Pasien Pulang <span class="text-red-600">*</span></a>
         </div>
       </div>
