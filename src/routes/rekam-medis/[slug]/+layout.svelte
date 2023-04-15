@@ -2,7 +2,7 @@
   import { onMount, tick } from 'svelte';
   import { page } from '$app/stores'; 
   import JsBarcode from 'jsbarcode';
-  import { Button } from 'flowbite-svelte';
+  import { Button, Popover } from 'flowbite-svelte';
   import Swal from "sweetalert2";
   import { goto } from '$app/navigation';
 
@@ -20,11 +20,11 @@
 
   const handlePasienPulang = () => {
     Swal.fire({
-      title: 'Ubah Status Pasien Pulang?',
+      title: 'Perawatan Pasien Inap Selesai?',
       text: 'Periksa kembali kelengkapan dokumen rekam medis. Hati-hati, aksi ini bersifat permanen pada database.',
       showDenyButton: true,
       showCancelButton: false,
-      confirmButtonText: 'Ubah',
+      confirmButtonText: 'Simpan & Lanjutkan ke Pembayaran',
       denyButtonText: `Batal`,
     }).then((result) => {
       if (result.isConfirmed) {
@@ -81,15 +81,22 @@
           >Dokumen Rekam Medis</h5>
           <p class="text-xs font-base italic text-red-600">(*) Wajib diperiksa & diisi.</p>
         </div>
-        <Button size="sm" color="yellow" on:click={handlePasienPulang}>
-          <svg xmlns="http://www.w3.org/2000/svg" class="mr-2" width="20" height="20" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 12v.01M3 21h18M5 21V5a2 2 0 0 1 2-2h7.5M17 13.5V21M14 7h7m-3-3l3 3l-3 3"/></svg>
-          Pasien Pulang
-        </Button>
+        <div class="flex items-center justify-between gap-4">
+          <Button id="pasienPulang" size="sm" color="yellow" on:click={handlePasienPulang}>
+            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 12v.01M3 21h18M5 21V5a2 2 0 0 1 2-2h7.5M17 13.5V21M14 7h7m-3-3l3 3l-3 3"/></svg>
+          </Button>
+          <Popover class="text-sm font-light " title="Perawatan Pasien Selesai" triggeredBy="#pasienPulang"></Popover>
+          <Button id="billing" size="sm" color="purple" href="/transaksi/00123141">
+            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 256 256"><path fill="currentColor" d="M216 74H56a10 10 0 0 1 0-20h136a6 6 0 0 0 0-12H56a22 22 0 0 0-22 22v128a22 22 0 0 0 22 22h160a14 14 0 0 0 14-14V88a14 14 0 0 0-14-14Zm2 126a2 2 0 0 1-2 2H56a10 10 0 0 1-10-10V83.59A21.84 21.84 0 0 0 56 86h160a2 2 0 0 1 2 2Zm-28-60a10 10 0 1 1-10-10a10 10 0 0 1 10 10Z"/></svg>
+          </Button>
+          <Popover class="text-sm font-light " title="Nota Rawat Inap Pasien" triggeredBy="#billing"></Popover>
+        </div>
       </div>
       <div class="mt-5 overflow-y-auto h-80">
         <div class="grid gap-2">
           <a href="/rekam-medis/{no_rm}" class="{(activeUrl === "/rekam-medis/[slug]") ? "font-semibold" : ""} text-md hover:text-gray-500">Aktivitas Hari Ini</a>
           <a href="/rekam-medis/{no_rm}/informasi-pasien" class="{(activeUrl === "/rekam-medis/[slug]/informasi-pasien") ? "font-semibold" : ""} text-md hover:text-gray-500">Informasi Pasien <span class="text-red-600">*</span></a>
+          <a href="/rekam-medis/{no_rm}/pemeriksaan-igd-poliklinik" class="{(activeUrl === "/rekam-medis/[slug]/pemeriksaan-igd-poliklinik") ? "font-semibold" : ""} text-md hover:text-gray-500">Pemeriksaan IGD/Poliklinik <span class="text-red-600">*</span></a>
           <a href="/rekam-medis/{no_rm}/asesmen-rawat-inap" class="{(activeUrl === "/rekam-medis/[slug]/asesmen-rawat-inap") ? "font-semibold" : ""} text-md font-base hover:text-gray-500">Asesmen Medis Rawat Inap <span class="text-red-600">*</span></a>
           <a href="/rekam-medis/{no_rm}/asesmen-medis-awal" class="{(activeUrl === "/rekam-medis/[slug]/asesmen-medis-awal") ? "font-semibold" : ""} text-md font-base hover:text-gray-500">Asesmen Medis Awal <span class="text-red-600">*</span></a>
           <a href="/rekam-medis/{no_rm}/daftar-dokter-penanggungjawab-pasien"  class="{(activeUrl === "/rekam-medis/[slug]/daftar-dokter-penanggungjawab-pasien") ? "font-semibold" : ""} text-md font-base hover:text-gray-500" >Daftar DPJP <span class="text-red-600">*</span></a>

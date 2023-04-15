@@ -19,7 +19,7 @@
       if (result.isConfirmed) {
         Swal.fire({
           icon: 'success',
-          title: 'Transfer Pasien Internalhasil Disimpan & Diperbarui',
+          title: 'Transfer Pasien Internal berhasil Disimpan & Diperbarui',
           showConfirmButton: false,
           timer: 1000
         }).then(()=>{
