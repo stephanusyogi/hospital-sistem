@@ -95,6 +95,11 @@
     })
   }
 
+  let cara_pembayaran
+  const handleCaraPembayaran = (event) => {
+    cara_pembayaran = event.currentTarget.value
+  }
+
   let barcode;
   const defaultOptions = {
     format: 'CODE128',
@@ -117,18 +122,16 @@
   <section>
     <form on:submit|preventDefault={handleSubmitPendaftaranPasienBaru}>
       <div class="px-4 py-6 bg-gray-50 dark:bg-gray-800 shadow rounded-lg">
-        <div class="flex justify-between items-center">
-          <div>
-            <p class="text-2xl font-semibold">Formulir Admisi Rawat Inap</p>
-            <div class="flex gap-4 justify-between items-center my-5">
-              <div>
-                <Button on:click={handleKembali} color="yellow">Kembali</Button>
-                <Button type="submit" color="green">Daftarkan Pasien ke Admisi</Button>
-              </div>
+        <div class="grid grid-cols-2">
+          <div class="grid grid-cols-2 gap-4">
+            <p class="text-2xl font-semibold my-2 col-span-2">Formulir Admisi Rawat Inap</p>
+            <div class="flex flex-wrap gap-2 items-center my-2 col-span-2">
+              <Button class="w-fit" type="submit" color="green">Daftarkan Pasien ke Admisi</Button>
+              <Button class="w-fit lg:order-first" on:click={handleKembali} color="yellow">Kembali</Button>
             </div>
-            <p class="text-red-500 text-sm">(*) Wajib diisi.</p>
+            <p class="text-red-500 text-xs lg:text-sm">(*) Wajib diisi.</p>
           </div>
-          <div class="p-4 border border-gray-300 w-max">
+          <div class="p-2 md:p-4 border border-gray-300 w-max ml-auto h-fit">
             <div class="flex justify-between gap-6">
               <p class="font-bold text-xs">No. RM: 00013-12313</p>
               <p class="font-bold text-xs uppercase">Jon Snow <span>(L)</span></p>
@@ -144,10 +147,10 @@
         <hr class="my-4">
           <div class="mb-2 border-b">
             <p class="text-lg font-medium italic">Identitas Pasien</p>
-            <div class="grid grid-cols-4 gap-4 py-2">
+            <div class="grid grid-cols-2 lg:grid-cols-4 gap-4 py-2">
               <div class="grouphelperPagination">
                 <Label for='no_rekam_medis' class='block mb-2'>Nomor Rekam Medis: <span class="text-red-500 text-lg">*</span></Label>
-                <Input id="no_rekam_medis" name="no_rekam_medis" placeholder="Masukkan nomor rekam medis pasien"/>
+                <Input id="no_rekam_medis" name="no_rekam_medis" placeholder="Masukkan nomor rekam medis pasien" value="00013-12313" readonly/>
               </div>
               <div class="grouphelperPagination">
                 <Label for='nama_lengkap' class='block mb-2'>Nama Lengkap Pasien: <span class="text-red-500 text-lg">*</span></Label>
@@ -192,7 +195,7 @@
           </div>
           <div class="mb-2 border-b">
             <p class="text-lg font-medium italic">Identitas Penanggung Jawab</p>
-            <div class="grid grid-cols-4 gap-4 py-2 mb-2 border-b">
+            <div class="grid grid-cols-2 lg:grid-cols-4 gap-4 py-2 mb-2 border-b">
               <div class="grouphelperPagination">
                 <Label for='nama_pj' class='block mb-2'>Penanggung Jawab: <span class="text-red-500 text-lg">*</span></Label>
                 <Input id="nama_pj" name="nama_pj" placeholder="Masukkan nama penanggung jawab pasien"/>
@@ -224,7 +227,30 @@
           </div>
           <div class="mb-2 border-b">
             <p class="text-lg font-medium italic">Asuransi & Pembayaran</p>
-            <div class="grid grid-cols-4 gap-4 py-2">
+            <div class="grid grid-cols-2 lg:grid-cols-4 gap-4 py-2">
+              <div class="grouphelperPagination">
+                <Label for='' class='block mb-2'>Cara Pembayaran: <span class="text-red-500 text-lg">*</span></Label>
+                <div class="">
+                  <Radio checked={cara_pembayaran==="Umum/Mandiri"} name="cara_pembayaran" value="Umum/Mandiri" on:change={handleCaraPembayaran}>Umum/Mandiri</Radio>
+                  <Radio checked={cara_pembayaran==="BPJS"} name="cara_pembayaran" value="BPJS" on:change={handleCaraPembayaran}>BPJS</Radio>
+                  <Radio checked={cara_pembayaran==="Lainnya"} name="cara_pembayaran" value="Lainnya" on:change={handleCaraPembayaran}>Lainnya</Radio>
+                </div>
+              </div>
+              <div class="grouphelperPagination">
+                <Label for='nama_asuransi' class='block mb-2'>Nama Asuransi: <span class="text-red-500 text-lg">*</span></Label>
+                <Input id="nama_asuransi" name="nama_asuransi" placeholder="Masukkan nama asuransi" bind:value={cara_pembayaran}/>
+              </div>
+              <div class="grouphelperPagination">
+                <Label for='no_asuransi_peserta' class='block mb-2'>Nomor Asuransi Peserta: <span class="text-red-500 text-lg">*</span></Label>
+                <Input id="no_asuransi_peserta" name="no_asuransi_peserta" placeholder="Masukkan nomor asuransi peserta"/>
+              </div>
+              <div class="grouphelperPagination">
+                <Label>Status Peserta:  <span class="text-red-500 text-lg">*</span>
+                  <Select name="status_peserta" class="mt-2" items={statusPeserta}/>
+                </Label>
+              </div>
+            </div>
+            <!-- <div class="grid grid-cols-4 gap-4 py-2">
               <div>
                 <Label for="tipePasien">Tipe Asuransi Pasien: <span class="text-red-500 text-lg">*</span></Label>
                 <Select on:change={onChange} id="tipePasien" size="md" items={pasienTipeStatus} class="mt-2 mb-2"/>
@@ -284,7 +310,7 @@
               {:else}
                 <p></p>
               {/if}
-            </div>
+            </div> -->
           </div>
       </div>
     </form>

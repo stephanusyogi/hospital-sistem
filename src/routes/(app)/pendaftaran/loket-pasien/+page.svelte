@@ -170,7 +170,6 @@
           <TableHeadCell class="text-center">No. RM</TableHeadCell>
           <TableHeadCell class="text-center">Nama</TableHeadCell>
           <TableHeadCell class="text-center">NIK</TableHeadCell>
-          <TableHeadCell class="text-center">Jenis Kelamin</TableHeadCell>
           <TableHeadCell class="text-center">Tempat & Tanggal Lahir</TableHeadCell>
           <TableHeadCell class="text-center">Alamat</TableHeadCell>
           <TableHeadCell class="text-center">Aksi</TableHeadCell>

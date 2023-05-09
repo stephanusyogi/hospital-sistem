@@ -24,19 +24,8 @@
       text: 'Periksa kembali kelengkapan dokumen rekam medis. Hati-hati, aksi ini bersifat permanen pada database.',
       showDenyButton: true,
       showCancelButton: false,
-      confirmButtonText: 'Simpan & Lanjutkan ke Pembayaran',
+      confirmButtonText: 'Ubah Status Perawatan Selesai',
       denyButtonText: `Batal`,
-    }).then((result) => {
-      if (result.isConfirmed) {
-        goto("/transaksi/00123141")
-      } else if (result.isDenied) {
-        Swal.fire({
-          icon: 'info',
-          title: 'Aksi Dibatalkan',
-          showConfirmButton: false,
-          timer: 1000
-        })
-      }
     })
   }
 

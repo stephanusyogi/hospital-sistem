@@ -33,6 +33,12 @@
     {value:"Lain-Lain", name: "Lain-Lain"},
   ]
   
+  let asalRujukan = [
+    {value:"Poliklinik", name: "Poliklinik"},
+    {value:"Rumah Sakit Swasta", name: "Rumah Sakit Swasta"},
+    {value:"Puskesmas", name: "Puskesmas"},
+  ]
+  
   let poliklinik = [
     {value:"Poliklinik Obstetri & Ginekologi", name: "Poliklinik Obstetri & Ginekologi"},
     {value:"Poliklinik Anak", name: "Poliklinik Anak"},
@@ -68,6 +74,11 @@
   let selectedUnit
   const onChangeUnit = (event) => {
     selectedUnit = event.currentTarget.value
+  }
+  
+  let selectedAsalRujukan
+  const onChangeAsalRujukan = (event) => {
+    selectedAsalRujukan = event.currentTarget.value
   }
   
   const handleSubmit = (no_rm) => {
@@ -178,18 +189,16 @@
   </Breadcrumb>
   <section class="px-4 py-6 bg-gray-50 dark:bg-gray-800 shadow rounded-lg">
     <form on:submit|preventDefault={()=>handleSubmit(no_rm)}>
-      <div class="flex items-center justify-between py-5">
-        <div>
-          <p class="text-2xl font-semibold">Formulir Pemeriksaan IGD/Poliklinik Pasien Rawat Inap</p>
-          <div class="flex gap-4 justify-between items-center my-5">
-            <div>
-              <Button on:click={handleKembali} color="yellow">Kembali</Button>
-              <Button type="submit" color="green">Daftarkan Pasien Rawat Inap</Button>
-            </div>
+      <div class="grid grid-cols-2">
+        <div class="grid grid-cols-2 gap-4">
+          <p class="text-2xl font-semibold my-2 col-span-2">Formulir Pemeriksaan IGD/Poliklinik Pasien Rawat Inap</p>
+          <div class="flex flex-wrap gap-2 items-center my-2 col-span-2">
+            <Button class="w-fit" type="submit" color="green">Daftarkan Pasien Rawat Inap</Button>
+            <Button class="w-fit lg:order-first" on:click={handleKembali} color="yellow">Kembali</Button>
           </div>
-          <p class="text-red-500 text-sm">(*) Wajib diisi.</p>
+          <p class="text-red-500 text-xs lg:text-sm">(*) Wajib diisi.</p>
         </div>
-        <div class="p-4 border border-gray-300 w-max">
+        <div class="p-2 md:p-4 border border-gray-300 w-max ml-auto h-fit">
           <div class="flex justify-between gap-6">
             <p class="font-bold text-xs">No. RM: {no_rm}</p>
             <p class="font-bold text-xs uppercase">Jon Snow <span>(L)</span></p>
@@ -203,8 +212,106 @@
         </div>
       </div>
       <hr class="my-5">
-      <div class="flex gap-6">
+      <div class="flex flex-wrap lg:flex-nowrap gap-6">
         <div class="border border-slate-300 rounded p-4 w-full">
+          <p class="text-xl font-semibold">Data Pemeriksaan</p>
+          <hr class="my-2">
+          <div class="mb-2">
+            <p class="text-lg font-medium italic">Cara Kedatangan Pasien</p>
+            <div class="grid grid-cols-2 gap-4 py-2">
+              <div class="grid grid-cols-2 gap-4 py-2">
+                <div class="grouphelperPagination col-span-2">
+                  <Label for='' class='block mb-2'>Unit Penerima: <span class="text-red-500 text-lg">*</span></Label>
+                  <div class="flex gap-2">
+                    <Radio name="masuk_melalui" checked={selectedUnit==="IGD"} on:change={onChangeUnit} value="IGD">IGD</Radio>
+                    <Radio name="masuk_melalui" checked={selectedUnit==="Poliklinik"} on:change={onChangeUnit} value="Poliklinik">Poliklinik</Radio>
+                  </div>
+                </div>
+                {#if selectedUnit==="Poliklinik"}
+                  <div class="grouphelperPagination col-span-2">
+                    <Label>Poliklinik:  <span class="text-red-500 text-lg">*</span>
+                      <Select name="polikinik" class="mt-2" items={poliklinik}/>
+                    </Label>
+                  </div>
+                {/if}
+              </div>
+              <div class="grid grid-cols-2 gap-4 py-2">
+                <div class="grouphelperPagination col-span-2">
+                  <Label for='' class='block mb-2'>Asal Rujukan: <span class="text-red-500 text-lg">*</span></Label>
+                  <div class="flex gap-2">
+                    <Radio name="asal_rujukan" checked={selectedAsalRujukan==="Datang Sendiri"} on:change={onChangeAsalRujukan} value="Datang Sendiri">Datang Sendiri</Radio>
+                    <Radio name="asal_rujukan" checked={selectedAsalRujukan==="Rujukan"} on:change={onChangeAsalRujukan} value="Rujukan">Rujukan</Radio>
+                  </div>
+                </div>
+                {#if selectedAsalRujukan==="Rujukan"}
+                  <div class="grouphelperPagination col-span-2">
+                    <Label>Unit Asal Rujukan:  <span class="text-red-500 text-lg">*</span>
+                      <Select name="unit_asal_rujukan" class="mt-2" items={asalRujukan}/>
+                    </Label>
+                  </div>
+                {/if}
+              </div>
+            </div>
+            <div class="group mb-4">
+            </div>
+          </div>
+          <div class="mb-2">
+            <p class="text-lg font-medium italic">Diagnosa & Tindakan</p>
+            <div class="grid grid-cols-2 gap-4 py-2">
+              <div class="col-span-2 grouphelperPagination">
+                <Label>DPJP Utama:  <span class="text-red-500 text-lg">*</span>
+                  <Select name="dpjp_utama" class="mt-2" items={dpjpUtama}/>
+                </Label>
+              </div>
+              <div class="grouphelperPagination col-span-2 flex gap-4">
+                <Search size="md" placeholder="ICD-10 Koding Search"></Search>
+                <Button size="md" on:click={addDiagnosa}>
+                  <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" class="mr-2" viewBox="0 0 24 24"><path fill="currentColor" d="M11 17h2v-4h4v-2h-4V7h-2v4H7v2h4v4Zm1 5q-2.075 0-3.9-.788t-3.175-2.137q-1.35-1.35-2.137-3.175T2 12q0-2.075.788-3.9t2.137-3.175q1.35-1.35 3.175-2.137T12 2q2.075 0 3.9.788t3.175 2.137q1.35 1.35 2.138 3.175T22 12q0 2.075-.788 3.9t-2.137 3.175q-1.35 1.35-3.175 2.138T12 22Z"/></svg> Diagnosa
+                </Button>
+              </div>
+              <div class="grouphelperPagination col-span-2">
+                {#each diagnosaSementara as tag, i}
+                  <div class="flex gap-4 py-2">
+                    <Textarea name="diagnosa_sementara[]" placeholder="Masukkan Diagnosa Sementara" rows="2" bind:value={diagnosaSementara[i].deskripsi_diagnosa}/>
+                    <Input name="icd10[]" placeholder="Masukkan Kode ICD-10" bind:value={diagnosaSementara[i].kode_icd10}/>
+                    <Button on:click={() => deleteDiagnosa(i)} size="xs" color="red"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="20" viewBox="0 0 24 24"><path fill="currentColor" d="M6 19c0 1.1.9 2 2 2h8c1.1 0 2-.9 2-2V9c0-1.1-.9-2-2-2H8c-1.1 0-2 .9-2 2v10zM18 4h-2.5l-.71-.71c-.18-.18-.44-.29-.7-.29H9.91c-.26 0-.52.11-.7.29L8.5 4H6c-.55 0-1 .45-1 1s.45 1 1 1h12c.55 0 1-.45 1-1s-.45-1-1-1z"/></svg></Button>
+                  </div>
+                {/each}
+              </div>
+              <div class="grouphelperPagination col-span-2 flex gap-4">
+                <Search size="md" placeholder="ICD-10 Koding Search"></Search>
+                <Button size="md" on:click={addTindakan}>
+                  <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" class="mr-2" viewBox="0 0 24 24"><path fill="currentColor" d="M11 17h2v-4h4v-2h-4V7h-2v4H7v2h4v4Zm1 5q-2.075 0-3.9-.788t-3.175-2.137q-1.35-1.35-2.137-3.175T2 12q0-2.075.788-3.9t2.137-3.175q1.35-1.35 3.175-2.137T12 2q2.075 0 3.9.788t3.175 2.137q1.35 1.35 2.138 3.175T22 12q0 2.075-.788 3.9t-2.137 3.175q-1.35 1.35-3.175 2.138T12 22Z"/></svg> Tindakan
+                </Button>
+              </div>
+              <div class="grouphelperPagination col-span-2">
+                {#each tindakan as tag, i}
+                  <div class="flex gap-4 py-2">
+                    <Textarea name="tindakan[]" placeholder="Masukkan Tindakan" rows="2" bind:value={tindakan[i].deskripsi_tindakan}/>
+                    <Input name="icd19[]" placeholder="Masukkan Kode ICD-9" bind:value={tindakan[i].kode_icd9}/>
+                    <Button on:click={() => deleteTindakan(i)} size="xs" color="red"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="20" viewBox="0 0 24 24"><path fill="currentColor" d="M6 19c0 1.1.9 2 2 2h8c1.1 0 2-.9 2-2V9c0-1.1-.9-2-2-2H8c-1.1 0-2 .9-2 2v10zM18 4h-2.5l-.71-.71c-.18-.18-.44-.29-.7-.29H9.91c-.26 0-.52.11-.7.29L8.5 4H6c-.55 0-1 .45-1 1s.45 1 1 1h12c.55 0 1-.45 1-1s-.45-1-1-1z"/></svg></Button>
+                  </div>
+                {/each}
+              </div>
+            </div>
+          </div>
+          <div class="mb-2">
+            <p class="text-lg font-medium italic">Ruangan</p>
+            <div class="grid grid-cols-2 gap-4 py-2">
+              <div class="grouphelperPagination">
+                <Label>Jenis Kamar:  <span class="text-red-500 text-lg">*</span>
+                  <Select name="jenis_kamar" class="mt-2" items={jenisRuangan}/>
+                </Label>
+              </div>
+              <div class="grouphelperPagination">
+                <Label>Nama Kamar:  <span class="text-red-500 text-lg">*</span>
+                  <Select name="nama_kamar" class="mt-2" items={namaRuangan}/>
+                </Label>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="border border-slate-300 rounded p-4 w-full lg:order-first">
           <p class="text-xl font-semibold">Biodata Pasien</p>
           <hr class="my-2">
           <div class="mb-2">
@@ -305,86 +412,6 @@
               <div class="grouphelperPagination">
                 <Label for='status_asuransi' class='block mb-2'>Status Asuransi: <span class="text-red-500 text-lg">*</span></Label>
                 <Input id="status_asuransi" name="status_asuransi" placeholder="Masukkan Status Asuransi"/>
-              </div>
-            </div>
-          </div>
-        </div>
-        <div class="border border-slate-300 rounded p-4 w-full order-first md:order-last">
-          <p class="text-xl font-semibold">Data Pemeriksaan</p>
-          <hr class="my-2">
-          <div class="mb-2">
-            <p class="text-lg font-medium italic">Pasien Masuk Melalui</p>
-            <div class="grid grid-cols-2 gap-4 py-2">
-              <div class="grouphelperPagination">
-                <Label for='' class='block mb-2'>Unit: <span class="text-red-500 text-lg">*</span></Label>
-                <div class="flex gap-2">
-                  <Radio name="masuk_melalui" checked={selectedUnit==="IGD"} on:change={onChangeUnit} value="IGD">IGD</Radio>
-                  <Radio name="masuk_melalui" checked={selectedUnit==="Poliklinik"} on:change={onChangeUnit} value="Poliklinik">Poliklinik</Radio>
-                </div>
-              </div>
-              {#if selectedUnit==="Poliklinik"}
-                <div class="grouphelperPagination">
-                  <Label>Poliklinik:  <span class="text-red-500 text-lg">*</span>
-                    <Select name="polikinik" class="mt-2" items={poliklinik}/>
-                  </Label>
-                </div>
-              {/if}
-            </div>
-            <div class="group mb-4">
-            </div>
-          </div>
-          <div class="mb-2">
-            <p class="text-lg font-medium italic">Diagnosa & Tindakan</p>
-            <div class="grid grid-cols-2 gap-4 py-2">
-              <div class="col-span-2 grouphelperPagination">
-                <Label>DPJP Utama:  <span class="text-red-500 text-lg">*</span>
-                  <Select name="dpjp_utama" class="mt-2" items={dpjpUtama}/>
-                </Label>
-              </div>
-              <div class="grouphelperPagination col-span-2 flex gap-4">
-                <Search size="md" placeholder="ICD-10 Koding Search"></Search>
-                <Button size="md" on:click={addDiagnosa}>
-                  <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" class="mr-2" viewBox="0 0 24 24"><path fill="currentColor" d="M11 17h2v-4h4v-2h-4V7h-2v4H7v2h4v4Zm1 5q-2.075 0-3.9-.788t-3.175-2.137q-1.35-1.35-2.137-3.175T2 12q0-2.075.788-3.9t2.137-3.175q1.35-1.35 3.175-2.137T12 2q2.075 0 3.9.788t3.175 2.137q1.35 1.35 2.138 3.175T22 12q0 2.075-.788 3.9t-2.137 3.175q-1.35 1.35-3.175 2.138T12 22Z"/></svg> Diagnosa
-                </Button>
-              </div>
-              <div class="grouphelperPagination col-span-2">
-                {#each diagnosaSementara as tag, i}
-                  <div class="flex gap-4 py-2">
-                    <Textarea name="diagnosa_sementara[]" placeholder="Masukkan Diagnosa Sementara" rows="2" bind:value={diagnosaSementara[i].deskripsi_diagnosa}/>
-                    <Input name="icd10[]" placeholder="Masukkan Kode ICD-10" bind:value={diagnosaSementara[i].kode_icd10}/>
-                    <Button on:click={() => deleteDiagnosa(i)} size="xs" color="red"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="20" viewBox="0 0 24 24"><path fill="currentColor" d="M6 19c0 1.1.9 2 2 2h8c1.1 0 2-.9 2-2V9c0-1.1-.9-2-2-2H8c-1.1 0-2 .9-2 2v10zM18 4h-2.5l-.71-.71c-.18-.18-.44-.29-.7-.29H9.91c-.26 0-.52.11-.7.29L8.5 4H6c-.55 0-1 .45-1 1s.45 1 1 1h12c.55 0 1-.45 1-1s-.45-1-1-1z"/></svg></Button>
-                  </div>
-                {/each}
-              </div>
-              <div class="grouphelperPagination col-span-2 flex gap-4">
-                <Search size="md" placeholder="ICD-10 Koding Search"></Search>
-                <Button size="md" on:click={addTindakan}>
-                  <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" class="mr-2" viewBox="0 0 24 24"><path fill="currentColor" d="M11 17h2v-4h4v-2h-4V7h-2v4H7v2h4v4Zm1 5q-2.075 0-3.9-.788t-3.175-2.137q-1.35-1.35-2.137-3.175T2 12q0-2.075.788-3.9t2.137-3.175q1.35-1.35 3.175-2.137T12 2q2.075 0 3.9.788t3.175 2.137q1.35 1.35 2.138 3.175T22 12q0 2.075-.788 3.9t-2.137 3.175q-1.35 1.35-3.175 2.138T12 22Z"/></svg> Tindakan
-                </Button>
-              </div>
-              <div class="grouphelperPagination col-span-2">
-                {#each tindakan as tag, i}
-                  <div class="flex gap-4 py-2">
-                    <Textarea name="tindakan[]" placeholder="Masukkan Tindakan" rows="2" bind:value={tindakan[i].deskripsi_tindakan}/>
-                    <Input name="icd19[]" placeholder="Masukkan Kode ICD-9" bind:value={tindakan[i].kode_icd9}/>
-                    <Button on:click={() => deleteTindakan(i)} size="xs" color="red"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="20" viewBox="0 0 24 24"><path fill="currentColor" d="M6 19c0 1.1.9 2 2 2h8c1.1 0 2-.9 2-2V9c0-1.1-.9-2-2-2H8c-1.1 0-2 .9-2 2v10zM18 4h-2.5l-.71-.71c-.18-.18-.44-.29-.7-.29H9.91c-.26 0-.52.11-.7.29L8.5 4H6c-.55 0-1 .45-1 1s.45 1 1 1h12c.55 0 1-.45 1-1s-.45-1-1-1z"/></svg></Button>
-                  </div>
-                {/each}
-              </div>
-            </div>
-          </div>
-          <div class="mb-2">
-            <p class="text-lg font-medium italic">Ruangan</p>
-            <div class="grid grid-cols-2 gap-4 py-2">
-              <div class="grouphelperPagination">
-                <Label>Jenis Kamar:  <span class="text-red-500 text-lg">*</span>
-                  <Select name="jenis_kamar" class="mt-2" items={jenisRuangan}/>
-                </Label>
-              </div>
-              <div class="grouphelperPagination">
-                <Label>Nama Kamar:  <span class="text-red-500 text-lg">*</span>
-                  <Select name="nama_kamar" class="mt-2" items={namaRuangan}/>
-                </Label>
               </div>
             </div>
           </div>

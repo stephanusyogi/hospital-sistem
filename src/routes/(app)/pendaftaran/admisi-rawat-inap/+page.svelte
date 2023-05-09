@@ -123,7 +123,7 @@
   
   $: activeUrlPagination = $page.url.searchParams.get('page')
   let pages = [
-    { name: 1, href: '/pendaftaran/admisi-rawat-inapen?page=1'},
+    { name: 1, href: '/pendaftaran/admisi-rawat-inap?page=1'},
     { name: 2, href: '/pendaftaran/admisi-rawat-inap?page=2'},
     { name: 3, href: '/pendaftaran/admisi-rawat-inap?page=3'},
     { name: 4, href: '/pendaftaran/admisi-rawat-inap?page=4'},
@@ -177,7 +177,7 @@
   <section>
     <div class="px-4 py-6 bg-gray-50 dark:bg-gray-800 shadow rounded-lg">
       <div class="flex justify-between items-center">
-        <p class="text-xl font-semibold">Data Pasien Terdaftar Admisi Rawat Inap</p>
+        <p class="text-xl font-semibold">Antrean Pasien Admisi Rawat Inap</p>
       </div>
       <hr class="my-5">
       <div class="flex justify-between items-center">

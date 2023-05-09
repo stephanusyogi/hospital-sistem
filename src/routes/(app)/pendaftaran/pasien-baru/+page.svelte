@@ -15,17 +15,17 @@
   
   const handleSubmit = () => {
     Swal.fire({
-      title: 'Tambahkan Pasien?',
+      title: 'Daftarkan Pasien Baru?',
       text: 'Mohon berhati-hati, aksi ini bersifat permanen pada database.',
       showDenyButton: true,
       showCancelButton: false,
-      confirmButtonText: 'Tambah',
+      confirmButtonText: 'Lanjutkan',
       denyButtonText: `Batal`,
     }).then((result) => {
       if (result.isConfirmed) {
         Swal.fire({
           icon: 'success',
-          title: 'Pasien Berhasil Ditambahkan',
+          title: 'Pasien Baru Berhasil Didaftarkan',
           showConfirmButton: false,
           timer: 1000
         }).then(()=>{
@@ -48,21 +48,21 @@
     <BreadcrumbItem href="/"  home>Dashboard</BreadcrumbItem>
     <BreadcrumbItem>Pendaftaran</BreadcrumbItem>
     <BreadcrumbItem>Loket Pasien</BreadcrumbItem>
-    <BreadcrumbItem>Tambah Pasien Baru</BreadcrumbItem>
+    <BreadcrumbItem>Formulir Pasien Baru</BreadcrumbItem>
   </Breadcrumb>
   <form on:submit|preventDefault={handleSubmit}>
     <div class="flex justify-between items-center">
       <div>
         <p class="text-lg font-semibold">Formulir Pasien Baru RSI Aisyah</p>
-        <p class="text-red-500 text-sm mt-5">(*) Wajib diisi.</p>
+        <p class="text-red-500 text-xs lg:text-sm mt-5">(*) Wajib diisi.</p>
       </div>
-      <Button color="green" type="submit">Tambahkan Pasien</Button>
+      <Button color="green" type="submit">Daftarkan Pasien Baru</Button>
     </div>
     <hr class="my-5">
-    <div class="grid grid-cols-4 gap-4 mt-5">
+    <div class="grid grid-cols-2 lg:grid-cols-4 gap-4 mt-5">
       <div class="group ">
         <Label for='no_rekam_medis' class='block mb-2'>Nomor Rekam Medis: <span class="text-red-500 text-lg">*</span></Label>
-        <Input id="no_rekam_medis" name="no_rekam_medis" placeholder="Masukkan nomor rekam medis pasien"/>
+        <Input id="no_rekam_medis" name="no_rekam_medis" placeholder="Masukkan nomor rekam medis pasien" value="0000012023" readonly/>
       </div>
       <div class="group ">
         <Label for='nama_lengkap' class='block mb-2'>Nama Lengkap Pasien: <span class="text-red-500 text-lg">*</span></Label>

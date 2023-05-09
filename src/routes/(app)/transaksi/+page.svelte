@@ -4,6 +4,7 @@
   import Transaksi from "./Transaksi.svelte";
   import { page } from '$app/stores';
   import { goto } from '$app/navigation';
+  import { onMount } from 'svelte';
 
   let dummyTransaksi = [
     {
@@ -78,7 +79,7 @@
     }
   };
 </script>
-
+  
 <div class="overflow-y-auto relative max-h-screen p-6 sm:p-10 space-y-6">
   <Breadcrumb class="mt-10" aria-label="Solid background breadcrumb example" solid>
     <BreadcrumbItem href="/"  home>Dashboard</BreadcrumbItem>

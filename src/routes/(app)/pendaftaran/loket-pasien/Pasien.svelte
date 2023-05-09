@@ -34,7 +34,6 @@
   <TableBodyCell {tdClass}>{no_rm}</TableBodyCell>
   <TableBodyCell {tdClass}>{nama_pasien} ,<span class="italic">{(jenis_kelamin === "Perempuan") ? "Nn." : "Tn."}</span></TableBodyCell>
   <TableBodyCell {tdClass}>{nik}</TableBodyCell>
-  <TableBodyCell {tdClass}>{jenis_kelamin}</TableBodyCell>
   <TableBodyCell {tdClass}>{ttl}</TableBodyCell>
   <TableBodyCell {tdClass}>{alamat}</TableBodyCell>
   <TableBodyCell {tdClass}>

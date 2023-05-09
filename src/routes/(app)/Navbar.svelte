@@ -6,6 +6,11 @@
 
   import userIcon from '$lib/images/user.png';
 
+  const logout = async () => {
+    document.cookies.delete('access');
+    throw redirect(302, '/login');
+  };
+
   let hidden1 = true; 
   let transitionParams = {
     x: -320,
@@ -81,6 +86,10 @@
     <span class="block text-sm"> Stephanus Yogi </span>
     <span class="block truncate text-sm font-medium"> Petugas </span>
     </DropdownHeader>
-    <DropdownItem>Sign out</DropdownItem>
+    <DropdownItem>
+      <form action="/logout" method="post">
+        <button type="submit">Log out</button>
+      </form>
+    </DropdownItem>
   </Dropdown>
 </Navbar>
