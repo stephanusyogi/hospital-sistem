@@ -3,13 +3,17 @@
   import { Breadcrumb, BreadcrumbItem } from 'flowbite-svelte';
   import Footer from './Footer.svelte';
   import bg_dashboard from "$lib/images/.jpg"
+
+  /** @type {import('./$types').PageData} */
+  export let data;
+  const user_data = data?.user_data
 </script>
 
 <style>
   #lottie-image{
     height: 300px;
   }
-  @media (min-width:768px){
+  @media (max-width:768px){
     #lottie-image{
       height: 150px;
     }
@@ -24,11 +28,25 @@
     <div class="px-4 py-2 bg-gray-50 dark:bg-gray-800 shadow rounded-lg">
       <div class="grid grid-cols-2 gap-4">
         <div class="col-span-2 lg:col-span-1 p-8 bg-white shadow rounded-lg flex justify-center">
-          <lottie-player id="lottie-image"
-          src="https://assets10.lottiefiles.com/packages/lf20_olluraqu.json"  
-          background="transparent"  speed="1" 
-          loop autoplay>
-        </lottie-player>
+          {#if user_data?.role === 'Perawat'}
+            <lottie-player id="lottie-image"
+            src="https://assets10.lottiefiles.com/packages/lf20_olluraqu.json"  
+            background="transparent"  speed="1" 
+            loop autoplay>
+            </lottie-player>
+          {:else if user_data?.role === 'Farmasi'}
+            <lottie-player id="lottie-image"
+            src="https://assets1.lottiefiles.com/packages/lf20_dgw6g3d8.json"  
+            background="transparent"  speed="1"
+            loop autoplay>
+            </lottie-player>
+          {:else}
+            <lottie-player id="lottie-image"
+            src="https://assets1.lottiefiles.com/packages/lf20_u1vbg6qk.json"  
+            background="transparent"  speed="1"
+            loop autoplay>
+            </lottie-player>
+          {/if}
         </div>
         <div class="col-span-2 lg:col-span-1 bg-white grid grid-cols-3 shadow rounded-lg">
             <div class="p-2 lg:p-8 flex items-center">

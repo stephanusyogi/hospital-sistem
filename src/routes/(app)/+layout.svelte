@@ -10,7 +10,9 @@
   import PageLoader from '../../components/PageLoader/PageLoader.svelte'
 
   $: loading.setNavigate(!!$navigating) 
-
+  
+  /** @type {import('./$types').LayoutData} */
+  export let data;
 </script>
 
 
@@ -22,11 +24,11 @@
   <PageLoader />
 {/if} 
 <div class="flex bg-gray-100 min-h-screen">
-  <Sidebar/>
+  <Sidebar user_data={data?.user_data}/>
   <div class="relative overflow-x-auto w-full bg-gray-100">
-    <Navbar/>
+    <Navbar user_data={data?.user_data}/>
     <!-- Content -->
-    <slot/>
+    <slot user_data={data?.user_data}/>
   </div>
 </div>
 

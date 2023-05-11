@@ -1,9 +1,14 @@
 <script>
 
-  import { Breadcrumb, BreadcrumbItem, Button, Input, Label } from "flowbite-svelte";
+  import { Breadcrumb, BreadcrumbItem, Button, Input, Label, Select } from "flowbite-svelte";
   import { goto } from '$app/navigation';
   import Swal from "sweetalert2";
 
+  
+  let role = [
+    {value:"Perawat", name: "Perawat"},
+    {value:"Farmasi", name: "Farmasi"},
+  ]
   const handleSubmit = () => {
     Swal.fire({
       title: 'Tambahkan Petugas?',
@@ -49,6 +54,19 @@
       <div class="group mb-4">
         <Label for='nama' class='block mb-2'>Nama Petugas:</Label>
         <Input id="nama" name="nama" placeholder="Masukkan nama petugas"/>
+      </div>
+      <div class="group mb-4">
+        <Label>Role
+          <Select name="role" class="mt-2" items={role}/>
+        </Label>
+      </div>
+      <div class="group mb-4">
+        <Label for='username' class='block mb-2'>Username Akun:</Label>
+        <Input id="username" name="username" placeholder="Masukkan username akun petugas"/>
+      </div>
+      <div class="group mb-4">
+        <Label for='password' class='block mb-2'>Password Akun:</Label>
+        <Input id="password" name="password" type="password" placeholder="Masukkan password akun petugas"/>
       </div>
       <div class="text-right">
         <Button type="submit" color="green">Simpan</Button>

@@ -6,7 +6,13 @@ const dummyUsers = [
     "name" : "Stephanus Yogi",
     "username" : "stephanusyogi",
     "password" : "test123",
-    "role" : "Bidan",
+    "role" : "Perawat",
+  },
+  {
+    "name" : "Laurentius Vico",
+    "username" : "laurentiusvico",
+    "password" : "test123",
+    "role" : "Farmasi",
   }
 ];
 
@@ -22,7 +28,9 @@ export const actions = {
     const username = formData.get("username")
     const password = formData.get("password")
 
-    if (username==="stephanusyogi" && password==="test123") {
+    const user = dummyUsers.find((user) => user.username === username && user.password === password);
+
+    if (user) {
       cookies.set("access", "true", {
         // send cookie for every page
         path: '/',
@@ -32,6 +40,11 @@ export const actions = {
         // https://developer.mozilla.org/en-US/docs/Glossary/CSRF
         sameSite: 'strict',
         // set cookie to expire after a month
+        maxAge: 60 * 60 * 24 * 30})
+      cookies.set("user_data_access", JSON.stringify(user), {
+        path: '/',
+        httpOnly: true,
+        sameSite: 'strict',
         maxAge: 60 * 60 * 24 * 30})
       throw redirect(302, "/")
     }

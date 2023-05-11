@@ -10,6 +10,8 @@
     {value:"bpjs", name: "BPJS"},
     {value:"lainnya", name: "Lainnya"},
   ]
+
+  let selectedAgamaPasien = "Islam";
   let agamaPasien = [
     {value:"Islam", name: "Islam"},
     {value:"Katolik", name: "Katolik"},
@@ -149,47 +151,53 @@
             <p class="text-lg font-medium italic">Identitas Pasien</p>
             <div class="grid grid-cols-2 lg:grid-cols-4 gap-4 py-2">
               <div class="grouphelperPagination">
-                <Label for='no_rekam_medis' class='block mb-2'>Nomor Rekam Medis: <span class="text-red-500 text-lg">*</span></Label>
-                <Input id="no_rekam_medis" name="no_rekam_medis" placeholder="Masukkan nomor rekam medis pasien" value="00013-12313" readonly/>
+                <Label for='' class='block mb-2'>Nomor Rekam Medis: <span class="italic">(Auto-Generated)</span> <span class="text-red-500 text-lg">*</span></Label>
+                <Input id="no_rekam_medis" name="no_rekam_medis" placeholder="Masukkan nomor rekam medis pasien" value="00013-12313" readonly disabled/>
               </div>
               <div class="grouphelperPagination">
-                <Label for='nama_lengkap' class='block mb-2'>Nama Lengkap Pasien: <span class="text-red-500 text-lg">*</span></Label>
-                <Input id="nama_lengkap" name="nama_lengkap" placeholder="Masukkan nama lengkap pasien"/>
+                <Label for='' class='block mb-2'>Nama Lengkap Pasien: <span class="text-red-500 text-lg">*</span></Label>
+                <Input id="nama_lengkap" name="nama_lengkap" value="Jon Snow" placeholder="Masukkan nama lengkap pasien"/>
               </div>
               <div class="grouphelperPagination">
-                <Label for='umur' class='block mb-2'>Umur: <span class="text-red-500 text-lg">*</span></Label>
-                <Input id="umur" name="umur" placeholder="Masukkan umur pasien"/>
+                <Label for='' class='block mb-2'>Umur: <span class="text-red-500 text-lg">*</span></Label>
+                <Input id="umur" name="umur" placeholder="Masukkan umur pasien" value="23"/>
               </div>
               <div class="grouphelperPagination">
                 <Label for='' class='block mb-2'>Jenis Kelamin: <span class="text-red-500 text-lg">*</span></Label>
                 <div class="flex flex-col gap-2">
-                  <Radio name="jenis_kelamin" value="Laki-Laki">Laki-Laki</Radio>
-                  <Radio name="jenis_kelamin" value="Perempuan">Perempuan</Radio>
+                  <label for="" class="text-sm font-medium text-gray-900 dark:text-gray-300 flex items-center">
+                    <input type="radio" name="jenis_kelamin" value="Laki-Laki" checked class="w-4 h-4 bg-gray-100 border-gray-300 dark:ring-offset-gray-800 focus:ring-2 mr-2 dark:bg-gray-700 dark:border-gray-600 text-blue-600 focus:ring-blue-500 dark:focus:ring-blue-600">
+                    Laki-Laki
+                  </label>
+                  <label for="" class="text-sm font-medium text-gray-900 dark:text-gray-300 flex items-center">
+                    <input type="radio" name="jenis_kelamin" value="Perempuan" class="w-4 h-4 bg-gray-100 border-gray-300 dark:ring-offset-gray-800 focus:ring-2 mr-2 dark:bg-gray-700 dark:border-gray-600 text-blue-600 focus:ring-blue-500 dark:focus:ring-blue-600">
+                    Perempuan
+                  </label>
                 </div>
               </div>
               <div class="grouphelperPagination">
                 <Label for='' class='block mb-2'>Tempat / Tanggal Lahir: <span class="text-red-500 text-lg">*</span></Label>
                 <div class="flex gap-2">
-                  <Input id="tempat_lahir" name="tempat_lahir" placeholder="Masukkan tempat"/>
-                  <Input id="tanggal_lahir" name="tanggal_lahir" type="date"/>
+                  <Input id="tempat_lahir" name="tempat_lahir" placeholder="Masukkan tempat" value="Sragen"/>
+                  <Input id="tanggal_lahir" name="tanggal_lahir" type="date" value="2000-06-02"/>
                 </div>
               </div>
               <div class="grouphelperPagination">
                 <Label for='no_telp_pasien' class='block mb-2'>Nomor Telepon/HP: <span class="text-red-500 text-lg">*</span></Label>
-                <Input id="no_telp_pasien" name="no_telp_pasien" placeholder="Masukkan nomor telepon / HP pasien"/>
+                <Input id="no_telp_pasien" name="no_telp_pasien" placeholder="Masukkan nomor telepon / HP pasien" value="08912318731831"/>
               </div>
               <div class="grouphelperPagination">
                 <Label>Agama:  <span class="text-red-500 text-lg">*</span>
-                  <Select name="agama" class="mt-2" items={agamaPasien}/>
+                  <Select name="agama" class="mt-2" items={agamaPasien} bind:value={selectedAgamaPasien}/>
                 </Label>
               </div>
               <div class="grouphelperPagination">
                 <Label for='alamat_tempat_tinggal' class='block mb-2'>Alamat Tempat Tinggal: <span class="text-red-500 text-lg">*</span></Label>
-                <Textarea name="alamat_tempat_tinggal" id="alamat_tempat_tinggal" placeholder="Masukkan alamat tempat tinggal pasien" rows="1" />
+                <Textarea name="alamat_tempat_tinggal" id="alamat_tempat_tinggal" placeholder="Masukkan alamat tempat tinggal pasien" rows="1" value="Jln. Mayjend Pandjaitan No. 22 Malang"/>
               </div>
               <div class="grouphelperPagination">
                 <Label for='alamat_ktp' class='block mb-2'>Alamat KTP: <span class="text-red-500 text-lg">*</span></Label>
-                <Textarea name="alamat_ktp" id="alamat_ktp" placeholder="Masukkan alamat sesuai ktp pasien" rows="1"/>
+                <Textarea name="alamat_ktp" id="alamat_ktp" placeholder="Masukkan alamat sesuai ktp pasien" rows="1" value="Jln. Mayjend Pandjaitan No. 22 Malang"/>
               </div>
             </div>
           </div>

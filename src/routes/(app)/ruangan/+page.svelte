@@ -97,7 +97,7 @@
   <section class="px-4 py-6 bg-gray-50 dark:bg-gray-800 shadow rounded-lg">
     <div class="flex items-center justify-between">
       <p class="font-semibold text-2xl">Data Ruangan RSI Aisyah</p>
-      <Button size="md" color="blue" on:click={() => goto("/ruangan/tambah")}><Icon icon="material-symbols:add-circle" width="25" height="25" class="mr-2"/>Tambah Ruangan</Button>
+      <Button size="sm" color="blue" on:click={() => goto("/ruangan/tambah")}><Icon icon="material-symbols:add-circle" width="25" height="25" class="mr-2"/>Tambah Ruangan</Button>
     </div>
     <hr class="my-5">
     <div class="flex justify-between items-center">

@@ -61,8 +61,8 @@
     <hr class="my-5">
     <div class="grid grid-cols-2 lg:grid-cols-4 gap-4 mt-5">
       <div class="group ">
-        <Label for='no_rekam_medis' class='block mb-2'>Nomor Rekam Medis: <span class="text-red-500 text-lg">*</span></Label>
-        <Input id="no_rekam_medis" name="no_rekam_medis" placeholder="Masukkan nomor rekam medis pasien" value="0000012023" readonly/>
+        <Label for='' class='block mb-2'>Nomor Rekam Medis: <span class="italic">(Auto-Generated)</span> <span class="text-red-500 text-lg">*</span></Label>
+        <Input id="no_rekam_medis" name="no_rekam_medis" placeholder="Masukkan nomor rekam medis pasien" value="0000012023" disabled readonly/>
       </div>
       <div class="group ">
         <Label for='nama_lengkap' class='block mb-2'>Nama Lengkap Pasien: <span class="text-red-500 text-lg">*</span></Label>

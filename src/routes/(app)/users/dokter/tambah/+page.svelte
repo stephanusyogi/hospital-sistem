@@ -61,9 +61,17 @@
         <Input id="nama" name="nama" placeholder="Masukkan nama dokter"/>
       </div>
       <div class="group mb-4">
-        <Label>Jenis
+        <Label>Spesialisasi
           <Select name="spesialis" class="mt-2" items={spesialis}/>
         </Label>
+      </div>
+      <div class="group mb-4">
+        <Label for='username' class='block mb-2'>Username Akun:</Label>
+        <Input id="username" name="username" placeholder="Masukkan username akun dokter"/>
+      </div>
+      <div class="group mb-4">
+        <Label for='password' class='block mb-2'>Password Akun:</Label>
+        <Input id="password" name="password" type="password" placeholder="Masukkan password akun dokter"/>
       </div>
       <div class="text-right">
         <Button type="submit" color="green">Simpan</Button>

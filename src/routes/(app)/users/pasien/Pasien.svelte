@@ -44,25 +44,25 @@
       <Icon icon="material-symbols:history" class="mr-2" width="27" height="27"/>
       Riwayat Rekam Medis
     </Button>
-    <Modal size="xl" placement="center" title="Riwayat Rekam Medis Rawat Inap" bind:open={defaultModal} autoclose>
-      <Table hoverable={true}>
-        <TableHead>
-          <TableHeadCell class="text-center">Nomor Rekam Medis</TableHeadCell>
-          <TableHeadCell class="text-center">Nama</TableHeadCell>
-          <TableHeadCell class="text-center">Tanggal Masuk</TableHeadCell>
-          <TableHeadCell class="text-center">Tanggal Keluar</TableHeadCell>
-          <TableHeadCell class="text-center">Ruangan</TableHeadCell>
-          <TableHeadCell class="text-center">Aksi</TableHeadCell>
-        </TableHead>
-        <TableBody>    
-          {#each dummyUsers as {no_rm, nama_pasien, pronounce, tgl_masuk, tgl_pulang, ruangan, jenis_ruangan}}
-            <Riwayat no_rm={no_rm} nama_pasien={nama_pasien} pronounce={pronounce} tgl_masuk={tgl_masuk} tgl_pulang={tgl_pulang} ruangan={ruangan} jenis_ruangan={jenis_ruangan}/>
-          {/each}
-        </TableBody>
-      </Table>
-      <svelte:fragment slot='footer'>
-        <Button color="alternative">Tutup</Button>
-      </svelte:fragment>
-    </Modal>
   </TableBodyCell>
 </TableBodyRow>
+<Modal size="xl" title="Riwayat Rekam Medis Rawat Inap" bind:open={defaultModal} autoclose class="overflow-auto">
+  <Table hoverable={true}>
+    <TableHead>
+      <TableHeadCell class="text-center">Nomor Rekam Medis</TableHeadCell>
+      <TableHeadCell class="text-center">Nama</TableHeadCell>
+      <TableHeadCell class="text-center">Tanggal Masuk</TableHeadCell>
+      <TableHeadCell class="text-center">Tanggal Keluar</TableHeadCell>
+      <TableHeadCell class="text-center">Ruangan</TableHeadCell>
+      <TableHeadCell class="text-center">Aksi</TableHeadCell>
+    </TableHead>
+    <TableBody>    
+      {#each dummyUsers as {no_rm, nama_pasien, pronounce, tgl_masuk, tgl_pulang, ruangan, jenis_ruangan}}
+        <Riwayat no_rm={no_rm} nama_pasien={nama_pasien} pronounce={pronounce} tgl_masuk={tgl_masuk} tgl_pulang={tgl_pulang} ruangan={ruangan} jenis_ruangan={jenis_ruangan}/>
+      {/each}
+    </TableBody>
+  </Table>
+  <svelte:fragment slot='footer'>
+    <Button color="alternative">Tutup</Button>
+  </svelte:fragment>
+</Modal>

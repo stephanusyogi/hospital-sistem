@@ -11,6 +11,12 @@ export const actions = {
       path: '/',
       expires: new Date(0),
     })
+    
+    // eat the cookie
+    cookies.set('user_data_access', '', {
+      path: '/',
+      expires: new Date(0),
+    })
 
     // redirect the user
     throw redirect(302, '/login')

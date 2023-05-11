@@ -1,6 +1,6 @@
 <script>
   import Icon from "@iconify/svelte";
-  export let nama
+  export let nama, role
   import { TableBodyCell, TableBodyRow } from "flowbite-svelte";
   import Swal from "sweetalert2";
 
@@ -36,6 +36,7 @@
 
 <TableBodyRow>
   <TableBodyCell {tdClass}>{nama}</TableBodyCell>
+  <TableBodyCell {tdClass}>{role}</TableBodyCell>
   <TableBodyCell>
     <div class="flex flex-wrap justify-center gap-2">
       <a href="/users/petugas/1" class="text-blue-600 hover:underline dark:text-blue-500"><Icon icon="material-symbols:edit" width="25" height="25"/></a>
