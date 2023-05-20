@@ -1,7 +1,7 @@
 <script>
 	export let form;
 
-  import { Button, FloatingLabelInput } from "flowbite-svelte";
+  import { Button, FloatingLabelInput, Helper } from "flowbite-svelte";
   import logo from '$lib/images/logo-icon-tab.png';
   import Swal from "sweetalert2";
 
@@ -30,10 +30,10 @@
 				<form class="divide-y divide-gray-200" method="POST">
 					<div class="py-4 text-base leading-6 space-y-4 text-gray-700 sm:text-lg sm:leading-7">
 						<div class="relative">
-							<FloatingLabelInput style="outlined" id="username" name="username" type="text" label="Username" value={form?.username}/>
+							<FloatingLabelInput style="outlined" id="username" name="username" type="text" label="Username" value={form?.username} required/>
 						</div>
 						<div class="relative">
-							<FloatingLabelInput style="outlined" id="password" name="password" type="password" label="Password" />
+							<FloatingLabelInput style="outlined" id="password" name="password" type="password" label="Password" required/>
 						</div>
 						<div class="relative text-right">
 							<Button type="submit" color="green">

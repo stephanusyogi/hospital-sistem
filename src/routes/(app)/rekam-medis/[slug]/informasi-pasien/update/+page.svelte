@@ -64,8 +64,8 @@
           <p class="text-lg font-medium italic">Identitas</p>
           <div class="grid grid-cols-2 gap-4 py-2">
             <div class="grouphelperPagination">
-              <Label for='no_rekam_medis' class='block mb-2'>Nomor Rekam Medis: <span class="text-red-500 text-lg">*</span></Label>
-              <Input id="no_rekam_medis" name="no_rekam_medis" placeholder="Masukkan nomor rekam medis pasien"/>
+              <Label for='' class='block mb-2'>Nomor Rekam Medis: <span class="text-red-500 text-lg">*</span></Label>
+              <Input id="no_rekam_medis" name="no_rekam_medis" placeholder="Masukkan nomor rekam medis pasien" value="000001-2023" disabled/>
             </div>
             <div class="grouphelperPagination">
               <Label for='nama_lengkap' class='block mb-2'>Nama Lengkap Pasien: <span class="text-red-500 text-lg">*</span></Label>

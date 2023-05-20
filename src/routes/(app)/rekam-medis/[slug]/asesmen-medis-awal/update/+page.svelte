@@ -41,7 +41,7 @@
   <form on:submit|preventDefault={()=>handleSubmit(no_rm)}>
     <div class="flex items-center justify-between">
       <div>
-        <p class="text-xl font-semibold">Asesmen Medis Awal</p>
+        <p class="text-xl font-semibold">Form 12.15 Asesmen Medis Awal</p>
         <p class="text-red-500 text-sm">(*) Wajib diisi.</p>
       </div>
       <Button type="submit" color="green">Simpan Perubahan</Button>

@@ -1,6 +1,6 @@
 <script>
 
-  import { Accordion, AccordionItem, Button, Input, Label, Search, Select, Textarea } from "flowbite-svelte";
+  import { Accordion, AccordionItem, Button, ButtonGroup, Input, InputAddon, Label, Search, Select, Textarea } from "flowbite-svelte";
   import { page } from '$app/stores';
   import { goto } from '$app/navigation';
   import Swal from 'sweetalert2';
@@ -244,31 +244,41 @@
         <span slot="header">Kondisi Pasien Pulang (<span class="italic">Status Present</span>) <span class="text-sm text-red-500 italic">*</span></span>
         <div class="my-2">
           <Label for="" class="mb-2">Keadaan Umum/GCS: <span class="text-sm text-red-500 italic">*</span></Label>
-          <div class="flex flex-col gap-2">
-            <div class="grid grid-cols-3 gap-2">
+          <div class="grid grid-cols-2 lg:grid-cols-3 gap-2">
+            <div class="grid grid-cols-2 gap-2">
               <span>Tensi:</span>
-              <Input type="text" defaultClass="block w-full disabled:cursor-not-allowed disabled:opacity-50" name="tensi" size="sm" />
-              <span>mmHg</span>
+              <ButtonGroup class="w-full col-span-2" size="md">
+                <Input id="input-addon-md" type="text" name="tensi" size="sm"/>
+                <InputAddon>mmHg</InputAddon>
+              </ButtonGroup>
             </div>
-            <div class="grid grid-cols-3 gap-2">
+            <div class="grid grid-cols-2 gap-2">
               <span>Nadi:</span>
-              <Input type="text" defaultClass="block w-full disabled:cursor-not-allowed disabled:opacity-50" name="nadi" size="sm" />
-              <span>x/mnt</span>
+              <ButtonGroup class="w-full col-span-2" size="md">
+                <Input id="input-addon-md" type="text" name="nadi" size="sm"/>
+                <InputAddon>x/mnt</InputAddon>
+              </ButtonGroup>
             </div>
-            <div class="grid grid-cols-3 gap-2">
+            <div class="grid grid-cols-2 gap-2">
               <span>RR:</span>
-              <Input type="text" defaultClass="block w-full disabled:cursor-not-allowed disabled:opacity-50" name="nadi" size="sm" />
-              <span>x/mnt</span>
+              <ButtonGroup class="w-full col-span-2" size="md">
+                <Input id="input-addon-md" type="text" name="rr" size="sm"/>
+                <InputAddon>x/mnt</InputAddon>
+              </ButtonGroup>
             </div>
-            <div class="grid grid-cols-3 gap-2">
+            <div class="grid grid-cols-2 gap-2">
               <span>Suhu:</span>
-              <Input type="text" defaultClass="block w-full disabled:cursor-not-allowed disabled:opacity-50" name="suhu" size="sm" />
-              <span>C</span>
+              <ButtonGroup class="w-full col-span-2" size="md">
+                <Input id="input-addon-md" type="text" name="suhu" size="sm"/>
+                <InputAddon>°C</InputAddon>
+              </ButtonGroup>
             </div>
-            <div class="grid grid-cols-3 gap-2">
+            <div class="grid grid-cols-2 gap-2">
               <span>SpO2:</span>
-              <Input type="text" defaultClass="block w-full disabled:cursor-not-allowed disabled:opacity-50" name="sp02" size="sm" />
-              <span>%</span>
+              <ButtonGroup class="w-full col-span-2" size="md">
+                <Input id="input-addon-md" type="text" name="sp02" size="sm"/>
+                <InputAddon>%</InputAddon>
+              </ButtonGroup>
             </div>
           </div>
         </div>

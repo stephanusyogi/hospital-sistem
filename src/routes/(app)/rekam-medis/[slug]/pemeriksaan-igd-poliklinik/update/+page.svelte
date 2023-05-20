@@ -16,6 +16,12 @@
     {value:"Kelas Khusus Anak", name: "Kelas Khusus Anak"},
     {value:"Kelas Obstetri", name: "Kelas Obstetri"},
   ]
+
+  let asalRujukan = [
+    {value:"Poliklinik", name: "Poliklinik"},
+    {value:"Rumah Sakit Swasta", name: "Rumah Sakit Swasta"},
+    {value:"Puskesmas", name: "Puskesmas"},
+  ]
   
   let namaRuangan = [
     {value:"Kamar Wisnu", name: "Kamar Wisnu"},
@@ -58,6 +64,11 @@
   let selectedUnit
   const onChangeUnit = (event) => {
     selectedUnit = event.currentTarget.value
+  }
+  
+  let selectedAsalRujukan
+  const onChangeAsalRujukan = (event) => {
+    selectedAsalRujukan = event.currentTarget.value
   }
   
   let diagnosaSementara = [
@@ -147,22 +158,40 @@
         <p class="text-xl font-semibold">Data Pemeriksaan</p>
         <hr class="my-2">
         <div class="mb-2">
-          <p class="text-lg font-medium italic">Pasien Masuk Melalui</p>
+          <p class="text-lg font-medium italic">Cara Kedatangan Pasien</p>
           <div class="grid grid-cols-2 gap-4 py-2">
-            <div class="grouphelperPagination">
-              <Label for='' class='block mb-2'>Unit: <span class="text-red-500 text-lg">*</span></Label>
-              <div class="flex gap-2">
-                <Radio name="masuk_melalui" checked={selectedUnit==="IGD"} on:change={onChangeUnit} value="IGD">IGD</Radio>
-                <Radio name="masuk_melalui" checked={selectedUnit==="Poliklinik"} on:change={onChangeUnit} value="Poliklinik">Poliklinik</Radio>
+            <div class="grid grid-cols-2 gap-4 py-2">
+              <div class="grouphelperPagination col-span-2">
+                <Label for='' class='block mb-2'>Unit Penerima: <span class="text-red-500 text-lg">*</span></Label>
+                <div class="flex gap-2">
+                  <Radio name="masuk_melalui" checked={selectedUnit==="IGD"} on:change={onChangeUnit} value="IGD">IGD</Radio>
+                  <Radio name="masuk_melalui" checked={selectedUnit==="Poliklinik"} on:change={onChangeUnit} value="Poliklinik">Poliklinik</Radio>
+                </div>
               </div>
+              {#if selectedUnit==="Poliklinik"}
+                <div class="grouphelperPagination col-span-2">
+                  <Label>Poliklinik:  <span class="text-red-500 text-lg">*</span>
+                    <Select name="polikinik" class="mt-2" items={poliklinik}/>
+                  </Label>
+                </div>
+              {/if}
             </div>
-            {#if selectedUnit==="Poliklinik"}
-              <div class="grouphelperPagination">
-                <Label>Poliklinik:  <span class="text-red-500 text-lg">*</span>
-                  <Select name="polikinik" class="mt-2" items={poliklinik}/>
-                </Label>
+            <div class="grid grid-cols-2 gap-4 py-2">
+              <div class="grouphelperPagination col-span-2">
+                <Label for='' class='block mb-2'>Asal Rujukan: <span class="text-red-500 text-lg">*</span></Label>
+                <div class="flex gap-2">
+                  <Radio name="asal_rujukan" checked={selectedAsalRujukan==="Datang Sendiri"} on:change={onChangeAsalRujukan} value="Datang Sendiri">Datang Sendiri</Radio>
+                  <Radio name="asal_rujukan" checked={selectedAsalRujukan==="Rujukan"} on:change={onChangeAsalRujukan} value="Rujukan">Rujukan</Radio>
+                </div>
               </div>
-            {/if}
+              {#if selectedAsalRujukan==="Rujukan"}
+                <div class="grouphelperPagination col-span-2">
+                  <Label>Unit Asal Rujukan:  <span class="text-red-500 text-lg">*</span>
+                    <Select name="unit_asal_rujukan" class="mt-2" items={asalRujukan}/>
+                  </Label>
+                </div>
+              {/if}
+            </div>
           </div>
           <div class="group mb-4">
           </div>
@@ -171,7 +200,7 @@
           <p class="text-lg font-medium italic">Diagnosa & Tindakan</p>
           <div class="grid grid-cols-2 gap-4 py-2">
             <div class="col-span-2 grouphelperPagination">
-              <Label>DPJP Utama:  <span class="text-red-500 text-lg">*</span>
+              <Label>DPJP:  <span class="text-red-500 text-lg">*</span>
                 <Select name="dpjp_utama" class="mt-2" items={dpjpUtama}/>
               </Label>
             </div>

@@ -154,7 +154,7 @@
       </TableHead>
       <TableBody>    
         {#each dummyUsers as {no_rm, nama_pasien, pronounce, tgl_masuk, tgl_pulang, ruangan, jenis_ruangan, status_rawat}}
-          <Pasien no_rm={no_rm} nama_pasien={nama_pasien} pronounce={pronounce} tgl_masuk={tgl_masuk} tgl_pulang={tgl_pulang} ruangan={ruangan} jenis_ruangan={jenis_ruangan} , status_rawat={status_rawat}/>
+          <Pasien no_rm={no_rm} nama_pasien={nama_pasien} pronounce={pronounce} tgl_masuk={tgl_masuk} tgl_pulang={tgl_pulang} ruangan={ruangan} jenis_ruangan={jenis_ruangan} status_rawat={status_rawat}/>
         {/each}
       </TableBody>
     </Table>

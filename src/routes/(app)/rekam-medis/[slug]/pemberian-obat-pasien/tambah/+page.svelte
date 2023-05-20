@@ -10,6 +10,12 @@
     {value:"dr. Viserys II S, Sp.KJ", name: "dr. Viserys II S, Sp.KJ"},
   ]
 
+  let obat = [
+    {value:"Artesunate tablet", name: "Artesunate tablet"},
+    {value:"Amodiaquine anhydrida tablet", name: "Amodiaquine anhydrida tablet"},
+    {value:"Albendazol", name: "Albendazol"},
+  ]
+
   const handleSubmit = () => {
     Swal.fire({
       title: 'Tambahkan Obat Pasien?',
@@ -54,26 +60,23 @@
     </div>
     <hr class="my-5">
     <div class="grid grid-cols-2 gap-4">
-      <div class="my-2 col-span-2">
+      <div class="my-2">
         <Label>DPJP:  <span class="text-sm text-red-500 italic">*</span>
           <Select class="mt-2" items={dpjp}/>
         </Label>
       </div>
-      <div class="my-2 col-span-2">
-        <div class="grid grid-cols-3 gap-4">
-          <div class="content">
-            <Label for="" class="mb-2">Nama Obat: <span class="text-sm text-red-500 italic">*</span></Label>
-            <Textarea id="" placeholder="" rows="2" name=""/>
-          </div>
-          <div class="content">
-            <Label for="" class="mb-2">Dosis Obat: <span class="text-sm text-red-500 italic">*</span></Label>
-            <Textarea id="" placeholder="" rows="2" name=""/>
-          </div>
-          <div class="content">
-            <Label for="" class="mb-2">Rute Obat: <span class="text-sm text-red-500 italic">*</span></Label>
-            <Textarea id="" placeholder="" rows="2" name=""/>
-          </div>
-        </div>
+      <div class="my-2">
+        <Label>Obat:  <span class="text-sm text-red-500 italic">*</span>
+          <Select class="mt-2" items={obat}/>
+        </Label>
+      </div>
+      <div class="my-2">
+        <Label for="" class="mb-2">Dosis Obat: <span class="text-sm text-red-500 italic">*</span></Label>
+        <Textarea id="" placeholder="" rows="2" name=""/>
+      </div>
+      <div class="my-2">
+        <Label for="" class="mb-2">Rute Obat: <span class="text-sm text-red-500 italic">*</span></Label>
+        <Textarea id="" placeholder="" rows="2" name=""/>
       </div>
     </div>
   </form>

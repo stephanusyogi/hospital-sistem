@@ -4,7 +4,7 @@
   export let jam
 </script>
 
-<Table shadow>
+<!-- <Table shadow>
   <TableHead>
     <TableHeadCell>Jam</TableHeadCell>
     <TableHeadCell>Input</TableHeadCell>
@@ -32,6 +32,29 @@
           <Label for="" class="mb-2">Jumlah</Label>
           <Input type="text" id="" />
         </div>
+      </TableBodyCell>
+    </TableBodyRow>
+  </TableBody>
+</Table> -->
+<Table class="border border-slate-300 shadow-lg bg-white w-full text-left text-sm text-gray-500 dark:text-gray-400">
+  <TableBody>
+    <TableBodyRow>
+        <TableBodyCell colspan="2"><center>Jam {jam}</center></TableBodyCell>
+    </TableBodyRow>
+    <TableBodyRow>
+      <TableBodyCell tdClass="p-2 whitespace-nowrap font-medium border border-slate-300">Input</TableBodyCell>
+      <TableBodyCell tdClass="p-2 whitespace-nowrap font-medium border border-slate-300">Output</TableBodyCell>
+    </TableBodyRow>
+    <TableBodyRow>
+      <TableBodyCell tdClass="p-2 whitespace-nowrap font-medium border border-slate-300">
+          <Input type="text" id="" placeholder="Jenis Cairan"/>
+          <br>
+          <Input type="text" id="" placeholder="Jumlah Dosis Cairan"/>
+      </TableBodyCell>
+      <TableBodyCell tdClass="p-2 whitespace-nowrap font-medium border border-slate-300">
+          <Input type="text" id="" placeholder="Jenis Cairan"/>
+          <br>
+          <Input type="text" id="" placeholder="Jumlah Dosis Cairan"/>
       </TableBodyCell>
     </TableBodyRow>
   </TableBody>

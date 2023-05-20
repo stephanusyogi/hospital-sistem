@@ -1,6 +1,7 @@
 <script>
   import Icon from '@iconify/svelte';
   import { Button, Checkbox, Input, Label, Radio, TabItem, Table, TableBody, TableBodyCell, TableBodyRow, TableHead, TableHeadCell, Tabs, Textarea } from "flowbite-svelte";
+  import AjuanDpjp from './AjuanDPJP.svelte';
   import Dpjp from './Dpjp.svelte';
 
 
@@ -30,6 +31,16 @@
       "status_dpjp": "DPJP",
     },
   ];
+  
+  let dummyAjuanDPJP = [
+    {
+      "nama_dokter": "dr. Viserys II S, Sp.KJ",
+      "spesialis": "Spesialis Penyakit Dalam",
+      "keterangan": "Mohon dibantu pasien sudah kritis",
+      "status": "ditolak",
+      "permintaan_pasien": 1,
+    },
+  ];
 </script>
 
 <main>
@@ -38,7 +49,7 @@
     <div class="flex flex-wrap gap-4">
       <Button color="green" href="daftar-dokter-penanggungjawab-pasien/tambah">
         <svg xmlns="http://www.w3.org/2000/svg" class="mr-2" width="24" height="24" viewBox="0 0 24 24"><path fill="currentColor" d="M11 17h2v-4h4v-2h-4V7h-2v4H7v2h4v4Zm1 5q-2.075 0-3.9-.788t-3.175-2.137q-1.35-1.35-2.137-3.175T2 12q0-2.075.788-3.9t2.137-3.175q1.35-1.35 3.175-2.137T12 2q2.075 0 3.9.788t3.175 2.137q1.35 1.35 2.138 3.175T22 12q0 2.075-.788 3.9t-2.137 3.175q-1.35 1.35-3.175 2.138T12 22Z"/></svg>
-        Tambah DPJP</Button>
+        Ajukan DPJP</Button>
     </div>
   </div>
   <hr class="my-5">
@@ -55,6 +66,25 @@
     <TableBody> 
       {#each dummyDPJP as {diagnosa, nama_dokter, spesialis, tgl_mulai, tgl_selesai, status_dpjp }}
         <Dpjp diagnosa={diagnosa} nama_dokter={nama_dokter} spesialis={spesialis} tgl_mulai={tgl_mulai} tgl_selesai={tgl_selesai} status_dpjp={status_dpjp}/>
+      {/each}   
+    </TableBody>
+  </Table>
+  <br>
+  <hr class="my-5">
+  <p class="text-xl font-medium">Daftar Status Kesediaan Pengajuan Dokter</p>
+  <hr class="my-5">
+  <Table hoverable={true}>
+    <TableHead>
+      <TableHeadCell class="text-center">Nama Dokter</TableHeadCell>
+      <TableHeadCell class="text-center">Spesialis</TableHeadCell>
+      <TableHeadCell class="text-center">Keterangan</TableHeadCell>
+      <TableHeadCell class="text-center">Permintaan Pasien</TableHeadCell>
+      <TableHeadCell class="text-center">Status</TableHeadCell>
+      <TableHeadCell class="text-center">Aksi</TableHeadCell>
+    </TableHead>
+    <TableBody> 
+      {#each dummyAjuanDPJP as {nama_dokter, spesialis, keterangan, status, permintaan_pasien }}
+        <AjuanDpjp nama_dokter={nama_dokter} spesialis={spesialis}  keterangan={keterangan}  status={status} permintaan_pasien={permintaan_pasien}/>
       {/each}   
     </TableBody>
   </Table>

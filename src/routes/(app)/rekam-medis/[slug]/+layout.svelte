@@ -7,7 +7,8 @@
   import { goto } from '$app/navigation';
 
   const no_rm = $page.params.slug;
-  $: activeUrl = $page.route.id
+  
+  $: activeUrl = $page.route.id.split("/(app)/rekam-medis/[slug]/")[1] ? $page.route.id.split("/(app)/rekam-medis/[slug]/")[1].split("/")[0] : $page.route.id.split("/(app)/rekam-medis/[slug]/")[0]
 
   let barcode;
   const defaultOptions = {
@@ -37,8 +38,8 @@
 </script>
 
 <div class="overflow-y-auto relative max-h-screen p-6 sm:p-10 space-y-6">
-  <section class="grid grid-cols-12 gap-6 mt-10 px-4 py-6 bg-gray-50 dark:bg-gray-800 shadow rounded-lg">
-    <div class="col-span-12 sm:col-span-4 p-2">
+  <section class="grid grid-cols-12 gap-2 lg:gap-6 mt-10 px-4 py-2 lg:py-6 bg-gray-50 dark:bg-gray-800 shadow rounded-lg">
+    <div class="col-span-12 lg:col-span-4 p-2">
       <div class="flex items-center justify-center">
         <div class="p-4 border border-gray-300 w-max">
           <div class="flex justify-between gap-6">
@@ -53,7 +54,7 @@
           <canvas class="w-full" bind:this={barcode}></canvas>
         </div>
       </div>
-      <div class="flex items-center justify-between gap-4 mt-5">
+      <div class="flex items-center justify-between gap-4 mt-2 lg:mt-5">
         <div>
           <h5 
           class="inline-flex items-center text-md font-semibold text-gray-500 dark:text-gray-400">
@@ -81,28 +82,28 @@
           <Popover class="text-sm font-light " title="Nota Rawat Inap Pasien" triggeredBy="#billing"></Popover>
         </div>
       </div>
-      <div class="mt-5 overflow-y-auto h-80">
-        <div class="grid gap-2">
-          <a href="/rekam-medis/{no_rm}" class="{(activeUrl === "/rekam-medis/[slug]") ? "font-semibold" : ""} text-md hover:text-gray-500">Aktivitas Hari Ini</a>
-          <a href="/rekam-medis/{no_rm}/informasi-pasien" class="{(activeUrl === "/rekam-medis/[slug]/informasi-pasien") ? "font-semibold" : ""} text-md hover:text-gray-500">Informasi Pasien <span class="text-red-600">*</span></a>
-          <a href="/rekam-medis/{no_rm}/pemeriksaan-igd-poliklinik" class="{(activeUrl === "/rekam-medis/[slug]/pemeriksaan-igd-poliklinik") ? "font-semibold" : ""} text-md hover:text-gray-500">Pemeriksaan IGD/Poliklinik <span class="text-red-600">*</span></a>
-          <a href="/rekam-medis/{no_rm}/asesmen-rawat-inap" class="{(activeUrl === "/rekam-medis/[slug]/asesmen-rawat-inap") ? "font-semibold" : ""} text-md font-base hover:text-gray-500">Asesmen Medis Rawat Inap <span class="text-red-600">*</span></a>
-          <a href="/rekam-medis/{no_rm}/asesmen-medis-awal" class="{(activeUrl === "/rekam-medis/[slug]/asesmen-medis-awal") ? "font-semibold" : ""} text-md font-base hover:text-gray-500">Asesmen Medis Awal <span class="text-red-600">*</span></a>
-          <a href="/rekam-medis/{no_rm}/daftar-dokter-penanggungjawab-pasien"  class="{(activeUrl === "/rekam-medis/[slug]/daftar-dokter-penanggungjawab-pasien") ? "font-semibold" : ""} text-md font-base hover:text-gray-500" >Daftar DPJP <span class="text-red-600">*</span></a>
-          <a  href="/rekam-medis/{no_rm}/rekonsiliasi"  class="{(activeUrl === "/rekam-medis/[slug]/rekonsiliasi") ? "font-semibold" : ""} text-md font-base hover:text-gray-500" >Rekonsiliasi <span class="text-red-600">*</span></a>
-          <a href="/rekam-medis/{no_rm}/edukasi-pasien"  class="{(activeUrl === "/rekam-medis/[slug]/edukasi-pasien") ? "font-semibold" : ""} text-md font-base hover:text-gray-500" >Edukasi Pasien & Keluarga Terintegrasi <span class="text-red-600">(opsional)</span></a>
-          <a href="/rekam-medis/{no_rm}/observasi-cairan"  class="{(activeUrl === "/rekam-medis/[slug]/observasi-cairan") ? "font-semibold" : ""} text-md font-base hover:text-gray-500" >Observasi Cairan <span class="text-red-600">*</span></a>
-          <a href="/rekam-medis/{no_rm}/hasil-pemeriksaan-penunjang"  class="{(activeUrl === "/rekam-medis/[slug]/hasil-pemeriksaan-penunjang") ? "font-semibold" : ""} text-md font-base hover:text-gray-500" >Hasil Pemeriksaan Penunjang <span class="text-red-600">*</span></a>
-          <a href="/rekam-medis/{no_rm}/kopi-resep"  class="{(activeUrl === "/rekam-medis/[slug]/kopi-resep") ? "font-semibold" : ""} text-md font-base hover:text-gray-500" >Kopi Resep <span class="text-red-600">*</span></a>
-          <a href="/rekam-medis/{no_rm}/catatan-perkembangan-pasien-terintegrasi"  class=" {(activeUrl === "/rekam-medis/[slug]/catatan-perkembangan-pasien-terintegrasi") ? "font-semibold" : ""} text-md font-base hover:text-gray-500">Catatan Perkembangan Pasien Terintegrasi <span class="text-red-600">*</span></a>
-          <a href="/rekam-medis/{no_rm}/pemberian-obat-pasien"  class="{(activeUrl === "/rekam-medis/[slug]/pemberian-obat-pasien") ? "font-semibold" : ""} text-md font-base hover:text-gray-500" >Pemberian Obat Pasien <span class="text-red-600">*</span></a>
-          <a href="/rekam-medis/{no_rm}/news"  class="{(activeUrl === "/rekam-medis/[slug]/news") ? "font-semibold" : ""} text-md font-base hover:text-gray-500" >National Early Warning Score <span class="text-red-600">(opsional)</span></a>
-          <a href="/rekam-medis/{no_rm}/transfer-pasien-internal"  class="{(activeUrl === "/rekam-medis/[slug]/transfer-pasien-internal") ? "font-semibold" : ""} text-md font-base hover:text-gray-500" >Transfer Pasien Internal <span class="text-red-600">(opsional)</span></a>
-          <a href="/rekam-medis/{no_rm}/ringkasan-pasien-pulang"  class="{(activeUrl === "/rekam-medis/[slug]/ringkasan-pasien-pulang") ? "font-semibold" : ""} text-md font-base hover:text-gray-500" >Ringkasan Pasien Pulang <span class="text-red-600">*</span></a>
+      <div class="py-2 lg:py-4 mt-2 overflow-y-auto h-32 lg:h-80 border-b lg:border-none">
+        <div class="grid gap-1 lg:gap-2">
+          <a href="/rekam-medis/{no_rm}" class="{(activeUrl === "/(app)/rekam-medis/[slug]") ? "font-semibold" : ""} text-sm lg:text-md hover:text-gray-500">Log Aktivitas Sistem</a>
+          <a href="/rekam-medis/{no_rm}/informasi-pasien" class="{(activeUrl === "informasi-pasien") ? "font-semibold" : ""} text-sm lg:text-md hover:text-gray-500">Informasi Pasien <span class="text-red-600">*</span></a>
+          <a href="/rekam-medis/{no_rm}/pemeriksaan-igd-poliklinik" class="{(activeUrl === "pemeriksaan-igd-poliklinik") ? "font-semibold" : ""} text-sm lg:text-md hover:text-gray-500">Pemeriksaan IGD/Poliklinik <span class="text-red-600">*</span></a>
+          <a href="/rekam-medis/{no_rm}/asesmen-medis-awal" class="{(activeUrl === "asesmen-medis-awal") ? "font-semibold" : ""} text-sm lg:text-md font-base hover:text-gray-500">Asesmen Medis Awal <span class="text-red-600">*</span></a>
+          <a href="/rekam-medis/{no_rm}/asesmen-rawat-inap" class="{(activeUrl === "asesmen-rawat-inap") ? "font-semibold" : ""} text-sm lg:text-md font-base hover:text-gray-500">Asesmen Medis Rawat Inap <span class="text-red-600">*</span></a>
+          <a href="/rekam-medis/{no_rm}/edukasi-pasien"  class="{(activeUrl === "edukasi-pasien") ? "font-semibold" : ""} text-sm lg:text-md font-base hover:text-gray-500" >Edukasi Pasien & Keluarga Terintegrasi <span class="text-red-600">(opsional)</span></a>
+          <a href="/rekam-medis/{no_rm}/transfer-pasien-internal"  class="{(activeUrl === "transfer-pasien-internal") ? "font-semibold" : ""} text-sm lg:text-md font-base hover:text-gray-500" >Transfer Pasien Internal <span class="text-red-600">(opsional)</span></a>
+          <a href="/rekam-medis/{no_rm}/hasil-pemeriksaan-penunjang"  class="{(activeUrl === "hasil-pemeriksaan-penunjang") ? "font-semibold" : ""} text-sm lg:text-md font-base hover:text-gray-500" >Hasil Pemeriksaan Penunjang <span class="text-red-600">*</span></a>
+          <a href="/rekam-medis/{no_rm}/kopi-resep"  class="{(activeUrl === "kopi-resep") ? "font-semibold" : ""} text-sm lg:text-md font-base hover:text-gray-500" >Kopi Resep <span class="text-red-600">*</span></a>
+          <a href="/rekam-medis/{no_rm}/catatan-perkembangan-pasien-terintegrasi"  class=" {(activeUrl === "catatan-perkembangan-pasien-terintegrasi") ? "font-semibold" : ""} text-sm lg:text-md font-base hover:text-gray-500">Catatan Perkembangan Pasien Terintegrasi <span class="text-red-600">*</span></a>
+          <a href="/rekam-medis/{no_rm}/observasi-cairan"  class="{(activeUrl === "observasi-cairan") ? "font-semibold" : ""} text-sm lg:text-md font-base hover:text-gray-500" >Observasi Cairan <span class="text-red-600">*</span></a>
+          <a href="/rekam-medis/{no_rm}/pemberian-obat-pasien"  class="{(activeUrl === "pemberian-obat-pasien") ? "font-semibold" : ""} text-sm lg:text-md font-base hover:text-gray-500" >Pemberian Obat Pasien <span class="text-red-600">*</span></a>
+          <a  href="/rekam-medis/{no_rm}/rekonsiliasi"  class="{(activeUrl === "rekonsiliasi") ? "font-semibold" : ""} text-sm lg:text-md font-base hover:text-gray-500" >Rekonsiliasi <span class="text-red-600">*</span></a>
+          <a href="/rekam-medis/{no_rm}/daftar-dokter-penanggungjawab-pasien"  class="{(activeUrl === "daftar-dokter-penanggungjawab-pasien") ? "font-semibold" : ""} text-sm lg:text-md font-base hover:text-gray-500" >Dokter Penanggung Jawab Pasien <span class="text-red-600">*</span></a>
+          <a href="/rekam-medis/{no_rm}/news"  class="{(activeUrl === "news") ? "font-semibold" : ""} text-sm lg:text-md font-base hover:text-gray-500" >National Early Warning Score <span class="text-red-600">(opsional)</span></a>
+          <a href="/rekam-medis/{no_rm}/ringkasan-pasien-pulang"  class="{(activeUrl === "ringkasan-pasien-pulang") ? "font-semibold" : ""} text-sm lg:text-md font-base hover:text-gray-500" >Ringkasan Pasien Pulang <span class="text-red-600">*</span></a>
         </div>
       </div>
     </div>
-    <div class="col-span-12 sm:col-span-8 sm:order-first sm:border-r p-4">
+    <div class="col-span-12 lg:col-span-8 lg:order-first lg:border-r py-2 lg:py-4 px-4">
       <slot/>
     </div>
   </section>

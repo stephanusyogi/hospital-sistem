@@ -1,6 +1,6 @@
 <script>
 
-  import { Accordion, AccordionItem, Button, Input, Label, Radio, Select, Table, TableBody, TableBodyCell, TableBodyRow, TableHead, TableHeadCell, Textarea} from "flowbite-svelte";
+  import { Accordion, AccordionItem, Button, ButtonGroup, Input, InputAddon, Label, Radio, Select, Table, TableBody, TableBodyCell, TableBodyRow, TableHead, TableHeadCell, Textarea} from "flowbite-svelte";
   import { page } from '$app/stores';
   import { goto } from '$app/navigation';
   import Swal from 'sweetalert2';
@@ -99,7 +99,7 @@
   <form on:submit|preventDefault={()=>handleSubmit(no_rm)}>
     <div class="flex items-center justify-between">
       <div>
-        <p class="text-xl font-semibold">Transfer Pasien Internal</p>
+        <p class="text-xl font-semibold">Form 12.13 Transfer Pasien Internal</p>
         <p class="text-red-500 text-sm">(*) Wajib diisi.</p>
       </div>
       <Button type="submit" color="green">Simpan Perubahan</Button>
@@ -275,7 +275,7 @@
             <TableHeadCell>Sebelum di Transfer</TableHeadCell>
             <TableHeadCell>Saat Diterima</TableHeadCell>
           </TableHead>
-          <TableBody class="divide-y">
+          <TableBody>
             <TableBodyRow>
               <TableBodyCell>Kesadaran Umum</TableBodyCell>
               <TableBodyCell>
@@ -315,94 +315,75 @@
             <TableBodyRow>
               <TableBodyCell>Tekanan Darah</TableBodyCell>
               <TableBodyCell>
-                <div class="flex items-center">
-                  <div class="w-40">
-                    <Input name="tekanan_darah_sebelum_ditransfer" type="number"/>
-                  </div>
-                  <p class="ml-2">mmHg</p>
-                </div>
+                <p>Sebelum ditransfer:</p>
+                <ButtonGroup class="w-full col-span-2" size="md">
+                  <Input id="input-addon-md" type="text" name="tekanan_darah_sebelum_ditransfer" size="sm"/>
+                  <InputAddon>mmHg</InputAddon>
+                </ButtonGroup>
               </TableBodyCell>
               <TableBodyCell>
-                <div class="flex items-center">
-                  <div class="w-40">
-                    <Input name="tekanan_darah_saat_diterima" type="number"/>
-                  </div>
-                  <p class="ml-2">mmHg</p>
-                </div>
+                <ButtonGroup class="w-full col-span-2" size="md">
+                  <Input id="input-addon-md" type="text" name="tekanan_darah_saat_diterima" size="sm"/>
+                  <InputAddon>mmHg</InputAddon>
+                </ButtonGroup>
               </TableBodyCell>
             </TableBodyRow>
             <TableBodyRow>
               <TableBodyCell>Suhu & Nadi</TableBodyCell>
               <TableBodyCell>
                 <p>Suhu:</p>
-                <div class="flex items-center">
-                  <div class="w-40">
-                    <Input name="suhu_sebelum_ditransfer" type="number"/>
-                  </div>
-                  <p class="ml-2">C</p>
-                </div>
+                <ButtonGroup class="w-full col-span-2" size="md">
+                  <Input id="input-addon-md" type="text" name="suhu_sebelum_ditransfer" size="sm"/>
+                  <InputAddon>°C</InputAddon>
+                </ButtonGroup>
                 <br>
                 <p>Nadi:</p>
-                <div class="flex items-center">
-                  <div class="w-40">
-                    <Input name="nadi_sebelum_ditransfer" type="number"/>
-                  </div>
-                  <p class="ml-2">x/menit</p>
-                </div>
+                <ButtonGroup class="w-full col-span-2" size="md">
+                  <Input id="input-addon-md" type="text" name="nadi_sebelum_ditransfer" size="sm"/>
+                  <InputAddon>x/mnt</InputAddon>
+                </ButtonGroup>
               </TableBodyCell>
               <TableBodyCell>
                 <p>Suhu:</p>
-                <div class="flex items-center">
-                  <div class="w-40">
-                    <Input name="suhu_saat_diterima" type="number"/>
-                  </div>
-                  <p class="ml-2">C</p>
-                </div>
+                <ButtonGroup class="w-full col-span-2" size="md">
+                  <Input id="input-addon-md" type="text" name="suhu_saat_diterima" size="sm"/>
+                  <InputAddon>°C</InputAddon>
+                </ButtonGroup>
                 <br>
                 <p>Nadi:</p>
-                <div class="flex items-center">
-                  <div class="w-40">
-                    <Input name="nadi_saat_diterima" type="number"/>
-                  </div>
-                  <p class="ml-2">x/menit</p>
-                </div>
+                <ButtonGroup class="w-full col-span-2" size="md">
+                  <Input id="input-addon-md" type="text" name="nadi_saat_diterima" size="sm"/>
+                  <InputAddon>x/mnt</InputAddon>
+                </ButtonGroup>
               </TableBodyCell>
             </TableBodyRow>
             <TableBodyRow>
               <TableBodyCell>RR & Saturasi</TableBodyCell>
               <TableBodyCell>
                 <p>RR:</p>
-                <div class="flex items-center">
-                  <div class="w-40">
-                    <Input name="rr_sebelum_ditransfer" type="number"/>
-                  </div>
-                  <p class="ml-2">x/menit</p>
-                </div>
+                <ButtonGroup class="w-full col-span-2" size="md">
+                  <Input id="input-addon-md" type="text" name="rr_sebelum_ditransfer" size="sm"/>
+                  <InputAddon>x/mnt</InputAddon>
+                </ButtonGroup>
                 <br>
                 <p>Saturasi:</p>
-                <div class="flex items-center">
-                  <div class="w-40">
-                    <Input name="saturasi_sebelum_ditransfer" type="number"/>
-                  </div>
-                  <p class="ml-2">%</p>
-                </div>
+                <ButtonGroup class="w-full col-span-2" size="md">
+                  <Input id="input-addon-md" type="text" name="saturasi_sebelum_ditransfer" size="sm"/>
+                  <InputAddon>%</InputAddon>
+                </ButtonGroup>
               </TableBodyCell>
               <TableBodyCell>
                 <p>RR:</p>
-                <div class="flex items-center">
-                  <div class="w-40">
-                    <Input name="rr_saat_diterima" type="number"/>
-                  </div>
-                  <p class="ml-2">x/menit</p>
-                </div>
+                <ButtonGroup class="w-full col-span-2" size="md">
+                  <Input id="input-addon-md" type="text" name="rr_saat_diterima" size="sm"/>
+                  <InputAddon>x/mnt</InputAddon>
+                </ButtonGroup>
                 <br>
                 <p>Saturasi:</p>
-                <div class="flex items-center">
-                  <div class="w-40">
-                    <Input name="saturasi_saat_diterima" type="number"/>
-                  </div>
-                  <p class="ml-2">%</p>
-                </div>
+                <ButtonGroup class="w-full col-span-2" size="md">
+                  <Input id="input-addon-md" type="text" name="saturasi_saat_diterima" size="sm"/>
+                  <InputAddon>x/mnt</InputAddon>
+                </ButtonGroup>
               </TableBodyCell>
             </TableBodyRow>
             <TableBodyRow>

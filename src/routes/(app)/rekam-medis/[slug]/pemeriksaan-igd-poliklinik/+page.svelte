@@ -19,14 +19,18 @@
         <p class="text-xl font-semibold">Data Pemeriksaan</p>
         <hr class="my-2">
         <div class="grid grid-cols-2 gap-6 py-2">
-          <div class="grid grid-cols-2 gap-6 border p-4 text-sm col-span-2">
-            <p class="font-medium">Pasien Masuk Melalui</p>
-            <p class="font-light text-right">Poliklinik Jiwa</p>
+          <div class="grid grid-cols-2 gap-6 border p-4 text-sm">
+            <p class="font-medium">Unit Penerima</p>
+            <p class="font-light text-right">IGD</p>
+          </div>
+          <div class="grid grid-cols-2 gap-6 border p-4 text-sm">
+            <p class="font-medium">Asal Rujukan</p>
+            <p class="font-light text-right">Datang Sendiri</p>
           </div>
           <div class="grid grid-cols-2 gap-6 border p-4 text-sm col-span-2">
             <p class="font-medium col-span-2">Diagnosa & Tindakan</p>
             <div class="grid grid-cols-2 gap-4 col-span-2">
-              <p class="font-medium">DPJP Utama:</p>
+              <p class="font-medium">DPJP:</p>
               <p class="font-light text-right">dr. Khal Drogo, M.Biomed, Sp.PD</p>
             </div>
             <div class="grid grid-cols-2 gap-4 col-span-2">

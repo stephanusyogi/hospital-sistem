@@ -259,8 +259,8 @@
             <p class="text-lg font-medium italic">Diagnosa & Tindakan</p>
             <div class="grid grid-cols-2 gap-4 py-2">
               <div class="col-span-2 grouphelperPagination">
-                <Label>DPJP Utama:  <span class="text-red-500 text-lg">*</span>
-                  <Select name="dpjp_utama" class="mt-2" items={dpjpUtama}/>
+                <Label>DPJP:  <span class="text-red-500 text-lg">*</span>
+                  <Select name="dpjp" class="mt-2" items={dpjpUtama}/>
                 </Label>
               </div>
               <div class="grouphelperPagination col-span-2 flex gap-4">

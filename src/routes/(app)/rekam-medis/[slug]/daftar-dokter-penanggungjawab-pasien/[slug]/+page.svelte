@@ -61,9 +61,8 @@
     <hr class="my-5">
     <div class="grid grid-cols-2 gap-4">
       <div class="my-2">
-        <Label>Nama DPJP: <span class="text-sm text-red-500 italic">*</span>
-          <Select class="mt-2" items={dpjp}/>
-        </Label>
+        <Label>Nama DPJP: <span class="text-sm text-red-500 italic">*</span></Label>
+        dr. Ramsay Bolton, Sp AN
       </div>
       <div class="my-2">
         <Label>Status: <span class="text-sm text-red-500 italic">*</span>
@@ -71,20 +70,16 @@
         </Label>
       </div>
       <div class="my-2">
-        <Label for="" class="mb-2">Diagnosa: <span class="text-sm text-red-500 italic">*</span></Label>
-        <Textarea id="" placeholder="Masukkan Diagnosa" rows="2" name="diagnosa"/>
+        <Label for="" class="mb-2">Tanggal Mulai: <span class="text-sm text-red-500 italic">*</span></Label>
+        <Input type="date" name="tgl_mulai_dpjp_utama"/>
       </div>
       <div class="my-2">
-        <div class="flex flex-wrap gap-2">
-          <div class="content">
-            <Label for="" class="mb-2">Tanggal Mulai: <span class="text-sm text-red-500 italic">*</span></Label>
-            <Input type="date" name="tgl_mulai_dpjp_utama"/>
-          </div>
-          <div class="content">
-            <Label for="" class="mb-2">Tanggal Selesai: <span class="text-sm text-red-500 italic">*</span></Label>
-            <Input type="date" name="tgl_selesai_dpjp_utama"/>
-          </div>
-        </div>
+        <Label for="" class="mb-2">Tanggal Selesai: <span class="text-sm text-red-500 italic">*</span></Label>
+        <Input type="date" name="tgl_selesai_dpjp_utama"/>
+      </div>
+      <div class="my-2 col-span-2">
+        <Label for="" class="mb-2">Diagnosa: <span class="text-sm text-red-500 italic">*</span></Label>
+        <Textarea id="" placeholder="Masukkan Diagnosa" rows="2" name="diagnosa"/>
       </div>
     </div>
   </form>

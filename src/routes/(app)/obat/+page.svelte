@@ -5,6 +5,10 @@
   import { page } from '$app/stores';
   import Obat from "./Obat.svelte";
   import Icon from "@iconify/svelte";
+  
+  /** @type {import('./$types').PageData} */
+  export let data;
+  const user_data = data?.user_data
 
   let dummyObat = [
     {
@@ -89,7 +93,9 @@
   <section class="px-4 py-6 bg-gray-50 dark:bg-gray-800 shadow rounded-lg">
     <div class="flex items-center justify-between">
       <p class="font-semibold text-2xl">Data Obat & Bahan Habis Pakai RSI Aisyah</p>
-      <Button size="md" color="blue" on:click={() => goto("/obat/tambah")}><Icon icon="icon-park-solid:medicine-bottle" width="25" height="25" class="mr-2"/>Tambah Obat</Button>
+      {#if user_data.role === "Farmasi"}
+        <Button size="md" color="blue" on:click={() => goto("/obat/tambah")}><Icon icon="icon-park-solid:medicine-bottle" width="25" height="25" class="mr-2"/>Tambah Obat</Button>
+      {/if}
     </div>
     <hr class="my-5">
     <div class="flex justify-between items-center">
@@ -127,11 +133,13 @@
         <TableHeadCell class="text-center">Kode Barang</TableHeadCell>
         <TableHeadCell class="text-center">Nama Barang</TableHeadCell>
         <TableHeadCell class="text-center">Harga</TableHeadCell>
+        {#if user_data.role === "Farmasi"}
         <TableHeadCell class="text-center">Aksi</TableHeadCell>
+        {/if}
       </TableHead>
       <TableBody>    
         {#each dummyObat as {kode, nama, harga }}
-          <Obat kode={kode} nama={nama} harga={harga}/>
+          <Obat kode={kode} nama={nama} harga={harga} user_data={user_data}/>
         {/each}
       </TableBody>
     </Table>

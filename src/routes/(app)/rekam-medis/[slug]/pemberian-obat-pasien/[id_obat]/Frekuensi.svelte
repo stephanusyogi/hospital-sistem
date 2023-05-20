@@ -1,6 +1,6 @@
 <script>
-
-  import { Button, Label, Modal, Radio, TableBodyCell, TableBodyRow, Textarea } from "flowbite-svelte";
+  import Icon from '@iconify/svelte';
+  import { Button, Checkbox, Label, Modal, Radio, TableBodyCell, TableBodyRow, Textarea } from "flowbite-svelte";
   export let tgl_jam, farmasi, perawat,pasien ,rotd,catatan
   import Swal from "sweetalert2";
 
@@ -63,9 +63,27 @@
 </script>
 <TableBodyRow>
   <TableBodyCell {tdClass}>{tgl_jam}</TableBodyCell>
-  <TableBodyCell {tdClass}>{farmasi}</TableBodyCell>
-  <TableBodyCell {tdClass}>{perawat}</TableBodyCell>
-  <TableBodyCell {tdClass}>{pasien}</TableBodyCell>
+  <TableBodyCell {tdClass}>
+    {#if farmasi}
+      <Icon icon="material-symbols:check" class="mx-auto"/>
+    {:else}
+      -
+    {/if}
+  </TableBodyCell>
+  <TableBodyCell {tdClass}>
+    {#if perawat}
+      <Icon icon="material-symbols:check" class="mx-auto"/>
+    {:else}
+      -
+    {/if}
+  </TableBodyCell>
+  <TableBodyCell {tdClass}>
+    {#if pasien}
+      <Icon icon="material-symbols:check" class="mx-auto"/>
+    {:else}
+      -
+    {/if}
+  </TableBodyCell>
   <TableBodyCell {tdClass}>{(rotd) ? "Ada" : "Tidak Ada"}</TableBodyCell>
   <TableBodyCell {tdClass}>{catatan}</TableBodyCell>
   <TableBodyCell {tdClass}>
@@ -79,24 +97,29 @@
 <Modal bind:open={modalEdit} size="md" autoclose={false} class="w-full">
   <form on:submit|preventDefault={handleSubmit}>
     <div class="grid grid-cols-2 gap-6">
-      <Label class="space-y-2">
-        <span>Farmasi</span>
-        <Textarea id="" name=""/>
-      </Label>
-      <Label class="space-y-2">
-        <span>Perawat</span>
-        <Textarea id="" name=""/>
-      </Label>
-      <Label class="space-y-2">
-        <span>Pasien</span>
-        <Textarea id="" name=""/>
-      </Label>
+      <div class="space-y-2 col-span-2">
+        <Label>Verifikasi</Label>
+        <div class="flex gap-4">
+          <Label>
+            <Checkbox name="verifikasi_farmasi"/>
+            Farmasi
+          </Label>
+          <Label>
+            <Checkbox name="verifikasi_perawat"/>
+            Perawat
+          </Label>
+          <Label>
+            <Checkbox name="verifikasi_pasien"/>
+            Pasien
+          </Label>
+        </div>
+      </div>
       <Label class="space-y-2">
         <span>ROTD (Reaksi Obat yang Tidak Diharapkan)</span>
         <Radio name="rotd">Ada</Radio>
         <Radio name="rotd">Tidak Ada</Radio>
       </Label>
-      <Label class="space-y-2 col-span-2">
+      <Label class="space-y-2">
         <span>Catatan</span>
         <Textarea id="" name=""/>
       </Label>

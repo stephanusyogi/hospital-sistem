@@ -1,6 +1,6 @@
 <script>
 
-  import { Accordion, AccordionItem, Button, Checkbox, Input, Label, Radio, TabItem, Tabs, Textarea } from "flowbite-svelte";
+  import { Accordion, AccordionItem, Button, ButtonGroup, Checkbox, Input, InputAddon, Label, Radio, TabItem, Tabs, Textarea } from "flowbite-svelte";
   import { page } from '$app/stores';
   import { goto } from '$app/navigation';
   import Swal from 'sweetalert2';
@@ -60,7 +60,7 @@
   <form on:submit|preventDefault={()=>handleSubmit(no_rm)}>
     <div class="flex items-center justify-between">
       <div>
-        <p class="text-xl font-semibold">Asesmen Rawat Inap</p>
+        <p class="text-xl font-semibold">Form 12.31 Asesmen Rawat Inap</p>
         <p class="text-red-500 text-sm">(*) Wajib diisi.</p>
       </div>
       <Button type="submit" color="green">Simpan Perubahan</Button>
@@ -86,7 +86,7 @@
           <!-- Alloanamnesa -->
           <AccordionItem>
             <span slot="header">Alloanamnesa <span class="text-sm text-red-500 italic">*</span></span>
-            <div class="grid grid-cols-3 gap-4">
+            <div class="grid grid-cols-2 lg:grid-cols-3 gap-4">
               <div class="my-2">
                 <Label for="" class="mb-2">Riwayat Penyakit Pasien: <span class="text-sm text-red-500 italic">*</span></Label>
                 <div class="flex flex-wrap gap-2">
@@ -229,29 +229,37 @@
           <!-- Heteroanamnesa -->
           <AccordionItem>
             <span slot="header">Heteroanamnesa <span class="text-sm text-red-500 italic">*</span></span>
-            <div class="grid grid-cols-3 gap-4">
+            <div class="grid grid-cols-2 lg:grid-cols-3 gap-4">
               <div class="my-2">
                 <Label for="" class="mb-2">Tanda-Tanda Vital: <span class="text-sm text-red-500 italic">*</span></Label>
                 <div class="flex flex-col gap-2">
                   <div class="grid grid-cols-3 gap-2">
                     <span>Suhu:</span>
-                    <Input type="text" defaultClass="block w-full disabled:cursor-not-allowed disabled:opacity-50" name="suhu" size="sm" />
-                    <span>C</span>
+                    <ButtonGroup class="w-full col-span-2" size="md">
+                      <Input id="input-addon-md" type="text" name="suhu" size="sm"/>
+                      <InputAddon>°C</InputAddon>
+                    </ButtonGroup>
                   </div>
                   <div class="grid grid-cols-3 gap-2">
                     <span>SpO2:</span>
-                    <Input type="text" defaultClass="block w-full disabled:cursor-not-allowed disabled:opacity-50" name="sp02" size="sm" />
-                    <span>%</span>
+                    <ButtonGroup class="w-full col-span-2" size="md">
+                      <Input id="input-addon-md" type="text" name="sp02" size="sm"/>
+                      <InputAddon>%</InputAddon>
+                    </ButtonGroup>
                   </div>
                   <div class="grid grid-cols-3 gap-2">
                     <span>Nadi:</span>
-                    <Input type="text" defaultClass="block w-full disabled:cursor-not-allowed disabled:opacity-50" name="nadi" size="sm" />
-                    <span>x/mnt</span>
+                    <ButtonGroup class="w-full col-span-2" size="md">
+                      <Input id="input-addon-md" type="text" name="nadi" size="sm"/>
+                      <InputAddon>%</InputAddon>
+                    </ButtonGroup>
                   </div>
                   <div class="grid grid-cols-3 gap-2">
                     <span>Tensi:</span>
-                    <Input type="text" defaultClass="block w-full disabled:cursor-not-allowed disabled:opacity-50" name="tensi" size="sm" />
-                    <span>mmHg</span>
+                    <ButtonGroup class="w-full col-span-2" size="md">
+                      <Input id="input-addon-md" type="text" name="tensi" size="sm"/>
+                      <InputAddon>mmHg</InputAddon>
+                    </ButtonGroup>
                   </div>
                 </div>
               </div>
@@ -309,7 +317,7 @@
           <!-- Pemeriksaan Kepala & Leher -->
           <AccordionItem>
             <span slot="header">Pemeriksaan Kepala & Leher <span class="text-sm text-red-500 italic">*</span></span>
-            <div class="grid grid-cols-3 gap-4">
+            <div class="grid grid-cols-2 lg:grid-cols-3 gap-4">
               <div class="my-2">
                 <Label for="" class="mb-2">Mata: <span class="text-sm text-red-500 italic">*</span></Label>
                 <div class="flex flex-wrap gap-2">
@@ -437,7 +445,7 @@
           <!-- Pemeriksaan Abdomen -->
           <AccordionItem>
             <span slot="header">Pemeriksaan Abdomen <span class="text-sm text-red-500 italic">*</span></span>
-            <div class="grid grid-cols-4 gap-4">
+            <div class="grid grid-cols-2 lg:grid-cols-4 gap-4">
               <div class="my-2">
                 <Label for="" class="mb-2">Palpasi: <span class="text-sm text-red-500 italic">*</span></Label>
                 <div class="flex flex-wrap gap-2">
@@ -562,7 +570,7 @@
               <p class="text-lg font-semibold">Total Nilai : <span>-</span></p>
               <p class="text-sm font-medium italic">15 (CM), 13-14 (Penurunan Kesadaran Ringan), 9-12 (Penurunan Kesadaran Sedang), 3-8 (Penurunan Kesadaran Berat)</p>
             </div>
-            <div class="grid grid-cols-3 gap-4 my-5">
+            <div class="grid grid-cols-2 lg:grid-cols-3 gap-4 my-5">
               <div class="my-2">
                 <Label for="" class="mb-2">Mata: <span class="text-sm text-red-500 italic">*</span></Label>
                 <div class="flex flex-wrap gap-2">
@@ -598,7 +606,7 @@
           <!-- Pemeriksaan Muskuloskeletal & Kulit (Mobilitas, Fungsi Sendi, Warna Kulit, Turgor) -->
           <AccordionItem>
             <span slot="header">Pemeriksaan Muskuloskeletal & Kulit (Mobilitas, Fungsi Sendi, Warna Kulit, Turgor) <span class="text-sm text-red-500 italic">*</span></span>
-            <div class="grid grid-cols-3 gap-4">
+            <div class="grid grid-cols-2 lg:grid-cols-3 gap-4">
               <div class="my-2">
                 <Label for="" class="mb-2">Mobilitas: <span class="text-sm text-red-500 italic">*</span></Label>
                 <div class="flex flex-wrap gap-2">
@@ -645,7 +653,7 @@
               <p class="text-lg font-semibold">Total Skor : <span>-</span></p>
               <p class="text-sm font-medium italic">*Skor kurang dari 14 = Resiko Tinggi, lakukan pencegahan dekubitus sesuai prosedur</p>
             </div>
-            <div class="grid grid-cols-4 gap-4 my-5">
+            <div class="grid grid-cols-2 lg:grid-cols-4 gap-4 my-5">
               <div class="my-2">
                 <Label for="" class="mb-2">Kondisi Fisik: <span class="text-sm text-red-500 italic">*</span></Label>
                 <div class="flex flex-wrap gap-2">
@@ -700,7 +708,7 @@
               <p class="text-lg font-semibold">Total Nilai ADL : <span>-</span></p>
               <p class="text-sm font-medium italic">Skor: 6, Tidak Ada Ketergantungan. Skor: 3-5, Ketergantungan Sebagian. Skor: 0-2, Tergantung Penuh.</p>
             </div>
-            <div class="grid grid-cols-4 gap-4 my-5">
+            <div class="grid grid-cols-2 lg:grid-cols-4 gap-4 my-5">
               <div class="my-2">
                 <Label for="" class="mb-2">Makan / Minum: <span class="text-sm text-red-500 italic">*</span></Label>
                 <div class="flex flex-wrap gap-2">
@@ -753,19 +761,23 @@
               <p class="text-sm font-medium italic">0: Resiko Rendah, 1: Resiko Sedang, Lebih dari 2: Resiko Tinggi</p>
               <p class="text-sm font-medium italic">(Kolaborasi dengan Ahli Gizi)</p>
             </div>
-            <div class="grid grid-cols-3 gap-4">
-              <div class="my-2 col-span-3">
+            <div class="grid grid-cols-2 lg:grid-cols-3 gap-4">
+              <div class="my-2 col-span-2 lg:col-span-3">
                 <Label for="" class="mb-2">Tanda-Tanda Vital: <span class="text-sm text-red-500 italic">*</span></Label>
                 <div class="grid grid-cols-2 gap-2">
                   <div class="grid grid-cols-3 gap-2">
                     <span>Tinggi Badan:</span>
-                    <Input type="text" defaultClass="block w-full disabled:cursor-not-allowed disabled:opacity-50" name="tb" size="sm" />
-                    <span>cm</span>
+                    <ButtonGroup class="w-full col-span-2" size="md">
+                      <Input id="input-addon-md" type="text" name="tb" size="sm"/>
+                      <InputAddon>cm</InputAddon>
+                    </ButtonGroup>
                   </div>
                   <div class="grid grid-cols-3 gap-2">
                     <span>Berat Badan:</span>
-                    <Input type="text" defaultClass="block w-full disabled:cursor-not-allowed disabled:opacity-50" name="bb" size="sm" />
-                    <span>kg</span>
+                    <ButtonGroup class="w-full col-span-2" size="md">
+                      <Input id="input-addon-md" type="text" name="bb" size="sm"/>
+                      <InputAddon>kg</InputAddon>
+                    </ButtonGroup>
                   </div>
                 </div>
               </div>
@@ -802,7 +814,7 @@
               <p class="text-lg font-semibold">Total Skor : <span>-</span></p>
               <p class="text-sm font-medium italic">Lebih dari 45: Resiko Tinggi, 25-44: Resiko Sedang, 0-24: Resiko Rendah</p>
             </div>
-            <div class="grid grid-cols-3 gap-4">
+            <div class="grid grid-cols-2 lg:grid-cols-3 gap-4">
               <div class="my-2">
                 <Label for="" class="mb-2">Riwayat jatuh: <span class="text-sm text-red-500 italic">*</span></Label>
                 <div class="flex flex-wrap gap-2">

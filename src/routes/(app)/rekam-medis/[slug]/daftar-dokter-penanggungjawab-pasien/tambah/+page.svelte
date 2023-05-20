@@ -1,6 +1,6 @@
 <script>
 
-  import { Button, Input, Label, Select, Textarea } from "flowbite-svelte";
+  import { Button, Checkbox, Input, Label, Select, Textarea } from "flowbite-svelte";
   import Swal from "sweetalert2";
   import { goto } from '$app/navigation';
 
@@ -17,17 +17,17 @@
   
   const handleSubmit = () => {
     Swal.fire({
-      title: 'Tambahkan Dokter?',
+      title: 'Ajukan Permintaan Dokter?',
       text: 'Mohon berhati-hati, aksi ini bersifat permanen pada database.',
       showDenyButton: true,
       showCancelButton: false,
-      confirmButtonText: 'Tambah',
+      confirmButtonText: 'Ajukan',
       denyButtonText: `Batal`,
     }).then((result) => {
       if (result.isConfirmed) {
         Swal.fire({
           icon: 'success',
-          title: 'Dokter Berhasil Ditambahkan',
+          title: 'Dokter Berhasil Diajukan, Mohon Tunggu Kesediaan',
           showConfirmButton: false,
           timer: 1000
         }).then(()=>{
@@ -50,42 +50,26 @@
   <form on:submit|preventDefault={handleSubmit}>
     <div class="flex items-center justify-between">
       <div>
-        <p class="text-xl font-semibold">Formulir Update DPJP</p>
+        <p class="text-xl font-semibold">Formulir Permintaan Kesediaan DPJP</p>
         <p class="text-red-500 text-sm">(*) Wajib diisi.</p>
       </div>
       <div class="flex flex-wrap gap-4">
         <Button type="submit" color="green">
-          Simpan</Button>
+          Ajukan</Button>
       </div>
     </div>
     <hr class="my-5">
-    <div class="grid grid-cols-2 gap-4">
-      <div class="my-2">
-        <Label>Nama DPJP:  <span class="text-sm text-red-500 italic">*</span>
-          <Select class="mt-2" items={dpjp}/>
-        </Label>
-      </div>
-      <div class="my-2">
-        <Label>Status:  <span class="text-sm text-red-500 italic">*</span>
-          <Select class="mt-2" items={status}/>
-        </Label>
-      </div>
-      <div class="my-2">
-        <Label for="" class="mb-2">Diagnosa: <span class="text-sm text-red-500 italic">*</span></Label>
-        <Textarea id="" placeholder="Masukkan Diagnosa" rows="2" name="diagnosa"/>
-      </div>
-      <div class="my-2">
-        <div class="flex flex-wrap gap-2">
-          <div class="content">
-            <Label for="" class="mb-2">Tanggal Mulai: <span class="text-sm text-red-500 italic">*</span></Label>
-            <Input type="date" name="tgl_mulai_dpjp_utama"/>
-          </div>
-          <div class="content">
-            <Label for="" class="mb-2">Tanggal Selesai: <span class="text-sm text-red-500 italic">*</span></Label>
-            <Input type="date" name="tgl_selesai_dpjp_utama"/>
-          </div>
-        </div>
-      </div>
+    <div class="my-2">
+      <Label>Nama DPJP:  <span class="text-sm text-red-500 italic">*</span>
+        <Select class="mt-2" items={dpjp}/>
+      </Label>
+    </div>
+    <div class="my-2">
+      <Label for="" class="mb-2">Keterangan: <span class="text-sm text-red-500 italic">*</span></Label>
+      <Textarea id="" placeholder="Masukkan Keterangan" rows="2" name="keterangan"/>
+    </div>
+    <div class="my-2">
+      <Checkbox>Permintaan Pribadi Pasien Rawat Inap</Checkbox>
     </div>
   </form>
 </main>

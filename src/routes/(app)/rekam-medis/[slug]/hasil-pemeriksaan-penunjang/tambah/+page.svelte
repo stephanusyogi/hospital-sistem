@@ -38,7 +38,7 @@
   <form on:submit|preventDefault={handleSubmit}>
     <div class="flex items-center justify-between">
       <div>
-        <p class="text-xl font-semibold">Hasil Pemeriksaan Penunjang</p>
+        <p class="text-xl font-semibold">Form 12.21 Hasil Pemeriksaan Penunjang</p>
         <p class="text-red-500 text-sm">(*) Wajib diisi.</p>
       </div>
       <Button type="submit" color="green">

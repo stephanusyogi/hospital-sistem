@@ -40,7 +40,7 @@
   <form on:submit|preventDefault={()=>handleSubmit(no_rm)}>
     <div class="flex items-center justify-between">
       <div>
-        <p class="text-xl font-semibold">Edukasi Pasien & Keluarga Terintegrasi</p>
+        <p class="text-xl font-semibold">Form 12.10 Edukasi Pasien & Keluarga Terintegrasi</p>
         <p class="text-red-500 text-sm">(*) Wajib diisi.</p>
       </div>
       <div class="flex flex-wrap gap-4">

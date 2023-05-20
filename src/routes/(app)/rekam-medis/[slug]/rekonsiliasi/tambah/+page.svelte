@@ -112,12 +112,12 @@
         <Input placeholder="Masukkan Jumlah Obat Tersisa"/>
       </div>
       <div class="my-2">
-        <Label>Status Obat Saat Perawatn: <span class="text-sm text-red-500 italic">*</span>
+        <Label>Status Obat Saat Perawatan: <span class="text-sm text-red-500 italic">*</span>
           <Select class="mt-2" items={status_perawatan}/>
         </Label>
       </div>
       <div class="my-2">
-        <Label>Status Obat Saat Perawatn: <span class="text-sm text-red-500 italic">*</span>
+        <Label>Status Obat Saat Perawatan: <span class="text-sm text-red-500 italic">*</span>
           <Select class="mt-2" items={status_pulang}/>
         </Label>
       </div>

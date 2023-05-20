@@ -2,7 +2,7 @@
 
   import Swal from "sweetalert2";
   import { goto } from '$app/navigation';
-  import { Button, Label, Radio, Select, Textarea } from "flowbite-svelte";
+  import { Button, Checkbox, Label, Radio, Select, Textarea } from "flowbite-svelte";
 
   const handleSubmit = () => {
     Swal.fire({
@@ -51,24 +51,29 @@
     <div class="grid grid-cols-2 gap-4">
       <div class="my-2 col-span-2">
         <div class="grid grid-cols-2 gap-6">
-          <Label class="space-y-2">
-            <span>Farmasi</span>
-            <Textarea id="" name=""/>
-          </Label>
-          <Label class="space-y-2">
-            <span>Perawat</span>
-            <Textarea id="" name=""/>
-          </Label>
-          <Label class="space-y-2">
-            <span>Pasien</span>
-            <Textarea id="" name=""/>
-          </Label>
+          <div class="space-y-2 col-span-2">
+            <Label>Verifikasi</Label>
+            <div class="flex gap-4">
+              <Label>
+                <Checkbox name="verifikasi_farmasi"/>
+                Farmasi
+              </Label>
+              <Label>
+                <Checkbox name="verifikasi_perawat"/>
+                Perawat
+              </Label>
+              <Label>
+                <Checkbox name="verifikasi_pasien"/>
+                Pasien
+              </Label>
+            </div>
+          </div>
           <Label class="space-y-2">
             <span>ROTD (Reaksi Obat yang Tidak Diharapkan)</span>
             <Radio name="rotd">Ada</Radio>
             <Radio name="rotd">Tidak Ada</Radio>
           </Label>
-          <Label class="space-y-2 col-span-2">
+          <Label class="space-y-2">
             <span>Catatan</span>
             <Textarea id="" name=""/>
           </Label>

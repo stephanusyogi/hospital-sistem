@@ -33,6 +33,35 @@
     })
   }
   
+  const handleSubmitTambahHari = () => {
+    Swal.fire({
+      title: 'Tambah Hari Pemeriksaan NEWS Score?',
+      text: 'Mohon berhati-hati, aksi ini bersifat permanen pada database.',
+      showDenyButton: true,
+      showCancelButton: false,
+      confirmButtonText: 'Tambahkan',
+      denyButtonText: `Batal`,
+    }).then((result) => {
+      if (result.isConfirmed) {
+        Swal.fire({
+          icon: 'success',
+          title: 'NEWS Score Berhasil Diperbarui',
+          showConfirmButton: false,
+          timer: 1000
+        }).then(()=>{
+          goto("/rekam-medis/00123141/news")
+        })
+      } else if (result.isDenied) {
+        Swal.fire({
+          icon: 'info',
+          title: 'Aksi Dibatalkan',
+          showConfirmButton: false,
+          timer: 1000
+        })
+      }
+    })
+  }
+  
   let rr = [
     {value:"≥25", name: "≥25"},
     {value:"21-24", name: "12-20"},
@@ -96,7 +125,6 @@
 </script>
 
 <main>
-  
   <form on:submit|preventDefault={handleSubmit}>
     <div class="flex items-center justify-between">
       <div>
@@ -109,9 +137,9 @@
     </div>
     <hr class="my-5">
     <Tabs style="underline" defaultClass="flex overflow-x-auto rounded-lg divide-x divide-gray-200 shadow dark:divide-gray-700" contentClass="bg-gray-50 rounded-lg dark:bg-gray-800 mt-4">
-      <TabItem title="Minggu, 9 April 2023">
+      <TabItem open title="Minggu, 9 April 2023">
         <div class="overflow-y-auto max-h-screen">
-          <div class="grid grid-cols-4 gap-6 text-sm">
+          <div class="grid grid-cols-2 lg:grid-cols-4 gap-6 text-sm">
             <div class="p-2">
               <div class="mb-2">
                 <Label>RR
@@ -210,9 +238,9 @@
           </div>
         </div>
       </TabItem>
-      <TabItem open title="Senin, 10 April 2023 (Hari Ini)">
+      <TabItem title="Senin, 10 April 2023">
         <div class="overflow-y-auto max-h-screen">
-          <div class="grid grid-cols-4 gap-6 text-sm">
+          <div class="grid grid-cols-2 lg:grid-cols-4 gap-6 text-sm">
             <div class="p-2">
               <div class="mb-2">
                 <Label>RR
@@ -310,6 +338,118 @@
             </div>
           </div>
         </div>
+      </TabItem>
+      <TabItem title="Tambah Hari">
+        <form on:submit|preventDefault={handleSubmitTambahHari}>
+          <div class="flex items-center justify-between">
+            <div>
+              <Label for="" class="my-auto">Hari:</Label>
+              <Input type="date" id="" />
+            </div>
+            <Button type="submit" color="yellow">
+              Tambahkan Data</Button>
+          </div>
+          <br>
+          <div class="overflow-y-auto max-h-screen">
+            <div class="grid grid-cols-2 lg:grid-cols-4 gap-6 text-sm">
+              <div class="p-2">
+                <div class="mb-2">
+                  <Label>RR
+                    <Select class="mt-2 w-full" items={rr}/>
+                  </Label>
+                </div>
+                <div>
+                  <Label for="" class="mb-2">Score</Label>
+                  <Input type="text" id="" placeholder="" />
+                </div>
+              </div> 
+              <div class="p-2">
+                <div class="mb-2">
+                  <Label>SpO2
+                    <Select class="mt-2 w-full" items={spo2}/>
+                  </Label>
+                </div>
+                <div>
+                  <Label for="" class="mb-2">Score</Label>
+                  <Input type="text" id="" placeholder="" />
+                </div>
+              </div> 
+              <div class="p-2">
+                <div class="mb-2">
+                  <Label>Alat Bantu O2</Label>
+                </div>
+                <div>
+                  <Label for="" class="mb-2">Score</Label>
+                  <Input type="text" id="" placeholder="" />
+                </div>
+              </div>  
+              <div class="p-2">
+                <div class="mb-2">
+                  <Label>Suhu
+                    <Select class="mt-2 w-full" items={suhu}/>
+                  </Label>
+                </div>
+                <div>
+                  <Label for="" class="mb-2">Score</Label>
+                  <Input type="text" id="" placeholder="" />
+                </div>
+              </div>  
+              <div class="p-2">
+                <div class="mb-2">
+                  <Label>Tekanan Darah
+                    <Select class="mt-2 w-full" items={tekananDarah}/>
+                  </Label>
+                </div>
+                <div>
+                  <Label for="" class="mb-2">Score</Label>
+                  <Input type="text" id="" placeholder="" />
+                </div>
+              </div>  
+              <div class="p-2">
+                <div class="mb-2">
+                  <Label>Nadi
+                    <Select class="mt-2 w-full" items={nadi}/>
+                  </Label>
+                </div>
+                <div>
+                  <Label for="" class="mb-2">Score</Label>
+                  <Input type="text" id="" placeholder="" />
+                </div>
+              </div>
+              <div class="p-2">
+                <div class="mb-2">
+                  <Label>Tingkat Kesadaran</Label>
+                </div>
+                <div>
+                  <Label for="" class="mb-2">Sadar</Label>
+                  <Input type="text" id="" placeholder="" />
+                </div>
+                <div>
+                  <Label for="" class="mb-2">V/P/U</Label>
+                  <Input type="text" id="" placeholder="" />
+                </div>
+              </div>  
+              <div class="p-2">
+                <div class="mb-2">
+                  <Label>Kadar Gula Darah</Label>
+                </div>
+                <div>
+                  <Label for="" class="mb-2">Score</Label>
+                  <Input type="text" id="" placeholder="" />
+                </div>
+              </div>  
+              <div class="p-2">
+                <div class="mb-2">
+                  <Label>Total NEW Score</Label>
+                </div>
+                <div>
+                  <Label for="" class="mb-2">Score</Label>
+                  <Input type="text" id="" placeholder="" />
+                </div>
+              </div>
+            </div>
+          </div>
+        </form>
       </TabItem>
     </Tabs>
   </form>
