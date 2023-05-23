@@ -90,6 +90,23 @@
           </SidebarItem>
         </div>
       </SidebarGroup>
+    {:else}
+      <SidebarGroup ulClass="space-y-2">
+        <!-- List Menu -->
+        <div class="" on:mouseenter={()=>{openSideBar = true}} on:mouseleave={()=>{openSideBar ? openSideBar = true : openSideBar = false}}>
+          <SidebarItem class="{!openSideBar ? 'justify-center' : ''}" {aClass} label="Dashboard" href='/' active={activeUrl === '/'} spanClass="{openSideBar ? 'ml-1 text-left' : 'hidden'}" on:click={()=>{if(openSideBar) {openSideBar = false} }}>
+            <svelte:fragment slot="icon">
+              <Icon icon="carbon:meter" width="32" height="32"/>
+            </svelte:fragment>
+          </SidebarItem>
+          <hr class="my-1">
+          <SidebarItem class="{!openSideBar ? 'justify-center' : ''}" {aClass} label="Pasien Saya" href='/pasien-saya' active={activeUrl === '/pasien-saya'}  spanClass="{openSideBar ? 'ml-1 text-left' : 'hidden'}" on:click={()=>{if(openSideBar) {openSideBar = false} }}>
+            <svelte:fragment slot="icon">
+              <Icon icon="healthicons:outpatient" width="32" height="32"/>
+            </svelte:fragment>
+          </SidebarItem>
+        </div>
+      </SidebarGroup>
     {/if}
   </SidebarWrapper>
   <!-- svelte-ignore a11y-click-events-have-key-events -->

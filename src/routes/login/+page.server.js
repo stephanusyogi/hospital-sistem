@@ -13,7 +13,13 @@ const dummyUsers = [
     "username" : "laurentiusvico",
     "password" : "test123",
     "role" : "Farmasi",
-  }
+  },
+  {
+    "name" : "dr. Viserys II S, Sp.KJ",
+    "username" : "viserys",
+    "password" : "test123",
+    "role" : "Dokter",
+  },
 ];
 
 export function load({cookies}) {
