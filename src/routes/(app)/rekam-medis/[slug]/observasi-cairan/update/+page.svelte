@@ -68,7 +68,7 @@
   <form on:submit|preventDefault={handleSubmit}>
     <div class="flex items-center justify-between">
       <div>
-        <p class="text-xl font-semibold">Observasi Cairan</p>
+        <p class="text-xl font-semibold">Form 12.19 Observasi Cairan</p>
         <ul class="space-y-1 text-gray-500 list-disc list-inside dark:text-gray-400 text-xs lg:text-md">
           <li>Tulis pada bagian input, jenis cairan (infus, diet sonde/biasa) serta jumlah cairannya.</li>
           <li>Tulis pada bagian output, jenis cairan serta jumlah cairannya.</li>

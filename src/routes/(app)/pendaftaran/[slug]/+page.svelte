@@ -1,7 +1,7 @@
 <script>
   import { onMount, tick } from 'svelte';
   import { page } from '$app/stores';
-  import { Breadcrumb, BreadcrumbItem, Button, Input, Label, Radio, Search, Select, Textarea } from 'flowbite-svelte';
+  import { Breadcrumb, BreadcrumbItem, Button, Checkbox, Input, Label, Radio, Search, Select, Textarea } from 'flowbite-svelte';
   import { goto } from '$app/navigation';
   import JsBarcode from 'jsbarcode';
   import Swal from 'sweetalert2';
@@ -353,12 +353,13 @@
                 </Label>
               </div>
               <div class="grouphelperPagination">
-                <Label for='alamat_tempat_tinggal' class='block mb-2'>Alamat Tempat Tinggal: <span class="text-red-500 text-lg">*</span></Label>
+                <Label for='alamat_ktp' class='block mb-2'>Alamat KTP: <span class="text-red-500 text-lg">*</span></Label>
                 <Textarea name="alamat_tempat_tinggal" id="alamat_tempat_tinggal" placeholder="Masukkan alamat tempat tinggal pasien" rows="1" />
               </div>
               <div class="grouphelperPagination">
-                <Label for='alamat_ktp' class='block mb-2'>Alamat KTP: <span class="text-red-500 text-lg">*</span></Label>
-                <Textarea name="alamat_ktp" id="alamat_ktp" placeholder="Masukkan alamat sesuai ktp pasien" rows="1"/>
+                <Label for='alamat_tempat_tinggal' class='block mb-2'>Alamat Domisili Tempat Tinggal: <span class="text-red-500 text-lg">*</span></Label>
+                <Textarea name="alamat_ktp" id="alamat_ktp" placeholder="Masukkan alamat sesuai ktp pasien" rows="2"/>
+                <Checkbox checked>Alamat domisili sama dengan KTP</Checkbox>
               </div>
             </div>
           </div>

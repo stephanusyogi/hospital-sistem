@@ -79,7 +79,7 @@
           <Button id="billing" size="sm" color="purple" href="/transaksi/00123141">
             <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 256 256"><path fill="currentColor" d="M216 74H56a10 10 0 0 1 0-20h136a6 6 0 0 0 0-12H56a22 22 0 0 0-22 22v128a22 22 0 0 0 22 22h160a14 14 0 0 0 14-14V88a14 14 0 0 0-14-14Zm2 126a2 2 0 0 1-2 2H56a10 10 0 0 1-10-10V83.59A21.84 21.84 0 0 0 56 86h160a2 2 0 0 1 2 2Zm-28-60a10 10 0 1 1-10-10a10 10 0 0 1 10 10Z"/></svg>
           </Button>
-          <Popover class="text-sm font-light " title="Nota Rawat Inap Pasien" triggeredBy="#billing"></Popover>
+          <Popover class="text-sm font-light " title="Nota Pembayaran Rawat Inap Pasien" triggeredBy="#billing"></Popover>
         </div>
       </div>
       <div class="py-2 lg:py-4 mt-2 overflow-y-auto h-32 lg:h-80 border-b lg:border-none">
@@ -94,6 +94,7 @@
           <a href="/rekam-medis/{no_rm}/hasil-pemeriksaan-penunjang"  class="{(activeUrl === "hasil-pemeriksaan-penunjang") ? "font-semibold" : ""} text-sm lg:text-md font-base hover:text-gray-500" >Hasil Pemeriksaan Penunjang <span class="text-red-600">*</span></a>
           <a href="/rekam-medis/{no_rm}/kopi-resep"  class="{(activeUrl === "kopi-resep") ? "font-semibold" : ""} text-sm lg:text-md font-base hover:text-gray-500" >Kopi Resep <span class="text-red-600">*</span></a>
           <a href="/rekam-medis/{no_rm}/catatan-perkembangan-pasien-terintegrasi"  class=" {(activeUrl === "catatan-perkembangan-pasien-terintegrasi") ? "font-semibold" : ""} text-sm lg:text-md font-base hover:text-gray-500">Catatan Perkembangan Pasien Terintegrasi <span class="text-red-600">*</span></a>
+          <a href="/rekam-medis/{no_rm}/catatan-keperawatan"  class=" {(activeUrl === "catatan-keperawatan") ? "font-semibold" : ""} text-sm lg:text-md font-base hover:text-gray-500">Catatan Keperawatan <span class="text-red-600">*</span></a>
           <a href="/rekam-medis/{no_rm}/observasi-cairan"  class="{(activeUrl === "observasi-cairan") ? "font-semibold" : ""} text-sm lg:text-md font-base hover:text-gray-500" >Observasi Cairan <span class="text-red-600">*</span></a>
           <a href="/rekam-medis/{no_rm}/pemberian-obat-pasien"  class="{(activeUrl === "pemberian-obat-pasien") ? "font-semibold" : ""} text-sm lg:text-md font-base hover:text-gray-500" >Pemberian Obat Pasien <span class="text-red-600">*</span></a>
           <a  href="/rekam-medis/{no_rm}/rekonsiliasi"  class="{(activeUrl === "rekonsiliasi") ? "font-semibold" : ""} text-sm lg:text-md font-base hover:text-gray-500" >Rekonsiliasi <span class="text-red-600">*</span></a>

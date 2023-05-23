@@ -21,11 +21,11 @@
   ]
 
   let obat = [
-    {value:"Artesunate tablet 50 mg", name: "Artesunate tablet 50 mg"},
-    {value:"Amodiaquine anhydrida tablet 200 mg", name: "Amodiaquine anhydrida tablet 200 mg"},
-    {value:"Alopurinol tablet 100 mg", name: "Alopurinol tablet 100 mgg"},
-    {value:"Albendazol suspensi 200 mg/5 ml", name: "Albendazol suspensi 200 mg/5 ml"},
-    {value:"Ambroxol sirup 15 mg/ml", name: "Ambroxol sirup 15 mg/ml"},
+    {value:"Artesunate", name: "Artesunate"},
+    {value:"Amodiaquine anhydrida", name: "Amodiaquine anhydrida"},
+    {value:"Alopurinol", name: "Alopurinol"},
+    {value:"Albendazol", name: "Albendazol"},
+    {value:"Ambroxol sirup", name: "Ambroxol sirup"},
   ]
 
   const handleSubmit = () => {
@@ -63,7 +63,7 @@
   <form on:submit|preventDefault={handleSubmit}>
     <div class="flex items-center justify-between">
       <div>
-        <p class="text-xl font-semibold">Formulir Tambah Rekonsiliasi Obat</p>
+        <p class="text-xl font-semibold">Form 12.37.1 Formulir Tambah Rekonsiliasi Obat</p>
         <p class="text-red-500 text-sm">(*) Wajib diisi.</p>
       </div>
       <div class="flex flex-wrap gap-4">

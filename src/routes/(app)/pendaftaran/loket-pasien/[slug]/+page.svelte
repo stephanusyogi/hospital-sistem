@@ -192,12 +192,13 @@
                 </Label>
               </div>
               <div class="grouphelperPagination">
-                <Label for='alamat_tempat_tinggal' class='block mb-2'>Alamat Tempat Tinggal: <span class="text-red-500 text-lg">*</span></Label>
-                <Textarea name="alamat_tempat_tinggal" id="alamat_tempat_tinggal" placeholder="Masukkan alamat tempat tinggal pasien" rows="1" value="Jln. Mayjend Pandjaitan No. 22 Malang"/>
+                <Label for='alamat_ktp' class='block mb-2'>Alamat KTP: <span class="text-red-500 text-lg">*</span></Label>
+                <Textarea name="alamat_tempat_tinggal" id="alamat_tempat_tinggal" placeholder="Masukkan alamat tempat tinggal pasien" rows="2" value="Jln. Mayjend Pandjaitan No. 22 Malang"/>
               </div>
               <div class="grouphelperPagination">
-                <Label for='alamat_ktp' class='block mb-2'>Alamat KTP: <span class="text-red-500 text-lg">*</span></Label>
-                <Textarea name="alamat_ktp" id="alamat_ktp" placeholder="Masukkan alamat sesuai ktp pasien" rows="1" value="Jln. Mayjend Pandjaitan No. 22 Malang"/>
+                <Label for='alamat_tempat_tinggal' class='block mb-2'>Alamat Domisili Tempat Tinggal: <span class="text-red-500 text-lg">*</span></Label>
+                <Textarea name="alamat_ktp" id="alamat_ktp" placeholder="Masukkan alamat sesuai ktp pasien" rows="2" value="Jln. Mayjend Pandjaitan No. 22 Malang"/>
+                <Checkbox checked>Alamat domisili sama dengan KTP</Checkbox>
               </div>
             </div>
           </div>

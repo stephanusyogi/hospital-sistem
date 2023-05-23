@@ -1,5 +1,5 @@
 <script>
-  import { SidebarBrand,Sidebar, SidebarGroup, SidebarItem, SidebarWrapper, SidebarDropdownItem, SidebarDropdownWrapper} from 'flowbite-svelte'
+  import { SidebarBrand,Sidebar, SidebarGroup, SidebarItem, SidebarWrapper, SidebarDropdownItem, SidebarDropdownWrapper, Button} from 'flowbite-svelte'
   import Icon from '@iconify/svelte';
 
   import logo from '$lib/images/logo-icon-tab.png';
@@ -100,6 +100,14 @@
             </svelte:fragment>
           </SidebarItem>
           <hr class="my-1">
+          <SidebarItem class="{!openSideBar ? 'justify-center' : ''}" {aClass} label="Permintaan DPJP" href='/permintaan-dpjp' active={activeUrl === '/permintaan-dpjp'}  spanClass="{openSideBar ? 'ml-1 text-left' : 'hidden'}" on:click={()=>{if(openSideBar) {openSideBar = false} }}>
+            <svelte:fragment slot="icon">
+                <Icon icon="fa6-solid:user-doctor" width="32" height="32"/>
+            </svelte:fragment>
+            <svelte:fragment slot="subtext">
+              <span class="inline-flex justify-center items-center p-3 ml-3 w-3 h-3 text-sm font-medium bg-yellow-300 rounded-full">1</span>
+            </svelte:fragment>
+          </SidebarItem>
           <SidebarItem class="{!openSideBar ? 'justify-center' : ''}" {aClass} label="Pasien Saya" href='/pasien-saya' active={activeUrl === '/pasien-saya'}  spanClass="{openSideBar ? 'ml-1 text-left' : 'hidden'}" on:click={()=>{if(openSideBar) {openSideBar = false} }}>
             <svelte:fragment slot="icon">
               <Icon icon="healthicons:outpatient" width="32" height="32"/>

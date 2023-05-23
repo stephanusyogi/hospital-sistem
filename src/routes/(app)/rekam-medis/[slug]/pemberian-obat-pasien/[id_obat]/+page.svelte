@@ -39,7 +39,7 @@
 <main>
   <div class="flex flex-wrap items-center justify-between">
     <div>
-      <p class="text-xl font-semibold">Pemberian Obat Pasien</p>
+      <p class="text-xl font-semibold">Form 12.37 Pemberian Obat Pasien</p>
       <p class="text-sm font-medium">Nama Obat: Lorem Ipsum</p>
       <p class="text-sm font-medium">Dosis Obat: 250mL</p>
     </div>

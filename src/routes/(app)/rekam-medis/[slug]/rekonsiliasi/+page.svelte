@@ -7,7 +7,7 @@
 
   let dummyObatResep = [
     {
-      "nama": "Artesunate tablet 50 mg",
+      "nama": "Artesunate",
       "kandungan": "sip",
       "frekuensi": "500mL",
       "sumber_obat": "rumah sakit",
@@ -19,7 +19,7 @@
       "catatan": "mantap",
     },
     {
-      "nama": "Amodiaquine anhydrida tablet 200 mg",
+      "nama": "Amodiaquine anhydrida",
       "kandungan": "sip",
       "frekuensi": "500mL",
       "sumber_obat": "rumah sakit",
@@ -31,7 +31,7 @@
       "catatan": "mantap",
     },
     {
-      "nama": "Albendazol suspensi 200 mg/5 ml",
+      "nama": "Albendazol suspensi",
       "kandungan": "sip",
       "frekuensi": "500mL",
       "sumber_obat": "rumah sakit",
@@ -43,7 +43,7 @@
       "catatan": "mantap",
     },
     {
-      "nama": "Alopurinol tablet 100 mg",
+      "nama": "Alopurinol",
       "kandungan": "sip",
       "frekuensi": "500mL",
       "sumber_obat": "rumah sakit",
@@ -55,7 +55,7 @@
       "catatan": "mantap",
     },
     {
-      "nama": "Ambroxol sirup 15 mg/ml",
+      "nama": "Ambroxol sirup",
       "kandungan": "sip",
       "frekuensi": "500mL",
       "sumber_obat": "rumah sakit",
@@ -98,7 +98,7 @@
 </script>
 <main>
   <div class="flex items-center justify-between">
-    <p class="text-xl font-semibold">Rekonsiliasi</p>
+    <p class="text-xl font-semibold">Form 12.37.1 Rekonsiliasi</p>
     <div class="flex flex-wrap gap-4">
       <Button color="green" href="rekonsiliasi/tambah" size="sm">
         <svg xmlns="http://www.w3.org/2000/svg" class="mr-2" width="25" height="25" viewBox="0 0 48 48"><mask id="ipSMedicineBottleOne0"><g fill="none" stroke-linejoin="round" stroke-width="4"><path fill="#fff" stroke="#fff" d="M13 7a3 3 0 0 1 3-3h16a3 3 0 1 1 0 6H16a3 3 0 0 1-3-3Zm.1 10.12A3 3 0 0 1 15.437 16h17.124a3 3 0 0 1 2.339 1.12l4.438 5.523a3 3 0 0 1 .661 1.88V41a3 3 0 0 1-3 3H11a3 3 0 0 1-3-3V24.523a3 3 0 0 1 .661-1.88l4.438-5.522Z"/><path stroke="#000" stroke-linecap="round" d="M18 30h12m-6-6v12"/></g></mask><path fill="currentColor" d="M0 0h48v48H0z" mask="url(#ipSMedicineBottleOne0)"/></svg>

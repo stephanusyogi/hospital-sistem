@@ -12,12 +12,12 @@
 
   let dummyObat = [
     {
-      "nama": "Artesunate tablet",
+      "nama": "Artesunate",
       "kode": "OBT000001",
       "harga": "44.550",
     },
     {
-      "nama": "Amodiaquine anhydrida tablet",
+      "nama": "Amodiaquine anhydrida",
       "kode": "OBT000002",
       "harga": "44.550",
     },
@@ -27,7 +27,7 @@
       "harga": "5.198",
     },
     {
-      "nama": "Alopurinol tablet 100 mg",
+      "nama": "Alopurinol",
       "kode": "OBT000004",
       "harga": "17.820",
     },

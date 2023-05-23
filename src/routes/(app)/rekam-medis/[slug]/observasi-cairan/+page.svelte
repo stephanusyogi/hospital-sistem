@@ -8,7 +8,7 @@
 <main>
   <div class="flex items-center justify-between">
     <div>
-      <p class="text-xl font-semibold mb-2">Observasi Cairan</p>
+      <p class="text-xl font-semibold mb-2">Form 12.19 Observasi Cairan</p>
     </div>
     <Button href="observasi-cairan/update" color="green">
       Update</Button>

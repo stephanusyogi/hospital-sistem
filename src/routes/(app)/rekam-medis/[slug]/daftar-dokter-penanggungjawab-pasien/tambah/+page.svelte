@@ -50,7 +50,7 @@
   <form on:submit|preventDefault={handleSubmit}>
     <div class="flex items-center justify-between">
       <div>
-        <p class="text-xl font-semibold">Formulir Permintaan Kesediaan DPJP</p>
+        <p class="text-xl font-semibold">Form 12.54 Permintaan Kesediaan DPJP</p>
         <p class="text-red-500 text-sm">(*) Wajib diisi.</p>
       </div>
       <div class="flex flex-wrap gap-4">
