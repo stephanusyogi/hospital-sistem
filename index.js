@@ -1,59 +1,41 @@
-require('dotenv').config()
-const express = require('express')
-const mongoose = require('mongoose')
+// Env
+require("dotenv").config();
+// Express
+const express = require("express");
+const app = express();
+// Cors
+const cors = require("cors");
+// Morgan
+const morgan = require("morgan");
+// MongoDB
+const connectDB = require("./config/db");
+// Swagger
+const swaggerUI = require("swagger-ui-express");
+const apiDocumentation = require("./apiDocs.json");
+app.use("/api-docs", swaggerUI.serve, swaggerUI.setup(apiDocumentation));
 
-const app = express()
-const PORT = process.env.PORT || 3000
-const Nurse = require('./models/nurses')
+const nurseRoutes = require("./routes/nurseRoute");
 
-mongoose.set('strictQuery', false)
-const connectDB = async () => {
- try{
-  const conn = await mongoose.connect(process.env.MONGO_URI)
-  console.log(`MongoDB Connected: ${conn.connection.host}`)
- }catch(error){
-  console.log(error)
-  process.exit(1)
- }
-}
+const PORT = process.env.PORT || 3000;
 
-app.get('/', (req, res)=>{
-  res.send("Welcome to the jungle!")
-})
+// middlewares
+var corsOptions = {
+  origin: "http://localhost:5173",
+};
+app.use(cors(corsOptions));
+app.use(morgan("dev"));
+app.use(express.json()); // parse requests of content-type - application/json
+app.use(express.urlencoded({ extended: true })); // parse requests of content-type - application/x-www-form-urlencoded
 
-app.get('/add-nurse', async (req, res)=>{
-  try {
-    await Nurse.insertMany([
-      {
-        name:"Stephanus Yogi",
-        username:"stephanusyogi",
-        password:"test123",
-        role:"Perawat",
-      },
-      {
-        name:"Laurentius Vico",
-        username:"laurentiusvico",
-        password:"test123",
-        role:"Farmasi",
-      }
-    ])
-    res.send("Data Added!")
-  } catch (error) {
-    console.log("err",+error)
-  }
-})
+connectDB().then(() => {
+  app.listen(PORT, () => {
+    console.log(`Listening on port ${PORT}`);
+  });
+});
 
-app.get('/nurse', async (req, res)=>{
-  const nurse = await Nurse.find()
-  if (nurse) {
-    res.json(nurse)
-  } else {
-    res.send("Something went wrong.")
-  }
-})
+app.get("/", (req, res) => {
+  res.json({ message: "Welcome to the jungle!" });
+});
 
-connectDB().then(()=>{
-  app.listen(PORT, ()=>{
-    console.log(`Listening on port ${PORT}`)
-  })
-})
+// Endpoint
+app.use("/api", nurseRoutes);

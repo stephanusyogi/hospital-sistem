@@ -1,0 +1,103 @@
+{
+  "openapi": "3.0.0",
+  "info": {
+    "title": "Hospital Sistem",
+    "description": "Endpoint REST-API list documentation for Sistem Rekam Medis Rawat Inap RSI Aisyah Malang",
+    "version": "1.0.0"
+  },
+  "servers": [
+    {
+      "url": "http://localhost:3000/api/",
+      "description": "Development"
+    },
+    {
+      "url": "https://hospital-sistem.cyclic.app/",
+      "description": "Production"
+    }
+  ],
+  "tags":[
+    {
+      "name": "Nurse",
+      "description": "Nurse"
+    },
+    {
+      "name": "Doctor",
+      "description": "Doctor"
+    }
+  ],
+  "paths": {
+    "/nurse": {
+      "get": {
+        "tags":["Nurse"],
+        "summary": "Get All Nurses",
+        "responses": {
+          "200": {
+            "description": "Sukses"
+          }
+        }
+      },
+      "post":{
+        "tags":["Nurse"],
+        "summary": "Create New Nurse",
+        "consumes":"multipart/form-data",
+        "requestBody":{
+          "content":{
+            "application/json":{
+              "schema":{
+                "type":"object",
+                "properties":{
+                  "name":{
+                    "type":"string"
+                  },
+                  "email":{
+                    "type":"string"
+                  },
+                  "password":{
+                    "type":"string"
+                  },
+                  "role":{
+                    "type":"string"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses":{
+          "200":{
+            "description": "Sukses"
+          }
+        }
+      }
+    },
+    "/login-nurse":{
+      "post":{
+        "tags":["Nurse"],
+          "summary": "Login Authentication for Nurse",
+          "consumes":"multipart/form-data",
+          "requestBody":{
+            "content":{
+              "application/json":{
+                "schema":{
+                  "type":"object",
+                  "properties":{
+                    "email":{
+                      "type":"string"
+                    },
+                    "password":{
+                      "type":"string"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "responses":{
+            "200":{
+              "description": "Sukses"
+            }
+          }
+      }
+    }
+  }
+}
