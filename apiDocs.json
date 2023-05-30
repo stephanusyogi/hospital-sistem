@@ -11,7 +11,7 @@
       "description": "Development"
     },
     {
-      "url": "https://hospital-sistem.cyclic.app/",
+      "url": "https://hospital-sistem.cyclic.app/api/",
       "description": "Production"
     }
   ],
