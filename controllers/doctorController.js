@@ -1,16 +1,16 @@
 const bcrypt = require("bcryptjs");
 
-const Nurse = require("../models/nurses");
+const Doctor = require("../models/doctors");
 
-const createNurse = async (req, res) => {
+const createDoctor = async (req, res) => {
   try {
-    const { name, email, role, password } = req.body;
+    const { name, email, spesialis, password } = req.body;
 
-    if (!name || !email || !role || !password) {
+    if (!name || !email || !spesialis || !password) {
       throw new Error("This field are required!");
     }
 
-    const existingUser = await Nurse.findOne({ $or: [{ email }] });
+    const existingUser = await Doctor.findOne({ $or: [{ email }] });
 
     if (existingUser) {
       throw new Error("User already exist with this email!");
@@ -18,11 +18,11 @@ const createNurse = async (req, res) => {
 
     const hashedPassword = await bcrypt.hash(password, 10);
 
-    const newUser = new Nurse({
+    const newUser = new Doctor({
       name,
       email,
       password: hashedPassword,
-      role,
+      spesialis,
       accountActive: true,
     });
 
@@ -35,32 +35,32 @@ const createNurse = async (req, res) => {
   }
 };
 
-const getNurse = async (req, res) => {
+const getDoctor = async (req, res) => {
   try {
-    const nurses = await Nurse.find({ accountActive: true });
+    const doctors = await Doctor.find({ accountActive: true });
 
-    res.status(200).send(nurses);
+    res.status(200).send(doctors);
   } catch (error) {
     res.status(500).send({ message: error.message });
   }
 };
 
-const getNurseById = async (req, res) => {
+const getDoctorById = async (req, res) => {
   try {
     const { id } = req.params;
-    const nurse = await Nurse.findById(id);
+    const doctor = await Doctor.findById(id);
 
     if (!id) {
       throw new Error("User not found!");
     }
 
-    res.status(200).send(nurse);
+    res.status(200).send(doctor);
   } catch (error) {
     res.status(500).send({ message: error.message });
   }
 };
 
-const updateNurse = async (req, res) => {
+const updateDoctor = async (req, res) => {
   try {
     const { id } = req.params;
     const { userId } = req.user;
@@ -71,7 +71,7 @@ const updateNurse = async (req, res) => {
 
     const updatedFields = req.body;
 
-    const updatedUser = await Nurse.findByIdAndUpdate(id, updatedFields, {
+    const updatedUser = await Doctor.findByIdAndUpdate(id, updatedFields, {
       new: true,
     });
 
@@ -81,7 +81,7 @@ const updateNurse = async (req, res) => {
   }
 };
 
-const updatePasswordNurse = async (req, res) => {
+const updatePasswordDoctor = async (req, res) => {
   try {
     const { id } = req.params;
     const { userId } = req.user;
@@ -91,7 +91,7 @@ const updatePasswordNurse = async (req, res) => {
       throw new Error("You can only update your account!");
     }
 
-    const user = await Nurse.findById(userId);
+    const user = await Doctor.findById(userId);
 
     if (!id) {
       throw new Error("User not found!");
@@ -115,7 +115,7 @@ const updatePasswordNurse = async (req, res) => {
   }
 };
 
-const deleteNurse = async (req, res) => {
+const deleteDoctor = async (req, res) => {
   try {
     const { id } = req.params;
     const { userId } = req.user;
@@ -128,7 +128,7 @@ const deleteNurse = async (req, res) => {
       accountActive: false,
     };
 
-    const deletedUser = await Nurse.findByIdAndUpdate(id, updatedFields, {
+    const deletedUser = await Doctor.findByIdAndUpdate(id, updatedFields, {
       new: true,
     });
 
@@ -139,10 +139,10 @@ const deleteNurse = async (req, res) => {
 };
 
 module.exports = {
-  createNurse,
-  getNurse,
-  getNurseById,
-  updateNurse,
-  updatePasswordNurse,
-  deleteNurse,
+  createDoctor,
+  getDoctor,
+  getDoctorById,
+  updateDoctor,
+  updatePasswordDoctor,
+  deleteDoctor,
 };

@@ -17,19 +17,73 @@
   ],
   "tags":[
     {
+      "name": "Authentication",
+      "description": "Authentication"
+    },
+    {
+      "name": "ICD",
+      "description": "International Classification of Diseases"
+    },
+    {
       "name": "Nurse",
       "description": "Nurse"
     },
     {
       "name": "Doctor",
       "description": "Doctor"
+    },
+    {
+      "name": "Room",
+      "description": "Room"
+    },
+    {
+      "name": "Drug",
+      "description": "Drug"
+    },
+    {
+      "name": "Patient",
+      "description": "Patient"
     }
   ],
   "paths": {
+    "/login":{
+      "post":{
+        "tags":["Authentication"],
+          "summary": "Login Authentication for All Users",
+          "consumes":"multipart/form-data",
+          "requestBody":{
+            "content":{
+              "application/json":{
+                "schema":{
+                  "type":"object",
+                  "properties":{
+                    "email":{
+                      "type":"string"
+                    },
+                    "password":{
+                      "type":"string"
+                    }
+                  }
+                }
+              }
+            }
+          },
+          "responses":{
+            "200":{
+              "description": "Sukses"
+            }
+          }
+      }
+    },
     "/nurse": {
       "get": {
         "tags":["Nurse"],
         "summary": "Get All Nurses",
+        "security": [
+          {
+            "BearerAuth": []
+          }
+        ],
         "responses": {
           "200": {
             "description": "Sukses"
@@ -39,6 +93,11 @@
       "post":{
         "tags":["Nurse"],
         "summary": "Create New Nurse",
+        "security": [
+          {
+            "BearerAuth": []
+          }
+        ],
         "consumes":"multipart/form-data",
         "requestBody":{
           "content":{
@@ -70,33 +129,903 @@
         }
       }
     },
-    "/login-nurse":{
-      "post":{
+    "/nurse/{userId}": {
+      "put":{
         "tags":["Nurse"],
-          "summary": "Login Authentication for Nurse",
-          "consumes":"multipart/form-data",
-          "requestBody":{
-            "content":{
-              "application/json":{
-                "schema":{
-                  "type":"object",
-                  "properties":{
-                    "email":{
-                      "type":"string"
-                    },
-                    "password":{
-                      "type":"string"
-                    }
+        "summary": "Update Nurse By Id",
+        "parameters": [
+          {
+            "name": "userId",
+            "in": "path",
+            "description": "Id nurse",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "security": [
+          {
+            "BearerAuth": []
+          }
+        ],
+        "consumes":"multipart/form-data",
+        "requestBody":{
+          "content":{
+            "application/json":{
+              "schema":{
+                "type":"object",
+                "properties":{
+                  "name":{
+                    "type":"string"
+                  },
+                  "email":{
+                    "type":"string"
+                  },
+                  "role":{
+                    "type":"string"
                   }
                 }
               }
             }
-          },
-          "responses":{
-            "200":{
-              "description": "Sukses"
+          }
+        },
+        "responses":{
+          "200":{
+            "description": "Sukses"
+          }
+        }
+      },
+      "delete":{
+        "tags":["Nurse"],
+        "summary": "Delete Nurse By Id (Innactive)",
+        "parameters": [
+          {
+            "name": "userId",
+            "in": "path",
+            "description": "Id nurse",
+            "required": true,
+            "schema": {
+              "type": "string"
             }
           }
+        ],
+        "security": [
+          {
+            "BearerAuth": []
+          }
+        ],
+        "consumes":"multipart/form-data",
+        "responses":{
+          "200":{
+            "description": "Sukses"
+          }
+        }
+      },
+      "get": {
+        "tags":["Nurse"],
+        "summary": "Get Nurse By Id",
+        "parameters": [
+          {
+            "name": "userId",
+            "in": "path",
+            "description": "Id nurse",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "security": [
+          {
+            "BearerAuth": []
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Sukses"
+          }
+        }
+      }
+    },
+    "/nurse/update-password/{userId}": {
+      "put":{
+        "tags":["Nurse"],
+        "summary": "Update Nurse By Id",
+        "parameters": [
+          {
+            "name": "userId",
+            "in": "path",
+            "description": "Id nurse",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "security": [
+          {
+            "BearerAuth": []
+          }
+        ],
+        "consumes":"multipart/form-data",
+        "requestBody":{
+          "content":{
+            "application/json":{
+              "schema":{
+                "type":"object",
+                "properties":{
+                  "currentPassword":{
+                    "type":"string"
+                  },
+                  "newPassword":{
+                    "type":"string"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses":{
+          "200":{
+            "description": "Sukses"
+          }
+        }
+      }
+    },
+    "/doctor": {
+      "get": {
+        "tags":["Doctor"],
+        "summary": "Get All Doctors",
+        "security": [
+          {
+            "BearerAuth": []
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Sukses"
+          }
+        }
+      },
+      "post":{
+        "tags":["Doctor"],
+        "summary": "Create New Doctor",
+        "security": [
+          {
+            "BearerAuth": []
+          }
+        ],
+        "consumes":"multipart/form-data",
+        "requestBody":{
+          "content":{
+            "application/json":{
+              "schema":{
+                "type":"object",
+                "properties":{
+                  "name":{
+                    "type":"string"
+                  },
+                  "email":{
+                    "type":"string"
+                  },
+                  "password":{
+                    "type":"string"
+                  },
+                  "spesialis":{
+                    "type":"string"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses":{
+          "200":{
+            "description": "Sukses"
+          }
+        }
+      }
+    },
+    "/doctor/{userId}": {
+      "put":{
+        "tags":["Doctor"],
+        "summary": "Update Doctor By Id",
+        "parameters": [
+          {
+            "name": "userId",
+            "in": "path",
+            "description": "Id doctor",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "security": [
+          {
+            "BearerAuth": []
+          }
+        ],
+        "consumes":"multipart/form-data",
+        "requestBody":{
+          "content":{
+            "application/json":{
+              "schema":{
+                "type":"object",
+                "properties":{
+                  "name":{
+                    "type":"string"
+                  },
+                  "email":{
+                    "type":"string"
+                  },
+                  "spesialis":{
+                    "type":"string"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses":{
+          "200":{
+            "description": "Sukses"
+          }
+        }
+      },
+      "delete":{
+        "tags":["Doctor"],
+        "summary": "Delete Doctor By Id (Innactive)",
+        "parameters": [
+          {
+            "name": "userId",
+            "in": "path",
+            "description": "Id doctor",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "security": [
+          {
+            "BearerAuth": []
+          }
+        ],
+        "consumes":"multipart/form-data",
+        "responses":{
+          "200":{
+            "description": "Sukses"
+          }
+        }
+      },
+      "get": {
+        "tags":["Doctor"],
+        "summary": "Get Doctor By Id",
+        "parameters": [
+          {
+            "name": "userId",
+            "in": "path",
+            "description": "Id doctor",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "security": [
+          {
+            "BearerAuth": []
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Sukses"
+          }
+        }
+      }
+    },
+    "/doctor/update-password/{userId}": {
+      "put":{
+        "tags":["Doctor"],
+        "summary": "Update Doctor By Id",
+        "parameters": [
+          {
+            "name": "userId",
+            "in": "path",
+            "description": "Id doctor",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "security": [
+          {
+            "BearerAuth": []
+          }
+        ],
+        "consumes":"multipart/form-data",
+        "requestBody":{
+          "content":{
+            "application/json":{
+              "schema":{
+                "type":"object",
+                "properties":{
+                  "currentPassword":{
+                    "type":"string"
+                  },
+                  "newPassword":{
+                    "type":"string"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses":{
+          "200":{
+            "description": "Sukses"
+          }
+        }
+      }
+    },
+    "/room": {
+      "get": {
+        "tags":["Room"],
+        "summary": "Get All Rooms",
+        "security": [
+          {
+            "BearerAuth": []
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Sukses"
+          }
+        }
+      },
+      "post":{
+        "tags":["Room"],
+        "summary": "Create New Room",
+        "security": [
+          {
+            "BearerAuth": []
+          }
+        ],
+        "consumes":"multipart/form-data",
+        "requestBody":{
+          "content":{
+            "application/json":{
+              "schema":{
+                "type":"object",
+                "properties":{
+                  "nama_ruangan":{
+                    "type":"string"
+                  },
+                  "kelas":{
+                    "type":"string"
+                  },
+                  "harga":{
+                    "type":"number"
+                  },
+                  "kuota_kasur":{
+                    "type":"number"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses":{
+          "200":{
+            "description": "Sukses"
+          }
+        }
+      }
+    },
+    "/room/{roomId}": {
+      "put":{
+        "tags":["Room"],
+        "summary": "Update Room By Id",
+        "parameters": [
+          {
+            "name": "roomId",
+            "in": "path",
+            "description": "Id room",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "security": [
+          {
+            "BearerAuth": []
+          }
+        ],
+        "consumes":"multipart/form-data",
+        "requestBody":{
+          "content":{
+            "application/json":{
+              "schema":{
+                "type":"object",
+                "properties":{
+                  "nama_ruangan":{
+                    "type":"string"
+                  },
+                  "kelas":{
+                    "type":"string"
+                  },
+                  "harga":{
+                    "type":"number"
+                  },
+                  "kuota_kasur":{
+                    "type":"number"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses":{
+          "200":{
+            "description": "Sukses"
+          }
+        }
+      },
+      "delete":{
+        "tags":["Room"],
+        "summary": "Delete Room By Id (Soft Delete)",
+        "parameters": [
+          {
+            "name": "roomId",
+            "in": "path",
+            "description": "Id room",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "security": [
+          {
+            "BearerAuth": []
+          }
+        ],
+        "consumes":"multipart/form-data",
+        "responses":{
+          "200":{
+            "description": "Sukses"
+          }
+        }
+      },
+      "get": {
+        "tags":["Room"],
+        "summary": "Get Room By Id",
+        "parameters": [
+          {
+            "name": "roomId",
+            "in": "path",
+            "description": "Id room",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "security": [
+          {
+            "BearerAuth": []
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Sukses"
+          }
+        }
+      }
+    },
+    "/drug": {
+      "get": {
+        "tags":["Drug"],
+        "summary": "Get All Drugs",
+        "security": [
+          {
+            "BearerAuth": []
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Sukses"
+          }
+        }
+      },
+      "post":{
+        "tags":["Drug"],
+        "summary": "Create New Drug",
+        "security": [
+          {
+            "BearerAuth": []
+          }
+        ],
+        "consumes":"multipart/form-data",
+        "requestBody":{
+          "content":{
+            "application/json":{
+              "schema":{
+                "type":"object",
+                "properties":{
+                  "nama_obat":{
+                    "type":"string"
+                  },
+                  "harga":{
+                    "type":"number"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses":{
+          "200":{
+            "description": "Sukses"
+          }
+        }
+      }
+    },
+    "/drug/{drugId}": {
+      "put":{
+        "tags":["Drug"],
+        "summary": "Update Drug By Id",
+        "parameters": [
+          {
+            "name": "drugId",
+            "in": "path",
+            "description": "Id drug",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "security": [
+          {
+            "BearerAuth": []
+          }
+        ],
+        "consumes":"multipart/form-data",
+        "requestBody":{
+          "content":{
+            "application/json":{
+              "schema":{
+                "type":"object",
+                "properties":{
+                  "nama_obat":{
+                    "type":"string"
+                  },
+                  "harga":{
+                    "type":"number"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses":{
+          "200":{
+            "description": "Sukses"
+          }
+        }
+      },
+      "delete":{
+        "tags":["Drug"],
+        "summary": "Delete Drug By Id (Soft Delete)",
+        "parameters": [
+          {
+            "name": "drugId",
+            "in": "path",
+            "description": "Id drug",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "security": [
+          {
+            "BearerAuth": []
+          }
+        ],
+        "consumes":"multipart/form-data",
+        "responses":{
+          "200":{
+            "description": "Sukses"
+          }
+        }
+      },
+      "get": {
+        "tags":["Drug"],
+        "summary": "Get Drug By Id",
+        "parameters": [
+          {
+            "name": "drugId",
+            "in": "path",
+            "description": "Id drug",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "security": [
+          {
+            "BearerAuth": []
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Sukses"
+          }
+        }
+      }
+    },
+    "/patient": {
+      "get": {
+        "tags":["Patient"],
+        "summary": "Get All Patient",
+        "security": [
+          {
+            "BearerAuth": []
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Sukses"
+          }
+        }
+      },
+      "post":{
+        "tags":["Patient"],
+        "summary": "Create New Patient",
+        "security": [
+          {
+            "BearerAuth": []
+          }
+        ],
+        "consumes":"multipart/form-data",
+        "requestBody":{
+          "content":{
+            "application/json":{
+              "schema":{
+                "type":"object",
+                "properties":{
+                  "name":{
+                    "type":"string"
+                  },
+                  "nik":{
+                    "type":"string"
+                  },
+                  "umur":{
+                    "type":"string"
+                  },
+                  "jenis_kelamin":{
+                    "type":"string"
+                  },
+                  "tempat_tanggal_lahir":{
+                    "type":"string"
+                  },
+                  "no_hp":{
+                    "type":"string"
+                  },
+                  "agama":{
+                    "type":"string"
+                  },
+                  "alamat_ktp":{
+                    "type":"string"
+                  },
+                  "alamat_domisili":{
+                    "type":"string"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses":{
+          "200":{
+            "description": "Sukses"
+          }
+        }
+      }
+    },
+    "/patient{patientId}": {
+      "put":{
+        "tags":["Patient"],
+        "summary": "Update Patient By Id",
+        "parameters": [
+          {
+            "name": "patientId",
+            "in": "path",
+            "description": "Id patient",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "security": [
+          {
+            "BearerAuth": []
+          }
+        ],
+        "consumes":"multipart/form-data",
+        "requestBody":{
+          "content":{
+            "application/json":{
+              "schema":{
+                "type":"object",
+                "properties":{
+                  "name":{
+                    "type":"string"
+                  },
+                  "nik":{
+                    "type":"string"
+                  },
+                  "umur":{
+                    "type":"string"
+                  },
+                  "jenis_kelamin":{
+                    "type":"string"
+                  },
+                  "tempat_tanggal_lahir":{
+                    "type":"string"
+                  },
+                  "no_hp":{
+                    "type":"string"
+                  },
+                  "agama":{
+                    "type":"string"
+                  },
+                  "alamat_ktp":{
+                    "type":"string"
+                  },
+                  "alamat_domisili":{
+                    "type":"string"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses":{
+          "200":{
+            "description": "Sukses"
+          }
+        }
+      },
+      "delete":{
+        "tags":["Patient"],
+        "summary": "Delete Patient By Id (Soft Delete)",
+        "parameters": [
+          {
+            "name": "patientId",
+            "in": "path",
+            "description": "Id patient",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "security": [
+          {
+            "BearerAuth": []
+          }
+        ],
+        "consumes":"multipart/form-data",
+        "responses":{
+          "200":{
+            "description": "Sukses"
+          }
+        }
+      },
+      "get": {
+        "tags":["Patient"],
+        "summary": "Get Patient By Id",
+        "parameters": [
+          {
+            "name": "patientId",
+            "in": "path",
+            "description": "Id patient",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "security": [
+          {
+            "BearerAuth": []
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Sukses"
+          }
+        }
+      }
+    },
+    "/icd-10": {
+      "post": {
+        "tags":["ICD"],
+        "summary": "Get ICD-10 By Term",
+        "security": [
+          {
+            "BearerAuth": []
+          }
+        ],
+        "consumes":["multipart/form-data"],
+        "requestBody":{
+          "content":{
+            "application/json":{
+              "schema":{
+                "type":"object",
+                "properties":{
+                  "terms":{
+                    "type":"string"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Sukses"
+          }
+        }
+      }
+    },
+    "/icd-9": {
+      "post": {
+        "tags":["ICD"],
+        "summary": "Get ICD-9 By Term",
+        "security": [
+          {
+            "BearerAuth": []
+          }
+        ],
+        "consumes":["multipart/form-data"],
+        "requestBody":{
+          "content":{
+            "application/json":{
+              "schema":{
+                "type":"object",
+                "properties":{
+                  "terms":{
+                    "type":"string"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Sukses"
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "securitySchemes": {
+      "BearerAuth": {
+        "type": "http",
+        "scheme": "bearer",
+        "bearerFormat": "JWT"
       }
     }
   }

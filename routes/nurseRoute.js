@@ -1,23 +1,20 @@
 const nurse = require("../controllers/nurseController");
 const Router = require("express");
+const protect = require("../middlewares/protect");
 
 const router = Router();
 
-// Login Nurse
-router.post("/login-nurse", nurse.loginNurse);
-// Logout Nurse
-router.post("/logout-nurse", nurse.logoutNurse);
 // Add Nurse
-router.post("/nurse", nurse.createNurse);
+router.post("/nurse", protect, nurse.createNurse);
 // Get All Nurse
-router.get("/nurse", nurse.getNurse);
+router.get("/nurse", protect, nurse.getNurse);
 // Get Nurse By Id
-router.get("/nurse:id", nurse.getNurseById);
+router.get("/nurse/:id", protect, nurse.getNurseById);
 // Update Nurse
-router.put("/nurse/:id", nurse.updateNurse);
+router.put("/nurse/:id", protect, nurse.updateNurse);
 // Update Nurse Password
-router.put("/nurse/update-password/:id", nurse.updatePasswordNurse);
+router.put("/nurse/update-password/:id", protect, nurse.updatePasswordNurse);
 // Delete Nurse
-router.post("/nurse/delete/:id", nurse.deleteNurse);
+router.delete("/nurse/:id", protect, nurse.deleteNurse);
 
 module.exports = router;
