@@ -28,6 +28,8 @@
     "@tiptap/core": "^2.0.2",
     "@tiptap/pm": "^2.0.2",
     "@tiptap/starter-kit": "^2.0.2",
+    "html5-qrcode": "^2.3.8",
+    "qrcode-generator": "^1.4.4",
     "svelte-barcode": "^2.0.0",
     "sweetalert2": "^11.7.3"
   }

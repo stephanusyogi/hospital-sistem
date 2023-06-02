@@ -1,111 +1,291 @@
 <script>
-  import { onMount, tick } from 'svelte';
-  import { page } from '$app/stores'; 
-  import JsBarcode from 'jsbarcode';
-  import { Button, Popover } from 'flowbite-svelte';
+  import { onMount, tick } from "svelte";
+  import { page } from "$app/stores";
+  import JsBarcode from "jsbarcode";
+  import { Button, Popover } from "flowbite-svelte";
   import Swal from "sweetalert2";
-  import { goto } from '$app/navigation';
+  import { goto } from "$app/navigation";
 
   const no_rm = $page.params.slug;
-  
-  $: activeUrl = $page.route.id.split("/(app)/rekam-medis/[slug]/")[1] ? $page.route.id.split("/(app)/rekam-medis/[slug]/")[1].split("/")[0] : $page.route.id.split("/(app)/rekam-medis/[slug]/")[0]
+  const qrCodeUrl = $page.url.origin + "/rekam-medis/" + no_rm;
+
+  $: activeUrl = $page.route.id.split("/(app)/rekam-medis/[slug]/")[1]
+    ? $page.route.id.split("/(app)/rekam-medis/[slug]/")[1].split("/")[0]
+    : $page.route.id.split("/(app)/rekam-medis/[slug]/")[0];
 
   let barcode;
   const defaultOptions = {
-    format: 'CODE128',
-    height: 30,
+    format: "CODE128",
+    height: 100,
     displayValue: false,
-    background: 'rgb(249 250 251)',
-    lineColor: '#000000',
+    background: "rgb(249 250 251)",
+    lineColor: "#000000",
   };
 
   const handlePasienPulang = () => {
     Swal.fire({
-      title: 'Perawatan Pasien Inap Selesai?',
-      text: 'Periksa kembali kelengkapan dokumen rekam medis. Hati-hati, aksi ini bersifat permanen pada database.',
+      title: "Perawatan Pasien Inap Selesai?",
+      text: "Periksa kembali kelengkapan dokumen rekam medis. Hati-hati, aksi ini bersifat permanen pada database.",
       showDenyButton: true,
       showCancelButton: false,
-      confirmButtonText: 'Ubah Status Perawatan Selesai',
+      confirmButtonText: "Ubah Status Perawatan Selesai",
       denyButtonText: `Batal`,
-    })
-  }
+    });
+  };
 
+  let qrcode;
 
-  onMount(async () => {
-    await tick();
-    JsBarcode(barcode, "1910391301", defaultOptions);
+  onMount(() => {
+    let script = document.createElement("script");
+    script.src =
+      "https://cdn.rawgit.com/davidshimjs/qrcodejs/gh-pages/qrcode.min.js";
+    document.head.append(script);
+
+    script.onload = function () {
+      qrcode = new QRCode("qrcode", {
+        text: qrCodeUrl,
+        width: 80,
+        height: 80,
+        colorDark: "#000000",
+        colorLight: "#ffffff",
+        correctLevel: QRCode.CorrectLevel.H,
+      });
+    };
   });
 </script>
 
 <div class="overflow-y-auto relative max-h-screen p-6 sm:p-10 space-y-6">
-  <section class="grid grid-cols-12 gap-2 lg:gap-6 mt-10 px-4 py-2 lg:py-6 bg-gray-50 dark:bg-gray-800 shadow rounded-lg">
+  <section
+    class="grid grid-cols-12 gap-2 lg:gap-6 mt-10 px-4 py-2 lg:py-6 bg-gray-50 dark:bg-gray-800 shadow rounded-lg"
+  >
     <div class="col-span-12 lg:col-span-4 p-2">
       <div class="flex items-center justify-center">
         <div class="p-4 border border-gray-300 w-max">
-          <div class="flex justify-between gap-6">
-            <p class="font-bold text-xs">No. RM: {no_rm}</p>
-            <p class="font-bold text-xs uppercase">Jon Snow <span>(L)</span></p>
+          <div class="flex justify-between items-center gap-6">
+            <div>
+              <p class="font-bold text-xs my-1">No. RM: {no_rm}</p>
+              <p class="font-bold text-xs my-1 uppercase">Jon Snow (L) 23th</p>
+              <p class="font-bold text-xs my-1">Tgl. Lahir: 02/06/2000</p>
+              <p class="font-bold text-xs my-1">
+                Jln. Mayjend Pandjaitan No. 22 Malang
+              </p>
+            </div>
+            <div id="qrcode" />
           </div>
-          <div class="flex justify-between gap-6">
-            <p class="font-bold text-xs">Tgl. Lahir: 02/06/2000</p>
-            <p class="font-bold text-xs">23th</p>
-          </div>
-          <p class="font-bold text-xs">Jln. Mayjend Pandjaitan No. 22 Malang</p>
-          <canvas class="w-full" bind:this={barcode}></canvas>
         </div>
       </div>
       <div class="flex items-center justify-between gap-4 mt-2 lg:mt-5">
         <div>
-          <h5 
-          class="inline-flex items-center text-md font-semibold text-gray-500 dark:text-gray-400">
-          <svg
-            class="w-5 h-5 mr-2"
-            aria-hidden="true"
-            fill="currentColor"
-            viewBox="0 0 20 20"
-            xmlns="http://www.w3.org/2000/svg"
-            ><path
-              fill-rule="evenodd"
-              d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7-4a1 1 0 11-2 0 1 1 0 012 0zM9 9a1 1 0 000 2v3a1 1 0 001 1h1a1 1 0 100-2v-3a1 1 0 00-1-1H9z"
-              clip-rule="evenodd" /></svg
-          >Dokumen Rekam Medis</h5>
-          <p class="text-xs font-base italic text-red-600">(*) Wajib diperiksa & diisi.</p>
+          <h5
+            class="inline-flex items-center text-md font-semibold text-gray-500 dark:text-gray-400"
+          >
+            <svg
+              class="w-5 h-5 mr-2"
+              aria-hidden="true"
+              fill="currentColor"
+              viewBox="0 0 20 20"
+              xmlns="http://www.w3.org/2000/svg"
+              ><path
+                fill-rule="evenodd"
+                d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7-4a1 1 0 11-2 0 1 1 0 012 0zM9 9a1 1 0 000 2v3a1 1 0 001 1h1a1 1 0 100-2v-3a1 1 0 00-1-1H9z"
+                clip-rule="evenodd"
+              /></svg
+            >Dokumen Rekam Medis
+          </h5>
+          <p class="text-xs font-base italic text-red-600">
+            (*) Wajib diperiksa & diisi.
+          </p>
         </div>
         <div class="flex items-center justify-between gap-4">
-          <Button id="pasienPulang" size="sm" color="yellow" on:click={handlePasienPulang}>
-            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 12v.01M3 21h18M5 21V5a2 2 0 0 1 2-2h7.5M17 13.5V21M14 7h7m-3-3l3 3l-3 3"/></svg>
+          <Button
+            id="pasienPulang"
+            size="sm"
+            color="yellow"
+            on:click={handlePasienPulang}
+          >
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              width="20"
+              height="20"
+              viewBox="0 0 24 24"
+              ><path
+                fill="none"
+                stroke="currentColor"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+                stroke-width="2"
+                d="M13 12v.01M3 21h18M5 21V5a2 2 0 0 1 2-2h7.5M17 13.5V21M14 7h7m-3-3l3 3l-3 3"
+              /></svg
+            >
           </Button>
-          <Popover class="text-sm font-light " title="Perawatan Pasien Selesai" triggeredBy="#pasienPulang"></Popover>
-          <Button id="billing" size="sm" color="purple" href="/transaksi/00123141">
-            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 256 256"><path fill="currentColor" d="M216 74H56a10 10 0 0 1 0-20h136a6 6 0 0 0 0-12H56a22 22 0 0 0-22 22v128a22 22 0 0 0 22 22h160a14 14 0 0 0 14-14V88a14 14 0 0 0-14-14Zm2 126a2 2 0 0 1-2 2H56a10 10 0 0 1-10-10V83.59A21.84 21.84 0 0 0 56 86h160a2 2 0 0 1 2 2Zm-28-60a10 10 0 1 1-10-10a10 10 0 0 1 10 10Z"/></svg>
+          <Popover
+            class="text-sm font-light "
+            title="Perawatan Pasien Selesai"
+            triggeredBy="#pasienPulang"
+          />
+          <Button
+            id="billing"
+            size="sm"
+            color="purple"
+            href="/transaksi/00123141"
+          >
+            <svg
+              xmlns="http://www.w3.org/2000/svg"
+              width="20"
+              height="20"
+              viewBox="0 0 256 256"
+              ><path
+                fill="currentColor"
+                d="M216 74H56a10 10 0 0 1 0-20h136a6 6 0 0 0 0-12H56a22 22 0 0 0-22 22v128a22 22 0 0 0 22 22h160a14 14 0 0 0 14-14V88a14 14 0 0 0-14-14Zm2 126a2 2 0 0 1-2 2H56a10 10 0 0 1-10-10V83.59A21.84 21.84 0 0 0 56 86h160a2 2 0 0 1 2 2Zm-28-60a10 10 0 1 1-10-10a10 10 0 0 1 10 10Z"
+              /></svg
+            >
           </Button>
-          <Popover class="text-sm font-light " title="Nota Pembayaran Rawat Inap Pasien" triggeredBy="#billing"></Popover>
+          <Popover
+            class="text-sm font-light "
+            title="Nota Pembayaran Rawat Inap Pasien"
+            triggeredBy="#billing"
+          />
         </div>
       </div>
-      <div class="py-2 lg:py-4 mt-2 overflow-y-auto h-32 lg:h-80 border-b lg:border-none">
+      <div
+        class="py-2 lg:py-4 mt-2 overflow-y-auto h-32 lg:h-80 border-b lg:border-none"
+      >
         <div class="grid gap-1 lg:gap-2">
-          <a href="/rekam-medis/{no_rm}" class="{(activeUrl === "/(app)/rekam-medis/[slug]") ? "font-semibold" : ""} text-sm lg:text-md hover:text-gray-500">Log Aktivitas Sistem</a>
-          <a href="/rekam-medis/{no_rm}/informasi-pasien" class="{(activeUrl === "informasi-pasien") ? "font-semibold" : ""} text-sm lg:text-md hover:text-gray-500">Informasi Pasien <span class="text-red-600">*</span></a>
-          <a href="/rekam-medis/{no_rm}/pemeriksaan-igd-poliklinik" class="{(activeUrl === "pemeriksaan-igd-poliklinik") ? "font-semibold" : ""} text-sm lg:text-md hover:text-gray-500">Pemeriksaan IGD/Poliklinik <span class="text-red-600">*</span></a>
-          <a href="/rekam-medis/{no_rm}/asesmen-medis-awal" class="{(activeUrl === "asesmen-medis-awal") ? "font-semibold" : ""} text-sm lg:text-md font-base hover:text-gray-500">Asesmen Medis Awal <span class="text-red-600">*</span></a>
-          <a href="/rekam-medis/{no_rm}/asesmen-rawat-inap" class="{(activeUrl === "asesmen-rawat-inap") ? "font-semibold" : ""} text-sm lg:text-md font-base hover:text-gray-500">Asesmen Medis Rawat Inap <span class="text-red-600">*</span></a>
-          <a href="/rekam-medis/{no_rm}/edukasi-pasien"  class="{(activeUrl === "edukasi-pasien") ? "font-semibold" : ""} text-sm lg:text-md font-base hover:text-gray-500" >Edukasi Pasien & Keluarga Terintegrasi <span class="text-red-600">(opsional)</span></a>
-          <a href="/rekam-medis/{no_rm}/transfer-pasien-internal"  class="{(activeUrl === "transfer-pasien-internal") ? "font-semibold" : ""} text-sm lg:text-md font-base hover:text-gray-500" >Transfer Pasien Internal <span class="text-red-600">(opsional)</span></a>
-          <a href="/rekam-medis/{no_rm}/hasil-pemeriksaan-penunjang"  class="{(activeUrl === "hasil-pemeriksaan-penunjang") ? "font-semibold" : ""} text-sm lg:text-md font-base hover:text-gray-500" >Hasil Pemeriksaan Penunjang <span class="text-red-600">*</span></a>
-          <a href="/rekam-medis/{no_rm}/kopi-resep"  class="{(activeUrl === "kopi-resep") ? "font-semibold" : ""} text-sm lg:text-md font-base hover:text-gray-500" >Kopi Resep <span class="text-red-600">*</span></a>
-          <a href="/rekam-medis/{no_rm}/catatan-perkembangan-pasien-terintegrasi"  class=" {(activeUrl === "catatan-perkembangan-pasien-terintegrasi") ? "font-semibold" : ""} text-sm lg:text-md font-base hover:text-gray-500">Catatan Perkembangan Pasien Terintegrasi <span class="text-red-600">*</span></a>
-          <a href="/rekam-medis/{no_rm}/catatan-keperawatan"  class=" {(activeUrl === "catatan-keperawatan") ? "font-semibold" : ""} text-sm lg:text-md font-base hover:text-gray-500">Catatan Keperawatan <span class="text-red-600">*</span></a>
-          <a href="/rekam-medis/{no_rm}/observasi-cairan"  class="{(activeUrl === "observasi-cairan") ? "font-semibold" : ""} text-sm lg:text-md font-base hover:text-gray-500" >Observasi Cairan <span class="text-red-600">*</span></a>
-          <a href="/rekam-medis/{no_rm}/pemberian-obat-pasien"  class="{(activeUrl === "pemberian-obat-pasien") ? "font-semibold" : ""} text-sm lg:text-md font-base hover:text-gray-500" >Pemberian Obat Pasien <span class="text-red-600">*</span></a>
-          <a  href="/rekam-medis/{no_rm}/rekonsiliasi"  class="{(activeUrl === "rekonsiliasi") ? "font-semibold" : ""} text-sm lg:text-md font-base hover:text-gray-500" >Rekonsiliasi <span class="text-red-600">*</span></a>
-          <a href="/rekam-medis/{no_rm}/daftar-dokter-penanggungjawab-pasien"  class="{(activeUrl === "daftar-dokter-penanggungjawab-pasien") ? "font-semibold" : ""} text-sm lg:text-md font-base hover:text-gray-500" >Dokter Penanggung Jawab Pasien <span class="text-red-600">*</span></a>
-          <a href="/rekam-medis/{no_rm}/news"  class="{(activeUrl === "news") ? "font-semibold" : ""} text-sm lg:text-md font-base hover:text-gray-500" >National Early Warning Score <span class="text-red-600">(opsional)</span></a>
-          <a href="/rekam-medis/{no_rm}/ringkasan-pasien-pulang"  class="{(activeUrl === "ringkasan-pasien-pulang") ? "font-semibold" : ""} text-sm lg:text-md font-base hover:text-gray-500" >Ringkasan Pasien Pulang <span class="text-red-600">*</span></a>
+          <a
+            href="/rekam-medis/{no_rm}"
+            class="{activeUrl === '/(app)/rekam-medis/[slug]'
+              ? 'font-semibold'
+              : ''} text-sm lg:text-md hover:text-gray-500"
+            >Log Aktivitas Sistem</a
+          >
+          <a
+            href="/rekam-medis/{no_rm}/informasi-pasien"
+            class="{activeUrl === 'informasi-pasien'
+              ? 'font-semibold'
+              : ''} text-sm lg:text-md hover:text-gray-500"
+            >Informasi Pasien <span class="text-red-600">*</span></a
+          >
+          <a
+            href="/rekam-medis/{no_rm}/pemeriksaan-igd-poliklinik"
+            class="{activeUrl === 'pemeriksaan-igd-poliklinik'
+              ? 'font-semibold'
+              : ''} text-sm lg:text-md hover:text-gray-500"
+            >Pemeriksaan IGD/Poliklinik <span class="text-red-600">*</span></a
+          >
+          <a
+            href="/rekam-medis/{no_rm}/asesmen-medis-awal"
+            class="{activeUrl === 'asesmen-medis-awal'
+              ? 'font-semibold'
+              : ''} text-sm lg:text-md font-base hover:text-gray-500"
+            >Asesmen Medis Awal <span class="text-red-600">*</span></a
+          >
+          <a
+            href="/rekam-medis/{no_rm}/asesmen-rawat-inap"
+            class="{activeUrl === 'asesmen-rawat-inap'
+              ? 'font-semibold'
+              : ''} text-sm lg:text-md font-base hover:text-gray-500"
+            >Asesmen Medis Rawat Inap <span class="text-red-600">*</span></a
+          >
+          <a
+            href="/rekam-medis/{no_rm}/edukasi-pasien"
+            class="{activeUrl === 'edukasi-pasien'
+              ? 'font-semibold'
+              : ''} text-sm lg:text-md font-base hover:text-gray-500"
+            >Edukasi Pasien & Keluarga Terintegrasi <span class="text-red-600"
+              >(opsional)</span
+            ></a
+          >
+          <a
+            href="/rekam-medis/{no_rm}/transfer-pasien-internal"
+            class="{activeUrl === 'transfer-pasien-internal'
+              ? 'font-semibold'
+              : ''} text-sm lg:text-md font-base hover:text-gray-500"
+            >Transfer Pasien Internal <span class="text-red-600"
+              >(opsional)</span
+            ></a
+          >
+          <a
+            href="/rekam-medis/{no_rm}/hasil-pemeriksaan-penunjang"
+            class="{activeUrl === 'hasil-pemeriksaan-penunjang'
+              ? 'font-semibold'
+              : ''} text-sm lg:text-md font-base hover:text-gray-500"
+            >Hasil Pemeriksaan Penunjang <span class="text-red-600">*</span></a
+          >
+          <a
+            href="/rekam-medis/{no_rm}/kopi-resep"
+            class="{activeUrl === 'kopi-resep'
+              ? 'font-semibold'
+              : ''} text-sm lg:text-md font-base hover:text-gray-500"
+            >Kopi Resep <span class="text-red-600">*</span></a
+          >
+          <a
+            href="/rekam-medis/{no_rm}/catatan-perkembangan-pasien-terintegrasi"
+            class=" {activeUrl === 'catatan-perkembangan-pasien-terintegrasi'
+              ? 'font-semibold'
+              : ''} text-sm lg:text-md font-base hover:text-gray-500"
+            >Catatan Perkembangan Pasien Terintegrasi <span class="text-red-600"
+              >*</span
+            ></a
+          >
+          <a
+            href="/rekam-medis/{no_rm}/catatan-keperawatan"
+            class=" {activeUrl === 'catatan-keperawatan'
+              ? 'font-semibold'
+              : ''} text-sm lg:text-md font-base hover:text-gray-500"
+            >Catatan Keperawatan <span class="text-red-600">*</span></a
+          >
+          <a
+            href="/rekam-medis/{no_rm}/observasi-cairan"
+            class="{activeUrl === 'observasi-cairan'
+              ? 'font-semibold'
+              : ''} text-sm lg:text-md font-base hover:text-gray-500"
+            >Observasi Cairan <span class="text-red-600">*</span></a
+          >
+          <a
+            href="/rekam-medis/{no_rm}/pemberian-obat-pasien"
+            class="{activeUrl === 'pemberian-obat-pasien'
+              ? 'font-semibold'
+              : ''} text-sm lg:text-md font-base hover:text-gray-500"
+            >Pemberian Obat Pasien <span class="text-red-600">*</span></a
+          >
+          <a
+            href="/rekam-medis/{no_rm}/rekonsiliasi"
+            class="{activeUrl === 'rekonsiliasi'
+              ? 'font-semibold'
+              : ''} text-sm lg:text-md font-base hover:text-gray-500"
+            >Rekonsiliasi <span class="text-red-600">*</span></a
+          >
+          <a
+            href="/rekam-medis/{no_rm}/daftar-dokter-penanggungjawab-pasien"
+            class="{activeUrl === 'daftar-dokter-penanggungjawab-pasien'
+              ? 'font-semibold'
+              : ''} text-sm lg:text-md font-base hover:text-gray-500"
+            >Dokter Penanggung Jawab Pasien <span class="text-red-600">*</span
+            ></a
+          >
+          <a
+            href="/rekam-medis/{no_rm}/news"
+            class="{activeUrl === 'news'
+              ? 'font-semibold'
+              : ''} text-sm lg:text-md font-base hover:text-gray-500"
+            >National Early Warning Score <span class="text-red-600"
+              >(opsional)</span
+            ></a
+          >
+          <a
+            href="/rekam-medis/{no_rm}/ringkasan-pasien-pulang"
+            class="{activeUrl === 'ringkasan-pasien-pulang'
+              ? 'font-semibold'
+              : ''} text-sm lg:text-md font-base hover:text-gray-500"
+            >Ringkasan Pasien Pulang <span class="text-red-600">*</span></a
+          >
         </div>
       </div>
     </div>
-    <div class="col-span-12 lg:col-span-8 lg:order-first lg:border-r py-2 lg:py-4 px-4">
-      <slot/>
+    <div
+      class="col-span-12 lg:col-span-8 lg:order-first lg:border-r py-2 lg:py-4 px-4"
+    >
+      <slot />
     </div>
   </section>
 </div>
