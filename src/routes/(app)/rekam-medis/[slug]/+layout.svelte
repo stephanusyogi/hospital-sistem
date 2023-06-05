@@ -1,10 +1,8 @@
 <script>
   import { onMount, tick } from "svelte";
   import { page } from "$app/stores";
-  import JsBarcode from "jsbarcode";
   import { Button, Popover } from "flowbite-svelte";
   import Swal from "sweetalert2";
-  import { goto } from "$app/navigation";
 
   const no_rm = $page.params.slug;
   const qrCodeUrl = $page.url.origin + "/rekam-medis/" + no_rm;
@@ -12,15 +10,6 @@
   $: activeUrl = $page.route.id.split("/(app)/rekam-medis/[slug]/")[1]
     ? $page.route.id.split("/(app)/rekam-medis/[slug]/")[1].split("/")[0]
     : $page.route.id.split("/(app)/rekam-medis/[slug]/")[0];
-
-  let barcode;
-  const defaultOptions = {
-    format: "CODE128",
-    height: 100,
-    displayValue: false,
-    background: "rgb(249 250 251)",
-    lineColor: "#000000",
-  };
 
   const handlePasienPulang = () => {
     Swal.fire({
@@ -34,7 +23,6 @@
   };
 
   let qrcode;
-
   onMount(() => {
     let script = document.createElement("script");
     script.src =
@@ -61,8 +49,11 @@
     <div class="col-span-12 lg:col-span-4 p-2">
       <div class="flex items-center justify-center">
         <div class="p-4 border border-gray-300 w-max">
-          <div class="flex justify-between items-center gap-6">
-            <div>
+          <div
+            class="flex flex-wrap sm:flex-nowrap justify-center sm:justify-between items-center gap-6"
+          >
+            <div id="qrcode" />
+            <div class="sm:order-first">
               <p class="font-bold text-xs my-1">No. RM: {no_rm}</p>
               <p class="font-bold text-xs my-1 uppercase">Jon Snow (L) 23th</p>
               <p class="font-bold text-xs my-1">Tgl. Lahir: 02/06/2000</p>
@@ -70,11 +61,12 @@
                 Jln. Mayjend Pandjaitan No. 22 Malang
               </p>
             </div>
-            <div id="qrcode" />
           </div>
         </div>
       </div>
-      <div class="flex items-center justify-between gap-4 mt-2 lg:mt-5">
+      <div
+        class="flex flex-wrap sm:flex-nowrap items-center justify-between gap-4 mt-2 lg:mt-5"
+      >
         <div>
           <h5
             class="inline-flex items-center text-md font-semibold text-gray-500 dark:text-gray-400"

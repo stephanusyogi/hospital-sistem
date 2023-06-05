@@ -3,7 +3,12 @@
 </script>
 
 <Footer>
-  <FooterCopyright href="/" by="RSI Aisyah Hospital Sistem" year={2023} />
+  <FooterCopyright
+    class="text-xs md:text-sm text-gray-500 dark:bg-gray-800"
+    href="/"
+    by="RSI Aisyah Hospital Sistem"
+    year={2023}
+  />
   <div>
     <p class="text-xs md:text-sm text-gray-500 dark:bg-gray-800">
       Integrated with <span

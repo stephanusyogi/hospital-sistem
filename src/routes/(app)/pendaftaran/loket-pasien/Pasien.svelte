@@ -1,44 +1,50 @@
 <script>
-  export let tableRowNumber, no_rm, nama_pasien, nik, jenis_kelamin, ttl, alamat;
-  import { Button, TableBodyCell, TableBodyRow } from "flowbite-svelte";
-  import { goto } from '$app/navigation';
+  export let tableRowNumber, no_rm, nama_pasien, nik, jenis_kelamin, alamat;
+  import { Button } from "flowbite-svelte";
+  import { goto } from "$app/navigation";
   import Swal from "sweetalert2";
-
-  let tdClass = "text-center px-6 py-4 whitespace-nowrap font-medium"
-
   const handlePasien = (id) => {
     Swal.fire({
-      title: 'Daftarkan Pasien Berikut Ke Admisi Rawat Inap?',
-      html: '<p>No. RM: 000012023</p><p>Nama: Jon Snow</p><p>Jenis Kelamin: Laki-Laki</p>',
+      title: "Daftarkan Pasien Berikut Ke Admisi Rawat Inap?",
+      html: "<p>No. RM: 000012023</p><p>Nama: Jon Snow</p>",
       showDenyButton: true,
       showCancelButton: false,
-      confirmButtonText: 'Daftarkan ke Admisi',
+      confirmButtonText: "Daftarkan ke Admisi",
       denyButtonText: `Batal`,
     }).then((result) => {
       if (result.isConfirmed) {
-        goto(`/pendaftaran/loket-pasien/${id}`)
+        goto(`/pendaftaran/loket-pasien/${id}`);
       } else if (result.isDenied) {
         Swal.fire({
-          icon: 'info',
-          title: 'Aksi Dibatalkan',
+          icon: "info",
+          title: "Aksi Dibatalkan",
           showConfirmButton: false,
-          timer: 1000
-        })
+          timer: 1000,
+        });
       }
-    })
-  }
+    });
+  };
 </script>
 
-<TableBodyRow>
-  <TableBodyCell {tdClass}>{tableRowNumber}</TableBodyCell>
-  <TableBodyCell {tdClass}>{no_rm}</TableBodyCell>
-  <TableBodyCell {tdClass}>{nama_pasien} ,<span class="italic">{(jenis_kelamin === "Perempuan") ? "Nn." : "Tn."}</span></TableBodyCell>
-  <TableBodyCell {tdClass}>{nik}</TableBodyCell>
-  <TableBodyCell {tdClass}>{ttl}</TableBodyCell>
-  <TableBodyCell {tdClass}>{alamat}</TableBodyCell>
-  <TableBodyCell {tdClass}>
-    <Button color="green" on:click={()=>{handlePasien("0000012023")}}>
-        Pilih
+<tr>
+  <td>{tableRowNumber}</td>
+  <td>{no_rm}</td>
+  <td>{nik}</td>
+  <td
+    >{nama_pasien} ,<span class="italic"
+      >{jenis_kelamin === "Perempuan" ? "Nn." : "Tn."}</span
+    ></td
+  >
+  <td>{alamat}</td>
+  <td>
+    <Button
+      class="text-xs sm:text-md lg:text-lg"
+      color="green"
+      on:click={() => {
+        handlePasien("0000012023");
+      }}
+    >
+      Pilih
     </Button>
-  </TableBodyCell>
-</TableBodyRow>
+  </td>
+</tr>

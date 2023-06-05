@@ -1,0 +1,59 @@
+thead {
+  background: #fff;
+}
+th div {
+  justify-content: center !important;
+  padding: 15px;
+}
+tbody td {
+  border: 1px solid #f5f5f5;
+  text-align: center;
+  padding: 15px;
+}
+tbody tr {
+  transition: all, 0.2s;
+}
+tbody tr:hover {
+  background: #f5f5f5;
+}
+section {
+  width: 100%;
+}
+section footer aside {
+  width: 100%;
+}
+section footer section {
+  justify-content: flex-end;
+}
+strong {
+  font-weight: 600 !important;
+}
+
+header input {
+  display: block;
+  width: 30% !important;
+  max-width: unset !important ;
+  height: 40px !important;
+  padding: 5px 10px !important;
+  color: #111827 !important;
+  font-size: 0.875rem !important;
+  line-height: 1.25rem !important;
+  border-radius: 0.5rem !important;
+  border-color: #d1d5db !important;
+}
+
+header aside {
+  display: none !important;
+}
+
+@media (max-width: 640px) {
+  header input {
+    width: 100% !important;
+  }
+  th div {
+    font-size: 14px;
+  }
+  td {
+    font-size: 12px;
+  }
+}
