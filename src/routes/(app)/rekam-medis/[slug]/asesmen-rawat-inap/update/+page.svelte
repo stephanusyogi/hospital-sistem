@@ -58,12 +58,12 @@
 
 <main>
   <form on:submit|preventDefault={()=>handleSubmit(no_rm)}>
-    <div class="flex items-center justify-between">
+    <div class="flex flex-wrap sm:flex-nowrap items-center justify-between">
       <div>
-        <p class="text-xl font-semibold">Form 12.31 Asesmen Rawat Inap</p>
+        <p class="text-md sm:text-lg lg:text-xl font-semibold">Form 12.31 Asesmen Rawat Inap</p>
         <p class="text-red-500 text-sm">(*) Wajib diisi.</p>
       </div>
-      <Button type="submit" color="green">Simpan Perubahan</Button>
+      <Button type="submit" size="sm" color="green">Simpan Perubahan</Button>
     </div>
     <hr class="my-5">
     <Tabs style="underline" defaultClass="flex space-x-2">
@@ -72,7 +72,7 @@
           <!-- Status Fisik & Riwayat -->
           <AccordionItem open>
             <span slot="header">Status Fisik & Riwayat <span class="text-sm text-red-500 italic">*</span></span>
-            <div class="grid grid-cols-2 gap-4">
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
               <div class="my-2">
                 <Label for="diagnosa_masuk" class="mb-2">Diagnosa Masuk: <span class="text-sm text-red-500 italic">*</span></Label>
                 <Textarea id="diagnosa_masuk" rows="2" placeholder="Masukkan diagnosa masuk" name="diagnosa_masuk"/>
@@ -86,7 +86,7 @@
           <!-- Alloanamnesa -->
           <AccordionItem>
             <span slot="header">Alloanamnesa <span class="text-sm text-red-500 italic">*</span></span>
-            <div class="grid grid-cols-2 lg:grid-cols-3 gap-4">
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
               <div class="my-2">
                 <Label for="" class="mb-2">Riwayat Penyakit Pasien: <span class="text-sm text-red-500 italic">*</span></Label>
                 <div class="flex flex-wrap gap-2">
@@ -229,34 +229,34 @@
           <!-- Heteroanamnesa -->
           <AccordionItem>
             <span slot="header">Heteroanamnesa <span class="text-sm text-red-500 italic">*</span></span>
-            <div class="grid grid-cols-2 lg:grid-cols-3 gap-4">
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
               <div class="my-2">
                 <Label for="" class="mb-2">Tanda-Tanda Vital: <span class="text-sm text-red-500 italic">*</span></Label>
                 <div class="flex flex-col gap-2">
-                  <div class="grid grid-cols-3 gap-2">
+                  <div class="grid grid-cols-1 sm:grid-cols-3 gap-2">
                     <span>Suhu:</span>
-                    <ButtonGroup class="w-full col-span-2" size="md">
+                    <ButtonGroup class="w-full sm:col-span-2" size="md">
                       <Input id="input-addon-md" type="text" name="suhu" size="sm"/>
                       <InputAddon>°C</InputAddon>
                     </ButtonGroup>
                   </div>
-                  <div class="grid grid-cols-3 gap-2">
+                  <div class="grid grid-cols-1 sm:grid-cols-3 gap-2">
                     <span>SpO2:</span>
-                    <ButtonGroup class="w-full col-span-2" size="md">
+                    <ButtonGroup class="w-full sm:col-span-2" size="md">
                       <Input id="input-addon-md" type="text" name="sp02" size="sm"/>
                       <InputAddon>%</InputAddon>
                     </ButtonGroup>
                   </div>
-                  <div class="grid grid-cols-3 gap-2">
+                  <div class="grid grid-cols-1 sm:grid-cols-3 gap-2">
                     <span>Nadi:</span>
-                    <ButtonGroup class="w-full col-span-2" size="md">
+                    <ButtonGroup class="w-full sm:col-span-2" size="md">
                       <Input id="input-addon-md" type="text" name="nadi" size="sm"/>
                       <InputAddon>%</InputAddon>
                     </ButtonGroup>
                   </div>
-                  <div class="grid grid-cols-3 gap-2">
+                  <div class="grid grid-cols-1 sm:grid-cols-3 gap-2">
                     <span>Tensi:</span>
-                    <ButtonGroup class="w-full col-span-2" size="md">
+                    <ButtonGroup class="w-full sm:col-span-2" size="md">
                       <Input id="input-addon-md" type="text" name="tensi" size="sm"/>
                       <InputAddon>mmHg</InputAddon>
                     </ButtonGroup>
@@ -317,7 +317,7 @@
           <!-- Pemeriksaan Kepala & Leher -->
           <AccordionItem>
             <span slot="header">Pemeriksaan Kepala & Leher <span class="text-sm text-red-500 italic">*</span></span>
-            <div class="grid grid-cols-2 lg:grid-cols-3 gap-4">
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
               <div class="my-2">
                 <Label for="" class="mb-2">Mata: <span class="text-sm text-red-500 italic">*</span></Label>
                 <div class="flex flex-wrap gap-2">
@@ -396,22 +396,22 @@
                   <div class="flex gap-2">
                     <Radio name="paru_2" value="Ronki">Ronki,</Radio>
                     <div class="flex flex-col gap-2">
-                      <Radio name="paru_2_ronki" value="Kanan">Kanan</Radio>
-                      <Radio name="paru_2_ronki" value="Kiri">Kiri</Radio>
+                      <Radio name="paru_2_ronki" value="Kanan">Kan</Radio>
+                      <Radio name="paru_2_ronki" value="Kiri">Kir</Radio>
                     </div>
                   </div>
                   <div class="flex gap-2">
                     <Radio name="paru_2" value="Wheezing">Wheezing,</Radio>
                     <div class="flex flex-col gap-2">
-                      <Radio name="paru_2_wheezing" value="Kanan">Kanan</Radio>
-                      <Radio name="paru_2_wheezing" value="Kiri">Kiri</Radio>
+                      <Radio name="paru_2_wheezing" value="Kanan">Kan</Radio>
+                      <Radio name="paru_2_wheezing" value="Kiri">Kir</Radio>
                     </div>
                   </div>
                   <div class="flex gap-2">
                     <Radio name="paru_2" value="Stridor">Stridor,</Radio>
                     <div class="flex flex-col gap-2">
-                      <Radio name="paru_2_stridor" value="Kanan">Kanan</Radio>
-                      <Radio name="paru_2_stridor" value="Kiri">Kiri</Radio>
+                      <Radio name="paru_2_stridor" value="Kanan">Kan</Radio>
+                      <Radio name="paru_2_stridor" value="Kiri">Kir</Radio>
                     </div>
                   </div>
                 </div>
@@ -445,7 +445,7 @@
           <!-- Pemeriksaan Abdomen -->
           <AccordionItem>
             <span slot="header">Pemeriksaan Abdomen <span class="text-sm text-red-500 italic">*</span></span>
-            <div class="grid grid-cols-2 lg:grid-cols-4 gap-4">
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4">
               <div class="my-2">
                 <Label for="" class="mb-2">Palpasi: <span class="text-sm text-red-500 italic">*</span></Label>
                 <div class="flex flex-wrap gap-2">
@@ -537,7 +537,7 @@
           <!-- Pemeriksaan Neurologi -->
           <AccordionItem>
             <span slot="header">Pemeriksaan Neurologi <span class="text-sm text-red-500 italic">*</span></span>
-            <div class="grid grid-cols-2 gap-4">
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
               <div class="my-2">
                 <Label for="" class="mb-2">Opsi Neurologi: <span class="text-sm text-red-500 italic">*</span></Label>
                 <div class="flex flex-wrap gap-2">
@@ -570,7 +570,7 @@
               <p class="text-lg font-semibold">Total Nilai : <span>-</span></p>
               <p class="text-sm font-medium italic">15 (CM), 13-14 (Penurunan Kesadaran Ringan), 9-12 (Penurunan Kesadaran Sedang), 3-8 (Penurunan Kesadaran Berat)</p>
             </div>
-            <div class="grid grid-cols-2 lg:grid-cols-3 gap-4 my-5">
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 my-5">
               <div class="my-2">
                 <Label for="" class="mb-2">Mata: <span class="text-sm text-red-500 italic">*</span></Label>
                 <div class="flex flex-wrap gap-2">
@@ -606,7 +606,7 @@
           <!-- Pemeriksaan Muskuloskeletal & Kulit (Mobilitas, Fungsi Sendi, Warna Kulit, Turgor) -->
           <AccordionItem>
             <span slot="header">Pemeriksaan Muskuloskeletal & Kulit (Mobilitas, Fungsi Sendi, Warna Kulit, Turgor) <span class="text-sm text-red-500 italic">*</span></span>
-            <div class="grid grid-cols-2 lg:grid-cols-3 gap-4">
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
               <div class="my-2">
                 <Label for="" class="mb-2">Mobilitas: <span class="text-sm text-red-500 italic">*</span></Label>
                 <div class="flex flex-wrap gap-2">
@@ -653,7 +653,7 @@
               <p class="text-lg font-semibold">Total Skor : <span>-</span></p>
               <p class="text-sm font-medium italic">*Skor kurang dari 14 = Resiko Tinggi, lakukan pencegahan dekubitus sesuai prosedur</p>
             </div>
-            <div class="grid grid-cols-2 lg:grid-cols-4 gap-4 my-5">
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 my-5">
               <div class="my-2">
                 <Label for="" class="mb-2">Kondisi Fisik: <span class="text-sm text-red-500 italic">*</span></Label>
                 <div class="flex flex-wrap gap-2">
@@ -708,7 +708,7 @@
               <p class="text-lg font-semibold">Total Nilai ADL : <span>-</span></p>
               <p class="text-sm font-medium italic">Skor: 6, Tidak Ada Ketergantungan. Skor: 3-5, Ketergantungan Sebagian. Skor: 0-2, Tergantung Penuh.</p>
             </div>
-            <div class="grid grid-cols-2 lg:grid-cols-4 gap-4 my-5">
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 my-5">
               <div class="my-2">
                 <Label for="" class="mb-2">Makan / Minum: <span class="text-sm text-red-500 italic">*</span></Label>
                 <div class="flex flex-wrap gap-2">
@@ -761,20 +761,20 @@
               <p class="text-sm font-medium italic">0: Resiko Rendah, 1: Resiko Sedang, Lebih dari 2: Resiko Tinggi</p>
               <p class="text-sm font-medium italic">(Kolaborasi dengan Ahli Gizi)</p>
             </div>
-            <div class="grid grid-cols-2 lg:grid-cols-3 gap-4">
-              <div class="my-2 col-span-2 lg:col-span-3">
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+              <div class="my-2 sm:col-span-2 lg:col-span-3">
                 <Label for="" class="mb-2">Tanda-Tanda Vital: <span class="text-sm text-red-500 italic">*</span></Label>
-                <div class="grid grid-cols-2 gap-2">
-                  <div class="grid grid-cols-3 gap-2">
+                <div class="grid grid-cols-1 sm:grid-cols-2 gap-2">
+                  <div class="grid grid-cols-1 sm:grid-cols-3 gap-2">
                     <span>Tinggi Badan:</span>
-                    <ButtonGroup class="w-full col-span-2" size="md">
+                    <ButtonGroup class="w-full sm:col-span-2" size="md">
                       <Input id="input-addon-md" type="text" name="tb" size="sm"/>
                       <InputAddon>cm</InputAddon>
                     </ButtonGroup>
                   </div>
-                  <div class="grid grid-cols-3 gap-2">
+                  <div class="grid grid-cols-1 sm:grid-cols-3 gap-2">
                     <span>Berat Badan:</span>
-                    <ButtonGroup class="w-full col-span-2" size="md">
+                    <ButtonGroup class="w-full sm:col-span-2" size="md">
                       <Input id="input-addon-md" type="text" name="bb" size="sm"/>
                       <InputAddon>kg</InputAddon>
                     </ButtonGroup>
@@ -814,7 +814,7 @@
               <p class="text-lg font-semibold">Total Skor : <span>-</span></p>
               <p class="text-sm font-medium italic">Lebih dari 45: Resiko Tinggi, 25-44: Resiko Sedang, 0-24: Resiko Rendah</p>
             </div>
-            <div class="grid grid-cols-2 lg:grid-cols-3 gap-4">
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
               <div class="my-2">
                 <Label for="" class="mb-2">Riwayat jatuh: <span class="text-sm text-red-500 italic">*</span></Label>
                 <div class="flex flex-wrap gap-2">
@@ -864,7 +864,7 @@
           <!-- Pemeriksaan Nyeri (Bila ada nyeri lakukan Asesmen Lanjutan Nyeri) -->
           <AccordionItem>
             <span slot="header">Pemeriksaan Nyeri (Bila ada nyeri lakukan Asesmen Lanjutan Nyeri) <span class="text-sm text-red-500 italic">*</span></span>
-            <div class="grid grid-cols-2 gap-4">
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
               <div class="my-2">
                 <Label for="" class="mb-2">Nyeri:</Label>
                 <div class="flex flex-wrap gap-2">
@@ -883,18 +883,18 @@
       <TabItem title="Bagian 2: Analisa">
         <div class="flex items-center justify-between mb-2">
           <p class="text-md font-medium">Diagnosa Keperawatan (Beri tanda centang yang menjadi prioritas)</p>
-          <Button size="md" on:click={addDiagnosaPerawat}>
-            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" class="mr-2" viewBox="0 0 24 24"><path fill="currentColor" d="M11 17h2v-4h4v-2h-4V7h-2v4H7v2h4v4Zm1 5q-2.075 0-3.9-.788t-3.175-2.137q-1.35-1.35-2.137-3.175T2 12q0-2.075.788-3.9t2.137-3.175q1.35-1.35 3.175-2.137T12 2q2.075 0 3.9.788t3.175 2.137q1.35 1.35 2.138 3.175T22 12q0 2.075-.788 3.9t-2.137 3.175q-1.35 1.35-3.175 2.138T12 22Z"/></svg> Diagnosa
+          <Button size="sm" on:click={addDiagnosaPerawat}>
+            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" class="sm:mr-2" viewBox="0 0 24 24"><path fill="currentColor" d="M11 17h2v-4h4v-2h-4V7h-2v4H7v2h4v4Zm1 5q-2.075 0-3.9-.788t-3.175-2.137q-1.35-1.35-2.137-3.175T2 12q0-2.075.788-3.9t2.137-3.175q1.35-1.35 3.175-2.137T12 2q2.075 0 3.9.788t3.175 2.137q1.35 1.35 2.138 3.175T22 12q0 2.075-.788 3.9t-2.137 3.175q-1.35 1.35-3.175 2.138T12 22Z"/></svg><span class="hidden sm:block">Update</span>
           </Button>
         </div>
         {#each diagnosaPerawat as tag, i}
-          <div class="flex items-center gap-4 py-2">
+          <div class="flex flex-wrap sm:flex-nowrap items-center gap-4 py-2">
             <div class="w-full">
               <Checkbox class="my-2">
                 <Textarea rows="2" name="diagnosa_perawat[]" placeholder="Masukan Diagnosa" bind:value={diagnosaPerawat[i].diagnosa_perawat}/>
               </Checkbox>
             </div>
-            <Button on:click={() => deleteDiagnosaPerawat(i)} size="xs" color="red"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="20" viewBox="0 0 24 24"><path fill="currentColor" d="M6 19c0 1.1.9 2 2 2h8c1.1 0 2-.9 2-2V9c0-1.1-.9-2-2-2H8c-1.1 0-2 .9-2 2v10zM18 4h-2.5l-.71-.71c-.18-.18-.44-.29-.7-.29H9.91c-.26 0-.52.11-.7.29L8.5 4H6c-.55 0-1 .45-1 1s.45 1 1 1h12c.55 0 1-.45 1-1s-.45-1-1-1z"/></svg></Button>
+            <Button on:click={() => deleteDiagnosaPerawat(i)} size="xs" color="red" class="w-full sm:w-24"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="20" viewBox="0 0 24 24"><path fill="currentColor" d="M6 19c0 1.1.9 2 2 2h8c1.1 0 2-.9 2-2V9c0-1.1-.9-2-2-2H8c-1.1 0-2 .9-2 2v10zM18 4h-2.5l-.71-.71c-.18-.18-.44-.29-.7-.29H9.91c-.26 0-.52.11-.7.29L8.5 4H6c-.55 0-1 .45-1 1s.45 1 1 1h12c.55 0 1-.45 1-1s-.45-1-1-1z"/></svg></Button>
           </div>
         {/each}
       </TabItem>

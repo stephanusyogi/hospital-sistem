@@ -36,21 +36,21 @@
 
 <main>
   <form on:submit|preventDefault={handleSubmit}>
-    <div class="flex items-center justify-between">
+    <div class="flex flex-wrap sm:flex-nowrap items-center justify-between">
       <div>
-        <p class="text-xl font-semibold">Form 12.21 Hasil Pemeriksaan Penunjang</p>
+        <p class="text-md sm:text-lg lg:text-xl font-semibold">Form 12.21 Hasil Pemeriksaan Penunjang</p>
         <p class="text-red-500 text-sm">(*) Wajib diisi.</p>
       </div>
-      <Button type="submit" color="green">
+      <Button type="submit" color="green" size="sm" >
         Tambah</Button>
     </div>
     <hr class="my-5">
-    <div class="grid grid-cols-2 gap-4">
-      <div class="my-2 col-span-2">
+    <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+      <div class="my-2 sm:col-span-2">
         <Label>Uraian:  <span class="text-sm text-red-500 italic">*</span></Label>
         <Textarea id="" placeholder="Masukkan Uraian" rows="2" name="diagnosa"/>
       </div>
-      <div class="my-2 col-span-2">
+      <div class="my-2 sm:col-span-2">
         <Label for="" class="mb-2">Upload Scan Hasil Pemeriksaan: <span class="text-sm text-red-500 italic">*</span></Label>
         <Dropzone id='dropzone'>
           <svg aria-hidden="true" class="mb-3 w-10 h-10 text-gray-400" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 16a4 4 0 01-.88-7.903A5 5 0 1115.9 6L16 6a5 5 0 011 9.9M15 13l-3-3m0 0l-3 3m3-3v12"></path></svg>

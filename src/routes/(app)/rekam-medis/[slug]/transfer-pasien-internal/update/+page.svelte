@@ -97,18 +97,18 @@
 </script>
 <main>
   <form on:submit|preventDefault={()=>handleSubmit(no_rm)}>
-    <div class="flex items-center justify-between">
+    <div class="flex flex-wrap sm:flex-nowrap items-center justify-between">
       <div>
-        <p class="text-xl font-semibold">Form 12.13 Transfer Pasien Internal</p>
+        <p class="text-md sm:text-lg lg:text-xl font-semibold">Form 12.13 Transfer Pasien Internal</p>
         <p class="text-red-500 text-sm">(*) Wajib diisi.</p>
       </div>
-      <Button type="submit" color="green">Simpan Perubahan</Button>
+      <Button type="submit" size="sm" color="green">Simpan Perubahan</Button>
     </div>
     <hr class="my-5">
     <Accordion>
       <AccordionItem open>
         <span slot="header">General <span class="text-sm text-red-500 italic">*</span></span>
-        <div class="grid grid-cols-2 gap-4 overflow-y-auto max-h-screen">
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 overflow-y-auto max-h-screen">
           <div class="my-2">
             <Label for="" class="mb-2">Ruangan Asal: <span class="text-sm text-red-500 italic">*</span></Label>
             <Textarea id="" placeholder="" name=""/>
@@ -126,7 +126,7 @@
             <Textarea id="" placeholder="" name=""/>
           </div>
           <div class="my-2">
-            <div class="grid grid-cols-2 gap-2">
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-2">
               <div>
                 <Label for="" class="mb-2">Tanggal Berangkat:</Label>
                 <Input name="" type="date"/>
@@ -159,11 +159,11 @@
               <Radio name="level_transfer" value="Level 3">Level 3</Radio>
             </div>
           </div>
-          <div class="my-2 col-span-2">
+          <div class="my-2 sm:col-span-2">
             <Label for="" class="mb-2">Indikasi Dirawat: <span class="text-sm text-red-500 italic">*</span></Label>
             <Textarea id="" placeholder="" name=""/>
           </div>
-          <div class="my-2 col-span-2">
+          <div class="my-2 sm:col-span-2">
             <Label for="" class="mb-2">Diagnosa Medis: <span class="text-sm text-red-500 italic">*</span></Label>
             <Textarea id="" placeholder="" name=""/>
           </div>
@@ -171,7 +171,7 @@
       </AccordionItem>
       <AccordionItem>
         <span slot="header">Catatan Klinis <span class="text-sm text-red-500 italic">*</span></span>
-        <div class="grid grid-cols-2 gap-4 overflow-y-auto max-h-screen">
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 overflow-y-auto max-h-screen">
           <div class="my-2">
             <Label for="" class="mb-2">Anamnesis: <span class="text-sm text-red-500 italic">*</span></Label>
             <Textarea id="" placeholder="" name=""/>
@@ -180,7 +180,7 @@
             <Label for="" class="mb-2">Pemeriksaan Fisik: <span class="text-sm text-red-500 italic">*</span></Label>
             <Textarea id="" placeholder="" name=""/>
           </div>
-          <div class="my-2 col-span-2">
+          <div class="my-2 sm:col-span-2">
             <div class="flex items-center justify-between gap-4">
               <Label>Pemeriksaan Diagnostik:  <span class="text-sm text-red-500 italic">*</span>  </Label>
               <Button size="xs"  on:click={addPemeriksaanDiagnostik}>
@@ -188,8 +188,8 @@
               </Button>
             </div>
             {#each pemeriksaan_diagnostik as tag, i}
-              <div class="flex items-center gap-4 py-2">
-                <div class="w-full grid grid-cols-2 gap-4">
+              <div class="flex items-center flex-wrap sm:flex-nowrap gap-4 py-2">
+                <div class="w-full grid grid-cols-1 sm:grid-cols-2 gap-4">
                   <div class="my-2">
                     <Label for="" class="mb-2">Jenis:</Label>
                     <Textarea rows="2" name="pemeriksaan_diagnostik_jenis[]" bind:value={pemeriksaan_diagnostik[i].jenis}/>
@@ -199,7 +199,7 @@
                     <Textarea rows="2" name="pemeriksaan_diagnostik_dibawakan[]" bind:value={pemeriksaan_diagnostik[i].dibawakan}/>
                   </div>
                 </div>
-                <Button on:click={() => deletePemeriksaanDiagnostik(i)} size="xs" color="red" class="mt-2"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path fill="currentColor" d="M6 19c0 1.1.9 2 2 2h8c1.1 0 2-.9 2-2V9c0-1.1-.9-2-2-2H8c-1.1 0-2 .9-2 2v10zM18 4h-2.5l-.71-.71c-.18-.18-.44-.29-.7-.29H9.91c-.26 0-.52.11-.7.29L8.5 4H6c-.55 0-1 .45-1 1s.45 1 1 1h12c.55 0 1-.45 1-1s-.45-1-1-1z"/></svg></Button>
+                <Button on:click={() => deletePemeriksaanDiagnostik(i)} size="xs" color="red" class="mt-2 w-full sm:w-24"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path fill="currentColor" d="M6 19c0 1.1.9 2 2 2h8c1.1 0 2-.9 2-2V9c0-1.1-.9-2-2-2H8c-1.1 0-2 .9-2 2v10zM18 4h-2.5l-.71-.71c-.18-.18-.44-.29-.7-.29H9.91c-.26 0-.52.11-.7.29L8.5 4H6c-.55 0-1 .45-1 1s.45 1 1 1h12c.55 0 1-.45 1-1s-.45-1-1-1z"/></svg></Button>
               </div>
             {/each}
           </div>
@@ -221,7 +221,7 @@
               <Textarea id="riwayat_penyakit_lainnya" rows="2" placeholder="Masukkan riwayat penyakit lainnya" name="riwayat_penyakit_lainnya"/>
             </div>
           </div>
-          <div class="my-2 col-span-2">
+          <div class="my-2 sm:col-span-2">
             <div class="flex items-center justify-between gap-4">
               <Label>Pengobatan yang Sudah Diberikan:  <span class="text-sm text-red-500 italic">*</span>  </Label>
               <Button size="xs"  on:click={addPengobatan}>
@@ -229,13 +229,13 @@
               </Button>
             </div>
             {#each pengobatan as tag, i}
-              <div class="flex items-center gap-4 py-2">
+              <div class="flex items-center flex-wrap sm:flex-nowrap gap-4 py-2">
                 <Textarea  class="w-full" rows="2" name="pengobatan_diberikan[]" bind:value={pengobatan[i].value}/>
-                <Button on:click={() => deletePengobatan(i)} size="xs" color="red" class="mt-2"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path fill="currentColor" d="M6 19c0 1.1.9 2 2 2h8c1.1 0 2-.9 2-2V9c0-1.1-.9-2-2-2H8c-1.1 0-2 .9-2 2v10zM18 4h-2.5l-.71-.71c-.18-.18-.44-.29-.7-.29H9.91c-.26 0-.52.11-.7.29L8.5 4H6c-.55 0-1 .45-1 1s.45 1 1 1h12c.55 0 1-.45 1-1s-.45-1-1-1z"/></svg></Button>
+                <Button on:click={() => deletePengobatan(i)} size="xs" color="red" class="mt-2 w-full sm:w-24"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path fill="currentColor" d="M6 19c0 1.1.9 2 2 2h8c1.1 0 2-.9 2-2V9c0-1.1-.9-2-2-2H8c-1.1 0-2 .9-2 2v10zM18 4h-2.5l-.71-.71c-.18-.18-.44-.29-.7-.29H9.91c-.26 0-.52.11-.7.29L8.5 4H6c-.55 0-1 .45-1 1s.45 1 1 1h12c.55 0 1-.45 1-1s-.45-1-1-1z"/></svg></Button>
               </div>
             {/each}
           </div>
-          <div class="my-2 col-span-2">
+          <div class="my-2 sm:col-span-2">
             <div class="flex items-center justify-between gap-4">
               <Label>Tindakan/Prosedur yang Dilakukan:  <span class="text-sm text-red-500 italic">*</span>  </Label>
               <Button size="xs"  on:click={addProsedur}>
@@ -243,9 +243,9 @@
               </Button>
             </div>
             {#each prosedur as tag, i}
-              <div class="flex items-center gap-4 py-2">
+              <div class="flex items-center flex-wrap sm:flex-nowrap gap-4 py-2">
                 <Textarea  class="w-full" rows="2" name="prosedur_dilakukan[]" bind:value={prosedur[i].value}/>
-                <Button on:click={() => deleteProsedur(i)} size="xs" color="red" class="mt-2"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path fill="currentColor" d="M6 19c0 1.1.9 2 2 2h8c1.1 0 2-.9 2-2V9c0-1.1-.9-2-2-2H8c-1.1 0-2 .9-2 2v10zM18 4h-2.5l-.71-.71c-.18-.18-.44-.29-.7-.29H9.91c-.26 0-.52.11-.7.29L8.5 4H6c-.55 0-1 .45-1 1s.45 1 1 1h12c.55 0 1-.45 1-1s-.45-1-1-1z"/></svg></Button>
+                <Button on:click={() => deleteProsedur(i)} size="xs" color="red" class="mt-2 w-full sm:w-24"><svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path fill="currentColor" d="M6 19c0 1.1.9 2 2 2h8c1.1 0 2-.9 2-2V9c0-1.1-.9-2-2-2H8c-1.1 0-2 .9-2 2v10zM18 4h-2.5l-.71-.71c-.18-.18-.44-.29-.7-.29H9.91c-.26 0-.52.11-.7.29L8.5 4H6c-.55 0-1 .45-1 1s.45 1 1 1h12c.55 0 1-.45 1-1s-.45-1-1-1z"/></svg></Button>
               </div>
             {/each}
           </div>

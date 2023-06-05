@@ -38,13 +38,13 @@
 </script>
 <main>
   <form on:submit|preventDefault={()=>handleSubmit(no_rm)}>
-    <div class="flex items-center justify-between">
+    <div class="flex flex-wrap sm:flex-nowrap items-center justify-between">
       <div>
-        <p class="text-xl font-semibold">Form 12.10 Edukasi Pasien & Keluarga Terintegrasi</p>
+        <p class="text-md sm:text-lg lg:text-xl font-semibold">Form 12.10 Edukasi Pasien & Keluarga Terintegrasi</p>
         <p class="text-red-500 text-sm">(*) Wajib diisi.</p>
       </div>
       <div class="flex flex-wrap gap-4">
-        <Button type="submit" color="green">
+        <Button type="submit" color="green" size="sm">
           Simpan</Button>
       </div>
     </div>
@@ -53,7 +53,7 @@
       <!-- Pengkajian Kebutuhan Edukasi -->
       <AccordionItem open>
         <span slot="header">Pengkajian Kebutuhan Edukasi <span class="text-sm text-red-500 italic">*</span></span>
-        <div class="grid grid-cols-2 gap-4">
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
           <div class="my-2">
             <Label for="" class="mb-2">Keyakinan & nilai-nilai pribadi pasien & keluarga: <span class="text-sm text-red-500 italic">*</span></Label>
             <div class="flex flex-wrap gap-2">
@@ -130,7 +130,7 @@
       <!-- Kebutuhan Edukasi -->
       <AccordionItem>
         <span slot="header">Kebutuhan Edukasi <span class="text-sm text-red-500 italic">*</span></span>
-        <div class="grid grid-cols-2 gap-4">
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
           <div class="my-2">
             <Label for="" class="mb-2">Penerjemah: <span class="text-sm text-red-500 italic">*</span></Label>
             <div class="flex flex-wrap gap-2">
@@ -165,10 +165,10 @@
       <!-- Rencana & Pelaksanaan Edukasi -->
       <AccordionItem>
         <span slot="header">Rencana & Pelaksanaan Edukasi <span class="text-sm text-red-500 italic">*</span></span>
-        <Tabs style="underline">
+        <Tabs style="underline" defaultClass="flex space-x-2 overflow-x-auto">
           <TabItem open title="DPJP">
-            <p class="text-sm text-gray-500 dark:text-gray-400 font-medium">Materi Edukasi:</p>
-            <ul class="space-y-1 text-gray-500 list-disc list-inside dark:text-gray-400">
+            <p class="text-xs sm:text-sm text-gray-500 dark:text-gray-400 font-medium">Materi Edukasi:</p>
+            <ul class="text-xs sm:text-sm space-y-1 text-gray-500 list-disc list-inside dark:text-gray-400">
               <li>Kondisi kesehatan dan diagnosis pasti.</li>
               <li>Partisipasi dalam pengambilan keputusan terkait dengan pelayanannya.</li>
               <li>Proses memberikan Informed Consent.</li>
@@ -201,8 +201,8 @@
             </div>
           </TabItem>
           <TabItem title="PJ SHIFT PERAWAT">
-            <p class="text-sm text-gray-500 dark:text-gray-400 font-medium">Materi Edukasi:</p>
-            <ul class="space-y-1 text-gray-500 list-disc list-inside dark:text-gray-400">
+            <p class="text-xs sm:text-sm text-gray-500 dark:text-gray-400 font-medium">Materi Edukasi:</p>
+            <ul class="text-xs sm:text-sm space-y-1 text-gray-500 list-disc list-inside dark:text-gray-400">
               <li>Partisipasi dalam proses pelayanan.</li>
               <li>Penggunaan peralatan medis secara efektif dan aman.</li>
               <li class="italic">Hand Hygine.</li>
@@ -235,8 +235,8 @@
             </div>
           </TabItem>
           <TabItem title="APOTEKER">
-            <p class="text-sm text-gray-500 dark:text-gray-400 font-medium">Materi Edukasi:</p>
-            <ul class="space-y-1 text-gray-500 list-disc list-inside dark:text-gray-400">
+            <p class="text-xs sm:text-sm text-gray-500 dark:text-gray-400 font-medium">Materi Edukasi:</p>
+            <ul class="text-xs sm:text-sm space-y-1 text-gray-500 list-disc list-inside dark:text-gray-400">
               <li>Penggunaan obat efektif.</li>
               <li>Interaksi obat dengan obat lain, makanan.</li>
               <li>Efek samping obat.</li>
@@ -269,8 +269,8 @@
             </div>
           </TabItem>
           <TabItem title="FISIOTERAPIS">
-            <p class="text-sm text-gray-500 dark:text-gray-400 font-medium">Materi Edukasi:</p>
-            <ul class="space-y-1 text-gray-500 list-disc list-inside dark:text-gray-400">
+            <p class="text-xs sm:text-sm text-gray-500 dark:text-gray-400 font-medium">Materi Edukasi:</p>
+            <ul class="text-xs sm:text-sm space-y-1 text-gray-500 list-disc list-inside dark:text-gray-400">
               <li>Teknik rehabilitasi.</li>
             </ul>
             <div class="my-2">
@@ -300,8 +300,8 @@
             </div>
           </TabItem>
           <TabItem title="NUTRITIONIS KLINIS">
-            <p class="text-sm text-gray-500 dark:text-gray-400 font-medium">Materi Edukasi:</p>
-            <ul class="space-y-1 text-gray-500 list-disc list-inside dark:text-gray-400">
+            <p class="text-xs sm:text-sm text-gray-500 dark:text-gray-400 font-medium">Materi Edukasi:</p>
+            <ul class="text-xs sm:text-sm space-y-1 text-gray-500 list-disc list-inside dark:text-gray-400">
               <li>Diet dan nutrisi.</li>
             </ul>
             <div class="my-2">
