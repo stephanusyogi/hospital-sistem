@@ -61,18 +61,16 @@
 
 <main>
   <form on:submit|preventDefault={handleSubmit}>
-    <div class="flex items-center justify-between">
+    <div class="flex flex-wrap sm:flex-nowrap items-center justify-between">
       <div>
-        <p class="text-xl font-semibold">Form 12.37.1 Formulir Update Rekonsiliasi Obat</p>
+        <p class="text-md sm:text-lg lg:text-xl font-semibold">Form 12.37.1 Formulir Update Rekonsiliasi Obat</p>
         <p class="text-red-500 text-sm">(*) Wajib diisi.</p>
       </div>
-      <div class="flex flex-wrap gap-4">
-        <Button type="submit" color="green">
-          Simpan</Button>
-      </div>
+      <Button type="submit" color="green" size="sm">
+        Simpan</Button>
     </div>
     <hr class="my-5">
-    <div class="grid grid-cols-2 gap-4">
+    <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
       <div class="my-2">
         <Label>Resep/Non-Resep: <span class="text-sm text-red-500 italic">*</span>
           <Select class="mt-2" items={status_obat}/>
@@ -96,7 +94,7 @@
         <Textarea rows="2" placeholder="Masukkan Sumber Obat"/>
       </div>
       <div class="my-2">
-        <div class="grid grid-cols-2 gap-2">
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-2">
           <div>
             <Label for="" class="mb-2">Tanggal Mulai: <span class="text-sm text-red-500 italic">*</span></Label>
             <Input type="date"/>

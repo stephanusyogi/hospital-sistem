@@ -48,15 +48,13 @@
 
 <main>
   <form on:submit|preventDefault={handleSubmit}>
-    <div class="flex items-center justify-between">
+    <div class="flex flex-wrap sm:flex-nowrap items-center justify-between">
       <div>
         <p class="text-xl font-semibold">Form 12.54 Permintaan Kesediaan DPJP</p>
         <p class="text-red-500 text-sm">(*) Wajib diisi.</p>
       </div>
-      <div class="flex flex-wrap gap-4">
-        <Button type="submit" color="green">
-          Ajukan</Button>
-      </div>
+      <Button type="submit" color="green" size="sm">
+        Ajukan</Button>
     </div>
     <hr class="my-5">
     <div class="my-2">

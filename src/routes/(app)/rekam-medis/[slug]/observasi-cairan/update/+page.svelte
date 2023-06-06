@@ -66,9 +66,9 @@
 
 <main>
   <form on:submit|preventDefault={handleSubmit}>
-    <div class="flex items-center justify-between">
+    <div class="flex flex-wrap sm:flex-nowrap items-center justify-between">
       <div>
-        <p class="text-xl font-semibold">Form 12.19 Observasi Cairan</p>
+        <p class="text-md sm:text-lg lg:text-xl font-semibold">Form 12.19 Observasi Cairan</p>
         <ul class="space-y-1 text-gray-500 list-disc list-inside dark:text-gray-400 text-xs lg:text-md">
           <li>Tulis pada bagian input, jenis cairan (infus, diet sonde/biasa) serta jumlah cairannya.</li>
           <li>Tulis pada bagian output, jenis cairan serta jumlah cairannya.</li>
@@ -76,28 +76,26 @@
           <li>IWL = 5-10 cc/kg BB/24 jam</li>
         </ul>
       </div>
-      <div class="flex flex-wrap justify-end gap-4">
-        <Button type="submit" color="green">
-          Simpan</Button>
-      </div>
+      <Button type="submit" color="green" size="sm">
+        Simpan</Button>
     </div>
     <hr class="my-5">
     <Tabs style="underline" defaultClass="flex overflow-x-auto rounded-lg divide-x divide-gray-200 shadow dark:divide-gray-700" contentClass="bg-gray-50 rounded-lg dark:bg-gray-800 mt-4">
       <TabItem open title="Minggu, 9 April 2023">
         <div class="overflow-y-auto max-h-screen">
-          <div class="grid grid-cols-2 gap-2 lg:gap-6 text-sm">
+          <div class="grid grid-cols-1 sm:grid-cols-2 gap-2 lg:gap-6 text-sm">
             <InputOutputForm jam="01.00"/>
             <InputOutputForm jam="02.00"/>
             <InputOutputForm jam="03.00"/>
             <InputOutputForm jam="04.00"/>
             <InputOutputForm jam="05.00"/>
             <InputOutputForm jam="06.00"/>
-            <div class="col-span-2">
+            <div class="sm:col-span-2">
               <Table shadow>
                 <TableBody class="divide-y">
                   <TableBodyRow>
                     <TableBodyCell>
-                      <div class="grid grid-cols-2 gap-6">
+                      <div class="grid grid-cols-1 sm:grid-cols-2 gap-6">
                         <Label for="" class="my-auto">Input - (Output + IWL):</Label>
                         <Input type="text" id="" />
                       </div>
@@ -112,12 +110,12 @@
             <InputOutputForm jam="10.00"/>
             <InputOutputForm jam="11.00"/>
             <InputOutputForm jam="12.00"/>
-            <div class="col-span-2">
+            <div class="sm:col-span-2">
               <Table shadow>
                 <TableBody class="divide-y">
                   <TableBodyRow>
                     <TableBodyCell>
-                      <div class="grid grid-cols-2 gap-6">
+                      <div class="grid grid-cols-1 sm:grid-cols-2 gap-6">
                         <Label for="" class="my-auto">Input - (Output + IWL):</Label>
                         <Input type="text" id="" />
                       </div>
@@ -132,12 +130,12 @@
             <InputOutputForm jam="16.00"/>
             <InputOutputForm jam="17.00"/>
             <InputOutputForm jam="18.00"/>
-            <div class="col-span-2">
+            <div class="sm:col-span-2">
               <Table shadow>
                 <TableBody class="divide-y">
                   <TableBodyRow>
                     <TableBodyCell>
-                      <div class="grid grid-cols-2 gap-6">
+                      <div class="grid grid-cols-1 sm:grid-cols-2 gap-6">
                         <Label for="" class="my-auto">Input - (Output + IWL):</Label>
                         <Input type="text" id="" />
                       </div>
@@ -152,12 +150,12 @@
             <InputOutputForm jam="22.00"/>
             <InputOutputForm jam="23.00"/>
             <InputOutputForm jam="24.00"/>
-            <div class="col-span-2">
+            <div class="sm:col-span-2">
               <Table shadow>
                 <TableBody class="divide-y">
                   <TableBodyRow>
                     <TableBodyCell>
-                      <div class="grid grid-cols-2 gap-6">
+                      <div class="grid grid-cols-1 sm:grid-cols-2 gap-6">
                         <Label for="" class="my-auto">Input - (Output + IWL):</Label>
                         <Input type="text" id="" />
                       </div>
@@ -171,19 +169,19 @@
       </TabItem>
       <TabItem title="Senin, 10 April 2023">
         <div class="overflow-y-auto max-h-screen">
-          <div class="grid grid-cols-2 gap-6 text-sm">
+          <div class="grid grid-cols-1 sm:grid-cols-2 gap-6 text-sm">
             <InputOutputForm jam="01.00"/>
             <InputOutputForm jam="02.00"/>
             <InputOutputForm jam="03.00"/>
             <InputOutputForm jam="04.00"/>
             <InputOutputForm jam="05.00"/>
             <InputOutputForm jam="06.00"/>
-            <div class="col-span-2">
+            <div class="sm:col-span-2">
               <Table shadow>
                 <TableBody class="divide-y">
                   <TableBodyRow>
                     <TableBodyCell>
-                      <div class="grid grid-cols-2 gap-6">
+                      <div class="grid grid-cols-1 sm:grid-cols-2 gap-6">
                         <Label for="" class="my-auto">Input - (Output + IWL):</Label>
                         <Input type="text" id="" />
                       </div>
@@ -198,12 +196,12 @@
             <InputOutputForm jam="10.00"/>
             <InputOutputForm jam="11.00"/>
             <InputOutputForm jam="12.00"/>
-            <div class="col-span-2">
+            <div class="sm:col-span-2">
               <Table shadow>
                 <TableBody class="divide-y">
                   <TableBodyRow>
                     <TableBodyCell>
-                      <div class="grid grid-cols-2 gap-6">
+                      <div class="grid grid-cols-1 sm:grid-cols-2 gap-6">
                         <Label for="" class="my-auto">Input - (Output + IWL):</Label>
                         <Input type="text" id="" />
                       </div>
@@ -218,12 +216,12 @@
             <InputOutputForm jam="16.00"/>
             <InputOutputForm jam="17.00"/>
             <InputOutputForm jam="18.00"/>
-            <div class="col-span-2">
+            <div class="sm:col-span-2">
               <Table shadow>
                 <TableBody class="divide-y">
                   <TableBodyRow>
                     <TableBodyCell>
-                      <div class="grid grid-cols-2 gap-6">
+                      <div class="grid grid-cols-1 sm:grid-cols-2 gap-6">
                         <Label for="" class="my-auto">Input - (Output + IWL):</Label>
                         <Input type="text" id="" />
                       </div>
@@ -238,12 +236,12 @@
             <InputOutputForm jam="22.00"/>
             <InputOutputForm jam="23.00"/>
             <InputOutputForm jam="24.00"/>
-            <div class="col-span-2">
+            <div class="sm:col-span-2">
               <Table shadow>
                 <TableBody class="divide-y">
                   <TableBodyRow>
                     <TableBodyCell>
-                      <div class="grid grid-cols-2 gap-6">
+                      <div class="grid grid-cols-1 sm:grid-cols-2 gap-6">
                         <Label for="" class="my-auto">Input - (Output + IWL):</Label>
                         <Input type="text" id="" />
                       </div>
@@ -257,7 +255,7 @@
       </TabItem>
       <TabItem title="Tambah Hari">
         <form on:submit|preventDefault={handleSubmitTambahHari}>
-          <div class="flex items-center justify-between">
+          <div class="flex flex-wrap sm:flex-nowrap items-center justify-between">
             <div>
               <Label for="" class="my-auto">Hari:</Label>
               <Input type="date" id="" />
@@ -267,19 +265,19 @@
           </div>
           <br>
           <div class="overflow-y-auto max-h-screen">
-            <div class="grid grid-cols-2 gap-6 text-sm">
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-6 text-sm">
               <InputOutputForm jam="01.00"/>
               <InputOutputForm jam="02.00"/>
               <InputOutputForm jam="03.00"/>
               <InputOutputForm jam="04.00"/>
               <InputOutputForm jam="05.00"/>
               <InputOutputForm jam="06.00"/>
-              <div class="col-span-2">
+              <div class="sm:col-span-2">
                 <Table shadow>
                   <TableBody class="divide-y">
                     <TableBodyRow>
                       <TableBodyCell>
-                        <div class="grid grid-cols-2 gap-6">
+                        <div class="grid grid-cols-1 sm:grid-cols-2 gap-6">
                           <Label for="" class="my-auto">Input - (Output + IWL):</Label>
                           <Input type="text" id="" />
                         </div>
@@ -294,12 +292,12 @@
               <InputOutputForm jam="10.00"/>
               <InputOutputForm jam="11.00"/>
               <InputOutputForm jam="12.00"/>
-              <div class="col-span-2">
+              <div class="sm:col-span-2">
                 <Table shadow>
                   <TableBody class="divide-y">
                     <TableBodyRow>
                       <TableBodyCell>
-                        <div class="grid grid-cols-2 gap-6">
+                        <div class="grid grid-cols-1 sm:grid-cols-2 gap-6">
                           <Label for="" class="my-auto">Input - (Output + IWL):</Label>
                           <Input type="text" id="" />
                         </div>
@@ -314,12 +312,12 @@
               <InputOutputForm jam="16.00"/>
               <InputOutputForm jam="17.00"/>
               <InputOutputForm jam="18.00"/>
-              <div class="col-span-2">
+              <div class="sm:col-span-2">
                 <Table shadow>
                   <TableBody class="divide-y">
                     <TableBodyRow>
                       <TableBodyCell>
-                        <div class="grid grid-cols-2 gap-6">
+                        <div class="grid grid-cols-1 sm:grid-cols-2 gap-6">
                           <Label for="" class="my-auto">Input - (Output + IWL):</Label>
                           <Input type="text" id="" />
                         </div>
@@ -334,12 +332,12 @@
               <InputOutputForm jam="22.00"/>
               <InputOutputForm jam="23.00"/>
               <InputOutputForm jam="24.00"/>
-              <div class="col-span-2">
+              <div class="sm:col-span-2">
                 <Table shadow>
                   <TableBody class="divide-y">
                     <TableBodyRow>
                       <TableBodyCell>
-                        <div class="grid grid-cols-2 gap-6">
+                        <div class="grid grid-cols-1 sm:grid-cols-2 gap-6">
                           <Label for="" class="my-auto">Input - (Output + IWL):</Label>
                           <Input type="text" id="" />
                         </div>

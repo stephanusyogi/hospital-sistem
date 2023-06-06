@@ -48,18 +48,16 @@
 
 <main>
   <form on:submit|preventDefault={handleSubmit}>
-    <div class="flex items-center justify-between">
+    <div class="flex flex-wrap items-center justify-between">
       <div>
-        <p class="text-xl font-semibold">Form 12.37 Pemberian Obat Pasien</p>
+        <p class="text-md sm:text-lg lg:text-xl font-semibold">Form 12.37 Pemberian Obat Pasien</p>
         <p class="text-red-500 text-sm">(*) Wajib diisi.</p>
       </div>
-      <div class="flex flex-wrap gap-4">
-        <Button type="submit" color="green">
-          Tambahkan</Button>
-      </div>
+      <Button type="submit" color="green" size="sm">
+        Tambahkan</Button>
     </div>
     <hr class="my-5">
-    <div class="grid grid-cols-2 gap-4">
+    <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
       <div class="my-2">
         <Label>DPJP:  <span class="text-sm text-red-500 italic">*</span>
           <Select class="mt-2" items={dpjp}/>

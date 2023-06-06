@@ -126,20 +126,18 @@
 
 <main>
   <form on:submit|preventDefault={handleSubmit}>
-    <div class="flex items-center justify-between">
+    <div class="flex flex-wrap sm:flex-nowrap items-center justify-between">
       <div>
-        <p class="text-xl font-semibold">NEWS Score</p>
+        <p class="text-md sm:text-lg lg:text-xl font-semibold">NEWS Score</p>
       </div>
-      <div class="flex flex-wrap gap-4">
-        <Button type="submit" color="green">
-          Simpan</Button>
-      </div>
+      <Button type="submit" color="green" size="sm">
+        Simpan</Button>
     </div>
     <hr class="my-5">
     <Tabs style="underline" defaultClass="flex overflow-x-auto rounded-lg divide-x divide-gray-200 shadow dark:divide-gray-700" contentClass="bg-gray-50 rounded-lg dark:bg-gray-800 mt-4">
       <TabItem open title="Minggu, 9 April 2023">
         <div class="overflow-y-auto max-h-screen">
-          <div class="grid grid-cols-2 lg:grid-cols-4 gap-6 text-sm">
+          <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 text-sm">
             <div class="p-2">
               <div class="mb-2">
                 <Label>RR
@@ -240,7 +238,7 @@
       </TabItem>
       <TabItem title="Senin, 10 April 2023">
         <div class="overflow-y-auto max-h-screen">
-          <div class="grid grid-cols-2 lg:grid-cols-4 gap-6 text-sm">
+          <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 text-sm">
             <div class="p-2">
               <div class="mb-2">
                 <Label>RR
@@ -341,7 +339,7 @@
       </TabItem>
       <TabItem title="Tambah Hari">
         <form on:submit|preventDefault={handleSubmitTambahHari}>
-          <div class="flex items-center justify-between">
+          <div class="flex flex-wrap sm:flex-nowrap items-center justify-between">
             <div>
               <Label for="" class="my-auto">Hari:</Label>
               <Input type="date" id="" />
@@ -351,7 +349,7 @@
           </div>
           <br>
           <div class="overflow-y-auto max-h-screen">
-            <div class="grid grid-cols-2 lg:grid-cols-4 gap-6 text-sm">
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 text-sm">
               <div class="p-2">
                 <div class="mb-2">
                   <Label>RR

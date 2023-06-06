@@ -34,35 +34,38 @@
     })
   }
 </script>
-
-<TableBodyRow>
-  <TableBodyCell {tdClass}>{nama_dokter}</TableBodyCell>
-  <TableBodyCell {tdClass}>{spesialis}</TableBodyCell>
-  <TableBodyCell {tdClass}>{keterangan}</TableBodyCell>
-  <TableBodyCell {tdClass}>
+<tr>
+  <td>{nama_dokter}</td>
+  <td>{spesialis}</td>
+  <td>{keterangan}</td>
+  <td>
     {#if permintaan_pasien}
       <Icon icon="material-symbols:check" class="mx-auto"/>
     {:else}
       -
     {/if}
-  </TableBodyCell>
-  <TableBodyCell {tdClass}>
+  </td>
+  <td>
     {#if status == "pending"}
       <Button color="yellow" size="sm">Pending</Button>
     {:else if status == "disetujui"}
-      <Button color="green" size="sm">Disetujui</Button>
-      <Button on:click={() => defaultModal = true} size="sm">Keterangan Dokter</Button>
+      <div class="flex flex-wrap justify-center gap-2">
+        <Button color="green" size="sm">Disetujui</Button>
+        <Button on:click={() => defaultModal = true} size="sm">Keterangan Dokter</Button>
+      </div>
     {:else}
-      <Button color="red" size="sm">Ditolak</Button>
-      <Button on:click={() => defaultModal = true} size="sm">Keterangan Dokter</Button>
+      <div class="flex flex-wrap justify-center gap-2">
+        <Button color="red" size="sm">Ditolak</Button>
+        <Button on:click={() => defaultModal = true} size="sm">Keterangan Dokter</Button>
+      </div>
     {/if}
-  </TableBodyCell>
-  <TableBodyCell>
+  </td>
+  <td>
     <div class="flex flex-wrap justify-center gap-2">
       <button on:click={()=>handleDelete("1")} class="text-red-600 hover:underline dark:text-red-500"><Icon icon="ic:baseline-delete"  width="25" height="25"/></button>
     </div>
-  </TableBodyCell>
-</TableBodyRow>
+  </td>
+</tr>
 
 <Modal title="Keterangan Dokter" bind:open={defaultModal} autoclose size="sm">
   <p class="text-base leading-relaxed text-gray-500 dark:text-gray-400">

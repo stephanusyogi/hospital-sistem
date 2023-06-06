@@ -32,16 +32,15 @@
     })
   }
 </script>
-
-<TableBodyRow>
-  <TableBodyCell {tdClass}>{nama}</TableBodyCell>
-  <TableBodyCell {tdClass}>{kandungan}</TableBodyCell>
-  <TableBodyCell {tdClass}>{frekuensi}</TableBodyCell>
-  <TableBodyCell {tdClass}>{sumber_obat}</TableBodyCell>
-  <TableBodyCell {tdClass}>{tgl_mulai}</TableBodyCell>
-  <TableBodyCell {tdClass}>{tgl_stop}</TableBodyCell>
-  <TableBodyCell {tdClass}>{jml_obat_tersisa}</TableBodyCell>
-  <TableBodyCell {tdClass}>
+<tr>
+  <td>{nama}</td>
+  <td>{kandungan}</td>
+  <td>{frekuensi}</td>
+  <td>{sumber_obat}</td>
+  <td>{tgl_mulai}</td>
+  <td>{tgl_stop}</td>
+  <td>{jml_obat_tersisa}</td>
+  <td>
     {#if status_obat_perawatan === "Tunda" }
       <Button size="sm" color="yellow">Tunda</Button>
     {:else if status_obat_perawatan === "Lanjut"}
@@ -49,8 +48,8 @@
     {:else}
       <Button size="sm" color="red">Henti</Button>
     {/if}
-  </TableBodyCell>
-  <TableBodyCell {tdClass}>
+  </td>
+  <td>
     {#if status_obat_pulang === "Tunda" }
       <Button size="sm" color="yellow">Tunda</Button>
     {:else if status_obat_pulang === "Lanjut"}
@@ -58,12 +57,12 @@
     {:else}
       <Button size="sm" color="red">Henti</Button>
     {/if}
-  </TableBodyCell>
-  <TableBodyCell {tdClass}>{catatan}</TableBodyCell>
-  <TableBodyCell>
+  </td>
+  <td>{catatan}</td>
+  <td>
     <div class="flex flex-wrap justify-center gap-2">
       <a href="rekonsiliasi/1" class="text-blue-600 hover:underline dark:text-blue-500"><Icon icon="material-symbols:edit" width="25" height="25"/></a>
       <button on:click={()=>handleDelete("1")} class="text-red-600 hover:underline dark:text-red-500"><Icon icon="ic:baseline-delete"  width="25" height="25"/></button>
     </div>
-  </TableBodyCell>
-</TableBodyRow>
+  </td>
+</tr>

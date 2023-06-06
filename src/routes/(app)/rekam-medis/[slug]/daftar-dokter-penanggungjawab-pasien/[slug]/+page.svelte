@@ -48,18 +48,16 @@
 
 <main>
   <form on:submit|preventDefault={handleSubmit}>
-    <div class="flex items-center justify-between">
+    <div class="flex flex-wrap sm:flex-nowrap items-center justify-between">
       <div>
-        <p class="text-xl font-semibold">Form 12.54 Update DPJP</p>
+        <p class="text-md sm:text-lg lg:text-xl font-semibold">Form 12.54 Update DPJP</p>
         <p class="text-red-500 text-sm">(*) Wajib diisi.</p>
       </div>
-      <div class="flex flex-wrap gap-4">
-        <Button type="submit" color="green">
-          Simpan</Button>
-      </div>
+      <Button type="submit" color="green" size="sm">
+        Simpan</Button>
     </div>
     <hr class="my-5">
-    <div class="grid grid-cols-2 gap-4">
+    <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
       <div class="my-2">
         <Label>Nama DPJP: <span class="text-sm text-red-500 italic">*</span></Label>
         dr. Ramsay Bolton, Sp AN
@@ -77,7 +75,7 @@
         <Label for="" class="mb-2">Tanggal Selesai: <span class="text-sm text-red-500 italic">*</span></Label>
         <Input type="date" name="tgl_selesai_dpjp_utama"/>
       </div>
-      <div class="my-2 col-span-2">
+      <div class="my-2 sm:col-span-2">
         <Label for="" class="mb-2">Diagnosa: <span class="text-sm text-red-500 italic">*</span></Label>
         <Textarea id="" placeholder="Masukkan Diagnosa" rows="2" name="diagnosa"/>
       </div>

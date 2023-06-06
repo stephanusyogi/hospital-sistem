@@ -35,14 +35,14 @@
 </script>
 
 <div class="overflow-y-auto relative max-h-screen p-6 sm:p-10 space-y-6">
-  <Breadcrumb class="mt-10" aria-label="Solid background breadcrumb example" solid>
-    <BreadcrumbItem href="/"  home>Dashboard</BreadcrumbItem>
-    <BreadcrumbItem href="/ruangan">Data Obat & Bahan Habis Pakai</BreadcrumbItem>
-    <BreadcrumbItem>Update</BreadcrumbItem>
+  <Breadcrumb class="mt-10 overflow-x-auto" aria-label="Solid background breadcrumb example" solid>
+    <BreadcrumbItem spanClass="text-xs  ml-1 font-medium text-gray-500 md:ml-2 dark:text-gray-400"
+    homeClass="inline-flex items-center text-xs font-medium text-gray-700 hover:text-gray-900 dark:text-gray-400 dark:hover:text-white" href="/"  home>Dashboard</BreadcrumbItem>
+    <BreadcrumbItem spanClass="text-xs  ml-1 font-medium text-gray-500 md:ml-2 dark:text-gray-400" href="/ruangan">Data Obat & Bahan Habis Pakai</BreadcrumbItem>
   </Breadcrumb>
   <section class="px-4 py-6 bg-gray-50 dark:bg-gray-800 shadow rounded-lg">
     <div class="flex items-center justify-between">
-      <p class="font-semibold text-2xl">Update Informasi Obat/Bahan Habis Pakai</p>
+      <p class="text-lg sm:text-md lg:text-2xl font-semibold">Update Informasi Obat/Bahan Habis Pakai</p>
     </div>
     <hr class="my-5">
     <form on:submit|preventDefault={handleSubmit}>

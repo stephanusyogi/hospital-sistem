@@ -36,24 +36,22 @@
 
 <main>
   <form on:submit|preventDefault={handleSubmit}>
-    <div class="flex items-center justify-between">
+    <div class="flex flex-wrap items-center justify-between">
       <div>
-        <p class="text-xl font-semibold">Form 12.37 Pemberian Obat Pasien</p>
-        <p class="text-lg font-semibold italic">Frekuensi Obat</p>
+        <p class="text-md sm:text-lg lg:text-xl font-semibold">Form 12.37 Pemberian Obat Pasien</p>
+        <p class="text-sm sm:text-lg font-semibold italic">Frekuensi Obat</p>
         <p class="text-red-500 text-sm">(*) Wajib diisi.</p>
       </div>
-      <div class="flex flex-wrap gap-4">
-        <Button type="submit" color="green">
-          Tambahkan</Button>
-      </div>
+      <Button type="submit" color="green" size="sm">
+        Tambahkan</Button>
     </div>
     <hr class="my-5">
-    <div class="grid grid-cols-2 gap-4">
-      <div class="my-2 col-span-2">
-        <div class="grid grid-cols-2 gap-6">
-          <div class="space-y-2 col-span-2">
+    <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+      <div class="my-2 sm:col-span-2">
+        <div class="grid grid-cols-1 sm:grid-cols-2 gap-6">
+          <div class="space-y-2 sm:col-span-2">
             <Label>Verifikasi</Label>
-            <div class="flex gap-4">
+            <div class="flex flex-wrap sm:flex-nowrap gap-4">
               <Label>
                 <Checkbox name="verifikasi_farmasi"/>
                 Farmasi

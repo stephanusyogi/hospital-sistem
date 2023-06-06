@@ -59,21 +59,21 @@
     solid
   >
     <BreadcrumbItem
-      spanClass="text-xs sm:text-md lg:text-lg ml-1 font-medium text-gray-500 md:ml-2 dark:text-gray-400"
-      homeClass="inline-flex items-center text-xs sm:text-md lg:text-lg font-medium text-gray-700 hover:text-gray-900 dark:text-gray-400 dark:hover:text-white"
+      spanClass="text-xs  ml-1 font-medium text-gray-500 md:ml-2 dark:text-gray-400"
+      homeClass="inline-flex items-center text-xs font-medium text-gray-700 hover:text-gray-900 dark:text-gray-400 dark:hover:text-white"
       href="/"
       home>Dashboard</BreadcrumbItem
     >
     <BreadcrumbItem
-      spanClass="text-xs sm:text-md lg:text-lg ml-1 font-medium text-gray-500 md:ml-2 dark:text-gray-400"
+      spanClass="text-xs  ml-1 font-medium text-gray-500 md:ml-2 dark:text-gray-400"
       >Pendaftaran</BreadcrumbItem
     >
     <BreadcrumbItem
-      spanClass="text-xs sm:text-md lg:text-lg ml-1 font-medium text-gray-500 md:ml-2 dark:text-gray-400"
+      spanClass="text-xs  ml-1 font-medium text-gray-500 md:ml-2 dark:text-gray-400"
       >Loket Pasien</BreadcrumbItem
     >
     <BreadcrumbItem
-      spanClass="text-xs sm:text-md lg:text-lg ml-1 font-medium text-gray-500 md:ml-2 dark:text-gray-400"
+      spanClass="text-xs  ml-1 font-medium text-gray-500 md:ml-2 dark:text-gray-400"
       >Formulir Pasien Baru</BreadcrumbItem
     >
   </Breadcrumb>

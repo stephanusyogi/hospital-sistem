@@ -33,17 +33,18 @@
     })
   }
 </script>
-
-<TableBodyRow>
-  <TableBodyCell {tdClass}>{kode}</TableBodyCell>
-  <TableBodyCell {tdClass}>{nama}</TableBodyCell>
-  <TableBodyCell {tdClass}>Rp. {harga}</TableBodyCell>
-  {#if user_data.role === "Farmasi"}
-  <TableBodyCell>
-    <div class="flex flex-wrap justify-center gap-2">
-      <a href="/obat/1" class="text-blue-600 hover:underline dark:text-blue-500"><Icon icon="material-symbols:edit" width="25" height="25"/></a>
-      <button on:click={()=>handleDelete("1")} class="text-red-600 hover:underline dark:text-red-500"><Icon icon="ic:baseline-delete"  width="25" height="25"/></button>
-    </div>
-  </TableBodyCell>
-  {/if}
-</TableBodyRow>
+<tr>
+  <td>{kode}</td>
+  <td>{nama}</td>
+  <td>Rp. {harga}</td>
+  <td>
+    {#if user_data.role === "Farmasi"}
+    <TableBodyCell>
+      <div class="flex flex-wrap justify-center gap-2">
+        <a href="/obat/1" class="text-blue-600 hover:underline dark:text-blue-500"><Icon icon="material-symbols:edit" width="25" height="25"/></a>
+        <button on:click={()=>handleDelete("1")} class="text-red-600 hover:underline dark:text-red-500"><Icon icon="ic:baseline-delete"  width="25" height="25"/></button>
+      </div>
+    </TableBodyCell>
+    {/if}
+  </td>
+</tr>

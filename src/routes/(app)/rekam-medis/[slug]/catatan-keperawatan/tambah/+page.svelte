@@ -37,13 +37,13 @@
 
 <main>
   <form on:submit|preventDefault={handleSubmit}>
-    <div class="flex items-center justify-between">
+    <div class="flex flex-wrap sm:flex-nowrap items-center justify-between">
       <div>
-        <p class="text-xl font-semibold">Catatan Keperawatan</p>
+        <p class="text-md sm:text-lg lg:text-xl font-semibold">Catatan Keperawatan</p>
         <p class="text-red-500 text-sm">(*) Wajib diisi.</p>
       </div>
       <div class="flex flex-wrap gap-4">
-        <Button type="submit" color="green">
+        <Button type="submit" color="green" size="sm">
           Simpan</Button>
       </div>
     </div>

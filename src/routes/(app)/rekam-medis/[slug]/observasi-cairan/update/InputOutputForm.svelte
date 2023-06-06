@@ -39,7 +39,7 @@
 <Table class="border border-slate-300 shadow-lg bg-white w-full text-left text-sm text-gray-500 dark:text-gray-400">
   <TableBody>
     <TableBodyRow>
-        <TableBodyCell colspan="2"><center>Jam {jam}</center></TableBodyCell>
+        <TableBodyCell colspan="2" tdClass="p-2 whitespace-nowrap font-medium border border-slate-300 text-center"><center>Jam {jam}</center></TableBodyCell>
     </TableBodyRow>
     <TableBodyRow>
       <TableBodyCell tdClass="p-2 whitespace-nowrap font-medium border border-slate-300">Input</TableBodyCell>

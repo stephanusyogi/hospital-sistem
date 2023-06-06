@@ -1,10 +1,8 @@
 <script>
   import Icon from "@iconify/svelte";
   export let tgl_transaksi, nomor, pasien, asuransi ,total, status_bayar
-  import { Button, TableBodyCell, TableBodyRow } from "flowbite-svelte";
+  import { Button } from "flowbite-svelte";
   import Swal from 'sweetalert2'
-
-  let tdClass = "text-center px-6 py-4 whitespace-nowrap font-medium"
 
   const handleDelete = (id) => {
     Swal.fire({
@@ -33,29 +31,28 @@
     })
   }
 </script>
-
-<TableBodyRow>
-  <TableBodyCell {tdClass}>{tgl_transaksi}</TableBodyCell>
-  <TableBodyCell {tdClass}>{nomor}</TableBodyCell>
-  <TableBodyCell {tdClass}>{pasien}</TableBodyCell>
-  <TableBodyCell {tdClass}>{asuransi}</TableBodyCell>
-  <TableBodyCell {tdClass}>Rp. {total}</TableBodyCell>
-  <TableBodyCell {tdClass}>
+<tr>
+  <td>{tgl_transaksi}</td>
+  <td>{nomor}</td>
+  <td>{pasien}</td>
+  <td>{asuransi}</td>
+  <td>Rp. {total}</td>
+  <td>
     {#if status_bayar}
       <Button color="green">Telah Dibayar</Button>
     {:else}
       <Button color="yellow">Belum Dibayar</Button>
     {/if}
-  </TableBodyCell>
-  <TableBodyCell {tdClass}>
-    <Button color="alternative" href="/transaksi/21314415102">
-      <Icon icon="material-symbols:receipt-long" class="mr-2"/>
-      Lihat Nota
+  </td>
+  <td>
+    <Button color="alternative" href="/transaksi/21314415102" size="sm">
+      <Icon icon="material-symbols:receipt-long" class="sm:mr-2"/>
+        <span class="hidden sm:block">Lihat Nota</span>
     </Button>
-  </TableBodyCell>
-  <TableBodyCell>
+  </td>
+  <td>
     <div class="flex flex-wrap justify-center gap-2">
       <button on:click={()=>handleDelete("1")} class="text-red-600 hover:underline dark:text-red-500"><Icon icon="ic:baseline-delete"  width="25" height="25"/></button>
     </div>
-  </TableBodyCell>
-</TableBodyRow>
+  </td>
+</tr>

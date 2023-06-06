@@ -30,22 +30,21 @@
     },
   ];
 </script>
-
-<TableBodyRow>
-  <TableBodyCell {tdClass}>{tableRowNumber}</TableBodyCell>
-  <TableBodyCell {tdClass}>{no_rm}</TableBodyCell>
-  <TableBodyCell {tdClass}>{nama_pasien} ,<span class="italic">{(jenis_kelamin === "Perempuan") ? "Nn." : "Tn."}</span></TableBodyCell>
-  <TableBodyCell {tdClass}>{nik}</TableBodyCell>
-  <TableBodyCell {tdClass}>{jenis_kelamin}</TableBodyCell>
-  <TableBodyCell {tdClass}>{ttl}</TableBodyCell>
-  <TableBodyCell {tdClass}>{alamat}</TableBodyCell>
-  <TableBodyCell {tdClass}>
-    <Button on:click={() => defaultModal = true} color="green">
-      <Icon icon="material-symbols:history" class="mr-2" width="27" height="27"/>
-      Riwayat Rekam Medis
+<tr>
+  <td>{tableRowNumber}</td>
+  <td>{no_rm}</td>
+  <td>{nama_pasien} ,<span class="italic">{(jenis_kelamin === "Perempuan") ? "Nn." : "Tn."}</span></td>
+  <td>{nik}</td>
+  <td>{jenis_kelamin}</td>
+  <td>{ttl}</td>
+  <td>{alamat}</td>
+  <td>
+    <Button on:click={() => defaultModal = true} color="green" size="sm">
+      <Icon icon="material-symbols:history" class="sm:mr-2" width="27" height="27"/>
+      <span class="hidden sm:block">Riwayat Rekam Medis</span>
     </Button>
-  </TableBodyCell>
-</TableBodyRow>
+  </td>
+</tr>
 <Modal size="xl" title="Riwayat Rekam Medis Rawat Inap" bind:open={defaultModal} autoclose class="overflow-auto">
   <Table hoverable={true}>
     <TableHead>
