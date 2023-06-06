@@ -43,7 +43,7 @@
                 id="username"
                 name="username"
                 type="text"
-                label="Username"
+                label="Email"
                 value={form?.username}
                 required
               />

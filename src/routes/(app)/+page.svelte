@@ -1,7 +1,6 @@
 <script>
   import Icon from "@iconify/svelte";
   import { Breadcrumb, BreadcrumbItem } from "flowbite-svelte";
-  import bg_dashboard from "$lib/images/.jpg";
   import FooterComponent from "./FooterComponent.svelte";
 
   /** @type {import('./$types').PageData} */
