@@ -1,20 +1,30 @@
 const jwt = require("jsonwebtoken");
-const Nurse = require("../models/nurses");
-const Doctor = require("../models/doctors");
+const User = require("../models/users");
 
-const protectNurse = async (req, res, next) => {
+const multer = require("multer");
+
+const protectUsers = async (req, res, next) => {
   try {
+    // Apabila menggunakan multipart/form-data
+    const contentType = req.headers['content-type'];
+    const checkContentType = contentType?.startsWith('multipart/form-data')
+    if (contentType || checkContentType) {
+      const upload = multer().any()
+      upload(req, res, (err) => {
+        if (err) {
+          // Error dalam pengolahan multer
+          return res.status(400).json({ error: 'Error uploading files' });
+        }
+      });
+    }
+
     const token = req.header("Authorization")?.replace("Bearer ", "");
     const decodedToken = jwt.verify(token, process.env.JWT_SECRET);
 
-    const nurse = await Nurse.findById(decodedToken.userId);
-    const doctor = await Doctor.findById(decodedToken.userId);
+    const user = await User.findById(decodedToken.userId);
 
-    if (nurse) {
-      req.user = { userId: nurse._id };
-      next();
-    } else if (doctor) {
-      req.user = { userId: doctor._id };
+    if (user) {
+      req.user = { userId: user._id };
       next();
     } else {
       throw new Error("Invalid token");
@@ -24,4 +34,4 @@ const protectNurse = async (req, res, next) => {
   }
 };
 
-module.exports = protectNurse;
+module.exports = protectUsers;

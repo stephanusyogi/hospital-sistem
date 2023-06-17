@@ -5,14 +5,6 @@ const express = require("express");
 const app = express();
 // Cors
 const cors = require("cors");
-// MongoDB
-const PORT = process.env.PORT || 3000;
-const connectDB = require("./config/db");
-connectDB().then(() => {
-  app.listen(PORT, () => {
-    console.log(`Listening on port ${PORT}`);
-  });
-});
 
 // Swagger
 const swaggerUI = require("swagger-ui-express");
@@ -25,7 +17,7 @@ var corsOptions = {
 };
 app.use(cors(corsOptions));
 app.use(express.json()); // parse requests of content-type - application/json
-app.use(express.urlencoded({ extended: true })); // parse requests of content-type - application/x-www-form-urlencoded
+app.use(express.urlencoded({ extended: false })); // parse requests of content-type - application/x-www-form-urlencoded
 
 app.get("/", (req, res) => {
   res.json({ message: "Welcome to the jungle!" });
@@ -39,6 +31,8 @@ const roomRoutes = require("./routes/roomRoute");
 const drugRoutes = require("./routes/drugRoute");
 const patientRoutes = require("./routes/patienRoute");
 const icdRoutes = require("./routes/icdRoute");
+const bpjsRoutes = require("./routes/bpjsRoute");
+const rekamMedisRoutes = require("./routes/rekamMedisRoute");
 
 app.use("/api", authRoutes);
 app.use("/api", nurseRoutes);
@@ -47,3 +41,15 @@ app.use("/api", roomRoutes);
 app.use("/api", drugRoutes);
 app.use("/api", patientRoutes);
 app.use("/api", icdRoutes);
+app.use("/api", bpjsRoutes);
+app.use("/api/rekam-medis", rekamMedisRoutes);
+
+
+// MongoDB
+const PORT = process.env.PORT || 3000;
+const connectDB = require("./config/db");
+connectDB().then(() => {
+  app.listen(PORT, () => {
+    console.log(`Listening on port ${PORT}`);
+  });
+});

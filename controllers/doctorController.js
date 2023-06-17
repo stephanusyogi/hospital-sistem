@@ -1,6 +1,6 @@
 const bcrypt = require("bcryptjs");
 
-const Doctor = require("../models/doctors");
+const User = require("../models/users");
 
 const createDoctor = async (req, res) => {
   try {
@@ -10,7 +10,7 @@ const createDoctor = async (req, res) => {
       throw new Error("This field are required!");
     }
 
-    const existingUser = await Doctor.findOne({ $or: [{ email }] });
+    const existingUser = await User.findOne({ $or: [{ email }] });
 
     if (existingUser) {
       throw new Error("User already exist with this email!");
@@ -18,11 +18,12 @@ const createDoctor = async (req, res) => {
 
     const hashedPassword = await bcrypt.hash(password, 10);
 
-    const newUser = new Doctor({
+    const newUser = new User({
       name,
       email,
       password: hashedPassword,
       spesialis,
+      role: "Dokter",
       accountActive: true,
     });
 
@@ -37,7 +38,7 @@ const createDoctor = async (req, res) => {
 
 const getDoctor = async (req, res) => {
   try {
-    const doctors = await Doctor.find({ accountActive: true });
+    const doctors = await User.find({ role:"Dokter", accountActive: true });
 
     res.status(200).send(doctors);
   } catch (error) {
@@ -48,7 +49,7 @@ const getDoctor = async (req, res) => {
 const getDoctorById = async (req, res) => {
   try {
     const { id } = req.params;
-    const doctor = await Doctor.findById(id);
+    const doctor = await User.findById(id);
 
     if (!id) {
       throw new Error("User not found!");
@@ -65,13 +66,9 @@ const updateDoctor = async (req, res) => {
     const { id } = req.params;
     const { userId } = req.user;
 
-    if (userId.toString() !== id) {
-      throw new Error("You can only update your account!");
-    }
-
     const updatedFields = req.body;
 
-    const updatedUser = await Doctor.findByIdAndUpdate(id, updatedFields, {
+    const updatedUser = await User.findByIdAndUpdate(id, updatedFields, {
       new: true,
     });
 
@@ -91,7 +88,7 @@ const updatePasswordDoctor = async (req, res) => {
       throw new Error("You can only update your account!");
     }
 
-    const user = await Doctor.findById(userId);
+    const user = await User.findById(userId);
 
     if (!id) {
       throw new Error("User not found!");
@@ -128,7 +125,7 @@ const deleteDoctor = async (req, res) => {
       accountActive: false,
     };
 
-    const deletedUser = await Doctor.findByIdAndUpdate(id, updatedFields, {
+    const deletedUser = await User.findByIdAndUpdate(id, updatedFields, {
       new: true,
     });
 

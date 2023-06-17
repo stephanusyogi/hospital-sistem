@@ -1,51 +1,45 @@
 const mongoose = require("mongoose");
 
 const Schema = mongoose.Schema;
-const PatientSchema = new Schema({
-  name: {
-    type: String,
-    required: true,
-  },
-  no_rekam_medis: {
-    type: String,
-    required: true,
-  },
+const BpjsSchema = new Schema({
   nik: {
     type: String,
     required: true,
   },
-  umur: {
+  no_sep: {
     type: String,
     required: true,
   },
-  jenis_kelamin: {
+  tgl_sep: {
     type: String,
     required: true,
   },
-  tempat_tanggal_lahir: {
+  no_peserta: {
     type: String,
     required: true,
   },
-  no_hp: {
+  poliklinik: {
     type: String,
-    required: true,
   },
-  agama: {
+  asal_faskes: {
     type: String,
-    required: true,
   },
-  alamat_ktp: {
+  diagnosa: {
     type: String,
-    required: true,
   },
-  alamat_domisili: {
+  jenis_peserta: {
     type: String,
-    required: true,
   },
-  is_deleted: {
+  jenis_rawat: {
+    type: String,
+  },
+  kelas_rawat: {
+    type: String,
+  },
+  status: {
     type: Boolean,
     required: true,
   },
 }, { timestamps: true });
 
-module.exports = mongoose.model("Patient", PatientSchema);
+module.exports = mongoose.model("bpjs", BpjsSchema);

@@ -22,6 +22,6 @@ const DoctorSchema = new Schema({
     type: Boolean,
     required: true,
   },
-});
+}, { timestamps: true });
 
 module.exports = mongoose.model("Doctor", DoctorSchema);

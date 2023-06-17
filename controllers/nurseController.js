@@ -1,6 +1,6 @@
 const bcrypt = require("bcryptjs");
 
-const Nurse = require("../models/nurses");
+const User = require("../models/users");
 
 const createNurse = async (req, res) => {
   try {
@@ -10,7 +10,7 @@ const createNurse = async (req, res) => {
       throw new Error("This field are required!");
     }
 
-    const existingUser = await Nurse.findOne({ $or: [{ email }] });
+    const existingUser = await User.findOne({ $or: [{ email }] });
 
     if (existingUser) {
       throw new Error("User already exist with this email!");
@@ -18,7 +18,7 @@ const createNurse = async (req, res) => {
 
     const hashedPassword = await bcrypt.hash(password, 10);
 
-    const newUser = new Nurse({
+    const newUser = new User({
       name,
       email,
       password: hashedPassword,
@@ -37,7 +37,7 @@ const createNurse = async (req, res) => {
 
 const getNurse = async (req, res) => {
   try {
-    const nurses = await Nurse.find({ accountActive: true });
+    const nurses = await User.find({ role: { $ne: 'Dokter' }, accountActive: true });
 
     res.status(200).send(nurses);
   } catch (error) {
@@ -48,7 +48,7 @@ const getNurse = async (req, res) => {
 const getNurseById = async (req, res) => {
   try {
     const { id } = req.params;
-    const nurse = await Nurse.findById(id);
+    const nurse = await User.findById(id);
 
     if (!id) {
       throw new Error("User not found!");
@@ -71,7 +71,7 @@ const updateNurse = async (req, res) => {
 
     const updatedFields = req.body;
 
-    const updatedUser = await Nurse.findByIdAndUpdate(id, updatedFields, {
+    const updatedUser = await User.findByIdAndUpdate(id, updatedFields, {
       new: true,
     });
 
@@ -91,7 +91,7 @@ const updatePasswordNurse = async (req, res) => {
       throw new Error("You can only update your account!");
     }
 
-    const user = await Nurse.findById(userId);
+    const user = await User.findById(userId);
 
     if (!id) {
       throw new Error("User not found!");
@@ -128,7 +128,7 @@ const deleteNurse = async (req, res) => {
       accountActive: false,
     };
 
-    const deletedUser = await Nurse.findByIdAndUpdate(id, updatedFields, {
+    const deletedUser = await User.findByIdAndUpdate(id, updatedFields, {
       new: true,
     });
 

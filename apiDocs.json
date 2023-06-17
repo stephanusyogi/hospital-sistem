@@ -25,6 +25,10 @@
       "description": "International Classification of Diseases"
     },
     {
+      "name": "BPJS",
+      "description": "Check Status Kepesertaan / Eligibilitas Peserta"
+    },
+    {
       "name": "Nurse",
       "description": "Nurse"
     },
@@ -43,6 +47,18 @@
     {
       "name": "Patient",
       "description": "Patient"
+    },
+    {
+      "name": "Rekam Medis / Informasi Pasien",
+      "description": "Informasi Pasien"
+    },
+    {
+      "name": "Rekam Medis / Pemeriksaan Awal",
+      "description": "Pemeriksaan Awal"
+    },
+    {
+      "name": "Rekam Medis / Asesmen Medis Awal",
+      "description": "Asesmen Medis Awal"
     }
   ],
   "paths": {
@@ -50,20 +66,20 @@
       "post":{
         "tags":["Authentication"],
           "summary": "Login Authentication for All Users",
-          "consumes":"multipart/form-data",
-          "requestBody":{
-            "content":{
-              "application/json":{
-                "schema":{
-                  "type":"object",
-                  "properties":{
-                    "email":{
-                      "type":"string"
+          "requestBody": {
+            "content": {
+              "application/x-www-form-urlencoded": {
+                "schema": {
+                  "type": "object",
+                  "properties": {
+                    "email": {
+                      "type": "string"
                     },
-                    "password":{
-                      "type":"string"
+                    "password": {
+                      "type": "string"
                     }
-                  }
+                  },
+                  "required": ["email", "password"]
                 }
               }
             }
@@ -98,12 +114,12 @@
             "BearerAuth": []
           }
         ],
-        "consumes":"multipart/form-data",
-        "requestBody":{
-          "content":{
-            "application/json":{
-              "schema":{
-                "type":"object",
+        "consumes": ["multipart/form-data"],
+        "requestBody": {
+          "content": {
+            "application/x-www-form-urlencoded": {
+              "schema": {
+                "type": "object",
                 "properties":{
                   "name":{
                     "type":"string"
@@ -117,7 +133,8 @@
                   "role":{
                     "type":"string"
                   }
-                }
+                },
+                "required": ["name", "email", "password", "role"]
               }
             }
           }
@@ -129,13 +146,13 @@
         }
       }
     },
-    "/nurse/{userId}": {
+    "/nurse/{id}": {
       "put":{
         "tags":["Nurse"],
         "summary": "Update Nurse By Id",
         "parameters": [
           {
-            "name": "userId",
+            "name": "id",
             "in": "path",
             "description": "Id nurse",
             "required": true,
@@ -149,12 +166,12 @@
             "BearerAuth": []
           }
         ],
-        "consumes":"multipart/form-data",
-        "requestBody":{
-          "content":{
-            "application/json":{
-              "schema":{
-                "type":"object",
+        "consumes": ["multipart/form-data"],
+        "requestBody": {
+          "content": {
+            "application/x-www-form-urlencoded": {
+              "schema": {
+                "type": "object",
                 "properties":{
                   "name":{
                     "type":"string"
@@ -165,7 +182,8 @@
                   "role":{
                     "type":"string"
                   }
-                }
+                },
+                "required": ["name", "email", "role"]
               }
             }
           }
@@ -181,7 +199,7 @@
         "summary": "Delete Nurse By Id (Innactive)",
         "parameters": [
           {
-            "name": "userId",
+            "name": "id",
             "in": "path",
             "description": "Id nurse",
             "required": true,
@@ -207,7 +225,7 @@
         "summary": "Get Nurse By Id",
         "parameters": [
           {
-            "name": "userId",
+            "name": "id",
             "in": "path",
             "description": "Id nurse",
             "required": true,
@@ -228,13 +246,13 @@
         }
       }
     },
-    "/nurse/update-password/{userId}": {
+    "/nurse/update-password/{id}": {
       "put":{
         "tags":["Nurse"],
         "summary": "Update Nurse By Id",
         "parameters": [
           {
-            "name": "userId",
+            "name": "id",
             "in": "path",
             "description": "Id nurse",
             "required": true,
@@ -248,12 +266,12 @@
             "BearerAuth": []
           }
         ],
-        "consumes":"multipart/form-data",
-        "requestBody":{
-          "content":{
-            "application/json":{
-              "schema":{
-                "type":"object",
+        "consumes": ["multipart/form-data"],
+        "requestBody": {
+          "content": {
+            "application/x-www-form-urlencoded": {
+              "schema": {
+                "type": "object",
                 "properties":{
                   "currentPassword":{
                     "type":"string"
@@ -261,7 +279,8 @@
                   "newPassword":{
                     "type":"string"
                   }
-                }
+                },
+                "required": ["currentPassword", "newPassword"]
               }
             }
           }
@@ -296,12 +315,12 @@
             "BearerAuth": []
           }
         ],
-        "consumes":"multipart/form-data",
-        "requestBody":{
-          "content":{
-            "application/json":{
-              "schema":{
-                "type":"object",
+        "consumes": ["multipart/form-data"],
+        "requestBody": {
+          "content": {
+            "application/x-www-form-urlencoded": {
+              "schema": {
+                "type": "object",
                 "properties":{
                   "name":{
                     "type":"string"
@@ -315,7 +334,8 @@
                   "spesialis":{
                     "type":"string"
                   }
-                }
+                },
+                "required": ["name", "email", "password", "spesialis"]
               }
             }
           }
@@ -327,13 +347,13 @@
         }
       }
     },
-    "/doctor/{userId}": {
+    "/doctor/{id}": {
       "put":{
         "tags":["Doctor"],
         "summary": "Update Doctor By Id",
         "parameters": [
           {
-            "name": "userId",
+            "name": "id",
             "in": "path",
             "description": "Id doctor",
             "required": true,
@@ -347,12 +367,12 @@
             "BearerAuth": []
           }
         ],
-        "consumes":"multipart/form-data",
-        "requestBody":{
-          "content":{
-            "application/json":{
-              "schema":{
-                "type":"object",
+        "consumes": ["multipart/form-data"],
+        "requestBody": {
+          "content": {
+            "application/x-www-form-urlencoded": {
+              "schema": {
+                "type": "object",
                 "properties":{
                   "name":{
                     "type":"string"
@@ -363,7 +383,8 @@
                   "spesialis":{
                     "type":"string"
                   }
-                }
+                },
+                "required": ["name", "email", "spesialis"]
               }
             }
           }
@@ -379,7 +400,7 @@
         "summary": "Delete Doctor By Id (Innactive)",
         "parameters": [
           {
-            "name": "userId",
+            "name": "id",
             "in": "path",
             "description": "Id doctor",
             "required": true,
@@ -405,7 +426,7 @@
         "summary": "Get Doctor By Id",
         "parameters": [
           {
-            "name": "userId",
+            "name": "id",
             "in": "path",
             "description": "Id doctor",
             "required": true,
@@ -426,13 +447,13 @@
         }
       }
     },
-    "/doctor/update-password/{userId}": {
+    "/doctor/update-password/{id}": {
       "put":{
         "tags":["Doctor"],
         "summary": "Update Doctor By Id",
         "parameters": [
           {
-            "name": "userId",
+            "name": "id",
             "in": "path",
             "description": "Id doctor",
             "required": true,
@@ -446,12 +467,12 @@
             "BearerAuth": []
           }
         ],
-        "consumes":"multipart/form-data",
-        "requestBody":{
-          "content":{
-            "application/json":{
-              "schema":{
-                "type":"object",
+        "consumes": ["multipart/form-data"],
+        "requestBody": {
+          "content": {
+            "application/x-www-form-urlencoded": {
+              "schema": {
+                "type": "object",
                 "properties":{
                   "currentPassword":{
                     "type":"string"
@@ -459,7 +480,8 @@
                   "newPassword":{
                     "type":"string"
                   }
-                }
+                },
+                "required": ["currentPassword", "newPassword"]
               }
             }
           }
@@ -494,12 +516,12 @@
             "BearerAuth": []
           }
         ],
-        "consumes":"multipart/form-data",
-        "requestBody":{
-          "content":{
-            "application/json":{
-              "schema":{
-                "type":"object",
+        "consumes": ["multipart/form-data"],
+        "requestBody": {
+          "content": {
+            "application/x-www-form-urlencoded": {
+              "schema": {
+                "type": "object",
                 "properties":{
                   "nama_ruangan":{
                     "type":"string"
@@ -513,7 +535,8 @@
                   "kuota_kasur":{
                     "type":"number"
                   }
-                }
+                },
+                "required": ["nama_ruangan", "kelas", "harga", "kuota_kasur"]
               }
             }
           }
@@ -525,13 +548,13 @@
         }
       }
     },
-    "/room/{roomId}": {
+    "/room/{id}": {
       "put":{
         "tags":["Room"],
         "summary": "Update Room By Id",
         "parameters": [
           {
-            "name": "roomId",
+            "name": "id",
             "in": "path",
             "description": "Id room",
             "required": true,
@@ -545,12 +568,12 @@
             "BearerAuth": []
           }
         ],
-        "consumes":"multipart/form-data",
-        "requestBody":{
-          "content":{
-            "application/json":{
-              "schema":{
-                "type":"object",
+        "consumes": ["multipart/form-data"],
+        "requestBody": {
+          "content": {
+            "application/x-www-form-urlencoded": {
+              "schema": {
+                "type": "object",
                 "properties":{
                   "nama_ruangan":{
                     "type":"string"
@@ -564,7 +587,8 @@
                   "kuota_kasur":{
                     "type":"number"
                   }
-                }
+                },
+                "required": ["nama_ruangan", "kelas", "harga", "kuota_kasur"]
               }
             }
           }
@@ -580,7 +604,7 @@
         "summary": "Delete Room By Id (Soft Delete)",
         "parameters": [
           {
-            "name": "roomId",
+            "name": "id",
             "in": "path",
             "description": "Id room",
             "required": true,
@@ -606,7 +630,7 @@
         "summary": "Get Room By Id",
         "parameters": [
           {
-            "name": "roomId",
+            "name": "id",
             "in": "path",
             "description": "Id room",
             "required": true,
@@ -650,12 +674,12 @@
             "BearerAuth": []
           }
         ],
-        "consumes":"multipart/form-data",
-        "requestBody":{
-          "content":{
-            "application/json":{
-              "schema":{
-                "type":"object",
+        "consumes": ["multipart/form-data"],
+        "requestBody": {
+          "content": {
+            "application/x-www-form-urlencoded": {
+              "schema": {
+                "type": "object",
                 "properties":{
                   "nama_obat":{
                     "type":"string"
@@ -663,7 +687,8 @@
                   "harga":{
                     "type":"number"
                   }
-                }
+                },
+                "required": ["nama_obat", "harga"]
               }
             }
           }
@@ -675,13 +700,13 @@
         }
       }
     },
-    "/drug/{drugId}": {
+    "/drug/{id}": {
       "put":{
         "tags":["Drug"],
         "summary": "Update Drug By Id",
         "parameters": [
           {
-            "name": "drugId",
+            "name": "id",
             "in": "path",
             "description": "Id drug",
             "required": true,
@@ -695,12 +720,12 @@
             "BearerAuth": []
           }
         ],
-        "consumes":"multipart/form-data",
-        "requestBody":{
-          "content":{
-            "application/json":{
-              "schema":{
-                "type":"object",
+        "consumes": ["multipart/form-data"],
+        "requestBody": {
+          "content": {
+            "application/x-www-form-urlencoded": {
+              "schema": {
+                "type": "object",
                 "properties":{
                   "nama_obat":{
                     "type":"string"
@@ -708,7 +733,8 @@
                   "harga":{
                     "type":"number"
                   }
-                }
+                },
+                "required": ["nama_obat", "harga"]
               }
             }
           }
@@ -724,7 +750,7 @@
         "summary": "Delete Drug By Id (Soft Delete)",
         "parameters": [
           {
-            "name": "drugId",
+            "name": "id",
             "in": "path",
             "description": "Id drug",
             "required": true,
@@ -750,7 +776,7 @@
         "summary": "Get Drug By Id",
         "parameters": [
           {
-            "name": "drugId",
+            "name": "id",
             "in": "path",
             "description": "Id drug",
             "required": true,
@@ -840,13 +866,13 @@
         }
       }
     },
-    "/patient{patientId}": {
+    "/patient{id}": {
       "put":{
         "tags":["Patient"],
         "summary": "Update Patient By Id",
         "parameters": [
           {
-            "name": "patientId",
+            "name": "id",
             "in": "path",
             "description": "Id patient",
             "required": true,
@@ -910,7 +936,7 @@
         "summary": "Delete Patient By Id (Soft Delete)",
         "parameters": [
           {
-            "name": "patientId",
+            "name": "id",
             "in": "path",
             "description": "Id patient",
             "required": true,
@@ -936,7 +962,7 @@
         "summary": "Get Patient By Id",
         "parameters": [
           {
-            "name": "patientId",
+            "name": "id",
             "in": "path",
             "description": "Id patient",
             "required": true,
@@ -966,17 +992,18 @@
             "BearerAuth": []
           }
         ],
-        "consumes":["multipart/form-data"],
-        "requestBody":{
-          "content":{
-            "application/json":{
-              "schema":{
-                "type":"object",
-                "properties":{
-                  "terms":{
-                    "type":"string"
+        "consumes": ["multipart/form-data"],
+        "requestBody": {
+          "content": {
+            "multipart/form-data": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "terms": {
+                    "type": "string"
                   }
-                }
+                },
+                "required": ["terms"]
               }
             }
           }
@@ -998,22 +1025,544 @@
           }
         ],
         "consumes":["multipart/form-data"],
-        "requestBody":{
-          "content":{
-            "application/json":{
-              "schema":{
-                "type":"object",
-                "properties":{
-                  "terms":{
-                    "type":"string"
+        "requestBody": {
+          "content": {
+            "multipart/form-data": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "terms": {
+                    "type": "string"
                   }
-                }
+                },
+                "required": ["terms"]
               }
             }
           }
         },
         "responses": {
           "200": {
+            "description": "Sukses"
+          }
+        }
+      }
+    },
+    "/bpjs": {
+      "get": {
+        "tags":["BPJS"],
+        "summary": "Get All BPJS Data",
+        "security": [
+          {
+            "BearerAuth": []
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Sukses"
+          }
+        }
+      }
+    },
+    "/bpjs/{nik}": {
+      "get": {
+        "tags":["BPJS"],
+        "summary": "Get BPJS By NIK",
+        "parameters": [
+          {
+            "name": "nik",
+            "in": "path",
+            "description": "NIK Peserta",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "security": [
+          {
+            "BearerAuth": []
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Sukses"
+          }
+        }
+      }
+    },
+    "/rekam-medis/antrean-pasien": {
+      "get":{
+        "tags":["Rekam Medis / Informasi Pasien"],
+        "summary": "Get Antrean Admisi Pasien",
+        "security": [
+          {
+            "BearerAuth": []
+          }
+        ],
+        "responses":{
+          "200":{
+            "description": "Sukses"
+          }
+        }
+      }
+    },
+    "/rekam-medis/informasi-pasien": {
+      "post":{
+        "tags":["Rekam Medis / Informasi Pasien"],
+        "summary": "Add Informasi Pasien",
+        "security": [
+          {
+            "BearerAuth": []
+          }
+        ],
+        "requestBody":{
+          "content":{
+            "application/json":{
+              "schema":{
+                "type":"object",
+                "properties":{
+                  "nama":{
+                    "type":"string"
+                  },
+                  "no_rekam_medis":{
+                    "type":"string"
+                  },
+                  "nik":{
+                    "type":"string"
+                  },
+                  "umur":{
+                    "type":"string"
+                  },
+                  "jenis_kelamin":{
+                    "type":"string"
+                  },
+                  "tempat_tanggal_lahir":{
+                    "type":"string"
+                  },
+                  "no_hp":{
+                    "type":"string"
+                  },
+                  "agama":{
+                    "type":"string"
+                  },
+                  "alamat_ktp":{
+                    "type":"string"
+                  },
+                  "alamat_domisili":{
+                    "type":"string"
+                  },
+                  "nama_penanggungjawab":{
+                    "type":"string"
+                  },
+                  "alamat_domisili_penanggungjawab":{
+                    "type":"string"
+                  },
+                  "alamat_ktp_penanggungjawab":{
+                    "type":"string"
+                  },
+                  "no_hp_penanggungjawab":{
+                    "type":"string"
+                  },
+                  "nama_asuransi":{
+                    "type":"string"
+                  },
+                  "nomor_asuransi":{
+                    "type":"string"
+                  },
+                  "status_asuransi":{
+                    "type": "boolean"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses":{
+          "200":{
+            "description": "Sukses"
+          }
+        }
+      }
+    },
+    "/rekam-medis/informasi-pasien/{id}": {
+      "put":{
+        "tags":["Rekam Medis / Informasi Pasien"],
+        "summary": "Update Informasi Pasien",
+        "security": [
+          {
+            "BearerAuth": []
+          }
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "Id Rekam Medis",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody":{
+          "content":{
+            "application/json":{
+              "schema":{
+                "type":"object",
+                "properties":{
+                  "nama":{
+                    "type":"string"
+                  },
+                  "no_rekam_medis":{
+                    "type":"string"
+                  },
+                  "nik":{
+                    "type":"string"
+                  },
+                  "umur":{
+                    "type":"string"
+                  },
+                  "jenis_kelamin":{
+                    "type":"string"
+                  },
+                  "tempat_tanggal_lahir":{
+                    "type":"string"
+                  },
+                  "no_hp":{
+                    "type":"string"
+                  },
+                  "agama":{
+                    "type":"string"
+                  },
+                  "alamat_ktp":{
+                    "type":"string"
+                  },
+                  "alamat_domisili":{
+                    "type":"string"
+                  },
+                  "nama_penanggungjawab":{
+                    "type":"string"
+                  },
+                  "alamat_domisili_penanggungjawab":{
+                    "type":"string"
+                  },
+                  "alamat_ktp_penanggungjawab":{
+                    "type":"string"
+                  },
+                  "no_hp_penanggungjawab":{
+                    "type":"string"
+                  },
+                  "nama_asuransi":{
+                    "type":"string"
+                  },
+                  "nomor_asuransi":{
+                    "type":"string"
+                  },
+                  "status_asuransi":{
+                    "type": "boolean"
+                  },
+                  "status_pembayaran":{
+                    "type": "boolean"
+                  },
+                  "status_pulang":{
+                    "type": "boolean"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses":{
+          "200":{
+            "description": "Sukses"
+          }
+        }
+      }
+    },
+    "/rekam-medis/informasi-pasien-norm/{no_rm}": {
+      "get":{
+        "tags":["Rekam Medis / Informasi Pasien"],
+        "summary": "Get Informasi Pasien By No Rekam Medis / Informasi Pasien",
+        "security": [
+          {
+            "BearerAuth": []
+          }
+        ],
+        "parameters": [
+          {
+            "name": "no_rm",
+            "in": "path",
+            "description": "No Rekam Medis Patient",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses":{
+          "200":{
+            "description": "Sukses"
+          }
+        }
+      }
+    },
+    "/rekam-medis/informasi-pasien-id/{id}": {
+      "get":{
+        "tags":["Rekam Medis / Informasi Pasien"],
+        "summary": "Get Informasi Pasien By Id (Riwayat Informasi Pasien)",
+        "security": [
+          {
+            "BearerAuth": []
+          }
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "Id Rekam Medis Patient",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses":{
+          "200":{
+            "description": "Sukses"
+          }
+        }
+      }
+    },
+    "/rekam-medis/pemeriksaan-awal": {
+      "post":{
+        "tags":["Rekam Medis / Pemeriksaan Awal"],
+        "summary": "Add Pemeriksaan Awal",
+        "security": [
+          {
+            "BearerAuth": []
+          }
+        ],
+        "requestBody":{
+          "content":{
+            "application/json":{
+              "schema":{
+              "type": "object",
+              "properties": {
+                "no_rekam_medis": {
+                  "type": "string"
+                },
+                "unit_penerima": {
+                  "type": "string"
+                },
+                "poliklinik_penerima": {
+                  "type": "string"
+                },
+                "asal_rujukan": {
+                  "type": "string"
+                },
+                "unit_asal_rujukan": {
+                  "type": "string"
+                },
+                "icd_10": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/ICD10Item"
+                  }
+                },
+                "icd_9": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/ICD9Item"
+                  }
+                },
+                "jenis_kamar": {
+                  "type": "string"
+                },
+                "nama_kamar": {
+                  "type": "string"
+                }
+              }
+              }
+            }
+          }
+        },
+        "responses":{
+          "200":{
+            "description": "Sukses"
+          }
+        }
+      }
+    },
+    "/rekam-medis/pemeriksaan-awal/{id}": {
+      "put":{
+        "tags":["Rekam Medis / Pemeriksaan Awal"],
+        "summary": "Update Pemeriksaan Awal",
+        "security": [
+          {
+            "BearerAuth": []
+          }
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "Id Rekam Medis",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody":{
+          "content":{
+            "application/json":{
+              "schema":{
+              "type": "object",
+              "properties": {
+                "no_rekam_medis": {
+                  "type": "string"
+                },
+                "unit_penerima": {
+                  "type": "string"
+                },
+                "poliklinik_penerima": {
+                  "type": "string"
+                },
+                "asal_rujukan": {
+                  "type": "string"
+                },
+                "unit_asal_rujukan": {
+                  "type": "string"
+                },
+                "icd_10": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/ICD10Item"
+                  }
+                },
+                "icd_9": {
+                  "type": "array",
+                  "items": {
+                    "$ref": "#/components/schemas/ICD9Item"
+                  }
+                },
+                "jenis_kamar": {
+                  "type": "string"
+                },
+                "nama_kamar": {
+                  "type": "string"
+                }
+              }
+              }
+            }
+          }
+        },
+        "responses":{
+          "200":{
+            "description": "Sukses"
+          }
+        }
+      }
+    },
+    "/rekam-medis/pemeriksaan-awal-norm/{no_rm}": {
+      "get":{
+        "tags":["Rekam Medis / Pemeriksaan Awal"],
+        "summary": "Get Informasi Pasien By No Rekam Medis",
+        "security": [
+          {
+            "BearerAuth": []
+          }
+        ],
+        "parameters": [
+          {
+            "name": "no_rm",
+            "in": "path",
+            "description": "No Rekam Medis Patient",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses":{
+          "200":{
+            "description": "Sukses"
+          }
+        }
+      }
+    },
+    "/rekam-medis/pemeriksaan-awal-id/{id}": {
+      "get":{
+        "tags":["Rekam Medis / Pemeriksaan Awal"],
+        "summary": "Get Pemeriksaan Awal By Id (Riwayat Informasi Pasien)",
+        "security": [
+          {
+            "BearerAuth": []
+          }
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "Id Rekam Medis Patient",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses":{
+          "200":{
+            "description": "Sukses"
+          }
+        }
+      }
+    },
+    "/rekam-medis/asesmen-medis-awal": {
+      "post":{
+        "tags":["Rekam Medis / Asesmen Medis Awal"],
+        "summary": "Add Asesmen Medis Awal",
+        "security": [
+          {
+            "BearerAuth": []
+          }
+        ],
+        "requestBody":{
+          "content":{
+            "application/json":{
+              "schema":{
+              "type": "object",
+              "properties": {
+                "no_rekam_medis": {
+                  "type": "string"
+                },
+                "anamnesa": {
+                  "type": "object",
+                  "properties": {
+                    "keluhan_utama": {
+                      "type": "string"
+                    },
+                    "riwayat_penyakit_sekarang": {
+                      "type": "string"
+                    },
+                    "riwayat_penyakit_keluarga": {
+                      "type": "string"
+                    },
+                    "riwayat_pengobatan": {
+                      "type": "string"
+                    },
+                    "riwayat_alergi": {
+                      "type": "string"
+                    }
+                  }
+                }
+              }
+              }
+            }
+          }
+        },
+        "responses":{
+          "200":{
             "description": "Sukses"
           }
         }
@@ -1025,7 +1574,32 @@
       "BearerAuth": {
         "type": "http",
         "scheme": "bearer",
-        "bearerFormat": "JWT"
+        "bearerFormat": "JWT",
+        "persistAuthorization": true
+      }
+    },
+    "schemas":{
+      "ICD10Item": {
+        "type": "object",
+        "properties": {
+          "kode": {
+            "type": "string"
+          },
+          "desc": {
+            "type": "string"
+          }
+        }
+      },
+      "ICD9Item": {
+        "type": "object",
+        "properties": {
+          "kode": {
+            "type": "string"
+          },
+          "desc": {
+            "type": "string"
+          }
+        }
       }
     }
   }

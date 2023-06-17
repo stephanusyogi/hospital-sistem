@@ -40,7 +40,7 @@ const getRoomById = async (req, res) => {
     const { id } = req.params;
     const room = await Room.findById(id);
 
-    if (!id) {
+    if (!room) {
       throw new Error("Room not found!");
     }
 
