@@ -49,6 +49,10 @@
       "description": "Patient"
     },
     {
+      "name": "Rekam Medis",
+      "description": "Rekam Medis"
+    },
+    {
       "name": "Rekam Medis / Informasi Pasien",
       "description": "Informasi Pasien"
     },
@@ -228,6 +232,33 @@
             "name": "id",
             "in": "path",
             "description": "Id nurse",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "security": [
+          {
+            "BearerAuth": []
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Sukses"
+          }
+        }
+      }
+    },
+    "/nurse-norm/{id}": {
+      "get": {
+        "tags":["Nurse"],
+        "summary": "Get Nurse By No Rekam Medis",
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "No Rekam Medis Patient",
             "required": true,
             "schema": {
               "type": "string"
@@ -1090,6 +1121,22 @@
         }
       }
     },
+    "/rekam-medis": {
+      "get":{
+        "tags":["Rekam Medis"],
+        "summary": "Get All Rekam Pasien Pasien",
+        "security": [
+          {
+            "BearerAuth": []
+          }
+        ],
+        "responses":{
+          "200":{
+            "description": "Sukses"
+          }
+        }
+      }
+    },
     "/rekam-medis/antrean-pasien": {
       "get":{
         "tags":["Rekam Medis / Informasi Pasien"],
@@ -1531,36 +1578,413 @@
           "content":{
             "application/json":{
               "schema":{
-              "type": "object",
-              "properties": {
-                "no_rekam_medis": {
-                  "type": "string"
-                },
-                "anamnesa": {
-                  "type": "object",
-                  "properties": {
-                    "keluhan_utama": {
-                      "type": "string"
-                    },
-                    "riwayat_penyakit_sekarang": {
-                      "type": "string"
-                    },
-                    "riwayat_penyakit_keluarga": {
-                      "type": "string"
-                    },
-                    "riwayat_pengobatan": {
-                      "type": "string"
-                    },
-                    "riwayat_alergi": {
-                      "type": "string"
+                "type": "object",
+                "properties": {
+                  "no_rekam_medis": {
+                    "type": "string"
+                  },
+                  "anamnesa": {
+                    "type": "object",
+                    "properties": {
+                      "keluhan_utama": {
+                        "type": "string"
+                      },
+                      "riwayat_penyakit_sekarang": {
+                        "type": "string"
+                      },
+                      "riwayat_penyakit_keluarga": {
+                        "type": "string"
+                      },
+                      "riwayat_pengobatan": {
+                        "type": "string"
+                      },
+                      "riwayat_alergi": {
+                        "type": "string"
+                      }
+                    }
+                  },
+                  "pemeriksaan_fisik": {
+                    "type": "object",
+                    "properties": {
+                      "keadaan_umum": {
+                        "type": "string"
+                      },
+                      "kepala_leher": {
+                        "type": "string"
+                      },
+                      "ekstremitas": {
+                        "type": "string"
+                      },
+                      "genitalia": {
+                        "type": "string"
+                      },
+                      "kesadaran": {
+                        "type": "string"
+                      },
+                      "gcs": {
+                        "type": "string"
+                      },
+                      "status_gizi": {
+                        "type": "string"
+                      },
+                      "bb": {
+                        "type": "string"
+                      },
+                      "thorax_cor": {
+                        "type": "string"
+                      },
+                      "thorax_pulmo": {
+                        "type": "string"
+                      },
+                      "abdomen_inspeksi": {
+                        "type": "string"
+                      },
+                      "abdomen_palpasi": {
+                        "type": "string"
+                      },
+                      "abdomen_auskultasi": {
+                        "type": "string"
+                      },
+                      "abdomen_perkusi": {
+                        "type": "string"
+                      },
+                      "vital_sign_tensi": {
+                        "type": "string"
+                      },
+                      "vital_sign_nadi": {
+                        "type": "string"
+                      },
+                      "vital_sign_suhu": {
+                        "type": "string"
+                      },
+                      "vital_sign_rr": {
+                        "type": "string"
+                      }
+                    }
+                  },
+                  "pemeriksaan_penunjang": {
+                    "type": "object",
+                    "properties": {
+                      "laboratorium": {
+                        "type": "string"
+                      },
+                      "radiologi": {
+                        "type": "string"
+                      },
+                      "lain_lain": {
+                        "type": "string"
+                      }
+                    }
+                  },
+                  "masalah": {
+                    "type": "string"
+                  },
+                  "diagnosis": {
+                    "type": "string"
+                  },
+                  "rencana_asuhan_pemeriksaan_penunjang": {
+                    "type": "object",
+                    "properties": {
+                      "uraian_rencana_asuhan": {
+                        "type": "string"
+                      },
+                      "terapi": {
+                        "type": "string"
+                      },
+                      "tindakan": {
+                        "type": "string"
+                      },
+                      "nutrisi": {
+                        "type": "string"
+                      },
+                      "konsultasi": {
+                        "type": "string"
+                      }
+                    }
+                  },
+                  "unit_asal_rujukan": {
+                    "type": "string"
+                  },
+                  "sasaran": {
+                    "type": "string"
+                  },
+                  "rencana_monitoring": {
+                    "type": "string"
+                  },
+                  "efek_samping": {
+                    "type": "string"
+                  },
+                  "prognosa": {
+                    "type": "string"
+                  },
+                  "pengkajian_rencana_pemulangan_pasien": {
+                    "type": "object",
+                    "properties": {
+                      "usia_lanjut": {
+                        "type": "boolean"
+                      },
+                      "hambatan_mobilitasi": {
+                        "type": "boolean"
+                      },
+                      "membutuhkan_perawatan_lanjutan": {
+                        "type": "boolean"
+                      },
+                      "ketergantungan_orang_lain": {
+                        "type": "boolean"
+                      }
                     }
                   }
                 }
               }
+            }
+          }
+        },
+        "responses":{
+          "200":{
+            "description": "Sukses"
+          }
+        }
+      }
+    },
+    "/rekam-medis/asesmen-medis-awal/{id}": {
+      "put":{
+        "tags":["Rekam Medis / Asesmen Medis Awal"],
+        "summary": "Update Asesmen Medis Awal",
+        "security": [
+          {
+            "BearerAuth": []
+          }
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "Id Rekam Medis",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody":{
+          "content":{
+            "application/json":{
+              "schema":{
+                "type": "object",
+                "properties": {
+                  "no_rekam_medis": {
+                    "type": "string"
+                  },
+                  "anamnesa": {
+                    "type": "object",
+                    "properties": {
+                      "keluhan_utama": {
+                        "type": "string"
+                      },
+                      "riwayat_penyakit_sekarang": {
+                        "type": "string"
+                      },
+                      "riwayat_penyakit_keluarga": {
+                        "type": "string"
+                      },
+                      "riwayat_pengobatan": {
+                        "type": "string"
+                      },
+                      "riwayat_alergi": {
+                        "type": "string"
+                      }
+                    }
+                  },
+                  "pemeriksaan_fisik": {
+                    "type": "object",
+                    "properties": {
+                      "keadaan_umum": {
+                        "type": "string"
+                      },
+                      "kepala_leher": {
+                        "type": "string"
+                      },
+                      "ekstremitas": {
+                        "type": "string"
+                      },
+                      "genitalia": {
+                        "type": "string"
+                      },
+                      "kesadaran": {
+                        "type": "string"
+                      },
+                      "gcs": {
+                        "type": "string"
+                      },
+                      "status_gizi": {
+                        "type": "string"
+                      },
+                      "bb": {
+                        "type": "string"
+                      },
+                      "thorax_cor": {
+                        "type": "string"
+                      },
+                      "thorax_pulmo": {
+                        "type": "string"
+                      },
+                      "abdomen_inspeksi": {
+                        "type": "string"
+                      },
+                      "abdomen_palpasi": {
+                        "type": "string"
+                      },
+                      "abdomen_auskultasi": {
+                        "type": "string"
+                      },
+                      "abdomen_perkusi": {
+                        "type": "string"
+                      },
+                      "vital_sign_tensi": {
+                        "type": "string"
+                      },
+                      "vital_sign_nadi": {
+                        "type": "string"
+                      },
+                      "vital_sign_suhu": {
+                        "type": "string"
+                      },
+                      "vital_sign_rr": {
+                        "type": "string"
+                      }
+                    }
+                  },
+                  "pemeriksaan_penunjang": {
+                    "type": "object",
+                    "properties": {
+                      "laboratorium": {
+                        "type": "string"
+                      },
+                      "radiologi": {
+                        "type": "string"
+                      },
+                      "lain_lain": {
+                        "type": "string"
+                      }
+                    }
+                  },
+                  "masalah": {
+                    "type": "string"
+                  },
+                  "diagnosis": {
+                    "type": "string"
+                  },
+                  "rencana_asuhan_pemeriksaan_penunjang": {
+                    "type": "object",
+                    "properties": {
+                      "uraian_rencana_asuhan": {
+                        "type": "string"
+                      },
+                      "terapi": {
+                        "type": "string"
+                      },
+                      "tindakan": {
+                        "type": "string"
+                      },
+                      "nutrisi": {
+                        "type": "string"
+                      },
+                      "konsultasi": {
+                        "type": "string"
+                      }
+                    }
+                  },
+                  "unit_asal_rujukan": {
+                    "type": "string"
+                  },
+                  "sasaran": {
+                    "type": "string"
+                  },
+                  "rencana_monitoring": {
+                    "type": "string"
+                  },
+                  "efek_samping": {
+                    "type": "string"
+                  },
+                  "prognosa": {
+                    "type": "string"
+                  },
+                  "pengkajian_rencana_pemulangan_pasien": {
+                    "type": "object",
+                    "properties": {
+                      "usia_lanjut": {
+                        "type": "boolean"
+                      },
+                      "hambatan_mobilitasi": {
+                        "type": "boolean"
+                      },
+                      "membutuhkan_perawatan_lanjutan": {
+                        "type": "boolean"
+                      },
+                      "ketergantungan_orang_lain": {
+                        "type": "boolean"
+                      }
+                    }
+                  }
+                }
               }
             }
           }
         },
+        "responses":{
+          "200":{
+            "description": "Sukses"
+          }
+        }
+      }
+    },
+    "/rekam-medis/asesmen-medis-awal-norm/{no_rm}": {
+      "get":{
+        "tags":["Rekam Medis / Asesmen Medis Awal"],
+        "summary": "Get Asesmen Medis Awal By No Rekam Medis / Asesmen Medis Awal",
+        "security": [
+          {
+            "BearerAuth": []
+          }
+        ],
+        "parameters": [
+          {
+            "name": "no_rm",
+            "in": "path",
+            "description": "No Rekam Medis Patient",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses":{
+          "200":{
+            "description": "Sukses"
+          }
+        }
+      }
+    },
+    "/rekam-medis/asesmen-medis-awal-id/{id}": {
+      "get":{
+        "tags":["Rekam Medis / Asesmen Medis Awal"],
+        "summary": "Get Asesmen Medis Awal By Id (Riwayat Asesmen Medis Awal)",
+        "security": [
+          {
+            "BearerAuth": []
+          }
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "Id Rekam Medis Patient",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
         "responses":{
           "200":{
             "description": "Sukses"

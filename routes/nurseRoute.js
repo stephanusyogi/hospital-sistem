@@ -10,6 +10,8 @@ router.post("/nurse", protect, nurse.createNurse);
 router.get("/nurse", protect, nurse.getNurse);
 // Get Nurse By Id
 router.get("/nurse/:id", protect, nurse.getNurseById);
+// Get Nurse By No RM
+router.get("/nurse-norm/:id", protect, nurse.getNurseByNoRM);
 // Update Nurse
 router.put("/nurse/:id", protect, nurse.updateNurse);
 // Update Nurse Password

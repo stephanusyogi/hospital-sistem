@@ -60,6 +60,21 @@ const getNurseById = async (req, res) => {
   }
 };
 
+const getNurseByNoRM = async (req, res) => {
+  try {
+    const { id } = req.params;
+    const nurse = await User.find({no_rekam_medis: id});
+
+    if (!id) {
+      throw new Error("User not found!");
+    }
+
+    res.status(200).send(nurse);
+  } catch (error) {
+    res.status(500).send({ message: error.message });
+  }
+};
+
 const updateNurse = async (req, res) => {
   try {
     const { id } = req.params;
@@ -139,6 +154,7 @@ const deleteNurse = async (req, res) => {
 };
 
 module.exports = {
+  getNurseByNoRM,
   createNurse,
   getNurse,
   getNurseById,

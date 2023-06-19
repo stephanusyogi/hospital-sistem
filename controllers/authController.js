@@ -23,10 +23,11 @@ const login = async (req, res) => {
       const token = jwt.sign(
         {
           userId: user._id,
-          email: user.email,
+          email: user.email
         },
         process.env.JWT_SECRET
       );
+
       res.status(200).send({ token, id: user.id });
     } 
   } catch (error) {
