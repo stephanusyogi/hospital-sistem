@@ -16,20 +16,35 @@ export const actions = {
     const email = formData.get("email")
     const password = formData.get("password")
 
-    const login = await axios.post(BACKEND_API+'/login', 
-    'email='+email+'&password='+password, {
-      headers: {
-        'Content-Type': 'application/x-www-form-urlencoded'
-      }
-    })
-    .then(function (response) {
+    try {
+      const response = await axios.post(BACKEND_API+'/login', 
+      'email='+email+'&password='+password, {
+        headers: {
+          'Content-Type': 'application/x-www-form-urlencoded'
+        }
+      })
       console.log(response)
-      return {success:true, data:response}
-    })
-    .catch(function (error) {
+    } catch (error) {
       console.log(error)
-      return {error:true, data:error}
-    });
+      // return fail(400, {
+      //   error: true,
+      //   message: error.response.data.message,
+      // }); 
+    }
+    // const login = await axios.post(BACKEND_API+'/login', 
+    // 'email='+email+'&password='+password, {
+    //   headers: {
+    //     'Content-Type': 'application/x-www-form-urlencoded'
+    //   }
+    // })
+    // .then(function (response) {
+    //   console.log(response)
+    //   return {success:true, data:response}
+    // })
+    // .catch(function (error) {
+    //   console.log(error)
+    //   return {error:true, data:error}
+    // });
 
     // if(login.status === 200){
     //   cookies.set("access", "true", {
@@ -50,7 +65,7 @@ export const actions = {
     //   throw redirect(302, "/")
     // }
     return {
-      email,login
+      email
     }
   }
 };
