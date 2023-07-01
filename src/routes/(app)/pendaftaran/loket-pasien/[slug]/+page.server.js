@@ -78,9 +78,15 @@ export const actions = {
           'nama': user_cookies.name,
           'role': user_cookies.role,
         }
-        await axios.post(BACKEND_API+'/rekam-medis/log', dataLog ,{ headers });
+        axios.post(BACKEND_API+'/rekam-medis/log', dataLog ,{ headers })
+          .catch(error => {
+            console.error(error);
+          });
 
-        await axios.post(BACKEND_API+'/rekam-medis/informasi-pasien', informasiPasien, config)  
+        axios.post(BACKEND_API+'/rekam-medis/informasi-pasien', informasiPasien, config)
+          .catch(error => {
+            console.error(error);
+          });
         
       } catch (error) {
         return fail(400, {
