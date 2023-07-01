@@ -7,7 +7,8 @@ const createPatient = async (req, res) => {
       nik,
       umur,
       jenis_kelamin,
-      tempat_tanggal_lahir,
+      tempat_lahir,
+      tanggal_lahir,
       no_hp,
       agama,
       alamat_ktp,
@@ -19,7 +20,6 @@ const createPatient = async (req, res) => {
       !nik ||
       !umur ||
       !jenis_kelamin ||
-      !tempat_tanggal_lahir ||
       !no_hp ||
       !agama ||
       !alamat_ktp ||
@@ -48,7 +48,8 @@ const createPatient = async (req, res) => {
       nik,
       umur,
       jenis_kelamin,
-      tempat_tanggal_lahir,
+      tempat_lahir,
+      tanggal_lahir,
       no_hp,
       agama,
       alamat_ktp,
@@ -67,7 +68,7 @@ const createPatient = async (req, res) => {
 
 const getPatient = async (req, res) => {
   try {
-    const patient = await Patient.find({ is_deleted: false });
+    const patient = await Patient.find({ is_deleted: false }).sort({ createdAt: -1 });
 
     res.status(200).send(patient);
   } catch (error) {
@@ -79,6 +80,21 @@ const getPatientById = async (req, res) => {
   try {
     const { id } = req.params;
     const patient = await Patient.findById(id);
+
+    if (!id) {
+      throw new Error("Patient not found!");
+    }
+
+    res.status(200).send(patient);
+  } catch (error) {
+    res.status(500).send({ message: error.message });
+  }
+};
+
+const getPatientByNoRM = async (req, res) => {
+  try {
+    const { id } = req.params;
+    const patient = await Patient.find({no_rekam_medis: id});
 
     if (!id) {
       throw new Error("Patient not found!");
@@ -126,6 +142,7 @@ const deletePatient = async (req, res) => {
 
 module.exports = {
   createPatient,
+  getPatientByNoRM,
   getPatient,
   getPatientById,
   updatePatient,

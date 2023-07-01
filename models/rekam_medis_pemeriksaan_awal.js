@@ -42,6 +42,11 @@ const PemeriksaanAwalSchema = new Schema({
   unit_asal_rujukan: {
     type: String,
   },
+  id_dokter: {
+    type: String,
+    ref: 'User',
+    field: '_id'
+  },
   dpjp: {
     type: String,
   },
@@ -52,6 +57,11 @@ const PemeriksaanAwalSchema = new Schema({
   },
   nama_kamar: {
     type: String,
+  },
+  id_kamar: {
+    type: String,
+    ref: 'Room',
+    field: '_id'
   },
 }, { timestamps: true });
 

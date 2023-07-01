@@ -2,7 +2,7 @@ const mongoose = require("mongoose");
 
 const Schema = mongoose.Schema;
 const InformasiPasienSchema = new Schema({
-  nama: {
+  name: {
     type: String,
     required: true,
   },
@@ -24,7 +24,11 @@ const InformasiPasienSchema = new Schema({
     type: String,
     required: true,
   },
-  tempat_tanggal_lahir: {
+  tempat_lahir: {
+    type: String,
+    required: true,
+  },
+  tanggal_lahir: {
     type: String,
     required: true,
   },
@@ -67,6 +71,12 @@ const InformasiPasienSchema = new Schema({
   },
   status_asuransi: {
     type: Boolean,
+  },
+  tgl_masuk: {
+    type: String,
+  },
+  tgl_pulang: {
+    type: String,
   },
   status_pembayaran: {
     type: Boolean,

@@ -22,7 +22,11 @@ const PatientSchema = new Schema({
     type: String,
     required: true,
   },
-  tempat_tanggal_lahir: {
+  tempat_lahir: {
+    type: String,
+    required: true,
+  },
+  tanggal_lahir: {
     type: String,
     required: true,
   },

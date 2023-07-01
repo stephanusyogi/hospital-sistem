@@ -29,12 +29,20 @@
       "description": "Check Status Kepesertaan / Eligibilitas Peserta"
     },
     {
+      "name": "Dashboard",
+      "description": "Dashboard"
+    },
+    {
       "name": "Nurse",
       "description": "Nurse"
     },
     {
       "name": "Doctor",
       "description": "Doctor"
+    },
+    {
+      "name": "Receipt",
+      "description": "Receipt"
     },
     {
       "name": "Room",
@@ -53,6 +61,10 @@
       "description": "Rekam Medis"
     },
     {
+      "name": "Rekam Medis / Log",
+      "description": "Log Aktivitas Pelayanan"
+    },
+    {
       "name": "Rekam Medis / Informasi Pasien",
       "description": "Informasi Pasien"
     },
@@ -63,6 +75,58 @@
     {
       "name": "Rekam Medis / Asesmen Medis Awal",
       "description": "Asesmen Medis Awal"
+    },
+    {
+      "name": "Rekam Medis / Asesmen Medis Rawat Inap",
+      "description": "Asesmen Medis Rawat Inap"
+    },
+    {
+      "name": "Rekam Medis / Edukasi Pasien",
+      "description": "Edukasi Pasien"
+    },
+    {
+      "name": "Rekam Medis / Transfer Pasien Internal",
+      "description": "Transfer Pasien Internal"
+    },
+    {
+      "name": "Rekam Medis / Hasil Pemeriksaan Penunjang",
+      "description": "Hasil Pemeriksaan Penunjang"
+    },
+    {
+      "name": "Rekam Medis / Kopi Resep",
+      "description": "Kopi Resep"
+    },
+    {
+      "name": "Rekam Medis / Catatan Perkembangan Pasien Terintegrasi",
+      "description": "Catatan Perkembangan Pasien Terintegrasi"
+    },
+    {
+      "name": "Rekam Medis / Catatan Keperawatan",
+      "description": "Catatan Keperawatan"
+    },
+    {
+      "name": "Rekam Medis / Observasi Cairan",
+      "description": "Observasi Cairan"
+    },
+    {
+      "name": "Rekam Medis / Pemberian Obat Pasien",
+      "description": "Pemberian Obat Pasien"
+    },
+    {
+      "name": "Rekam Medis / Rekonsiliasi",
+      "description": "Rekonsiliasi"
+    },
+    {
+      "name": "Rekam Medis / DPJP",
+      "description": "Dokter Penanggung Jawab Pasien"
+    },
+    {
+      "name": "Rekam Medis / NEWS",
+      "description": "National Early Warning Score"
+    },
+    {
+      "name": "Rekam Medis / Ringkasan Pasien Pulang",
+      "description": "Ringkasan Pasien Pulang"
     }
   ],
   "paths": {
@@ -93,6 +157,22 @@
               "description": "Sukses"
             }
           }
+      }
+    },
+    "/dashboard": {
+      "get": {
+        "tags":["Dashboard"],
+        "summary": "Get Dashboard",
+        "security": [
+          {
+            "BearerAuth": []
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Sukses"
+          }
+        }
       }
     },
     "/nurse": {
@@ -524,6 +604,271 @@
         }
       }
     },
+    "/receipt": {
+      "get": {
+        "tags":["Receipt"],
+        "summary": "Get All Receipt",
+        "security": [
+          {
+            "BearerAuth": []
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Sukses"
+          }
+        }
+      },
+      "post":{
+        "tags":["Receipt"],
+        "summary": "Add Receipt",
+        "security": [
+          {
+            "BearerAuth": []
+          }
+        ],
+        "requestBody":{
+          "content":{
+            "application/json":{
+              "schema":{
+                "type": "object",
+                "properties": {
+                  "no_rekam_medis": {
+                    "type": "string"
+                  },
+                  "tgl_pembayaran": {
+                    "type": "string"
+                  },
+                  "nomor_nota": {
+                    "type": "string"
+                  },
+                  "nama_pasien": {
+                    "type": "string"
+                  },
+                  "asuransi": {
+                    "type": "string"
+                  },
+                  "total_biaya": {
+                    "type": "string"
+                  },
+                  "tgl_lahir": {
+                    "type": "string"
+                  },
+                  "dokter_utama": {
+                    "type": "string"
+                  },
+                  "kelas": {
+                    "type": "string"
+                  },
+                  "tgl_masuk": {
+                    "type": "string"
+                  },
+                  "tgl_keluar": {
+                    "type": "string"
+                  },
+                  "status": {
+                    "type": "string"
+                  },
+                  "administrasi": {
+                    "type": "array",
+                    "items": {
+                      "$ref": "#/components/schemas/AdministrasiItem"
+                    }
+                  },
+                  "ruang_perawatan": {
+                    "type": "array",
+                    "items": {
+                      "$ref": "#/components/schemas/RuangPerawatanItem"
+                    }
+                  },
+                  "visit_dokter": {
+                    "type": "array",
+                    "items": {
+                      "$ref": "#/components/schemas/VisitDokterItem"
+                    }
+                  },
+                  "obat_bahan_habis_pakai": {
+                    "type": "array",
+                    "items": {
+                      "$ref": "#/components/schemas/ObatBahanHabisPakaiItem"
+                    }
+                  },
+                  "tindakan_medis": {
+                    "type": "array",
+                    "items": {
+                      "$ref": "#/components/schemas/TindakanMedisItem"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses":{
+          "200":{
+            "description": "Sukses"
+          }
+        }
+      }
+    },
+    "/rekam-medis/receipt/{id}": {
+      "put":{
+        "tags":["Receipt"],
+        "summary": "Update Receipt",
+        "security": [
+          {
+            "BearerAuth": []
+          }
+        ],
+        "requestBody":{
+          "content":{
+            "application/json":{
+              "schema":{
+                "type": "object",
+                "properties": {
+                  "no_rekam_medis": {
+                    "type": "string"
+                  },
+                  "tgl_pembayaran": {
+                    "type": "string"
+                  },
+                  "nomor_nota": {
+                    "type": "string"
+                  },
+                  "nama_pasien": {
+                    "type": "string"
+                  },
+                  "asuransi": {
+                    "type": "string"
+                  },
+                  "total_biaya": {
+                    "type": "string"
+                  },
+                  "tgl_lahir": {
+                    "type": "string"
+                  },
+                  "dokter_utama": {
+                    "type": "string"
+                  },
+                  "kelas": {
+                    "type": "string"
+                  },
+                  "tgl_masuk": {
+                    "type": "string"
+                  },
+                  "tgl_keluar": {
+                    "type": "string"
+                  },
+                  "status": {
+                    "type": "string"
+                  },
+                  "administrasi": {
+                    "type": "array",
+                    "items": {
+                      "$ref": "#/components/schemas/AdministrasiItem"
+                    }
+                  },
+                  "ruang_perawatan": {
+                    "type": "array",
+                    "items": {
+                      "$ref": "#/components/schemas/RuangPerawatanItem"
+                    }
+                  },
+                  "visit_dokter": {
+                    "type": "array",
+                    "items": {
+                      "$ref": "#/components/schemas/VisitDokterItem"
+                    }
+                  },
+                  "obat_bahan_habis_pakai": {
+                    "type": "array",
+                    "items": {
+                      "$ref": "#/components/schemas/ObatBahanHabisPakaiItem"
+                    }
+                  },
+                  "tindakan_medis": {
+                    "type": "array",
+                    "items": {
+                      "$ref": "#/components/schemas/TindakanMedisItem"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "Id Rekam Medis",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses":{
+          "200":{
+            "description": "Sukses"
+          }
+        }
+      }
+    },
+    "/rekam-medis/receipt-norm/{no_rm}": {
+      "get":{
+        "tags":["Receipt"],
+        "summary": "Get Receipt By No Rekam Medis",
+        "security": [
+          {
+            "BearerAuth": []
+          }
+        ],
+        "parameters": [
+          {
+            "name": "no_rm",
+            "in": "path",
+            "description": "No Rekam Medis Patient",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses":{
+          "200":{
+            "description": "Sukses"
+          }
+        }
+      }
+    },
+    "/rekam-medis/receipt-id/{id}": {
+      "get":{
+        "tags":["Receipt"],
+        "summary": "Get Receipt By Id",
+        "security": [
+          {
+            "BearerAuth": []
+          }
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "Id Rekam Medis Patient",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses":{
+          "200":{
+            "description": "Sukses"
+          }
+        }
+      }
+    },
     "/room": {
       "get": {
         "tags":["Room"],
@@ -870,7 +1215,10 @@
                   "jenis_kelamin":{
                     "type":"string"
                   },
-                  "tempat_tanggal_lahir":{
+                  "tempat_lahir":{
+                    "type":"string"
+                  },
+                  "tanggal_lahir":{
                     "type":"string"
                   },
                   "no_hp":{
@@ -936,7 +1284,10 @@
                   "jenis_kelamin":{
                     "type":"string"
                   },
-                  "tempat_tanggal_lahir":{
+                  "tempat_lahir":{
+                    "type":"string"
+                  },
+                  "tanggal_lahir":{
                     "type":"string"
                   },
                   "no_hp":{
@@ -1128,6 +1479,149 @@
         "security": [
           {
             "BearerAuth": []
+          }
+        ],
+        "responses":{
+          "200":{
+            "description": "Sukses"
+          }
+        }
+      }
+    },
+    "/rekam-medis/log": {
+      "post":{
+        "tags":["Rekam Medis / Log"],
+        "summary": "Add Log Activity",
+        "security": [
+          {
+            "BearerAuth": []
+          }
+        ],
+        "requestBody":{
+          "content":{
+            "application/json":{
+              "schema":{
+                "type": "object",
+                "properties": {
+                  "no_rekam_medis": {
+                    "type": "string"
+                  },
+                  "keterangan": {
+                    "type": "string"
+                  },
+                  "nama": {
+                    "type": "string"
+                  },
+                  "role": {
+                    "type": "string"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses":{
+          "200":{
+            "description": "Sukses"
+          }
+        }
+      }
+    },
+    "/rekam-medis/log/{id}": {
+      "put":{
+        "tags":["Rekam Medis / Log"],
+        "summary": "Update Log Activity",
+        "security": [
+          {
+            "BearerAuth": []
+          }
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "Id Rekam Medis",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody":{
+          "content":{
+            "application/json":{
+              "schema":{
+                "type": "object",
+                "properties": {
+                  "no_rekam_medis": {
+                    "type": "string"
+                  },
+                  "keterangan": {
+                    "type": "string"
+                  },
+                  "nama": {
+                    "type": "string"
+                  },
+                  "role": {
+                    "type": "string"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses":{
+          "200":{
+            "description": "Sukses"
+          }
+        }
+      }
+    },
+    "/rekam-medis/log-norm/{no_rm}": {
+      "get":{
+        "tags":["Rekam Medis / Log"],
+        "summary": "Get Log Activity By No Rekam Medis / Log Activity",
+        "security": [
+          {
+            "BearerAuth": []
+          }
+        ],
+        "parameters": [
+          {
+            "name": "no_rm",
+            "in": "path",
+            "description": "No Rekam Medis Patient",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses":{
+          "200":{
+            "description": "Sukses"
+          }
+        }
+      }
+    },
+    "/rekam-medis/log-id/{id}": {
+      "get":{
+        "tags":["Rekam Medis / Log"],
+        "summary": "Get Log Activity By Id (Riwayat Log Activity)",
+        "security": [
+          {
+            "BearerAuth": []
+          }
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "Id Rekam Medis Patient",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
           }
         ],
         "responses":{
@@ -1991,6 +2485,3799 @@
           }
         }
       }
+    },
+    "/rekam-medis/asesmen-medis-rawat-inap": {
+      "post":{
+        "tags":["Rekam Medis / Asesmen Medis Rawat Inap"],
+        "summary": "Add Asesmen Medis Rawat Inap",
+        "security": [
+          {
+            "BearerAuth": []
+          }
+        ],
+        "requestBody":{
+          "content":{
+            "application/json":{
+              "schema":{
+                "type": "object",
+                "properties": {
+                  "no_rekam_medis": {
+                    "type": "string"
+                  },
+                  "status_fisik_riwayat": {
+                    "type": "object",
+                    "properties": {
+                      "diagnosa_masuk": {
+                        "type": "string"
+                      },
+                      "keluhan_utama": {
+                        "type": "string"
+                      }
+                    }
+                  },
+                  "alloanamnesa": {
+                    "type": "object",
+                    "properties": {
+                      "riwayat_penyakit_pasien": {
+                        "type": "string"
+                      },
+                      "alkohol_obat": {
+                        "type": "string"
+                      },
+                      "merokok": {
+                        "type": "string"
+                      },
+                      "imunisasi": {
+                        "type": "string"
+                      },
+                      "riwayat_penyakit_keluarga": {
+                        "type": "string"
+                      },
+                      "kondisi_saat_masuk": {
+                        "type": "string"
+                      },
+                      "asal_pasien": {
+                        "type": "string"
+                      },
+                      "kepercayaan_khusus": {
+                        "type": "string"
+                      },
+                      "status_pernikahan": {
+                        "type": "string"
+                      },
+                      "aktivitas": {
+                        "type": "string"
+                      },
+                      "status_emosional": {
+                        "type": "string"
+                      },
+                      "keluarga_terdekat": {
+                        "type": "string"
+                      },
+                      "informasi_didapat_dari": {
+                        "type": "string"
+                      },
+                      "kebutuhan_privasi": {
+                        "type": "string"
+                      },
+                      "pendidikan": {
+                        "type": "string"
+                      },
+                      "penanggung_jawab_biaya": {
+                        "type": "string"
+                      }
+                    }
+                  },
+                  "heteroanamnesa": {
+                    "type": "object",
+                    "properties": {
+                      "tanda_vital_suhu": {
+                        "type": "string"
+                      },
+                      "tanda_vital_nadi": {
+                        "type": "string"
+                      },
+                      "tanda_vital_spo2": {
+                        "type": "string"
+                      },
+                      "tanda_vital_tensi": {
+                        "type": "string"
+                      },
+                      "kewaspadaan": {
+                        "type": "string"
+                      },
+                      "alergi": {
+                        "type": "string"
+                      },
+                      "jenis_reaksi": {
+                        "type": "string"
+                      },
+                      "barang_berharga": {
+                        "type": "string"
+                      },
+                      "alat_bantu": {
+                        "type": "string"
+                      }
+                    }
+                  },
+                  "pemeriksaan_kepala_leher": {
+                    "type": "object",
+                    "properties": {
+                      "mata": {
+                        "type": "string"
+                      },
+                      "hidung": {
+                        "type": "string"
+                      },
+                      "mulut": {
+                        "type": "string"
+                      },
+                      "telinga": {
+                        "type": "string"
+                      },
+                      "leher": {
+                        "type": "string"
+                      }
+                    }
+                  },
+                  "pemeriksaan_thorax": {
+                    "type": "object",
+                    "properties": {
+                      "bentuk": {
+                        "type": "string"
+                      },
+                      "paru_i": {
+                        "type": "string"
+                      },
+                      "paru_ii": {
+                        "type": "string"
+                      },
+                      "jantung_i": {
+                        "type": "string"
+                      },
+                      "jantung_ii": {
+                        "type": "string"
+                      },
+                      "jantung_iii": {
+                        "type": "string"
+                      }
+                    }
+                  },
+                  "pemeriksaan_abdomen": {
+                    "type": "object",
+                    "properties": {
+                      "palpasi": {
+                        "type": "string"
+                      },
+                      "inspeksi": {
+                        "type": "string"
+                      },
+                      "auskultasi": {
+                        "type": "string"
+                      },
+                      "perkusi": {
+                        "type": "string"
+                      },
+                      "asupan_diit": {
+                        "type": "string"
+                      },
+                      "defekasi": {
+                        "type": "string"
+                      }
+                    }
+                  },
+                  "pemeriksaan_genitourinaria": {
+                    "type": "string"
+                  },
+                  "pemeriksaan_ginekologi": {
+                    "type": "string"
+                  },
+                  "pemeriksaan_neurologi": {
+                    "type": "object",
+                    "properties": {
+                      "hasil": {
+                        "type": "string"
+                      },
+                      "kesadaran": {
+                        "type": "string"
+                      }
+                    }
+                  },
+                  "glassgow_coma_scale": {
+                    "type": "object",
+                    "properties": {
+                      "total_nilai": {
+                        "type": "string"
+                      },
+                      "mata": {
+                        "type": "string"
+                      },
+                      "verbal": {
+                        "type": "string"
+                      },
+                      "motorik": {
+                        "type": "string"
+                      }
+                    }
+                  },
+                  "pemeriksaan_muskoletal": {
+                    "type": "object",
+                    "properties": {
+                      "mobilitas": {
+                        "type": "string"
+                      },
+                      "fungsi_sendi": {
+                        "type": "string"
+                      },
+                      "warna_kulit": {
+                        "type": "string"
+                      },
+                      "turgor": {
+                        "type": "string"
+                      },
+                      "deskripsi_frakture": {
+                        "type": "string"
+                      }
+                    }
+                  },
+                  "pemeriksaan_norton_scale": {
+                    "type": "object",
+                    "properties": {
+                      "total_nilai": {
+                        "type": "string"
+                      },
+                      "kondisi_fisik": {
+                        "type": "string"
+                      },
+                      "kondisi_mental": {
+                        "type": "string"
+                      },
+                      "aktivitas": {
+                        "type": "string"
+                      },
+                      "mobilitas": {
+                        "type": "string"
+                      },
+                      "inkontinensia": {
+                        "type": "string"
+                      }
+                    }
+                  },
+                  "pemeriksaan_aktivitas_harian": {
+                    "type": "object",
+                    "properties": {
+                      "total_nilai": {
+                        "type": "string"
+                      },
+                      "makan_minum": {
+                        "type": "string"
+                      },
+                      "mandi": {
+                        "type": "string"
+                      },
+                      "memakai_baju": {
+                        "type": "string"
+                      },
+                      "bab_bak": {
+                        "type": "string"
+                      },
+                      "naik_turun_tempat_tidur": {
+                        "type": "string"
+                      },
+                      "kemampuan_menahan_bab_bak": {
+                        "type": "string"
+                      }
+                    }
+                  },
+                  "pemeriksaan_status_nutrisi": {
+                    "type": "object",
+                    "properties": {
+                      "tinggi_badan": {
+                        "type": "string"
+                      },
+                      "berat_badan": {
+                        "type": "string"
+                      },
+                      "total_nilai": {
+                        "type": "string"
+                      },
+                      "skor_imt": {
+                        "type": "string"
+                      },
+                      "persentase_kehilangan_berat_badan": {
+                        "type": "string"
+                      },
+                      "efek_akut_nyeri": {
+                        "type": "string"
+                      }
+                    }
+                  },
+                  "pemeriksaan_resiko_jatuh": {
+                    "type": "object",
+                    "properties": {
+                      "total_nilai": {
+                        "type": "string"
+                      },
+                      "riwayat_jatuh": {
+                        "type": "string"
+                      },
+                      "diagnosis_sekunder": {
+                        "type": "string"
+                      },
+                      "alat_bantu": {
+                        "type": "string"
+                      },
+                      "terpasang_infus": {
+                        "type": "string"
+                      },
+                      "gaya_berjalan": {
+                        "type": "string"
+                      },
+                      "status_mental": {
+                        "type": "string"
+                      }
+                    }
+                  },
+                  "pemeriksaan_nyeri": {
+                    "type": "object",
+                    "properties": {
+                      "nyeri": {
+                        "type": "string"
+                      },
+                      "deskripsi": {
+                        "type": "string"
+                      }
+                    }
+                  },
+                  "diagnosa_keperawatan": {
+                    "type": "array",
+                    "items": {
+                      "$ref": "#/components/schemas/DiagnosaKeperawatanItem"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses":{
+          "200":{
+            "description": "Sukses"
+          }
+        }
+      }
+    },
+    "/rekam-medis/asesmen-medis-rawat-inap/{id}": {
+      "put":{
+        "tags":["Rekam Medis / Asesmen Medis Rawat Inap"],
+        "summary": "Update Asesmen Medis Rawat Inap",
+        "security": [
+          {
+            "BearerAuth": []
+          }
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "Id Rekam Medis",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody":{
+          "content":{
+            "application/json":{
+              "schema":{
+                "type": "object",
+                "properties": {
+                  "no_rekam_medis": {
+                    "type": "string"
+                  },
+                  "status_fisik_riwayat": {
+                    "type": "object",
+                    "properties": {
+                      "diagnosa_masuk": {
+                        "type": "string"
+                      },
+                      "keluhan_utama": {
+                        "type": "string"
+                      }
+                    }
+                  },
+                  "alloanamnesa": {
+                    "type": "object",
+                    "properties": {
+                      "riwayat_penyakit_pasien": {
+                        "type": "string"
+                      },
+                      "alkohol_obat": {
+                        "type": "string"
+                      },
+                      "merokok": {
+                        "type": "string"
+                      },
+                      "imunisasi": {
+                        "type": "string"
+                      },
+                      "riwayat_penyakit_keluarga": {
+                        "type": "string"
+                      },
+                      "kondisi_saat_masuk": {
+                        "type": "string"
+                      },
+                      "asal_pasien": {
+                        "type": "string"
+                      },
+                      "kepercayaan_khusus": {
+                        "type": "string"
+                      },
+                      "status_pernikahan": {
+                        "type": "string"
+                      },
+                      "aktivitas": {
+                        "type": "string"
+                      },
+                      "status_emosional": {
+                        "type": "string"
+                      },
+                      "keluarga_terdekat": {
+                        "type": "string"
+                      },
+                      "informasi_didapat_dari": {
+                        "type": "string"
+                      },
+                      "kebutuhan_privasi": {
+                        "type": "string"
+                      },
+                      "pendidikan": {
+                        "type": "string"
+                      },
+                      "penanggung_jawab_biaya": {
+                        "type": "string"
+                      }
+                    }
+                  },
+                  "heteroanamnesa": {
+                    "type": "object",
+                    "properties": {
+                      "tanda_vital_suhu": {
+                        "type": "string"
+                      },
+                      "tanda_vital_nadi": {
+                        "type": "string"
+                      },
+                      "tanda_vital_spo2": {
+                        "type": "string"
+                      },
+                      "tanda_vital_tensi": {
+                        "type": "string"
+                      },
+                      "kewaspadaan": {
+                        "type": "string"
+                      },
+                      "alergi": {
+                        "type": "string"
+                      },
+                      "jenis_reaksi": {
+                        "type": "string"
+                      },
+                      "barang_berharga": {
+                        "type": "string"
+                      },
+                      "alat_bantu": {
+                        "type": "string"
+                      }
+                    }
+                  },
+                  "pemeriksaan_kepala_leher": {
+                    "type": "object",
+                    "properties": {
+                      "mata": {
+                        "type": "string"
+                      },
+                      "hidung": {
+                        "type": "string"
+                      },
+                      "mulut": {
+                        "type": "string"
+                      },
+                      "telinga": {
+                        "type": "string"
+                      },
+                      "leher": {
+                        "type": "string"
+                      }
+                    }
+                  },
+                  "pemeriksaan_thorax": {
+                    "type": "object",
+                    "properties": {
+                      "bentuk": {
+                        "type": "string"
+                      },
+                      "paru_i": {
+                        "type": "string"
+                      },
+                      "paru_ii": {
+                        "type": "string"
+                      },
+                      "jantung_i": {
+                        "type": "string"
+                      },
+                      "jantung_ii": {
+                        "type": "string"
+                      },
+                      "jantung_iii": {
+                        "type": "string"
+                      }
+                    }
+                  },
+                  "pemeriksaan_abdomen": {
+                    "type": "object",
+                    "properties": {
+                      "palpasi": {
+                        "type": "string"
+                      },
+                      "inspeksi": {
+                        "type": "string"
+                      },
+                      "auskultasi": {
+                        "type": "string"
+                      },
+                      "perkusi": {
+                        "type": "string"
+                      },
+                      "asupan_diit": {
+                        "type": "string"
+                      },
+                      "defekasi": {
+                        "type": "string"
+                      }
+                    }
+                  },
+                  "pemeriksaan_genitourinaria": {
+                    "type": "string"
+                  },
+                  "pemeriksaan_ginekologi": {
+                    "type": "string"
+                  },
+                  "pemeriksaan_neurologi": {
+                    "type": "object",
+                    "properties": {
+                      "hasil": {
+                        "type": "string"
+                      },
+                      "kesadaran": {
+                        "type": "string"
+                      }
+                    }
+                  },
+                  "glassgow_coma_scale": {
+                    "type": "object",
+                    "properties": {
+                      "total_nilai": {
+                        "type": "string"
+                      },
+                      "mata": {
+                        "type": "string"
+                      },
+                      "verbal": {
+                        "type": "string"
+                      },
+                      "motorik": {
+                        "type": "string"
+                      }
+                    }
+                  },
+                  "pemeriksaan_muskoletal": {
+                    "type": "object",
+                    "properties": {
+                      "mobilitas": {
+                        "type": "string"
+                      },
+                      "fungsi_sendi": {
+                        "type": "string"
+                      },
+                      "warna_kulit": {
+                        "type": "string"
+                      },
+                      "turgor": {
+                        "type": "string"
+                      },
+                      "deskripsi_frakture": {
+                        "type": "string"
+                      }
+                    }
+                  },
+                  "pemeriksaan_norton_scale": {
+                    "type": "object",
+                    "properties": {
+                      "total_nilai": {
+                        "type": "string"
+                      },
+                      "kondisi_fisik": {
+                        "type": "string"
+                      },
+                      "kondisi_mental": {
+                        "type": "string"
+                      },
+                      "aktivitas": {
+                        "type": "string"
+                      },
+                      "mobilitas": {
+                        "type": "string"
+                      },
+                      "inkontinensia": {
+                        "type": "string"
+                      }
+                    }
+                  },
+                  "pemeriksaan_aktivitas_harian": {
+                    "type": "object",
+                    "properties": {
+                      "total_nilai": {
+                        "type": "string"
+                      },
+                      "makan_minum": {
+                        "type": "string"
+                      },
+                      "mandi": {
+                        "type": "string"
+                      },
+                      "memakai_baju": {
+                        "type": "string"
+                      },
+                      "bab_bak": {
+                        "type": "string"
+                      },
+                      "naik_turun_tempat_tidur": {
+                        "type": "string"
+                      },
+                      "kemampuan_menahan_bab_bak": {
+                        "type": "string"
+                      }
+                    }
+                  },
+                  "pemeriksaan_status_nutrisi": {
+                    "type": "object",
+                    "properties": {
+                      "tinggi_badan": {
+                        "type": "string"
+                      },
+                      "berat_badan": {
+                        "type": "string"
+                      },
+                      "total_nilai": {
+                        "type": "string"
+                      },
+                      "skor_imt": {
+                        "type": "string"
+                      },
+                      "persentase_kehilangan_berat_badan": {
+                        "type": "string"
+                      },
+                      "efek_akut_nyeri": {
+                        "type": "string"
+                      }
+                    }
+                  },
+                  "pemeriksaan_resiko_jatuh": {
+                    "type": "object",
+                    "properties": {
+                      "total_nilai": {
+                        "type": "string"
+                      },
+                      "riwayat_jatuh": {
+                        "type": "string"
+                      },
+                      "diagnosis_sekunder": {
+                        "type": "string"
+                      },
+                      "alat_bantu": {
+                        "type": "string"
+                      },
+                      "terpasang_infus": {
+                        "type": "string"
+                      },
+                      "gaya_berjalan": {
+                        "type": "string"
+                      },
+                      "status_mental": {
+                        "type": "string"
+                      }
+                    }
+                  },
+                  "pemeriksaan_nyeri": {
+                    "type": "object",
+                    "properties": {
+                      "nyeri": {
+                        "type": "string"
+                      },
+                      "deskripsi": {
+                        "type": "string"
+                      }
+                    }
+                  },
+                  "diagnosa_keperawatan": {
+                    "type": "array",
+                    "items": {
+                      "$ref": "#/components/schemas/DiagnosaKeperawatanItem"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses":{
+          "200":{
+            "description": "Sukses"
+          }
+        }
+      }
+    },
+    "/rekam-medis/asesmen-medis-rawat-inap-norm/{no_rm}": {
+      "get":{
+        "tags":["Rekam Medis / Asesmen Medis Rawat Inap"],
+        "summary": "Get Asesmen Medis Rawat Inap By No Rekam Medis / Asesmen Medis Rawat Inap",
+        "security": [
+          {
+            "BearerAuth": []
+          }
+        ],
+        "parameters": [
+          {
+            "name": "no_rm",
+            "in": "path",
+            "description": "No Rekam Medis Patient",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses":{
+          "200":{
+            "description": "Sukses"
+          }
+        }
+      }
+    },
+    "/rekam-medis/asesmen-medis-rawat-inap-id/{id}": {
+      "get":{
+        "tags":["Rekam Medis / Asesmen Medis Rawat Inap"],
+        "summary": "Get Asesmen Medis Rawat Inap By Id (Riwayat Asesmen Medis Rawat Inap)",
+        "security": [
+          {
+            "BearerAuth": []
+          }
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "Id Rekam Medis Patient",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses":{
+          "200":{
+            "description": "Sukses"
+          }
+        }
+      }
+    },
+    "/rekam-medis/edukasi-pasien": {
+      "post":{
+        "tags":["Rekam Medis / Edukasi Pasien"],
+        "summary": "Add Edukasi Pasien",
+        "security": [
+          {
+            "BearerAuth": []
+          }
+        ],
+        "requestBody":{
+          "content":{
+            "application/json":{
+              "schema":{
+                "type": "object",
+                "properties": {
+                  "no_rekam_medis": {
+                    "type": "string"
+                  },
+                  "pengkajian_kebutuhan_edukasi": {
+                    "type": "object",
+                    "properties": {
+                      "keyakinan_nilai": {
+                        "type": "string"
+                      },
+                      "tingkat_edukasi": {
+                        "type": "string"
+                      },
+                      "keterbatasan_fisik": {
+                        "type": "string"
+                      },
+                      "bahasa_yang_digunakan": {
+                        "type": "string"
+                      },
+                      "hambatan_emosi": {
+                        "type": "string"
+                      },
+                      "kesediaan_menerima_informasi": {
+                        "type": "string"
+                      },
+                      "diagnosis_masuk": {
+                        "type": "string"
+                      },
+                      "rencana_operasi": {
+                        "type": "string"
+                      }
+                    }
+                  },
+                  "kebutuhan_edukasi": {
+                    "type": "object",
+                    "properties": {
+                      "penerjemah": {
+                        "type": "string"
+                      },
+                      "perawatan_pendamping": {
+                        "type": "string"
+                      },
+                      "asuhan_berkelanjutan": {
+                        "type": "string"
+                      },
+                      "media_edukasi": {
+                        "type": "string"
+                      }
+                    }
+                  },
+                  "rencana_dpjp": {
+                    "type": "object",
+                    "properties": {
+                      "rencana_edukasi": {
+                        "type": "string"
+                      },
+                      "nama_pemberi": {
+                        "type": "string"
+                      },
+                      "nama_penerima": {
+                        "type": "string"
+                      },
+                      "verifikasi_pemahaman": {
+                        "type": "boolean"
+                      },
+                      "durasi_edukasi": {
+                        "type": "string"
+                      }
+                    }
+                  },
+                  "rencana_apoteker": {
+                    "type": "object",
+                    "properties": {
+                      "rencana_edukasi": {
+                        "type": "string"
+                      },
+                      "nama_pemberi": {
+                        "type": "string"
+                      },
+                      "nama_penerima": {
+                        "type": "string"
+                      },
+                      "verifikasi_pemahaman": {
+                        "type": "boolean"
+                      },
+                      "durasi_edukasi": {
+                        "type": "string"
+                      }
+                    }
+                  },
+                  "rencana_perawat": {
+                    "type": "object",
+                    "properties": {
+                      "rencana_edukasi": {
+                        "type": "string"
+                      },
+                      "nama_pemberi": {
+                        "type": "string"
+                      },
+                      "nama_penerima": {
+                        "type": "string"
+                      },
+                      "verifikasi_pemahaman": {
+                        "type": "boolean"
+                      },
+                      "durasi_edukasi": {
+                        "type": "string"
+                      }
+                    }
+                  },
+                  "rencana_fisioterapis": {
+                    "type": "object",
+                    "properties": {
+                      "rencana_edukasi": {
+                        "type": "string"
+                      },
+                      "nama_pemberi": {
+                        "type": "string"
+                      },
+                      "nama_penerima": {
+                        "type": "string"
+                      },
+                      "verifikasi_pemahaman": {
+                        "type": "boolean"
+                      },
+                      "durasi_edukasi": {
+                        "type": "string"
+                      }
+                    }
+                  },
+                  "rencana_nutritionis_klinis": {
+                    "type": "object",
+                    "properties": {
+                      "rencana_edukasi": {
+                        "type": "string"
+                      },
+                      "nama_pemberi": {
+                        "type": "string"
+                      },
+                      "nama_penerima": {
+                        "type": "string"
+                      },
+                      "verifikasi_pemahaman": {
+                        "type": "boolean"
+                      },
+                      "durasi_edukasi": {
+                        "type": "string"
+                      }
+                    }
+                  },
+                  "rencana_lainnya": {
+                    "type": "object",
+                    "properties": {
+                      "rencana_edukasi": {
+                        "type": "string"
+                      },
+                      "nama_pemberi": {
+                        "type": "string"
+                      },
+                      "nama_penerima": {
+                        "type": "string"
+                      },
+                      "verifikasi_pemahaman": {
+                        "type": "boolean"
+                      },
+                      "durasi_edukasi": {
+                        "type": "string"
+                      }
+                    }
+                  },
+                  "img_dir_penandaan_lokasi_operasi": {
+                    "type": "string"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses":{
+          "200":{
+            "description": "Sukses"
+          }
+        }
+      }
+    },
+    "/rekam-medis/edukasi-pasien-upload-file/{id}": {
+      "post":{
+        "tags":["Rekam Medis / Edukasi Pasien"],
+        "summary": "Upload File",
+        "security": [
+          {
+            "BearerAuth": []
+          }
+        ],
+        "consumes": ["multipart/form-data"],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "Id Rekam Medis Patient",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "multipart/form-data": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "file": {
+                    "type": "string",
+                    "format": "binary"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses":{
+          "200":{
+            "description": "Sukses"
+          }
+        }
+      }
+    },
+    "/rekam-medis/edukasi-pasien/{id}": {
+      "put":{
+        "tags":["Rekam Medis / Edukasi Pasien"],
+        "summary": "Update Edukasi Pasien",
+        "security": [
+          {
+            "BearerAuth": []
+          }
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "Id Rekam Medis",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody":{
+          "content":{
+            "application/json":{
+              "schema":{
+                "type": "object",
+                "properties": {
+                  "no_rekam_medis": {
+                    "type": "string"
+                  },
+                  "pengkajian_kebutuhan_edukasi": {
+                    "type": "object",
+                    "properties": {
+                      "keyakinan_nilai": {
+                        "type": "string"
+                      },
+                      "tingkat_edukasi": {
+                        "type": "string"
+                      },
+                      "keterbatasan_fisik": {
+                        "type": "string"
+                      },
+                      "bahasa_yang_digunakan": {
+                        "type": "string"
+                      },
+                      "hambatan_emosi": {
+                        "type": "string"
+                      },
+                      "kesediaan_menerima_informasi": {
+                        "type": "string"
+                      },
+                      "diagnosis_masuk": {
+                        "type": "string"
+                      },
+                      "rencana_operasi": {
+                        "type": "string"
+                      }
+                    }
+                  },
+                  "kebutuhan_edukasi": {
+                    "type": "object",
+                    "properties": {
+                      "penerjemah": {
+                        "type": "string"
+                      },
+                      "perawatan_pendamping": {
+                        "type": "string"
+                      },
+                      "asuhan_berkelanjutan": {
+                        "type": "string"
+                      },
+                      "media_edukasi": {
+                        "type": "string"
+                      }
+                    }
+                  },
+                  "rencana_dpjp": {
+                    "type": "object",
+                    "properties": {
+                      "rencana_edukasi": {
+                        "type": "string"
+                      },
+                      "nama_pemberi": {
+                        "type": "string"
+                      },
+                      "nama_penerima": {
+                        "type": "string"
+                      },
+                      "verifikasi_pemahaman": {
+                        "type": "boolean"
+                      },
+                      "durasi_edukasi": {
+                        "type": "string"
+                      }
+                    }
+                  },
+                  "rencana_apoteker": {
+                    "type": "object",
+                    "properties": {
+                      "rencana_edukasi": {
+                        "type": "string"
+                      },
+                      "nama_pemberi": {
+                        "type": "string"
+                      },
+                      "nama_penerima": {
+                        "type": "string"
+                      },
+                      "verifikasi_pemahaman": {
+                        "type": "boolean"
+                      },
+                      "durasi_edukasi": {
+                        "type": "string"
+                      }
+                    }
+                  },
+                  "rencana_perawat": {
+                    "type": "object",
+                    "properties": {
+                      "rencana_edukasi": {
+                        "type": "string"
+                      },
+                      "nama_pemberi": {
+                        "type": "string"
+                      },
+                      "nama_penerima": {
+                        "type": "string"
+                      },
+                      "verifikasi_pemahaman": {
+                        "type": "boolean"
+                      },
+                      "durasi_edukasi": {
+                        "type": "string"
+                      }
+                    }
+                  },
+                  "rencana_fisioterapis": {
+                    "type": "object",
+                    "properties": {
+                      "rencana_edukasi": {
+                        "type": "string"
+                      },
+                      "nama_pemberi": {
+                        "type": "string"
+                      },
+                      "nama_penerima": {
+                        "type": "string"
+                      },
+                      "verifikasi_pemahaman": {
+                        "type": "boolean"
+                      },
+                      "durasi_edukasi": {
+                        "type": "string"
+                      }
+                    }
+                  },
+                  "rencana_nutritionis_klinis": {
+                    "type": "object",
+                    "properties": {
+                      "rencana_edukasi": {
+                        "type": "string"
+                      },
+                      "nama_pemberi": {
+                        "type": "string"
+                      },
+                      "nama_penerima": {
+                        "type": "string"
+                      },
+                      "verifikasi_pemahaman": {
+                        "type": "boolean"
+                      },
+                      "durasi_edukasi": {
+                        "type": "string"
+                      }
+                    }
+                  },
+                  "rencana_lainnya": {
+                    "type": "object",
+                    "properties": {
+                      "rencana_edukasi": {
+                        "type": "string"
+                      },
+                      "nama_pemberi": {
+                        "type": "string"
+                      },
+                      "nama_penerima": {
+                        "type": "string"
+                      },
+                      "verifikasi_pemahaman": {
+                        "type": "boolean"
+                      },
+                      "durasi_edukasi": {
+                        "type": "string"
+                      }
+                    }
+                  },
+                  "img_dir_penandaan_lokasi_operasi": {
+                    "type": "string"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses":{
+          "200":{
+            "description": "Sukses"
+          }
+        }
+      }
+    },
+    "/rekam-medis/edukasi-pasien-norm/{no_rm}": {
+      "get":{
+        "tags":["Rekam Medis / Edukasi Pasien"],
+        "summary": "Get Edukasi Pasien By No Rekam Medis / Edukasi Pasien",
+        "security": [
+          {
+            "BearerAuth": []
+          }
+        ],
+        "parameters": [
+          {
+            "name": "no_rm",
+            "in": "path",
+            "description": "No Rekam Medis Patient",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses":{
+          "200":{
+            "description": "Sukses"
+          }
+        }
+      }
+    },
+    "/rekam-medis/edukasi-pasien-id/{id}": {
+      "get":{
+        "tags":["Rekam Medis / Edukasi Pasien"],
+        "summary": "Get Edukasi Pasien By Id (Riwayat Edukasi Pasien)",
+        "security": [
+          {
+            "BearerAuth": []
+          }
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "Id Rekam Medis Patient",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses":{
+          "200":{
+            "description": "Sukses"
+          }
+        }
+      }
+    },
+    "/rekam-medis/transfer-pasien-internal": {
+      "post":{
+        "tags":["Rekam Medis / Transfer Pasien Internal"],
+        "summary": "Add Transfer Pasien Internal",
+        "security": [
+          {
+            "BearerAuth": []
+          }
+        ],
+        "requestBody":{
+          "content":{
+            "application/json":{
+              "schema":{
+                "type": "object",
+                "properties": {
+                  "no_rekam_medis": {
+                    "type": "string"
+                  },
+                  "general": {
+                    "type": "object",
+                    "properties": {
+                      "ruangan_asal": {
+                        "type": "string"
+                      },
+                      "ruangan_tujuan": {
+                        "type": "string"
+                      },
+                      "petugas_yang_menghubungi": {
+                        "type": "string"
+                      },
+                      "petugas_penerima": {
+                        "type": "string"
+                      },
+                      "tanggal_berangkat": {
+                        "type": "string"
+                      },
+                      "jam_berangkat": {
+                        "type": "string"
+                      },
+                      "alasan_mentransfer": {
+                        "type": "string"
+                      },
+                      "level_transfer": {
+                        "type": "string"
+                      },
+                      "indikasi_dirawat": {
+                        "type": "string"
+                      },
+                      "diagnosa_medis": {
+                        "type": "string"
+                      },
+                      "dpjp_utama": {
+                        "type": "string"
+                      },
+                      "dpjp": {
+                        "type": "string"
+                      }
+                    }
+                  },
+                  "catatan": {
+                    "type": "object",
+                    "properties": {
+                      "anamnesis": {
+                        "type": "string"
+                      },
+                      "pemeriksaan_fisik": {
+                        "type": "string"
+                      },
+                      "pemeriksaan_diagnostik": {
+                        "type": "array",
+                        "items": {
+                          "$ref": "#/components/schemas/PemeriksaanDiagnostikItem"
+                        }
+                      },
+                      "alergi": {
+                        "type": "string"
+                      },
+                      "riwayat_penyakit": {
+                        "type": "string"
+                      },
+                      "pengobatan_sudah_diberi": {
+                        "type": "array",
+                        "items": {
+                          "$ref": "#/components/schemas/PengobatanSudahDiberikanItem"
+                        }
+                      },
+                      "pengobatan_sudah_dilakukan": {
+                        "type": "array",
+                        "items": {
+                          "$ref": "#/components/schemas/ProsedurSudahDilakukanItem"
+                        }
+                      },
+                      "luka": {
+                        "type": "string"
+                      },
+                      "makan_minum_terakhir": {
+                        "type": "string"
+                      },
+                      "lain_lain": {
+                        "type": "string"
+                      }
+                    }
+                  },
+                  "kondisi_pasien_sebelum_transfer": {
+                    "type": "object",
+                    "properties": {
+                      "kesadaran_umum": {
+                        "type": "string"
+                      },
+                      "kesadaran": {
+                        "type": "string"
+                      },
+                      "gcs": {
+                        "type": "string"
+                      },
+                      "tekanan_darah": {
+                        "type": "string"
+                      },
+                      "suhu": {
+                        "type": "string"
+                      },
+                      "nadi": {
+                        "type": "string"
+                      },
+                      "rr": {
+                        "type": "string"
+                      },
+                      "saturasi": {
+                        "type": "string"
+                      },
+                      "skala_nyeri": {
+                        "type": "string"
+                      },
+                      "resiko_jatuh": {
+                        "type": "string"
+                      }
+                    }
+                  },
+                  "kondisi_pasien_saat_diterima": {
+                    "type": "object",
+                    "properties": {
+                      "kesadaran_umum": {
+                        "type": "string"
+                      },
+                      "kesadaran": {
+                        "type": "string"
+                      },
+                      "gcs": {
+                        "type": "string"
+                      },
+                      "tekanan_darah": {
+                        "type": "string"
+                      },
+                      "suhu": {
+                        "type": "string"
+                      },
+                      "nadi": {
+                        "type": "string"
+                      },
+                      "rr": {
+                        "type": "string"
+                      },
+                      "saturasi": {
+                        "type": "string"
+                      },
+                      "skala_nyeri": {
+                        "type": "string"
+                      },
+                      "resiko_jatuh": {
+                        "type": "string"
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses":{
+          "200":{
+            "description": "Sukses"
+          }
+        }
+      }
+    },
+    "/rekam-medis/transfer-pasien-internal/{id}": {
+      "put":{
+        "tags":["Rekam Medis / Transfer Pasien Internal"],
+        "summary": "Update Transfer Pasien Internal",
+        "security": [
+          {
+            "BearerAuth": []
+          }
+        ],
+        "requestBody":{
+          "content":{
+            "application/json":{
+              "schema":{
+                "type": "object",
+                "properties": {
+                  "no_rekam_medis": {
+                    "type": "string"
+                  },
+                  "general": {
+                    "type": "object",
+                    "properties": {
+                      "ruangan_asal": {
+                        "type": "string"
+                      },
+                      "ruangan_tujuan": {
+                        "type": "string"
+                      },
+                      "petugas_yang_menghubungi": {
+                        "type": "string"
+                      },
+                      "petugas_penerima": {
+                        "type": "string"
+                      },
+                      "tanggal_berangkat": {
+                        "type": "string"
+                      },
+                      "jam_berangkat": {
+                        "type": "string"
+                      },
+                      "alasan_mentransfer": {
+                        "type": "string"
+                      },
+                      "level_transfer": {
+                        "type": "string"
+                      },
+                      "indikasi_dirawat": {
+                        "type": "string"
+                      },
+                      "diagnosa_medis": {
+                        "type": "string"
+                      },
+                      "dpjp_utama": {
+                        "type": "string"
+                      },
+                      "dpjp": {
+                        "type": "string"
+                      }
+                    }
+                  },
+                  "catatan": {
+                    "type": "object",
+                    "properties": {
+                      "anamnesis": {
+                        "type": "string"
+                      },
+                      "pemeriksaan_fisik": {
+                        "type": "string"
+                      },
+                      "pemeriksaan_diagnostik": {
+                        "type": "array",
+                        "items": {
+                          "$ref": "#/components/schemas/PemeriksaanDiagnostikItem"
+                        }
+                      },
+                      "alergi": {
+                        "type": "string"
+                      },
+                      "riwayat_penyakit": {
+                        "type": "string"
+                      },
+                      "pengobatan_sudah_diberi": {
+                        "type": "array",
+                        "items": {
+                          "$ref": "#/components/schemas/PengobatanSudahDiberikanItem"
+                        }
+                      },
+                      "pengobatan_sudah_dilakukan": {
+                        "type": "array",
+                        "items": {
+                          "$ref": "#/components/schemas/ProsedurSudahDilakukanItem"
+                        }
+                      },
+                      "luka": {
+                        "type": "string"
+                      },
+                      "makan_minum_terakhir": {
+                        "type": "string"
+                      },
+                      "lain_lain": {
+                        "type": "string"
+                      }
+                    }
+                  },
+                  "kondisi_pasien_sebelum_transfer": {
+                    "type": "object",
+                    "properties": {
+                      "kesadaran_umum": {
+                        "type": "string"
+                      },
+                      "kesadaran": {
+                        "type": "string"
+                      },
+                      "gcs": {
+                        "type": "string"
+                      },
+                      "tekanan_darah": {
+                        "type": "string"
+                      },
+                      "suhu": {
+                        "type": "string"
+                      },
+                      "nadi": {
+                        "type": "string"
+                      },
+                      "rr": {
+                        "type": "string"
+                      },
+                      "saturasi": {
+                        "type": "string"
+                      },
+                      "skala_nyeri": {
+                        "type": "string"
+                      },
+                      "resiko_jatuh": {
+                        "type": "string"
+                      }
+                    }
+                  },
+                  "kondisi_pasien_saat_diterima": {
+                    "type": "object",
+                    "properties": {
+                      "kesadaran_umum": {
+                        "type": "string"
+                      },
+                      "kesadaran": {
+                        "type": "string"
+                      },
+                      "gcs": {
+                        "type": "string"
+                      },
+                      "tekanan_darah": {
+                        "type": "string"
+                      },
+                      "suhu": {
+                        "type": "string"
+                      },
+                      "nadi": {
+                        "type": "string"
+                      },
+                      "rr": {
+                        "type": "string"
+                      },
+                      "saturasi": {
+                        "type": "string"
+                      },
+                      "skala_nyeri": {
+                        "type": "string"
+                      },
+                      "resiko_jatuh": {
+                        "type": "string"
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "Id Rekam Medis",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses":{
+          "200":{
+            "description": "Sukses"
+          }
+        }
+      }
+    },
+    "/rekam-medis/transfer-pasien-internal-norm/{no_rm}": {
+      "get":{
+        "tags":["Rekam Medis / Transfer Pasien Internal"],
+        "summary": "Get Transfer Pasien Internal By No Rekam Medis / Transfer Pasien Internal",
+        "security": [
+          {
+            "BearerAuth": []
+          }
+        ],
+        "parameters": [
+          {
+            "name": "no_rm",
+            "in": "path",
+            "description": "No Rekam Medis Patient",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses":{
+          "200":{
+            "description": "Sukses"
+          }
+        }
+      }
+    },
+    "/rekam-medis/transfer-pasien-internal-id/{id}": {
+      "get":{
+        "tags":["Rekam Medis / Transfer Pasien Internal"],
+        "summary": "Get Transfer Pasien Internal By Id (Riwayat Transfer Pasien Internal)",
+        "security": [
+          {
+            "BearerAuth": []
+          }
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "Id Rekam Medis Patient",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses":{
+          "200":{
+            "description": "Sukses"
+          }
+        }
+      }
+    },
+    "/rekam-medis/hasil-pemeriksaan": {
+      "post":{
+        "tags":["Rekam Medis / Hasil Pemeriksaan Penunjang"],
+        "summary": "Add Hasil Pemeriksaan Penunjang",
+        "security": [
+          {
+            "BearerAuth": []
+          }
+        ],
+        "requestBody":{
+          "content":{
+            "application/json":{
+              "schema":{
+                "type": "object",
+                "properties": {
+                  "no_rekam_medis": {
+                    "type": "string"
+                  },
+                  "uraian": {
+                    "type": "string"
+                  },
+                  "file_dir": {
+                    "type": "string"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses":{
+          "200":{
+            "description": "Sukses"
+          }
+        }
+      }
+    },
+    "/rekam-medis/hasil-pemeriksaan-upload-file/{id}": {
+      "post":{
+        "tags":["Rekam Medis / Hasil Pemeriksaan Penunjang"],
+        "summary": "Upload File",
+        "security": [
+          {
+            "BearerAuth": []
+          }
+        ],
+        "consumes": ["multipart/form-data"],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "Id Rekam Medis Patient",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "multipart/form-data": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "file": {
+                    "type": "string",
+                    "format": "binary"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses":{
+          "200":{
+            "description": "Sukses"
+          }
+        }
+      }
+    },
+    "/rekam-medis/hasil-pemeriksaan/{id}": {
+      "delete":{
+        "tags":["Rekam Medis / Hasil Pemeriksaan Penunjang"],
+        "summary": "Delete Hasil Pemeriksaan Penunjang",
+        "security": [
+          {
+            "BearerAuth": []
+          }
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "Id Rekam Medis",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses":{
+          "200":{
+            "description": "Sukses"
+          }
+        }
+      }
+    },
+    "/rekam-medis/hasil-pemeriksaan-norm/{no_rm}": {
+      "get":{
+        "tags":["Rekam Medis / Hasil Pemeriksaan Penunjang"],
+        "summary": "Get Hasil Pemeriksaan Penunjang By No Rekam Medis / Hasil Pemeriksaan Penunjang",
+        "security": [
+          {
+            "BearerAuth": []
+          }
+        ],
+        "parameters": [
+          {
+            "name": "no_rm",
+            "in": "path",
+            "description": "No Rekam Medis Patient",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses":{
+          "200":{
+            "description": "Sukses"
+          }
+        }
+      }
+    },
+    "/rekam-medis/hasil-pemeriksaan-id/{id}": {
+      "get":{
+        "tags":["Rekam Medis / Hasil Pemeriksaan Penunjang"],
+        "summary": "Get Hasil Pemeriksaan Penunjang By Id (Riwayat Edukasi Pasien)",
+        "security": [
+          {
+            "BearerAuth": []
+          }
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "Id Rekam Medis Patient",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses":{
+          "200":{
+            "description": "Sukses"
+          }
+        }
+      }
+    },
+    "/rekam-medis/kopi-resep": {
+      "post":{
+        "tags":["Rekam Medis / Kopi Resep"],
+        "summary": "Add Kopi Resep",
+        "security": [
+          {
+            "BearerAuth": []
+          }
+        ],
+        "requestBody":{
+          "content":{
+            "application/json":{
+              "schema":{
+                "type": "object",
+                "properties": {
+                  "no_rekam_medis": {
+                    "type": "string"
+                  },
+                  "uraian": {
+                    "type": "string"
+                  },
+                  "file_dir": {
+                    "type": "string"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses":{
+          "200":{
+            "description": "Sukses"
+          }
+        }
+      }
+    },
+    "/rekam-medis/kopi-resep-upload-file/{id}": {
+      "post":{
+        "tags":["Rekam Medis / Kopi Resep"],
+        "summary": "Upload File",
+        "security": [
+          {
+            "BearerAuth": []
+          }
+        ],
+        "consumes": ["multipart/form-data"],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "Id Rekam Medis Patient",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "multipart/form-data": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "file": {
+                    "type": "string",
+                    "format": "binary"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses":{
+          "200":{
+            "description": "Sukses"
+          }
+        }
+      }
+    },
+    "/rekam-medis/kopi-resep/{id}": {
+      "delete":{
+        "tags":["Rekam Medis / Kopi Resep"],
+        "summary": "Delete Kopi Resep",
+        "security": [
+          {
+            "BearerAuth": []
+          }
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "Id Rekam Medis",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses":{
+          "200":{
+            "description": "Sukses"
+          }
+        }
+      }
+    },
+    "/rekam-medis/kopi-resep-norm/{no_rm}": {
+      "get":{
+        "tags":["Rekam Medis / Kopi Resep"],
+        "summary": "Get Kopi Resep By No Rekam Medis / Kopi Resep",
+        "security": [
+          {
+            "BearerAuth": []
+          }
+        ],
+        "parameters": [
+          {
+            "name": "no_rm",
+            "in": "path",
+            "description": "No Rekam Medis Patient",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses":{
+          "200":{
+            "description": "Sukses"
+          }
+        }
+      }
+    },
+    "/rekam-medis/kopi-resep-id/{id}": {
+      "get":{
+        "tags":["Rekam Medis / Kopi Resep"],
+        "summary": "Get Kopi Resep By Id (Kopi Resep)",
+        "security": [
+          {
+            "BearerAuth": []
+          }
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "Id Rekam Medis Patient",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses":{
+          "200":{
+            "description": "Sukses"
+          }
+        }
+      }
+    },
+    "/rekam-medis/catatan-perkembangan": {
+      "post":{
+        "tags":["Rekam Medis / Catatan Perkembangan Pasien Terintegrasi"],
+        "summary": "Add Catatan Perkembangan Pasien Terintegrasi",
+        "security": [
+          {
+            "BearerAuth": []
+          }
+        ],
+        "requestBody":{
+          "content":{
+            "application/json":{
+              "schema":{
+                "type": "object",
+                "properties": {
+                  "no_rekam_medis": {
+                    "type": "string"
+                  },
+                  "subjective": {
+                    "type": "string"
+                  },
+                  "objective": {
+                    "type": "string"
+                  },
+                  "assessment": {
+                    "type": "string"
+                  },
+                  "sasaran": {
+                    "type": "string"
+                  },
+                  "ppa": {
+                    "type": "string"
+                  },
+                  "identitas_ppa": {
+                    "type": "string"
+                  },
+                  "verifikasi_dpjp": {
+                    "type": "boolean"
+                  },
+                  "instruksi": {
+                    "type": "array",
+                    "items": {
+                      "$ref": "#/components/schemas/InstruksiItem"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses":{
+          "200":{
+            "description": "Sukses"
+          }
+        }
+      }
+    },
+    "/rekam-medis/catatan-perkembangan/{id}": {
+      "put":{
+        "tags":["Rekam Medis / Catatan Perkembangan Pasien Terintegrasi"],
+        "summary": "Update Catatan Perkembangan Pasien Terintegrasi",
+        "security": [
+          {
+            "BearerAuth": []
+          }
+        ],
+        "requestBody":{
+          "content":{
+            "application/json":{
+              "schema":{
+                "type": "object",
+                "properties": {
+                  "no_rekam_medis": {
+                    "type": "string"
+                  },
+                  "subjective": {
+                    "type": "string"
+                  },
+                  "objective": {
+                    "type": "string"
+                  },
+                  "assessment": {
+                    "type": "string"
+                  },
+                  "sasaran": {
+                    "type": "string"
+                  },
+                  "ppa": {
+                    "type": "string"
+                  },
+                  "identitas_ppa": {
+                    "type": "string"
+                  },
+                  "verifikasi_dpjp": {
+                    "type": "boolean"
+                  },
+                  "instruksi": {
+                    "type": "array",
+                    "items": {
+                      "$ref": "#/components/schemas/InstruksiItem"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "Id Rekam Medis",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses":{
+          "200":{
+            "description": "Sukses"
+          }
+        }
+      }
+    },
+    "/rekam-medis/catatan-perkembangan-norm/{no_rm}": {
+      "get":{
+        "tags":["Rekam Medis / Catatan Perkembangan Pasien Terintegrasi"],
+        "summary": "Get Catatan Perkembangan Pasien Terintegrasi By No Rekam Medis / Catatan Perkembangan Pasien Terintegrasi",
+        "security": [
+          {
+            "BearerAuth": []
+          }
+        ],
+        "parameters": [
+          {
+            "name": "no_rm",
+            "in": "path",
+            "description": "No Rekam Medis Patient",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses":{
+          "200":{
+            "description": "Sukses"
+          }
+        }
+      }
+    },
+    "/rekam-medis/catatan-perkembangan-id/{id}": {
+      "get":{
+        "tags":["Rekam Medis / Catatan Perkembangan Pasien Terintegrasi"],
+        "summary": "Get Catatan Perkembangan Pasien Terintegrasi By Id (Riwayat Catatan Perkembangan Pasien Terintegrasi)",
+        "security": [
+          {
+            "BearerAuth": []
+          }
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "Id Rekam Medis Patient",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses":{
+          "200":{
+            "description": "Sukses"
+          }
+        }
+      }
+    },
+    "/rekam-medis/catatan-keperawatan": {
+      "post":{
+        "tags":["Rekam Medis / Catatan Keperawatan"],
+        "summary": "Add Catatan Keperawatan",
+        "security": [
+          {
+            "BearerAuth": []
+          }
+        ],
+        "requestBody":{
+          "content":{
+            "application/json":{
+              "schema":{
+                "type": "object",
+                "properties": {
+                  "no_rekam_medis": {
+                    "type": "string"
+                  },
+                  "catatan": {
+                    "type": "string"
+                  },
+                  "perawat": {
+                    "type": "string"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses":{
+          "200":{
+            "description": "Sukses"
+          }
+        }
+      }
+    },
+    "/rekam-medis/catatan-keperawatan/{id}": {
+      "put":{
+        "tags":["Rekam Medis / Catatan Keperawatan"],
+        "summary": "Update Catatan Keperawatan",
+        "security": [
+          {
+            "BearerAuth": []
+          }
+        ],
+        "requestBody":{
+          "content":{
+            "application/json":{
+              "schema":{
+                "type": "object",
+                "properties": {
+                  "no_rekam_medis": {
+                    "type": "string"
+                  },
+                  "catatan": {
+                    "type": "string"
+                  },
+                  "perawat": {
+                    "type": "string"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "Id Rekam Medis",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses":{
+          "200":{
+            "description": "Sukses"
+          }
+        }
+      }
+    },
+    "/rekam-medis/catatan-keperawatan-norm/{no_rm}": {
+      "get":{
+        "tags":["Rekam Medis / Catatan Keperawatan"],
+        "summary": "Get Catatan Keperawatan By No Rekam Medis / Catatan Keperawatan",
+        "security": [
+          {
+            "BearerAuth": []
+          }
+        ],
+        "parameters": [
+          {
+            "name": "no_rm",
+            "in": "path",
+            "description": "No Rekam Medis Patient",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses":{
+          "200":{
+            "description": "Sukses"
+          }
+        }
+      }
+    },
+    "/rekam-medis/catatan-keperawatan-id/{id}": {
+      "get":{
+        "tags":["Rekam Medis / Catatan Keperawatan"],
+        "summary": "Get Catatan Keperawatan By Id (Riwayat Catatan Keperawatan)",
+        "security": [
+          {
+            "BearerAuth": []
+          }
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "Id Rekam Medis Patient",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses":{
+          "200":{
+            "description": "Sukses"
+          }
+        }
+      }
+    },
+    "/rekam-medis/observasi-cairan": {
+      "post":{
+        "tags":["Rekam Medis / Observasi Cairan"],
+        "summary": "Add Observasi Cairan",
+        "security": [
+          {
+            "BearerAuth": []
+          }
+        ],
+        "requestBody":{
+          "content":{
+            "application/json":{
+              "schema":{
+                "type": "object",
+                "properties": {
+                  "no_rekam_medis": {
+                    "type": "string"
+                  },
+                  "data_observasi": {
+                    "type": "array",
+                    "items": {
+                      "$ref": "#/components/schemas/ObservasiCairanItem"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses":{
+          "200":{
+            "description": "Sukses"
+          }
+        }
+      }
+    },
+    "/rekam-medis/observasi-cairan/{id}": {
+      "put":{
+        "tags":["Rekam Medis / Observasi Cairan"],
+        "summary": "Update Observasi Cairan",
+        "security": [
+          {
+            "BearerAuth": []
+          }
+        ],
+        "requestBody":{
+          "content":{
+            "application/json":{
+              "schema":{
+                "type": "object",
+                "properties": {
+                  "no_rekam_medis": {
+                    "type": "string"
+                  },
+                  "data_observasi": {
+                    "type": "array",
+                    "items": {
+                      "$ref": "#/components/schemas/ObservasiCairanItem"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "Id Rekam Medis",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses":{
+          "200":{
+            "description": "Sukses"
+          }
+        }
+      }
+    },
+    "/rekam-medis/observasi-cairan-norm/{no_rm}": {
+      "get":{
+        "tags":["Rekam Medis / Observasi Cairan"],
+        "summary": "Get Observasi Cairan By No Rekam Medis / Observasi Cairan",
+        "security": [
+          {
+            "BearerAuth": []
+          }
+        ],
+        "parameters": [
+          {
+            "name": "no_rm",
+            "in": "path",
+            "description": "No Rekam Medis Patient",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses":{
+          "200":{
+            "description": "Sukses"
+          }
+        }
+      }
+    },
+    "/rekam-medis/observasi-cairan-id/{id}": {
+      "get":{
+        "tags":["Rekam Medis / Observasi Cairan"],
+        "summary": "Get Observasi Cairan By Id (Riwayat Observasi Cairan)",
+        "security": [
+          {
+            "BearerAuth": []
+          }
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "Id Rekam Medis Patient",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses":{
+          "200":{
+            "description": "Sukses"
+          }
+        }
+      }
+    },
+    "/rekam-medis/pemberian-obat": {
+      "post":{
+        "tags":["Rekam Medis / Pemberian Obat Pasien"],
+        "summary": "Add Pemberian Obat Pasien",
+        "security": [
+          {
+            "BearerAuth": []
+          }
+        ],
+        "requestBody":{
+          "content":{
+            "application/json":{
+              "schema":{
+                "type": "object",
+                "properties": {
+                  "no_rekam_medis": {
+                    "type": "string"
+                  },
+                  "dpjp": {
+                    "type": "string"
+                  },
+                  "obat": {
+                    "type": "string"
+                  },
+                  "dosis": {
+                    "type": "string"
+                  },
+                  "rute": {
+                    "type": "string"
+                  },
+                  "frekuensi": {
+                    "type": "array",
+                    "items": {
+                      "$ref": "#/components/schemas/FrekuensiObatItem"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses":{
+          "200":{
+            "description": "Sukses"
+          }
+        }
+      }
+    },
+    "/rekam-medis/pemberian-obat/{id}": {
+      "put":{
+        "tags":["Rekam Medis / Pemberian Obat Pasien"],
+        "summary": "Pemberian Obat Pasien",
+        "security": [
+          {
+            "BearerAuth": []
+          }
+        ],
+        "requestBody":{
+          "content":{
+            "application/json":{
+              "schema":{
+                "type": "object",
+                "properties": {
+                  "no_rekam_medis": {
+                    "type": "string"
+                  },
+                  "dpjp": {
+                    "type": "string"
+                  },
+                  "obat": {
+                    "type": "string"
+                  },
+                  "dosis": {
+                    "type": "string"
+                  },
+                  "rute": {
+                    "type": "string"
+                  },
+                  "frekuensi": {
+                    "type": "array",
+                    "items": {
+                      "$ref": "#/components/schemas/FrekuensiObatItem"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "Id Rekam Medis",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses":{
+          "200":{
+            "description": "Sukses"
+          }
+        }
+      }
+    },
+    "/rekam-medis/pemberian-obat-norm/{no_rm}": {
+      "get":{
+        "tags":["Rekam Medis / Pemberian Obat Pasien"],
+        "summary": "Get Pemberian Obat Pasien By No Rekam Medis / Pemberian Obat Pasien",
+        "security": [
+          {
+            "BearerAuth": []
+          }
+        ],
+        "parameters": [
+          {
+            "name": "no_rm",
+            "in": "path",
+            "description": "No Rekam Medis Patient",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses":{
+          "200":{
+            "description": "Sukses"
+          }
+        }
+      }
+    },
+    "/rekam-medis/pemberian-obat-id/{id}": {
+      "get":{
+        "tags":["Rekam Medis / Observasi Cairan"],
+        "summary": "Get Observasi Cairan By Id (Riwayat Observasi Cairan)",
+        "security": [
+          {
+            "BearerAuth": []
+          }
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "Id Rekam Medis Patient",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses":{
+          "200":{
+            "description": "Sukses"
+          }
+        }
+      }
+    },
+    "/rekam-medis/rekonsiliasi": {
+      "post":{
+        "tags":["Rekam Medis / Rekonsiliasi"],
+        "summary": "Add Rekonsiliasi",
+        "security": [
+          {
+            "BearerAuth": []
+          }
+        ],
+        "requestBody":{
+          "content":{
+            "application/json":{
+              "schema":{
+                "type": "object",
+                "properties": {
+                  "no_rekam_medis": {
+                    "type": "string"
+                  },
+                  "resep_non_resep": {
+                    "type": "string"
+                  },
+                  "nama_obat": {
+                    "type": "string"
+                  },
+                  "dosis_obat": {
+                    "type": "string"
+                  },
+                  "kandungan": {
+                    "type": "string"
+                  },
+                  "frekuensi": {
+                    "type": "string"
+                  },
+                  "sumber_obat": {
+                    "type": "string"
+                  },
+                  "tanggal_mulai": {
+                    "type": "string"
+                  },
+                  "tanggal_obat": {
+                    "type": "string"
+                  },
+                  "jumlah_obat_tersisa": {
+                    "type": "string"
+                  },
+                  "status_obat_saat_perawatan": {
+                    "type": "string"
+                  },
+                  "status_obat_saat_pulang": {
+                    "type": "string"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses":{
+          "200":{
+            "description": "Sukses"
+          }
+        }
+      }
+    },
+    "/rekam-medis/rekonsiliasi/{id}": {
+      "put":{
+        "tags":["Rekam Medis / Rekonsiliasi"],
+        "summary": "Update Rekonsiliasi",
+        "security": [
+          {
+            "BearerAuth": []
+          }
+        ],
+        "requestBody":{
+          "content":{
+            "application/json":{
+              "schema":{
+                "type": "object",
+                "properties": {
+                  "no_rekam_medis": {
+                    "type": "string"
+                  },
+                  "resep_non_resep": {
+                    "type": "string"
+                  },
+                  "nama_obat": {
+                    "type": "string"
+                  },
+                  "dosis_obat": {
+                    "type": "string"
+                  },
+                  "kandungan": {
+                    "type": "string"
+                  },
+                  "frekuensi": {
+                    "type": "string"
+                  },
+                  "sumber_obat": {
+                    "type": "string"
+                  },
+                  "tanggal_mulai": {
+                    "type": "string"
+                  },
+                  "tanggal_obat": {
+                    "type": "string"
+                  },
+                  "jumlah_obat_tersisa": {
+                    "type": "string"
+                  },
+                  "status_obat_saat_perawatan": {
+                    "type": "string"
+                  },
+                  "status_obat_saat_pulang": {
+                    "type": "string"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "Id Rekam Medis",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses":{
+          "200":{
+            "description": "Sukses"
+          }
+        }
+      }
+    },
+    "/rekam-medis/rekonsiliasi-norm/{no_rm}": {
+      "get":{
+        "tags":["Rekam Medis / Rekonsiliasi"],
+        "summary": "Get Rekonsiliasi By No Rekam Medis / Rekonsiliasi",
+        "security": [
+          {
+            "BearerAuth": []
+          }
+        ],
+        "parameters": [
+          {
+            "name": "no_rm",
+            "in": "path",
+            "description": "No Rekam Medis Patient",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses":{
+          "200":{
+            "description": "Sukses"
+          }
+        }
+      }
+    },
+    "/rekam-medis/rekonsiliasi-id/{id}": {
+      "get":{
+        "tags":["Rekam Medis / Rekonsiliasi"],
+        "summary": "Get Rekonsiliasi By Id (Riwayat Rekonsiliasi)",
+        "security": [
+          {
+            "BearerAuth": []
+          }
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "Id Rekam Medis Patient",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses":{
+          "200":{
+            "description": "Sukses"
+          }
+        }
+      }
+    },
+    "/rekam-medis/pengajuan-dpjp": {
+      "post":{
+        "tags":["Rekam Medis / DPJP"],
+        "summary": "Add Pengajuan DPJP",
+        "security": [
+          {
+            "BearerAuth": []
+          }
+        ],
+        "requestBody":{
+          "content":{
+            "application/json":{
+              "schema":{
+                "type": "object",
+                "properties": {
+                  "no_rekam_medis": {
+                    "type": "string"
+                  },
+                  "id_dokter": {
+                    "type": "string"
+                  },
+                  "dokter": {
+                    "type": "string"
+                  },
+                  "spesialis": {
+                    "type": "string"
+                  },
+                  "tgl_mulai": {
+                    "type": "string"
+                  },
+                  "tgl_selesai": {
+                    "type": "string"
+                  },
+                  "status_dpjp": {
+                    "type": "string"
+                  },
+                  "diagnosa": {
+                    "type": "string"
+                  },
+                  "keterangan_perawat": {
+                    "type": "string"
+                  },
+                  "atas_permintaan_pasien": {
+                    "type": "boolean"
+                  },
+                  "status_permintaan": {
+                    "type": "boolean"
+                  },
+                  "keterangan_permintaan": {
+                    "type": "string"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses":{
+          "200":{
+            "description": "Sukses"
+          }
+        }
+      }
+    },
+    "/rekam-medis/dpjp": {
+      "post":{
+        "tags":["Rekam Medis / DPJP"],
+        "summary": "Add DPJP",
+        "security": [
+          {
+            "BearerAuth": []
+          }
+        ],
+        "requestBody":{
+          "content":{
+            "application/json":{
+              "schema":{
+                "type": "object",
+                "properties": {
+                  "no_rekam_medis": {
+                    "type": "string"
+                  },
+                  "id_dokter": {
+                    "type": "string"
+                  },
+                  "dokter": {
+                    "type": "string"
+                  },
+                  "spesialis": {
+                    "type": "string"
+                  },
+                  "tgl_mulai": {
+                    "type": "string"
+                  },
+                  "tgl_selesai": {
+                    "type": "string"
+                  },
+                  "status_dpjp": {
+                    "type": "string"
+                  },
+                  "diagnosa": {
+                    "type": "string"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses":{
+          "200":{
+            "description": "Sukses"
+          }
+        }
+      }
+    },
+    "/rekam-medis/pengajuan-dpjp/{id}": {
+      "put":{
+        "tags":["Rekam Medis / DPJP"],
+        "summary": "Update Pengajuan DPJP",
+        "security": [
+          {
+            "BearerAuth": []
+          }
+        ],
+        "requestBody":{
+          "content":{
+            "application/json":{
+              "schema":{
+                "type": "object",
+                "properties": {
+                  "no_rekam_medis": {
+                    "type": "string"
+                  },
+                  "id_dokter": {
+                    "type": "string"
+                  },
+                  "dokter": {
+                    "type": "string"
+                  },
+                  "spesialis": {
+                    "type": "string"
+                  },
+                  "tgl_mulai": {
+                    "type": "string"
+                  },
+                  "tgl_selesai": {
+                    "type": "string"
+                  },
+                  "status_dpjp": {
+                    "type": "string"
+                  },
+                  "diagnosa": {
+                    "type": "string"
+                  },
+                  "keterangan_perawat": {
+                    "type": "string"
+                  },
+                  "atas_permintaan_pasien": {
+                    "type": "boolean"
+                  },
+                  "status_permintaan": {
+                    "type": "boolean"
+                  },
+                  "keterangan_permintaan": {
+                    "type": "string"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "Id Rekam Medis",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses":{
+          "200":{
+            "description": "Sukses"
+          }
+        }
+      },
+      "delete":{
+        "tags":["Rekam Medis / DPJP"],
+        "summary": "Delete Pengajuan DPJP",
+        "security": [
+          {
+            "BearerAuth": []
+          }
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "Id Rekam Medis",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses":{
+          "200":{
+            "description": "Sukses"
+          }
+        }
+      }
+    },
+    "/rekam-medis/dpjp/{id}": {
+      "put":{
+        "tags":["Rekam Medis / DPJP"],
+        "summary": "Update DPJP",
+        "security": [
+          {
+            "BearerAuth": []
+          }
+        ],
+        "requestBody":{
+          "content":{
+            "application/json":{
+              "schema":{
+                "type": "object",
+                "properties": {
+                  "no_rekam_medis": {
+                    "type": "string"
+                  },
+                  "id_dokter": {
+                    "type": "string"
+                  },
+                  "dokter": {
+                    "type": "string"
+                  },
+                  "spesialis": {
+                    "type": "string"
+                  },
+                  "tgl_mulai": {
+                    "type": "string"
+                  },
+                  "tgl_selesai": {
+                    "type": "string"
+                  },
+                  "status_dpjp": {
+                    "type": "string"
+                  },
+                  "diagnosa": {
+                    "type": "string"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "Id Rekam Medis",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses":{
+          "200":{
+            "description": "Sukses"
+          }
+        }
+      },
+      "delete":{
+        "tags":["Rekam Medis / DPJP"],
+        "summary": "Delete DPJP",
+        "security": [
+          {
+            "BearerAuth": []
+          }
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "Id Rekam Medis",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses":{
+          "200":{
+            "description": "Sukses"
+          }
+        }
+      }
+    },
+    "/rekam-medis/pengajuan-dpjp-norm/{no_rm}": {
+      "get":{
+        "tags":["Rekam Medis / DPJP"],
+        "summary": "Get Pengajuan DPJP By No Rekam Medis / Pengajuan DPJP",
+        "security": [
+          {
+            "BearerAuth": []
+          }
+        ],
+        "parameters": [
+          {
+            "name": "no_rm",
+            "in": "path",
+            "description": "No Rekam Medis Patient",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses":{
+          "200":{
+            "description": "Sukses"
+          }
+        }
+      }
+    },
+    "/rekam-medis/pengajuan-dpjp-id/{id}": {
+      "get":{
+        "tags":["Rekam Medis / DPJP"],
+        "summary": "Get Pengajuan DPJP By Id (Riwayat Pengajuan DPJP)",
+        "security": [
+          {
+            "BearerAuth": []
+          }
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "Id Rekam Medis Patient",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses":{
+          "200":{
+            "description": "Sukses"
+          }
+        }
+      }
+    },
+    "/rekam-medis/dpjp-norm/{no_rm}": {
+      "get":{
+        "tags":["Rekam Medis / DPJP"],
+        "summary": "Get DPJP By No Rekam Medis / DPJP",
+        "security": [
+          {
+            "BearerAuth": []
+          }
+        ],
+        "parameters": [
+          {
+            "name": "no_rm",
+            "in": "path",
+            "description": "No Rekam Medis Patient",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses":{
+          "200":{
+            "description": "Sukses"
+          }
+        }
+      }
+    },
+    "/rekam-medis/dpjp-id/{id}": {
+      "get":{
+        "tags":["Rekam Medis / DPJP"],
+        "summary": "Get DPJP By Id (Riwayat DPJP)",
+        "security": [
+          {
+            "BearerAuth": []
+          }
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "Id Rekam Medis Patient",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses":{
+          "200":{
+            "description": "Sukses"
+          }
+        }
+      }
+    },
+    "/rekam-medis/news": {
+      "post":{
+        "tags":["Rekam Medis / NEWS"],
+        "summary": "Add NEWS",
+        "security": [
+          {
+            "BearerAuth": []
+          }
+        ],
+        "requestBody":{
+          "content":{
+            "application/json":{
+              "schema":{
+                "type": "object",
+                "properties": {
+                  "no_rekam_medis": {
+                    "type": "string"
+                  },
+                  "data_news": {
+                    "type": "array",
+                    "items": {
+                      "$ref": "#/components/schemas/NEWSItem"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses":{
+          "200":{
+            "description": "Sukses"
+          }
+        }
+      }
+    },
+    "/rekam-medis/news/{id}": {
+      "put":{
+        "tags":["Rekam Medis / NEWS"],
+        "summary": "Update NEWS",
+        "security": [
+          {
+            "BearerAuth": []
+          }
+        ],
+        "requestBody":{
+          "content":{
+            "application/json":{
+              "schema":{
+                "type": "object",
+                "properties": {
+                  "no_rekam_medis": {
+                    "type": "string"
+                  },
+                  "data_news": {
+                    "type": "array",
+                    "items": {
+                      "$ref": "#/components/schemas/NEWSItem"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "Id Rekam Medis",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses":{
+          "200":{
+            "description": "Sukses"
+          }
+        }
+      }
+    },
+    "/rekam-medis/news-norm/{no_rm}": {
+      "get":{
+        "tags":["Rekam Medis / NEWS"],
+        "summary": "Get NEWS By No Rekam Medis / NEWS",
+        "security": [
+          {
+            "BearerAuth": []
+          }
+        ],
+        "parameters": [
+          {
+            "name": "no_rm",
+            "in": "path",
+            "description": "No Rekam Medis Patient",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses":{
+          "200":{
+            "description": "Sukses"
+          }
+        }
+      }
+    },
+    "/rekam-medis/news-id/{id}": {
+      "get":{
+        "tags":["Rekam Medis / NEWS"],
+        "summary": "Get NEWS By Id (Riwayat NEWS)",
+        "security": [
+          {
+            "BearerAuth": []
+          }
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "Id Rekam Medis Patient",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses":{
+          "200":{
+            "description": "Sukses"
+          }
+        }
+      }
+    },
+    "/rekam-medis/ringkasan-pasien-pulang": {
+      "post":{
+        "tags":["Rekam Medis / Ringkasan Pasien Pulang"],
+        "summary": "Add Ringkasan Pasien Pulang",
+        "security": [
+          {
+            "BearerAuth": []
+          }
+        ],
+        "requestBody":{
+          "content":{
+            "application/json":{
+              "schema":{
+                "type": "object",
+                "properties": {
+                  "no_rekam_medis": {
+                    "type": "string"
+                  },
+                  "ringkasan_informasi": {
+                    "type": "object",
+                    "properties": {
+                      "tgl_masuk": {
+                        "type": "string"
+                      },
+                      "tgl_keluar": {
+                        "type": "string"
+                      },
+                      "ruangan": {
+                        "type": "string"
+                      },
+                      "kelas": {
+                        "type": "string"
+                      },
+                      "jenis_pembayaran": {
+                        "type": "string"
+                      },
+                      "nama_asuransi": {
+                        "type": "string"
+                      },
+                      "nomor_asuransi": {
+                        "type": "string"
+                      },
+                      "status_asuransi": {
+                        "type": "string"
+                      },
+                      "dpjp_utama": {
+                        "type": "string"
+                      },
+                      "dpjp": {
+                        "type": "array",
+                        "items": {
+                          "$ref": "#/components/schemas/DPJPItem"
+                        }
+                      },
+                      "diagnosa_medis": {
+                        "type": "string"
+                      },
+                      "alergi": {
+                        "type": "string"
+                      },
+                      "indikasi_rawat_inap": {
+                        "type": "string"
+                      },
+                      "pemeriksaan_fisik": {
+                        "type": "string"
+                      },
+                      "hasil_pemeriksaan_penunjang": {
+                        "type": "string"
+                      },
+                      "diagnosa_utama": {
+                        "type": "array",
+                        "items": {
+                          "$ref": "#/components/schemas/ICD10Item"
+                        }
+                      },
+                      "diagnosa_sekunder": {
+                        "type": "array",
+                        "items": {
+                          "$ref": "#/components/schemas/ICD10Item"
+                        }
+                      },
+                      "terapi_selama_dirawat": {
+                        "type": "string"
+                      },
+                      "terapi_dirumah": {
+                        "type": "string"
+                      },
+                      "tindakan_sudah_dilakukan": {
+                        "type": "array",
+                        "items": {
+                          "$ref": "#/components/schemas/ICD9Item"
+                        }
+                      }
+                    }
+                  },
+                  "kondisi_pasien_pulang": {
+                    "type": "object",
+                    "properties": {
+                      "keadaan_umum_t": {
+                        "type": "string"
+                      },
+                      "keadaan_umum_s": {
+                        "type": "string"
+                      },
+                      "keadaan_umum_n": {
+                        "type": "string"
+                      },
+                      "keadaan_umum_spo2": {
+                        "type": "string"
+                      },
+                      "keadaan_umum_rr": {
+                        "type": "string"
+                      },
+                      "cara_pulang": {
+                        "type": "string"
+                      },
+                      "keadaan_pulang": {
+                        "type": "string"
+                      }
+                    }
+                  },
+                  "instruksi_tindak_lanjut": {
+                    "type": "object",
+                    "properties": {
+                      "kontrol_poliklinik": {
+                        "type": "string"
+                      },
+                      "kontrol_tanggal": {
+                        "type": "string"
+                      },
+                      "kontrol_dpjp": {
+                        "type": "string"
+                      },
+                      "kontrol_jam": {
+                        "type": "string"
+                      },
+                      "rujuk_instansi": {
+                        "type": "string"
+                      },
+                      "rujuk_tanggal": {
+                        "type": "string"
+                      },
+                      "rujuk_keterangan": {
+                        "type": "string"
+                      }
+                    }
+                  },
+                  "edukasi_pasien": {
+                    "type": "array",
+                    "items": {
+                      "$ref": "#/components/schemas/EdukasiItem"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses":{
+          "200":{
+            "description": "Sukses"
+          }
+        }
+      }
+    },
+    "/rekam-medis/ringkasan-pasien-pulang/{id}": {
+      "put":{
+        "tags":["Rekam Medis / Ringkasan Pasien Pulang"],
+        "summary": "Update Ringkasan Pasien Pulang",
+        "security": [
+          {
+            "BearerAuth": []
+          }
+        ],
+        "requestBody":{
+          "content":{
+            "application/json":{
+              "schema":{
+                "type": "object",
+                "properties": {
+                  "no_rekam_medis": {
+                    "type": "string"
+                  },
+                  "ringkasan_informasi": {
+                    "type": "object",
+                    "properties": {
+                      "tgl_masuk": {
+                        "type": "string"
+                      },
+                      "tgl_keluar": {
+                        "type": "string"
+                      },
+                      "ruangan": {
+                        "type": "string"
+                      },
+                      "kelas": {
+                        "type": "string"
+                      },
+                      "jenis_pembayaran": {
+                        "type": "string"
+                      },
+                      "nama_asuransi": {
+                        "type": "string"
+                      },
+                      "nomor_asuransi": {
+                        "type": "string"
+                      },
+                      "status_asuransi": {
+                        "type": "string"
+                      },
+                      "dpjp_utama": {
+                        "type": "string"
+                      },
+                      "dpjp": {
+                        "type": "array",
+                        "items": {
+                          "$ref": "#/components/schemas/DPJPItem"
+                        }
+                      },
+                      "diagnosa_medis": {
+                        "type": "string"
+                      },
+                      "alergi": {
+                        "type": "string"
+                      },
+                      "indikasi_rawat_inap": {
+                        "type": "string"
+                      },
+                      "pemeriksaan_fisik": {
+                        "type": "string"
+                      },
+                      "hasil_pemeriksaan_penunjang": {
+                        "type": "string"
+                      },
+                      "diagnosa_utama": {
+                        "type": "array",
+                        "items": {
+                          "$ref": "#/components/schemas/ICD10Item"
+                        }
+                      },
+                      "diagnosa_sekunder": {
+                        "type": "array",
+                        "items": {
+                          "$ref": "#/components/schemas/ICD10Item"
+                        }
+                      },
+                      "terapi_selama_dirawat": {
+                        "type": "string"
+                      },
+                      "terapi_dirumah": {
+                        "type": "string"
+                      },
+                      "tindakan_sudah_dilakukan": {
+                        "type": "array",
+                        "items": {
+                          "$ref": "#/components/schemas/ICD9Item"
+                        }
+                      }
+                    }
+                  },
+                  "kondisi_pasien_pulang": {
+                    "type": "object",
+                    "properties": {
+                      "keadaan_umum_t": {
+                        "type": "string"
+                      },
+                      "keadaan_umum_s": {
+                        "type": "string"
+                      },
+                      "keadaan_umum_n": {
+                        "type": "string"
+                      },
+                      "keadaan_umum_spo2": {
+                        "type": "string"
+                      },
+                      "keadaan_umum_rr": {
+                        "type": "string"
+                      },
+                      "cara_pulang": {
+                        "type": "string"
+                      },
+                      "keadaan_pulang": {
+                        "type": "string"
+                      }
+                    }
+                  },
+                  "instruksi_tindak_lanjut": {
+                    "type": "object",
+                    "properties": {
+                      "kontrol_poliklinik": {
+                        "type": "string"
+                      },
+                      "kontrol_tanggal": {
+                        "type": "string"
+                      },
+                      "kontrol_dpjp": {
+                        "type": "string"
+                      },
+                      "kontrol_jam": {
+                        "type": "string"
+                      },
+                      "rujuk_instansi": {
+                        "type": "string"
+                      },
+                      "rujuk_tanggal": {
+                        "type": "string"
+                      },
+                      "rujuk_keterangan": {
+                        "type": "string"
+                      }
+                    }
+                  },
+                  "edukasi_pasien": {
+                    "type": "array",
+                    "items": {
+                      "$ref": "#/components/schemas/EdukasiItem"
+                    }
+                  }
+                }
+              }
+            }
+          }
+        },
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "Id Rekam Medis",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses":{
+          "200":{
+            "description": "Sukses"
+          }
+        }
+      }
+    },
+    "/rekam-medis/ringkasan-pasien-pulang-norm/{no_rm}": {
+      "get":{
+        "tags":["Rekam Medis / Ringkasan Pasien Pulang"],
+        "summary": "Get Ringkasan Pasien Pulang By No Rekam Medis / Ringkasan Pasien Pulang",
+        "security": [
+          {
+            "BearerAuth": []
+          }
+        ],
+        "parameters": [
+          {
+            "name": "no_rm",
+            "in": "path",
+            "description": "No Rekam Medis Patient",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses":{
+          "200":{
+            "description": "Sukses"
+          }
+        }
+      }
+    },
+    "/rekam-medis/ringkasan-pasien-pulang-id/{id}": {
+      "get":{
+        "tags":["Rekam Medis / Ringkasan Pasien Pulang"],
+        "summary": "Get Ringkasan Pasien Pulang By Id (Riwayat Ringkasan Pasien Pulang)",
+        "security": [
+          {
+            "BearerAuth": []
+          }
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "description": "Id Rekam Medis Patient",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses":{
+          "200":{
+            "description": "Sukses"
+          }
+        }
+      }
     }
   },
   "components": {
@@ -2021,6 +6308,654 @@
             "type": "string"
           },
           "desc": {
+            "type": "string"
+          }
+        }
+      },
+      "DiagnosaKeperawatanItem": {
+        "type": "object",
+        "properties": {
+          "keterangan": {
+            "type": "string"
+          },
+          "prioritas": {
+            "type": "boolean"
+          }
+        }
+      },
+      "PemeriksaanDiagnostikItem": {
+        "type": "object",
+        "properties": {
+          "jenis": {
+            "type": "string"
+          },
+          "dibawakan": {
+            "type": "boolean"
+          }
+        }
+      },
+      "PengobatanSudahDiberikanItem": {
+        "type": "object",
+        "properties": {
+          "deskripsi": {
+            "type": "string"
+          }
+        }
+      },
+      "ProsedurSudahDilakukanItem": {
+        "type": "object",
+        "properties": {
+          "deskripsi": {
+            "type": "string"
+          }
+        }
+      },
+      "InstruksiItem": {
+        "type": "object",
+        "properties": {
+          "deskripsi": {
+            "type": "string"
+          }
+        }
+      },
+      "ObservasiCairanItem": {
+        "type": "object",
+        "properties": {
+          "hari": {
+            "type": "string"
+          },
+          "jam_01": {
+            "type": "object",
+            "properties": {
+              "jenis_cairan_input": {
+                "type": "string"
+              },
+              "jumlah_dosis_cairan_input": {
+                "type": "string"
+              },
+              "jenis_cairan_output": {
+                "type": "string"
+              },
+              "jumlah_dosis_cairan_output": {
+                "type": "string"
+              }
+            }
+          },
+          "jam_02": {
+            "type": "object",
+            "properties": {
+              "jenis_cairan_input": {
+                "type": "string"
+              },
+              "jumlah_dosis_cairan_input": {
+                "type": "string"
+              },
+              "jenis_cairan_output": {
+                "type": "string"
+              },
+              "jumlah_dosis_cairan_output": {
+                "type": "string"
+              }
+            }
+          },
+          "jam_03": {
+            "type": "object",
+            "properties": {
+              "jenis_cairan_input": {
+                "type": "string"
+              },
+              "jumlah_dosis_cairan_input": {
+                "type": "string"
+              },
+              "jenis_cairan_output": {
+                "type": "string"
+              },
+              "jumlah_dosis_cairan_output": {
+                "type": "string"
+              }
+            }
+          },
+          "jam_04": {
+            "type": "object",
+            "properties": {
+              "jenis_cairan_input": {
+                "type": "string"
+              },
+              "jumlah_dosis_cairan_input": {
+                "type": "string"
+              },
+              "jenis_cairan_output": {
+                "type": "string"
+              },
+              "jumlah_dosis_cairan_output": {
+                "type": "string"
+              }
+            }
+          },
+          "jam_05": {
+            "type": "object",
+            "properties": {
+              "jenis_cairan_input": {
+                "type": "string"
+              },
+              "jumlah_dosis_cairan_input": {
+                "type": "string"
+              },
+              "jenis_cairan_output": {
+                "type": "string"
+              },
+              "jumlah_dosis_cairan_output": {
+                "type": "string"
+              }
+            }
+          },
+          "jam_06": {
+            "type": "object",
+            "properties": {
+              "jenis_cairan_input": {
+                "type": "string"
+              },
+              "jumlah_dosis_cairan_input": {
+                "type": "string"
+              },
+              "jenis_cairan_output": {
+                "type": "string"
+              },
+              "jumlah_dosis_cairan_output": {
+                "type": "string"
+              }
+            }
+          },
+          "input_output_1": {
+            "type": "string"
+          },
+          "jam_07": {
+            "type": "object",
+            "properties": {
+              "jenis_cairan_input": {
+                "type": "string"
+              },
+              "jumlah_dosis_cairan_input": {
+                "type": "string"
+              },
+              "jenis_cairan_output": {
+                "type": "string"
+              },
+              "jumlah_dosis_cairan_output": {
+                "type": "string"
+              }
+            }
+          },
+          "jam_08": {
+            "type": "object",
+            "properties": {
+              "jenis_cairan_input": {
+                "type": "string"
+              },
+              "jumlah_dosis_cairan_input": {
+                "type": "string"
+              },
+              "jenis_cairan_output": {
+                "type": "string"
+              },
+              "jumlah_dosis_cairan_output": {
+                "type": "string"
+              }
+            }
+          },
+          "jam_09": {
+            "type": "object",
+            "properties": {
+              "jenis_cairan_input": {
+                "type": "string"
+              },
+              "jumlah_dosis_cairan_input": {
+                "type": "string"
+              },
+              "jenis_cairan_output": {
+                "type": "string"
+              },
+              "jumlah_dosis_cairan_output": {
+                "type": "string"
+              }
+            }
+          },
+          "jam_10": {
+            "type": "object",
+            "properties": {
+              "jenis_cairan_input": {
+                "type": "string"
+              },
+              "jumlah_dosis_cairan_input": {
+                "type": "string"
+              },
+              "jenis_cairan_output": {
+                "type": "string"
+              },
+              "jumlah_dosis_cairan_output": {
+                "type": "string"
+              }
+            }
+          },
+          "jam_11": {
+            "type": "object",
+            "properties": {
+              "jenis_cairan_input": {
+                "type": "string"
+              },
+              "jumlah_dosis_cairan_input": {
+                "type": "string"
+              },
+              "jenis_cairan_output": {
+                "type": "string"
+              },
+              "jumlah_dosis_cairan_output": {
+                "type": "string"
+              }
+            }
+          },
+          "jam_12": {
+            "type": "object",
+            "properties": {
+              "jenis_cairan_input": {
+                "type": "string"
+              },
+              "jumlah_dosis_cairan_input": {
+                "type": "string"
+              },
+              "jenis_cairan_output": {
+                "type": "string"
+              },
+              "jumlah_dosis_cairan_output": {
+                "type": "string"
+              }
+            }
+          },
+          "input_output_2": {
+            "type": "string"
+          },
+          "jam_13": {
+            "type": "object",
+            "properties": {
+              "jenis_cairan_input": {
+                "type": "string"
+              },
+              "jumlah_dosis_cairan_input": {
+                "type": "string"
+              },
+              "jenis_cairan_output": {
+                "type": "string"
+              },
+              "jumlah_dosis_cairan_output": {
+                "type": "string"
+              }
+            }
+          },
+          "jam_14": {
+            "type": "object",
+            "properties": {
+              "jenis_cairan_input": {
+                "type": "string"
+              },
+              "jumlah_dosis_cairan_input": {
+                "type": "string"
+              },
+              "jenis_cairan_output": {
+                "type": "string"
+              },
+              "jumlah_dosis_cairan_output": {
+                "type": "string"
+              }
+            }
+          },
+          "jam_15": {
+            "type": "object",
+            "properties": {
+              "jenis_cairan_input": {
+                "type": "string"
+              },
+              "jumlah_dosis_cairan_input": {
+                "type": "string"
+              },
+              "jenis_cairan_output": {
+                "type": "string"
+              },
+              "jumlah_dosis_cairan_output": {
+                "type": "string"
+              }
+            }
+          },
+          "jam_16": {
+            "type": "object",
+            "properties": {
+              "jenis_cairan_input": {
+                "type": "string"
+              },
+              "jumlah_dosis_cairan_input": {
+                "type": "string"
+              },
+              "jenis_cairan_output": {
+                "type": "string"
+              },
+              "jumlah_dosis_cairan_output": {
+                "type": "string"
+              }
+            }
+          },
+          "jam_17": {
+            "type": "object",
+            "properties": {
+              "jenis_cairan_input": {
+                "type": "string"
+              },
+              "jumlah_dosis_cairan_input": {
+                "type": "string"
+              },
+              "jenis_cairan_output": {
+                "type": "string"
+              },
+              "jumlah_dosis_cairan_output": {
+                "type": "string"
+              }
+            }
+          },
+          "jam_18": {
+            "type": "object",
+            "properties": {
+              "jenis_cairan_input": {
+                "type": "string"
+              },
+              "jumlah_dosis_cairan_input": {
+                "type": "string"
+              },
+              "jenis_cairan_output": {
+                "type": "string"
+              },
+              "jumlah_dosis_cairan_output": {
+                "type": "string"
+              }
+            }
+          },
+          "input_output_3": {
+            "type": "string"
+          },
+          "jam_19": {
+            "type": "object",
+            "properties": {
+              "jenis_cairan_input": {
+                "type": "string"
+              },
+              "jumlah_dosis_cairan_input": {
+                "type": "string"
+              },
+              "jenis_cairan_output": {
+                "type": "string"
+              },
+              "jumlah_dosis_cairan_output": {
+                "type": "string"
+              }
+            }
+          },
+          "jam_20": {
+            "type": "object",
+            "properties": {
+              "jenis_cairan_input": {
+                "type": "string"
+              },
+              "jumlah_dosis_cairan_input": {
+                "type": "string"
+              },
+              "jenis_cairan_output": {
+                "type": "string"
+              },
+              "jumlah_dosis_cairan_output": {
+                "type": "string"
+              }
+            }
+          },
+          "jam_21": {
+            "type": "object",
+            "properties": {
+              "jenis_cairan_input": {
+                "type": "string"
+              },
+              "jumlah_dosis_cairan_input": {
+                "type": "string"
+              },
+              "jenis_cairan_output": {
+                "type": "string"
+              },
+              "jumlah_dosis_cairan_output": {
+                "type": "string"
+              }
+            }
+          },
+          "jam_22": {
+            "type": "object",
+            "properties": {
+              "jenis_cairan_input": {
+                "type": "string"
+              },
+              "jumlah_dosis_cairan_input": {
+                "type": "string"
+              },
+              "jenis_cairan_output": {
+                "type": "string"
+              },
+              "jumlah_dosis_cairan_output": {
+                "type": "string"
+              }
+            }
+          },
+          "jam_23": {
+            "type": "object",
+            "properties": {
+              "jenis_cairan_input": {
+                "type": "string"
+              },
+              "jumlah_dosis_cairan_input": {
+                "type": "string"
+              },
+              "jenis_cairan_output": {
+                "type": "string"
+              },
+              "jumlah_dosis_cairan_output": {
+                "type": "string"
+              }
+            }
+          },
+          "jam_24": {
+            "type": "object",
+            "properties": {
+              "jenis_cairan_input": {
+                "type": "string"
+              },
+              "jumlah_dosis_cairan_input": {
+                "type": "string"
+              },
+              "jenis_cairan_output": {
+                "type": "string"
+              },
+              "jumlah_dosis_cairan_output": {
+                "type": "string"
+              }
+            }
+          },
+          "input_output_4": {
+            "type": "string"
+          }
+        }
+      },
+      "FrekuensiObatItem": {
+        "type": "object",
+        "properties": {
+          "verifikasi_farmasi": {
+            "type": "boolean"
+          },
+          "verifikasi_perawat": {
+            "type": "boolean"
+          },
+          "verifikasi_pasien": {
+            "type": "boolean"
+          },
+          "rotd": {
+            "type": "boolean"
+          },
+          "catatan": {
+            "type": "string"
+          }
+        }
+      },
+      "NEWSItem": {
+        "type": "object",
+        "properties": {
+          "hari": {
+            "type": "string"
+          },
+          "rr": {
+            "type": "string"
+          },
+          "rr_score": {
+            "type": "string"
+          },
+          "spo2": {
+            "type": "string"
+          },
+          "spo2_score": {
+            "type": "string"
+          },
+          "alat_bantu_o2_score": {
+            "type": "string"
+          },
+          "suhu": {
+            "type": "string"
+          },
+          "suhu_score": {
+            "type": "string"
+          },
+          "tekanan_darah": {
+            "type": "string"
+          },
+          "tekanan_darah_score": {
+            "type": "string"
+          },
+          "nadi": {
+            "type": "string"
+          },
+          "nadi_score": {
+            "type": "string"
+          },
+          "tingkat_kesadaran_sadar": {
+            "type": "string"
+          },
+          "tingkat_kesadaran_vpu": {
+            "type": "string"
+          },
+          "kadar_gula_darah_score": {
+            "type": "string"
+          },
+          "total_news_score": {
+            "type": "string"
+          }
+        }
+      },
+      "DPJPItem": {
+        "type": "object",
+        "properties": {
+          "dpjp": {
+            "type": "string"
+          }
+        }
+      },
+      "EdukasiItem": {
+        "type": "object",
+        "properties": {
+          "deskripsi": {
+            "type": "string"
+          }
+        }
+      },
+      "AdministrasiItem": {
+        "type": "object",
+        "properties": {
+          "deskripsi": {
+            "type": "string"
+          },
+          "tanggal": {
+            "type": "string"
+          },
+          "harga_satuan": {
+            "type": "string"
+          },
+          "quantity": {
+            "type": "string"
+          }
+        }
+      },
+      "RuangPerawatanItem": {
+        "type": "object",
+        "properties": {
+          "deskripsi": {
+            "type": "string"
+          },
+          "tanggal": {
+            "type": "string"
+          },
+          "harga_satuan": {
+            "type": "string"
+          },
+          "quantity": {
+            "type": "string"
+          }
+        }
+      },
+      "VisitDokterItem": {
+        "type": "object",
+        "properties": {
+          "deskripsi": {
+            "type": "string"
+          },
+          "tanggal": {
+            "type": "string"
+          },
+          "harga_satuan": {
+            "type": "string"
+          },
+          "quantity": {
+            "type": "string"
+          }
+        }
+      },
+      "ObatBahanHabisPakaiItem": {
+        "type": "object",
+        "properties": {
+          "deskripsi": {
+            "type": "string"
+          },
+          "tanggal": {
+            "type": "string"
+          },
+          "harga_satuan": {
+            "type": "string"
+          },
+          "quantity": {
+            "type": "string"
+          }
+        }
+      },
+      "TindakanMedisItem": {
+        "type": "object",
+        "properties": {
+          "deskripsi": {
+            "type": "string"
+          },
+          "tanggal": {
+            "type": "string"
+          },
+          "harga_satuan": {
+            "type": "string"
+          },
+          "quantity": {
             "type": "string"
           }
         }

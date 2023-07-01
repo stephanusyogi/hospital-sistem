@@ -5,7 +5,7 @@ const getICD10 = async (req, res) => {
   let config = {
     method: "get",
     maxBodyLength: Infinity,
-    url: `https://clinicaltables.nlm.nih.gov/api/icd10cm/v3/search?df=code,name&sf=code,name&terms=${terms}`,
+    url: `https://clinicaltables.nlm.nih.gov/api/icd10cm/v3/search?sf=code,name&terms=${terms}`,
     headers: {},
   };
 

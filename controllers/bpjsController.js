@@ -1,4 +1,5 @@
 const Bpjs = require("../models/bpjs");
+const Patient = require("../models/patients");
 
 const getBpjs = async (req, res) => {
   try {
@@ -14,7 +15,7 @@ const getBpjsById = async (req, res) => {
     const { id } = req.params;
     const bpjs = await Bpjs.find({nik: id});
 
-    if (!bpjs) {
+    if (bpjs.length === 0) {
       throw new Error("Data not found!");
     }
 
@@ -24,4 +25,21 @@ const getBpjsById = async (req, res) => {
   }
 };
 
-module.exports = { getBpjs, getBpjsById };
+
+const getBpjsByNoRM = async (req, res) => {
+  try {
+    const { id } = req.params;
+    const patient = await Patient.find({no_rekam_medis: id});
+    const bpjs = await Bpjs.find({nik: patient[0].nik});
+
+    if (bpjs.length === 0) {
+      throw new Error("Data not found!");
+    }
+
+    res.status(200).send(bpjs);
+  } catch (error) {
+    res.status(500).send({ message: error.message });
+  }
+};
+
+module.exports = { getBpjs, getBpjsById, getBpjsByNoRM };

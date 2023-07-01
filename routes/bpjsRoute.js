@@ -10,4 +10,6 @@ router.get("/bpjs",protect, bpjs.getBpjs);
 // Get BPJS By Id
 router.get("/bpjs/:id",protect, bpjs.getBpjsById);
 
+router.get("/bpjs-norm/:id",protect, bpjs.getBpjsByNoRM);
+
 module.exports = router;

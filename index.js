@@ -6,6 +6,10 @@ const app = express();
 // Cors
 const cors = require("cors");
 
+// Firebase
+const connectFirebase = require("./config/firebase");
+connectFirebase()
+
 // Swagger
 const swaggerUI = require("swagger-ui-express");
 const apiDocumentation = require("./apiDocs.json");
@@ -13,7 +17,7 @@ app.use("/api-docs", swaggerUI.serve, swaggerUI.setup(apiDocumentation));
 
 // middlewares
 var corsOptions = {
-  origin: "http://localhost:5173",
+  origin:  ["http://localhost:5173", "https://hospital-sistem.vercel.app"],
 };
 app.use(cors(corsOptions));
 app.use(express.json()); // parse requests of content-type - application/json
@@ -22,6 +26,9 @@ app.use(express.urlencoded({ extended: false })); // parse requests of content-t
 app.get("/", (req, res) => {
   res.json({ message: "Welcome to the jungle!" });
 });
+
+const Dashboard = require("./controllers/dashboardController");
+const protect = require("./middlewares/protect");
 
 // Endpoint
 const authRoutes = require("./routes/authRoute");
@@ -33,7 +40,9 @@ const patientRoutes = require("./routes/patienRoute");
 const icdRoutes = require("./routes/icdRoute");
 const bpjsRoutes = require("./routes/bpjsRoute");
 const rekamMedisRoutes = require("./routes/rekamMedisRoute");
+const receiptRoutes = require("./routes/receiptRoute");
 
+app.get("/api/dashboard", protect, Dashboard.getDashboard);
 app.use("/api", authRoutes);
 app.use("/api", nurseRoutes);
 app.use("/api", doctorRoutes);
@@ -42,8 +51,8 @@ app.use("/api", drugRoutes);
 app.use("/api", patientRoutes);
 app.use("/api", icdRoutes);
 app.use("/api", bpjsRoutes);
+app.use("/api", receiptRoutes);
 app.use("/api/rekam-medis", rekamMedisRoutes);
-
 
 // MongoDB
 const PORT = process.env.PORT || 3000;

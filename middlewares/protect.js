@@ -1,28 +1,23 @@
 const jwt = require("jsonwebtoken");
 const User = require("../models/users");
 
-const multer = require("multer");
-
 const protectUsers = async (req, res, next) => {
   try {
     // Apabila menggunakan multipart/form-data
-    const contentType = req.headers['content-type'];
-    const checkContentType = contentType?.startsWith('multipart/form-data')
-    if (contentType || checkContentType) {
-      const upload = multer().any()
-      upload(req, res, (err) => {
-        if (err) {
-          // Error dalam pengolahan multer
-          return res.status(400).json({ error: 'Error uploading files' });
-        }
-      });
-    }
+    // const contentType = req.headers['content-type'];
+    // const checkContentType = contentType?.startsWith('multipart/form-data')
+    // if (checkContentType) {
+    //   const multer = require("multer");
+    //   req.multer = { 
+    //     upload: multer({ storage: multer.memoryStorage() }).single("file")
+    //   };
+    //   next();
+    // }
 
     const token = req.header("Authorization")?.replace("Bearer ", "");
     const decodedToken = jwt.verify(token, process.env.JWT_SECRET);
 
     const user = await User.findById(decodedToken.userId);
-
     if (user) {
       req.user = { userId: user._id };
       next();
