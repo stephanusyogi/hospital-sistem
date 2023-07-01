@@ -9,19 +9,33 @@ export const load = (async ({ cookies }) => {
     'Authorization': 'Bearer '+user_cookies.token
   };
 
-  try {
-    const response = await axios.get(BACKEND_API+'/patient', { headers,timeout: 5000 });
-    const patients = response.data;
+  const patients = await axios.get(BACKEND_API+'/patient', {headers})
+    .then((response) => {
+      return response.data;
+    })
+    .catch((error) => {
+      return []
+    });
+  
+  return {
+    user_data: user_cookies,
+    patients: patients
+  };
+
+
+  // try {
+  //   const response = await axios.get(BACKEND_API+'/patient', { headers,timeout: 5000 });
+  //   const patients = response.data;
     
-    return {
-      user_data: user_cookies,
-      patients: patients
-    };
-  } catch (error) {
-    return {
-      user_data: user_cookies,
-      patients: [],
-      error: error.response.data,
-    };
-  }
+  //   return {
+  //     user_data: user_cookies,
+  //     patients: patients
+  //   };
+  // } catch (error) {
+  //   return {
+  //     user_data: user_cookies,
+  //     patients: [],
+  //     error: error.response.data,
+  //   };
+  // }
 });
