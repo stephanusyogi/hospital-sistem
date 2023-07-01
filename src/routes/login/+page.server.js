@@ -23,10 +23,12 @@ export const actions = {
       }
     })
     .then(function (response) {
-      return {success:true, data:response.data}
+      console.log(response)
+      return {success:true, data:response}
     })
     .catch(function (error) {
-      return {error:true, data:error.response}
+      console.log(error)
+      return {error:true, data:error}
     });
 
     // if(login.status === 200){
