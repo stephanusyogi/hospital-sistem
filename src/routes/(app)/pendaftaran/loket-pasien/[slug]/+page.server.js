@@ -78,12 +78,12 @@ export const actions = {
           'nama': user_cookies.name,
           'role': user_cookies.role,
         }
-        axios.post(BACKEND_API+'/rekam-medis/log', dataLog ,{ headers })
+        await axios.post(BACKEND_API+'/rekam-medis/log', dataLog ,config)
           .catch(error => {
             console.error(error);
           });
 
-        axios.post(BACKEND_API+'/rekam-medis/informasi-pasien', informasiPasien, config)
+        await axios.post(BACKEND_API+'/rekam-medis/informasi-pasien', informasiPasien, config)
           .catch(error => {
             console.error(error);
           });
@@ -98,6 +98,6 @@ export const actions = {
       console.log(error)
     }
     
-    throw redirect(303, '/pendaftaran/admisi-rawat-inap')
+    // throw redirect(303, '/pendaftaran/admisi-rawat-inap')
   }
 };
