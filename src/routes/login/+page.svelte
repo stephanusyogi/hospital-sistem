@@ -40,11 +40,11 @@
             <div class="relative">
               <FloatingLabelInput
                 style="outlined"
-                id="username"
-                name="username"
+                id="email"
+                name="email"
                 type="text"
                 label="Email"
-                value={form?.username}
+                value={form?.email}
                 required
               />
             </div>

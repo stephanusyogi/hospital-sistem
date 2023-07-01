@@ -189,7 +189,7 @@
               </SidebarDropdownWrapper>
             </div>
           </SidebarGroup>
-        {:else if data?.user_data.role === "Farmasi"}
+        {:else if data?.user_data.role === "Apoteker"}
           <SidebarGroup ulClass="space-y-2">
             <!-- List Menu -->
             <div>

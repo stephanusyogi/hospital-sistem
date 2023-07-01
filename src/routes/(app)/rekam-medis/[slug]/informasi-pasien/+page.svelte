@@ -1,5 +1,6 @@
 <script>
   import { Button } from "flowbite-svelte";
+  export let data
 </script>
 
 <main>
@@ -9,7 +10,7 @@
         Informasi Pasien
       </p>
     </div>
-    <Button href="informasi-pasien/update" size="sm" color="green">
+    <Button href="informasi-pasien/{data?.informasi_pasien._id}" size="sm" color="green">
       <svg
         xmlns="http://www.w3.org/2000/svg"
         class="sm:mr-2"
@@ -36,52 +37,52 @@
             class="grid grid-cols-1 sm:grid-cols-2 gap-2 sm:gap-6 border p-4 text-sm"
           >
             <p class="font-medium">Nomor Rekam Medis:</p>
-            <p class="font-light sm:text-right">000001-2023</p>
+            <p class="font-light sm:text-right">{data?.informasi_pasien.no_rekam_medis ?? ''}</p>
           </div>
           <div
             class="grid grid-cols-1 sm:grid-cols-2 gap-2 sm:gap-6 border p-4 text-sm"
           >
             <p class="font-medium">Nama Lengkap Pasien:</p>
             <p class="font-light sm:text-right">
-              Baginda Jon Snow Pradipta Setiawan
+              {data?.informasi_pasien.name ?? ''}
             </p>
           </div>
           <div
             class="grid grid-cols-1 sm:grid-cols-2 gap-2 sm:gap-6 border p-4 text-sm"
           >
             <p class="font-medium">Umur:</p>
-            <p class="font-light sm:text-right">23 Tahun</p>
+            <p class="font-light sm:text-right">{data?.informasi_pasien.umur ?? ''} Tahun</p>
           </div>
           <div
             class="grid grid-cols-1 sm:grid-cols-2 gap-2 sm:gap-6 border p-4 text-sm"
           >
             <p class="font-medium">Jenis Kelamin:</p>
-            <p class="font-light sm:text-right">Laki-Laki</p>
+            <p class="font-light sm:text-right">{data?.informasi_pasien.jenis_kelamin ?? ''}</p>
           </div>
           <div
             class="grid grid-cols-1 sm:grid-cols-2 gap-2 sm:gap-6 border p-4 text-sm"
           >
             <p class="font-medium">Tempat / Tanggal Lahir:</p>
-            <p class="font-light sm:text-right">Sragen, 02 Juni 2000</p>
+            <p class="font-light sm:text-right">{data?.informasi_pasien.tempat_lahir+', ' ?? ''}{data?.informasi_pasien.tanggal_lahir ?? ''}</p>
           </div>
           <div
             class="grid grid-cols-1 sm:grid-cols-2 gap-2 sm:gap-6 border p-4 text-sm"
           >
             <p class="font-medium">Nomor Telepon/HP:</p>
-            <p class="font-light sm:text-right">089560417864</p>
+            <p class="font-light sm:text-right">{data?.informasi_pasien.no_hp ?? ''}</p>
           </div>
           <div
             class="grid grid-cols-1 sm:grid-cols-2 gap-2 sm:gap-6 border p-4 text-sm"
           >
             <p class="font-medium">Agama</p>
-            <p class="font-light sm:text-right">Islam</p>
+            <p class="font-light sm:text-right">{data?.informasi_pasien.agama ?? ''}</p>
           </div>
           <div
             class="grid grid-cols-1 sm:grid-cols-2 gap-2 sm:gap-6 border p-4 text-sm"
           >
             <p class="font-medium">Alamat Tempat Tinggal:</p>
             <p class="font-light sm:text-right">
-              Jln. Mayjend Pandjaitan No. 22 Malang
+              {data?.informasi_pasien.alamat_domisili ?? ''}
             </p>
           </div>
           <div
@@ -89,7 +90,7 @@
           >
             <p class="font-medium">Alamat KTP:</p>
             <p class="font-light sm:text-right">
-              Jln. Mayjend Pandjaitan No. 22 Malang
+              {data?.informasi_pasien.alamat_ktp ?? ''}
             </p>
           </div>
         </div>
@@ -103,26 +104,26 @@
             class="grid grid-cols-1 sm:grid-cols-2 gap-2 sm:gap-6 border p-4 text-sm"
           >
             <p class="font-medium">Nama:</p>
-            <p class="font-light sm:text-right">Lorem ipsum dolor sit amet</p>
+            <p class="font-light sm:text-right">{data?.informasi_pasien.nama_penanggungjawab ?? ''}</p>
           </div>
           <div
             class="grid grid-cols-1 sm:grid-cols-2 gap-2 sm:gap-6 border p-4 text-sm"
           >
             <p class="font-medium">Hubungan Dengan Pasien:</p>
-            <p class="font-light sm:text-right">Keluarga</p>
+            <p class="font-light sm:text-right">{data?.informasi_pasien.hubungan_dengan_pasien ?? ''}</p>
           </div>
           <div
             class="grid grid-cols-1 sm:grid-cols-2 gap-2 sm:gap-6 border p-4 text-sm"
           >
             <p class="font-medium">Nomor Telepon/HP:</p>
-            <p class="font-light sm:text-right">089560417864</p>
+            <p class="font-light sm:text-right">{data?.informasi_pasien.no_hp_penanggungjawab ?? ''}</p>
           </div>
           <div
             class="grid grid-cols-1 sm:grid-cols-2 gap-2 sm:gap-6 border p-4 text-sm"
           >
             <p class="font-medium">Alamat Tempat Tinggal:</p>
             <p class="font-light sm:text-right">
-              Jln. Mayjend Pandjaitan No. 22 Malang
+              {data?.informasi_pasien.alamat_domisili_penanggungjawab ?? ''}
             </p>
           </div>
           <div
@@ -130,7 +131,7 @@
           >
             <p class="font-medium">Alamat KTP:</p>
             <p class="font-light sm:text-right">
-              Jln. Mayjend Pandjaitan No. 22 Malang
+              {data?.informasi_pasien.alamat_ktp_penanggungjawab ?? ''}
             </p>
           </div>
         </div>
@@ -141,26 +142,20 @@
           <div
             class="grid grid-cols-1 sm:grid-cols-2 gap-2 sm:gap-6 border p-4 text-sm"
           >
-            <p class="font-medium">Jenis Asuransi:</p>
-            <p class="font-light sm:text-right">BPJS</p>
-          </div>
-          <div
-            class="grid grid-cols-1 sm:grid-cols-2 gap-2 sm:gap-6 border p-4 text-sm"
-          >
             <p class="font-medium">Nama Asuransi:</p>
-            <p class="font-light sm:text-right">BPJS</p>
+            <p class="font-light sm:text-right">{data?.informasi_pasien.nama_asuransi ?? ''}</p>
           </div>
           <div
             class="grid grid-cols-1 sm:grid-cols-2 gap-2 sm:gap-6 border p-4 text-sm"
           >
             <p class="font-medium">Nomor Asuransi:</p>
-            <p class="font-light sm:text-right">089560417864</p>
+            <p class="font-light sm:text-right">{data?.informasi_pasien.nomor_asuransi ?? ''}</p>
           </div>
           <div
             class="grid grid-cols-1 sm:grid-cols-2 gap-2 sm:gap-6 border p-4 text-sm"
           >
             <p class="font-medium">Status Asuransi:</p>
-            <p class="font-light sm:text-right">Aktif</p>
+            <p class="font-light sm:text-right">{data?.informasi_pasien.nama_asuransi === 'Umum/Mandiri' ? '-' : data?.informasi_pasien.status_peserta ? 'Peserta Aktif' : 'Peserta Tidak Aktif'}</p>
           </div>
         </div>
       </div>

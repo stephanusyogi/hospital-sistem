@@ -1,7 +1,6 @@
 <script>
   import Icon from '@iconify/svelte';
   import { Button, Checkbox, Input, Label, Radio, TabItem, Table, TableBody, TableBodyCell, TableBodyRow, TableHead, TableHeadCell, Tabs, Textarea } from "flowbite-svelte";
-
 </script>
 
 <main>

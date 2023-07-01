@@ -38,7 +38,7 @@
     divClass="py-3 px-4 bg-white rounded dark:bg-gray-800  drop-shadow-md border-r border-gray-100"
   >
     <SidebarBrand
-      class="text-gray-700 text-sm sm:text-md lg:text-lg lg:text-lg xl:text-xl"
+      class="text-gray-700 text-sm sm:text-md lg:text-lg xl:text-xl"
       aClass="flex items-center justify-center"
       imgClass="{openSideBar ? 'mr-3' : ''} h-6 sm:h-10"
       {site}
@@ -247,7 +247,7 @@
           </SidebarDropdownWrapper>
         </div>
       </SidebarGroup>
-    {:else if user_data?.role === "Farmasi"}
+    {:else if user_data?.role === "Apoteker"}
       <SidebarGroup ulClass="space-y-2">
         <!-- List Menu -->
         <div
@@ -333,7 +333,7 @@
           </SidebarItem>
           <hr class="my-1" />
           <SidebarItem
-            class={!openSideBar ? "justify-center" : ""}
+            class={!openSideBar ? "relative justify-center" : ""}
             {aClass}
             label="Permintaan DPJP"
             href="/permintaan-dpjp"
@@ -352,7 +352,7 @@
             </svelte:fragment>
             <svelte:fragment slot="subtext">
               <span
-                class="inline-flex justify-center items-center p-3 ml-3 w-3 h-3 text-sm font-medium bg-yellow-300 rounded-full"
+                class="{!openSideBar ? "absolute top-0 right-0" : ""} inline-flex justify-center items-center p-3 ml-3 w-3 h-3 text-sm font-medium bg-yellow-300 rounded-full"
                 >1</span
               >
             </svelte:fragment>

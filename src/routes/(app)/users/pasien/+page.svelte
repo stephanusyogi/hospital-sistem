@@ -61,7 +61,7 @@
   </Breadcrumb>
   <section class="px-4 py-6 bg-gray-50 dark:bg-gray-800 shadow rounded-lg">
     <div class="flex items-center justify-between">
-      <p class="text-lg sm:text-md lg:text-2xl font-semibold">Data Pasien RSI Aisyah</p>
+      <p class="text-lg sm:text-md lg:text-2xl font-semibold">Master Data Pasien RSI Aisyah</p>
     </div>
     <hr class="my-5">
     <section class="table-section">

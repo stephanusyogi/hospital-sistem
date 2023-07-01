@@ -6,10 +6,10 @@
   <div class="flex items-center justify-between">
     <div>
       <p class="text-md sm:text-lg lg:text-xl font-semibold">
-        Pemeriksaan IGD/Poliklinik
+        Pemeriksaan Awal
       </p>
     </div>
-    <Button href="pemeriksaan-igd-poliklinik/update" size="sm" color="green">
+    <Button href="pemeriksaan-awal/update" size="sm" color="green">
       <svg
         xmlns="http://www.w3.org/2000/svg"
         class="sm:mr-2"

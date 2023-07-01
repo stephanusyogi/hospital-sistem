@@ -16,26 +16,19 @@
   import { goto } from "$app/navigation";
   import JsBarcode from "jsbarcode";
   import Swal from "sweetalert2";
+  import axios from 'axios';
+  
+  /** @type {import('./$types').PageData} */
+  export let data;
+  /** @type {import('./$types').ActionData} */
+  export let form;
 
   const no_rm = $page.params.slug;
   const qrCodeUrl = $page.url.origin + "/rekam-medis/" + no_rm;
 
-  let jenisRuangan = [
-    { value: "Kelas VVIP", name: "Kelas VVIP" },
-    { value: "Kelas VIP", name: "Kelas VIP" },
-    { value: "Kelas 1", name: "Kelas 1" },
-    { value: "Kelas 2", name: "Kelas 2" },
-    { value: "Kelas 3", name: "Kelas 3" },
-    { value: "Kelas Khusus Anak", name: "Kelas Khusus Anak" },
-    { value: "Kelas Obstetri", name: "Kelas Obstetri" },
-  ];
-
-  let namaRuangan = [
-    { value: "Kamar Wisnu", name: "Kamar Wisnu" },
-    { value: "Kamar Amarta", name: "Kamar Amarta" },
-    { value: "Kamar Rama", name: "Kamar Rama" },
-  ];
-
+  let selectedJenisKelaminPasien
+  let selectedHubunganPasien
+  let selectedAgamaPasien
   let agamaPasien = [
     { value: "Islam", name: "Islam" },
     { value: "Katolik", name: "Katolik" },
@@ -45,60 +38,13 @@
     { value: "Lain-Lain", name: "Lain-Lain" },
   ];
 
+  let dpjpUtama = [];
+  let kamar = [];
+
   let asalRujukan = [
     { value: "Poliklinik", name: "Poliklinik" },
     { value: "Rumah Sakit Swasta", name: "Rumah Sakit Swasta" },
     { value: "Puskesmas", name: "Puskesmas" },
-  ];
-
-  let poliklinik = [
-    {
-      value: "Poliklinik Obstetri & Ginekologi",
-      name: "Poliklinik Obstetri & Ginekologi",
-    },
-    { value: "Poliklinik Anak", name: "Poliklinik Anak" },
-    { value: "Poliklinik Penyakit Dalam", name: "Poliklinik Penyakit Dalam" },
-    { value: "Poliklinik Bedah Umum", name: "Poliklinik Bedah Umum" },
-    { value: "Poliklinik Bedah Onkologi", name: "Poliklinik Bedah Onkologi" },
-    { value: "Poliklinik Mata", name: "Poliklinik Mata" },
-    { value: "Poliklinik Saraf", name: "Poliklinik Saraf" },
-    { value: "Poliklinik Bedah Digistif", name: "Poliklinik Bedah Digistif" },
-    { value: "Poli Paru", name: "Poli Paru" },
-    { value: "Poliklinik Orthopaedi", name: "Poliklinik Orthopaedi" },
-    { value: "Poliklinik Bedah Plastik", name: "Poliklinik Bedah Plastik" },
-    { value: "Poliklinik Urologi", name: "Poliklinik Urologi" },
-    { value: "Poliklinik Jiwa", name: "Poliklinik Jiwa" },
-    { value: "Poliklinik Kulit & Kelamin", name: "Poliklinik Kulit & Kelamin" },
-    { value: "Poliklinik THT", name: "Poliklinik THT" },
-    { value: "Poliklinik Gizi", name: "Poliklinik Gizin" },
-    { value: "Poliklinik Anastesi", name: "Poliklinik Anastesi" },
-    { value: "Poliklinik Gigi & Mulut", name: "Poliklinik Gigi & Mulut" },
-    { value: "Poliklinik Bedah Mulut", name: "Poliklinik Bedah Mulut" },
-    { value: "Poliklinik Bedah Syaraf", name: "Poliklinik Bedah Syaraf" },
-  ];
-
-  let dpjpUtama = [
-    {
-      value: "dr. Khal Drogo, M.Biomed, Sp.PD",
-      name: "dr. Khal Drogo, M.Biomed, Sp.PD",
-    },
-    {
-      value: "dr. Viserys Targaryen, M.Biomed, Sp.JP",
-      name: "dr. Viserys Targaryen, M.Biomed, Sp.JP",
-    },
-    {
-      value: "dr. Khal Drogo, M.Biomed, Sp.OT",
-      name: "dr. Khal Drogo, M.Biomed, Sp.OT",
-    },
-    {
-      value: "dr. Viserys Targaryen. Sp. KJ",
-      name: "dr. Viserys Targaryen. Sp. KJ",
-    },
-    { value: "dr. Ramsay Bolton	,Sp.KK", name: "dr. Ramsay Bolton	,Sp.KK" },
-    {
-      value: "dr. Ramsay Bolton	, M.Kes., Sp.GK",
-      name: "dr. Ramsay Bolton	, M.Kes., Sp.GK",
-    },
   ];
 
   let selectedUnit;
@@ -121,21 +67,8 @@
       denyButtonText: `Batal`,
     }).then((result) => {
       if (result.isConfirmed) {
-        Swal.fire({
-          icon: "success",
-          title: "Pasien Berhasil Disimpan & Diperbarui",
-          showConfirmButton: false,
-          timer: 1000,
-        }).then(() => {
-          goto(`/rekam-medis/${no_rm}`);
-        });
-      } else if (result.isDenied) {
-        Swal.fire({
-          icon: "info",
-          title: "Aksi Dibatalkan",
-          showConfirmButton: false,
-          timer: 1000,
-        });
+        const form = document.getElementById('form');
+        form.submit()
       }
     });
   };
@@ -154,44 +87,81 @@
     });
   };
 
-  let diagnosaSementara = [
-    {
-      kode_icd10: "",
-      deskripsi_diagnosa: "",
-    },
-  ];
+  let termICD10
+  let searchResultICD10
+  let timeoutICD10;
+  let openICD10SearchModal = false
+  const searchICD10 = (e) => {
+    clearTimeout(timeoutICD10); // Menghapus timeout sebelumnya
+    openICD10SearchModal = true
 
-  let tindakan = [
-    {
-      kode_icd9: "",
-      deskripsi_tindakan: "",
-    },
-  ];
+    timeoutICD10 = setTimeout( async () => {
+      const termICD10 = e.target.value;
+      
+      const headers = {
+        'Accept': '*/*',
+        'Authorization': 'Bearer '+ data.user_data.token
+      };
+      const formDataICD10 = new FormData();
+      formDataICD10.append('terms', termICD10);
 
-  function addDiagnosa() {
+      const response = await axios.post(data.api_base+'/icd-10', formDataICD10 , { headers });
+      searchResultICD10 = response.data.data;
+
+    }, 500);
+  }
+  let diagnosaSementara = [];
+  const handleICD10 = (kode, desc) => {
+    openICD10SearchModal = false
+    termICD10 = ''
     diagnosaSementara = [
       ...diagnosaSementara,
       {
-        kode_icd10: "",
-        deskripsi_diagnosa: "",
+        kode: kode,
+        desc: desc,
       },
     ];
   }
-
   function deleteDiagnosa(index) {
     diagnosaSementara = diagnosaSementara.filter((_, i) => i !== index);
   }
 
-  function addTindakan() {
+
+  let termICD9
+  let searchResultICD9
+  let timeoutICD9;
+  let openICD9SearchModal = false
+  const searchICD9 = (e) => {
+    clearTimeout(timeoutICD10);
+    openICD9SearchModal = true
+
+    timeoutICD9 = setTimeout( async () => {
+      const termICD9 = e.target.value;
+      
+      const headers = {
+        'Accept': '*/*',
+        'Authorization': 'Bearer '+ data.user_data.token
+      };
+      const formDataICD9 = new FormData();
+      formDataICD9.append('terms', termICD9);
+
+      const response = await axios.post(data.api_base+'/icd-9', formDataICD9 , { headers });
+      searchResultICD9 = response.data.data;
+
+    }, 500);
+  }
+  let tindakan = [];
+  const handleICD9 = (kode, desc) => {
+    openICD9SearchModal = false
+    termICD9 = ''
     tindakan = [
       ...tindakan,
       {
-        kode_icd9: "",
-        deskripsi_tindakan: "",
+        kode: kode,
+        desc: desc,
       },
     ];
   }
-
   function deleteTindakan(index) {
     tindakan = tindakan.filter((_, i) => i !== index);
   }
@@ -213,6 +183,37 @@
         correctLevel: QRCode.CorrectLevel.H,
       });
     };
+
+    if(data){
+      selectedAgamaPasien = data.patient.agama
+      selectedJenisKelaminPasien = data.patient.jenis_kelamin
+      selectedHubunganPasien = data.informasi_pasien.hubungan_dengan_pasien
+      
+      // Load Data Dokter
+      data.dokter.forEach((item) => {
+        dpjpUtama.push({
+          value: item._id,
+          name: `${item.name} - ${item.spesialis}`,
+        });
+      });
+
+      // Load Data Kamar
+      data.room.forEach((item) => {
+        kamar.push({
+          value: item._id,
+          name: `Kamar ${item.nama_ruangan} - Kelas ${item.kelas} - Rp. ${item.harga}`,
+        });
+      });
+    }
+    
+    if (form?.error) {
+      Swal.fire({
+        text: form.message,
+        icon: 'error',
+        showConfirmButton: false,
+        timer: 3000,
+      });
+    }
   });
 </script>
 
@@ -220,8 +221,7 @@
   <Breadcrumb
     class="mt-10 overflow-x-auto"
     aria-label="Solid background breadcrumb example"
-    solid
-  >
+    solid>
     <BreadcrumbItem
       spanClass="text-xs  ml-1 font-medium text-gray-500 md:ml-2 dark:text-gray-400"
       homeClass="inline-flex items-center text-xs font-medium text-gray-700 hover:text-gray-900 dark:text-gray-400 dark:hover:text-white"
@@ -234,41 +234,37 @@
     >
     <BreadcrumbItem
       spanClass="text-xs  ml-1 font-medium text-gray-500 md:ml-2 dark:text-gray-400"
-      >Pemeriksaan IGD/Poli</BreadcrumbItem
+      >Pemeriksaan Awal</BreadcrumbItem
     >
   </Breadcrumb>
   <section class="px-4 py-6 bg-gray-50 dark:bg-gray-800 shadow rounded-lg">
-    <form on:submit|preventDefault={() => handleSubmit(no_rm)}>
-      <div
-        class="flex flex-wrap justify-center lg:justify-between items-center gap-4"
-      >
-        <div class="grid grid-cols-2 gap-4">
-          <p
-            class="text-lg sm:text-xl md:text-2xl font-semibold my-1 col-span-2"
-          >
-            Formulir Pemeriksaan IGD/Poliklinik Pasien Rawat Inap
+    <form id="form" on:submit|preventDefault={() => handleSubmit(no_rm)} method="POST">
+      <div class="flex flex-wrap justify-center lg:justify-between items-center gap-4">
+        <div class="grid grid-cols-2 gap-1">
+          <p class="text-lg sm:text-xl md:text-2xl font-semibold col-span-2">
+            Formulir Pemeriksaan Awal Pasien Rawat Inap
           </p>
-          <div class="flex flex-wrap gap-2 items-center my-2 col-span-2">
+          <p class="text-red-500 text-xs lg:text-sm">(*) Wajib diisi.</p>
+          <div class="flex flex-wrap gap-2 items-center col-span-2">
             <Button
-              class="w-fit text-sm sm:text-md lg:text-lg"
+              class="w-fit text-sm sm:text-md lg:text-md"
               type="submit"
               color="green">Daftarkan Pasien Rawat Inap</Button
             >
             <Button
-              class="w-fit lg:order-first text-sm sm:text-md lg:text-lg"
+              class="w-fit lg:order-first text-sm sm:text-md lg:text-md"
               on:click={handleKembali}
               color="yellow">Kembali</Button
             >
           </div>
-          <p class="text-red-500 text-xs lg:text-sm">(*) Wajib diisi.</p>
         </div>
         <div class="p-4 border border-gray-300 w-max h-fit">
           <div class="flex justify-between items-center gap-2 sm:gap-6">
             <div class="font-bold text-xs">
               <p class="my-1">No. RM: {no_rm}</p>
-              <p class="my-1 uppercase">Jon Snow (L) 23th</p>
-              <p class="my-1">Tgl. Lahir: 02/06/2000</p>
-              <p class="my-1">Jln. Mayjend Pandjaitan No. 22 Malang</p>
+              <p class="my-1 uppercase">{data?.patient.name} ({data?.patient.jenis_kelamin === 'Laki-Laki' ? 'L' : 'P'}) {data?.patient.umur+'th' ?? ''}</p>
+              <p class="my-1">Tgl. Lahir: {data?.patient.tanggal_lahir}</p>
+              <p class="my-1">{data?.patient.alamat_ktp}</p>
             </div>
             <div id="qrcode" />
           </div>
@@ -292,13 +288,15 @@
                   >
                   <div class="flex gap-2">
                     <Radio
-                      name="masuk_melalui"
+                      required
+                      name="unit_penerima"
                       checked={selectedUnit === "IGD"}
                       on:change={onChangeUnit}
                       value="IGD">IGD</Radio
                     >
                     <Radio
-                      name="masuk_melalui"
+                      required                        
+                      name="unit_penerima"
                       checked={selectedUnit === "Poliklinik"}
                       on:change={onChangeUnit}
                       value="Poliklinik">Poliklinik</Radio
@@ -309,10 +307,10 @@
                   <div class="grouphelperPagination col-span-2">
                     <Label
                       >Poliklinik: <span class="text-red-500 text-lg">*</span>
-                      <Select
-                        name="polikinik"
-                        class="mt-2"
-                        items={poliklinik}
+                      <Input
+                        required
+                        name="poliklinik_penerima"
+                        placeholder="Masukkan Poliklinik"
                       />
                     </Label>
                   </div>
@@ -326,12 +324,14 @@
                   >
                   <div class="flex gap-2">
                     <Radio
+                      required
                       name="asal_rujukan"
                       checked={selectedAsalRujukan === "Datang Sendiri"}
                       on:change={onChangeAsalRujukan}
                       value="Datang Sendiri">Datang Sendiri</Radio
                     >
                     <Radio
+                      required
                       name="asal_rujukan"
                       checked={selectedAsalRujukan === "Rujukan"}
                       on:change={onChangeAsalRujukan}
@@ -346,6 +346,7 @@
                         >*</span
                       >
                       <Select
+                        required
                         name="unit_asal_rujukan"
                         class="mt-2"
                         items={asalRujukan}
@@ -362,41 +363,50 @@
               Diagnosa & Tindakan
             </p>
             <div class="grid grid-cols-2 gap-4 py-2">
-              <div class="col-span-2 grouphelperPagination">
+              <div class="col-span-2 grouphelperPagination mb-4">
                 <Label
                   >DPJP: <span class="text-red-500 text-lg">*</span>
-                  <Select name="dpjp" class="mt-2" items={dpjpUtama} />
+                  <Select name="id_dpjp" class="mt-2" items={dpjpUtama} />
                 </Label>
               </div>
-              <div class="grouphelperPagination col-span-2 flex gap-4">
-                <Search size="md" placeholder="ICD-10 Koding Search" />
-                <Button size="xs" on:click={addDiagnosa}>
-                  <svg
-                    xmlns="http://www.w3.org/2000/svg"
-                    width="20"
-                    height="20"
-                    class="sm:mr-2"
-                    viewBox="0 0 24 24"
-                    ><path
-                      fill="currentColor"
-                      d="M11 17h2v-4h4v-2h-4V7h-2v4H7v2h4v4Zm1 5q-2.075 0-3.9-.788t-3.175-2.137q-1.35-1.35-2.137-3.175T2 12q0-2.075.788-3.9t2.137-3.175q1.35-1.35 3.175-2.137T12 2q2.075 0 3.9.788t3.175 2.137q1.35 1.35 2.138 3.175T22 12q0 2.075-.788 3.9t-2.137 3.175q-1.35 1.35-3.175 2.138T12 22Z"
-                    /></svg
-                  ><span class="hidden sm:block"> Diagnosa</span>
-                </Button>
+              <div class="grouphelperPagination relative col-span-2 flex gap-4">
+                <div class="relative w-full">
+                  <div class="flex absolute inset-y-0 items-center text-gray-500 dark:text-gray-400 left-0 pl-2.5 pointer-events-none">
+                    <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M8 4a4 4 0 100 8 4 4 0 000-8zM2 8a6 6 0 1110.89 3.476l4.817 4.817a1 1 0 01-1.414 1.414l-4.816-4.816A6 6 0 012 8z" clip-rule="evenodd"></path></svg>
+                  </div>
+                  <input on:input={searchICD10} bind:value={termICD10} placeholder="ICD-10 Koding Search" class="block w-full disabled:cursor-not-allowed disabled:opacity-50 pl-10 focus:border-blue-500 focus:ring-blue-500 dark:focus:border-blue-500 dark:focus:ring-blue-500 bg-gray-50 text-gray-900 dark:bg-gray-700 dark:text-white dark:placeholder-gray-400 border-gray-300 dark:border-gray-600 p-2.5 text-sm rounded-lg" type="search">
+                </div>
+                {#if openICD10SearchModal && termICD10 !== ''}
+                  <div class="absolute mt-10 w-full h-60 overflow-y-scroll rounded-md border bg-gray-100 shadow z-50">
+                    {#if searchResultICD10}
+                      {#each searchResultICD10 as tag, i}
+                        <a href="?searchICD-10" on:click|preventDefault={()=>{handleICD10(searchResultICD10[i][0], searchResultICD10[i][1])}}>
+                          <div class="cursor-pointer py-2 px-3 hover:bg-slate-200">
+                            <p class="text-sm font-medium text-gray-600">{searchResultICD10[i][0]}</p>
+                            <p class="text-sm text-gray-500">{searchResultICD10[i][1]}</p>
+                          </div>
+                        </a>
+                      {/each}
+                    {:else}
+                      <div class="text-center p-6">
+                        <p class="text-sm font-medium text-gray-600">Silahkan Ketik Kata Kunci...</p>
+                      </div>
+                    {/if}
+                  </div>
+                {/if}
               </div>
               <div class="grouphelperPagination col-span-2">
                 {#each diagnosaSementara as tag, i}
                   <div class="flex flex-wrap sm:flex-nowrap gap-4 py-2">
                     <Input
-                      name="icd10[]"
-                      placeholder="Masukkan Kode ICD-10"
-                      bind:value={diagnosaSementara[i].kode_icd10}
+                      name="kodeICD10[]"
+                      placeholder="Kode ICD-10"
+                      bind:value={diagnosaSementara[i].kode}
                     />
-                    <Textarea
-                      name="diagnosa_sementara[]"
-                      placeholder="Masukkan Diagnosa Sementara"
-                      rows="2"
-                      bind:value={diagnosaSementara[i].deskripsi_diagnosa}
+                    <Input
+                      name="descICD10[]"
+                      placeholder="Diagnosa Sementara"
+                      bind:value={diagnosaSementara[i].desc}
                     />
                     <Button
                       on:click={() => deleteDiagnosa(i)}
@@ -417,35 +427,44 @@
                   </div>
                 {/each}
               </div>
-              <div class="grouphelperPagination col-span-2 flex gap-4">
-                <Search size="md" placeholder="ICD-9 Koding Search" />
-                <Button size="xs" on:click={addTindakan}>
-                  <svg
-                    xmlns="http://www.w3.org/2000/svg"
-                    width="20"
-                    height="20"
-                    class="sm:mr-2"
-                    viewBox="0 0 24 24"
-                    ><path
-                      fill="currentColor"
-                      d="M11 17h2v-4h4v-2h-4V7h-2v4H7v2h4v4Zm1 5q-2.075 0-3.9-.788t-3.175-2.137q-1.35-1.35-2.137-3.175T2 12q0-2.075.788-3.9t2.137-3.175q1.35-1.35 3.175-2.137T12 2q2.075 0 3.9.788t3.175 2.137q1.35 1.35 2.138 3.175T22 12q0 2.075-.788 3.9t-2.137 3.175q-1.35 1.35-3.175 2.138T12 22Z"
-                    /></svg
-                  ><span class="hidden sm:block"> Tindakan</span>
-                </Button>
+              <div class="grouphelperPagination relative col-span-2 flex gap-4">
+                <div class="relative w-full">
+                  <div class="flex absolute inset-y-0 items-center text-gray-500 dark:text-gray-400 left-0 pl-2.5 pointer-events-none">
+                    <svg class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M8 4a4 4 0 100 8 4 4 0 000-8zM2 8a6 6 0 1110.89 3.476l4.817 4.817a1 1 0 01-1.414 1.414l-4.816-4.816A6 6 0 012 8z" clip-rule="evenodd"></path></svg>
+                  </div>
+                  <input on:input={searchICD9} bind:value={termICD9} placeholder="ICD-9 Koding Search" class="block w-full disabled:cursor-not-allowed disabled:opacity-50 pl-10 focus:border-blue-500 focus:ring-blue-500 dark:focus:border-blue-500 dark:focus:ring-blue-500 bg-gray-50 text-gray-900 dark:bg-gray-700 dark:text-white dark:placeholder-gray-400 border-gray-300 dark:border-gray-600 p-2.5 text-sm rounded-lg" type="search">
+                </div>
+                {#if openICD9SearchModal && termICD9 !== ''}
+                  <div class="absolute mt-10 w-full h-60 overflow-y-scroll rounded-md border bg-gray-100 shadow z-50">
+                    {#if searchResultICD9}
+                      {#each searchResultICD9 as tag, i}
+                        <a href="?searchICD-9" on:click|preventDefault={()=>{handleICD9(searchResultICD9[i][0], searchResultICD9[i][1])}}>
+                          <div class="cursor-pointer py-2 px-3 hover:bg-slate-200">
+                            <p class="text-sm font-medium text-gray-600">{searchResultICD9[i][0]}</p>
+                            <p class="text-sm text-gray-500">{searchResultICD9[i][1]}</p>
+                          </div>
+                        </a>
+                      {/each}
+                    {:else}
+                      <div class="text-center p-6">
+                        <p class="text-sm font-medium text-gray-600">Silahkan Ketik Kata Kunci...</p>
+                      </div>
+                    {/if}
+                  </div>
+                {/if}
               </div>
               <div class="grouphelperPagination col-span-2">
                 {#each tindakan as tag, i}
                   <div class="flex flex-wrap sm:flex-nowrap gap-4 py-2">
                     <Input
-                      name="icd19[]"
-                      placeholder="Masukkan Kode ICD-9"
-                      bind:value={tindakan[i].kode_icd9}
+                      name="kodeICD9[]"
+                      placeholder="Kode ICD-9"
+                      bind:value={tindakan[i].kode}
                     />
-                    <Textarea
-                      name="tindakan[]"
-                      placeholder="Masukkan Tindakan"
-                      rows="2"
-                      bind:value={tindakan[i].deskripsi_tindakan}
+                    <Input
+                      name="descICD9[]"
+                      placeholder="Prosedur / Tindakan"
+                      bind:value={tindakan[i].desc}
                     />
                     <Button
                       on:click={() => deleteTindakan(i)}
@@ -471,20 +490,14 @@
           <div class="mb-2">
             <p class="text-md sm:text-lg font-medium italic">Ruangan</p>
             <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 py-2">
-              <div class="grouphelperPagination">
+              <div class="grouphelperPagination sm:col-span-2">
                 <Label
-                  >Jenis Kamar: <span class="text-red-500 text-lg">*</span>
+                  >Kamar: <span class="text-red-500 text-lg">*</span>
                   <Select
-                    name="jenis_kamar"
+                    name="id_kamar"
                     class="mt-2"
-                    items={jenisRuangan}
+                    items={kamar}
                   />
-                </Label>
-              </div>
-              <div class="grouphelperPagination">
-                <Label
-                  >Nama Kamar: <span class="text-red-500 text-lg">*</span>
-                  <Select name="nama_kamar" class="mt-2" items={namaRuangan} />
                 </Label>
               </div>
             </div>
@@ -497,36 +510,42 @@
             <p class="text-lg font-medium italic">Identitas</p>
             <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 py-2">
               <div class="grouphelperPagination">
-                <Label for="no_rekam_medis" class="block mb-2"
+                <Label for="" class="block mb-2"
                   >Nomor Rekam Medis: <span class="text-red-500 text-lg">*</span
                   ></Label
                 >
                 <Input
+                  disabled
                   id="no_rekam_medis"
                   name="no_rekam_medis"
                   placeholder="Masukkan nomor rekam medis pasien"
+                  value={data?.patient.no_rekam_medis ?? ''}
                 />
               </div>
               <div class="grouphelperPagination">
-                <Label for="nama_lengkap" class="block mb-2"
+                <Label for="" class="block mb-2"
                   >Nama Lengkap Pasien: <span class="text-red-500 text-lg"
                     >*</span
                   ></Label
                 >
                 <Input
-                  id="nama_lengkap"
-                  name="nama_lengkap"
+                  disabled
+                  id="name"
+                  name="name"
                   placeholder="Masukkan nama lengkap pasien"
+                  value={data?.patient.name ?? ''}
                 />
               </div>
               <div class="grouphelperPagination">
-                <Label for="umur" class="block mb-2"
+                <Label for="" class="block mb-2"
                   >Umur: <span class="text-red-500 text-lg">*</span></Label
                 >
                 <Input
+                  disabled
                   id="umur"
                   name="umur"
                   placeholder="Masukkan umur pasien"
+                  value={data?.patient.umur ?? ''}
                 />
               </div>
               <div class="grouphelperPagination">
@@ -535,9 +554,9 @@
                   ></Label
                 >
                 <div class="flex gap-2">
-                  <Radio name="jenis_kelamin" value="Laki-Laki">Laki-Laki</Radio
+                  <Radio checked={selectedJenisKelaminPasien === 'Laki-Laki' ? true : false } id="jenis_kelamin" name="jenis_kelamin" disabled value="Laki-Laki">Laki-Laki</Radio
                   >
-                  <Radio name="jenis_kelamin" value="Perempuan">Perempuan</Radio
+                  <Radio checked={selectedJenisKelaminPasien === 'Perempuan' ? true : false } name="jenis_kelamin" disabled value="Perempuan">Perempuan</Radio
                   >
                 </div>
               </div>
@@ -549,53 +568,58 @@
                 >
                 <div class="flex gap-2">
                   <Input
+                    disabled
                     id="tempat_lahir"
                     name="tempat_lahir"
+                    value={data?.patient.tempat_lahir ?? ''}
                     placeholder="Masukkan tempat"
                   />
-                  <Input id="tanggal_lahir" name="tanggal_lahir" type="date" />
+                  <Input disabled id="tanggal_lahir" name="tanggal_lahir" type="date" value={data?.patient.tanggal_lahir ?? ''}/>
                 </div>
               </div>
               <div class="grouphelperPagination">
-                <Label for="no_telp_pasien" class="block mb-2"
+                <Label for="" class="block mb-2"
                   >Nomor Telepon/HP: <span class="text-red-500 text-lg">*</span
                   ></Label
                 >
                 <Input
-                  id="no_telp_pasien"
-                  name="no_telp_pasien"
+                  disabled
+                  id="no_hp"
+                  name="no_hp"
+                  value={data?.patient.no_hp ?? ''}
                   placeholder="Masukkan nomor telepon / HP pasien"
                 />
               </div>
               <div class="grouphelperPagination">
-                <Label
-                  >Agama: <span class="text-red-500 text-lg">*</span>
-                  <Select name="agama" class="mt-2" items={agamaPasien} />
+                <Label for="">Agama: <span class="text-red-500 text-lg">*</span>
+                  <Select disabled id="agama" name="agama" class="mt-2" items={agamaPasien} bind:value={selectedAgamaPasien}/>
                 </Label>
               </div>
               <div class="grouphelperPagination">
-                <Label for="alamat_ktp" class="block mb-2"
+                <Label for="" class="block mb-2"
                   >Alamat KTP: <span class="text-red-500 text-lg">*</span
                   ></Label
                 >
-                <Textarea
-                  name="alamat_tempat_tinggal"
-                  id="alamat_tempat_tinggal"
+                <Input
+                  disabled
+                  name="alamat_ktp"
+                  id="alamat_ktp"
+                  value={data?.patient.alamat_ktp ?? ''}
                   placeholder="Masukkan alamat tempat tinggal pasien"
-                  rows="1"
                 />
               </div>
               <div class="grouphelperPagination">
-                <Label for="alamat_tempat_tinggal" class="block mb-2"
+                <Label for="" class="block mb-2"
                   >Alamat Domisili Tempat Tinggal: <span
                     class="text-red-500 text-lg">*</span
                   ></Label
                 >
-                <Textarea
-                  name="alamat_ktp"
-                  id="alamat_ktp"
+                <Input
+                  disabled
+                  value={data?.patient.alamat_domisili ?? ''}
+                  name="alamat_domisili"
+                  id="alamat_domisili"
                   placeholder="Masukkan alamat sesuai ktp pasien"
-                  rows="2"
                 />
                 <Checkbox checked>Alamat domisili sama dengan KTP</Checkbox>
               </div>
@@ -607,13 +631,15 @@
               class="grid grid-cols-1 sm:grid-cols-2 gap-4 py-2 mb-2 border-b"
             >
               <div class="grouphelperPagination">
-                <Label for="nama_pj" class="block mb-2"
+                <Label for="" class="block mb-2"
                   >Penanggung Jawab: <span class="text-red-500 text-lg">*</span
                   ></Label
                 >
                 <Input
-                  id="nama_pj"
-                  name="nama_pj"
+                  disabled
+                  id="nama_penanggungjawab"
+                  name="nama_penanggungjawab"
+                  value={data?.informasi_pasien.nama_penanggungjawab ?? ''}
                   placeholder="Masukkan nama penanggung jawab pasien"
                 />
               </div>
@@ -624,55 +650,60 @@
                   ></Label
                 >
                 <div class="flex flex-wrap gap-2">
-                  <Radio name="hubungan_pasien_pj" value="Orang Tua"
+                  <Radio checked={selectedHubunganPasien === 'Orang Tua' ? true : false} disabled name="hubungan_dengan_pasien" value="Orang Tua"
                     >Orang Tua</Radio
                   >
-                  <Radio name="hubungan_pasien_pj" value="Anak">Anak</Radio>
-                  <Radio name="hubungan_pasien_pj" value="Suami/Istri"
+                  <Radio checked={selectedHubunganPasien === 'Anak' ? true : false} disabled name="hubungan_dengan_pasien" value="Anak">Anak</Radio>
+                  <Radio checked={selectedHubunganPasien === 'Suami/Istri' ? true : false} disabled name="hubungan_dengan_pasien" value="Suami/Istri"
                     >Suami/Istri</Radio
                   >
-                  <Radio name="hubungan_pasien_pj" value="Keluarga"
+                  <Radio checked={selectedHubunganPasien === 'Keluarga' ? true : false} disabled name="hubungan_dengan_pasien" value="Keluarga"
                     >Keluarga</Radio
                   >
-                  <Radio name="hubungan_pasien_pj" value="Teman">Teman</Radio>
-                  <Radio name="hubungan_pasien_pj" value="Lain-Lain"
+                  <Radio checked={selectedHubunganPasien === 'Teman' ? true : false} disabled name="hubungan_dengan_pasien" value="Teman">Teman</Radio>
+                  <Radio checked={selectedHubunganPasien === 'Lain-Lain' ? true : false} disabled name="hubungan_dengan_pasien" value="Lain-Lain"
                     >Lain-Lain</Radio
                   >
                 </div>
               </div>
               <div class="grouphelperPagination">
-                <Label for="alamat_tempat_tinggal_pj" class="block mb-2"
+                <Label for="" class="block mb-2"
+                  >Alamat KTP: <span class="text-red-500 text-lg">*</span
+                  ></Label
+                >
+                <Input
+                  disabled
+                  name="alamat_ktp_penanggungjawab"
+                  id="alamat_ktp_penanggungjawab"
+                  value={data?.informasi_pasien.alamat_ktp_penanggungjawab ?? ''}
+                  placeholder="Masukkan nama penanggung jawab pasien"
+                />
+              </div>
+              <div class="grouphelperPagination">
+                <Label for="" class="block mb-2"
                   >Alamat Tempat Tinggal: <span class="text-red-500 text-lg"
                     >*</span
                   ></Label
                 >
-                <Textarea
-                  name="alamat_tempat_tinggal_pj"
-                  id="alamat_tempat_tinggal_pj"
+                <Input
+                  disabled
+                  name="alamat_domisili_penanggungjawab"
+                  id="alamat_domisili_penanggungjawab"
+                  value={data?.informasi_pasien.alamat_domisili_penanggungjawab ?? ''}
                   placeholder="Masukkan alamat tempat tinggal penanggung jawab pasien"
-                  rows="2"
                 />
+                <Checkbox disabled checked={data?.informasi_pasien.alamat_domisili_penanggungjawab === data?.informasi_pasien.alamat_ktp_penanggungjawab ? true : false}>Alamat domisili sama dengan KTP</Checkbox>
               </div>
               <div class="grouphelperPagination">
-                <Label for="alamat_ktp_pj" class="block mb-2"
-                  >Alamat KTP: <span class="text-red-500 text-lg">*</span
-                  ></Label
-                >
-                <Textarea
-                  name="alamat_ktp_pj"
-                  id="alamat_ktp_pj"
-                  placeholder="Masukkan alamat sesuai ktp penanggung jawab pasien"
-                  rows="2"
-                />
-              </div>
-              <div class="grouphelperPagination">
-                <Label for="no_telp_pj" class="block mb-2"
+                <Label for="" class="block mb-2"
                   >Nomor Telepon/HP: <span class="text-red-500 text-lg">*</span
                   ></Label
                 >
                 <Input
-                  id="no_telp_pj"
-                  name="no_telp_pj"
+                  disabled
+                  id="no_hp_penanggungjawab"
+                  name="no_hp_penanggungjawab"
+                  value={data?.informasi_pasien.no_hp_penanggungjawab ?? ''}
                   placeholder="Masukkan nomor telepon / HP penanggung jawab pasien"
                 />
               </div>
@@ -682,45 +713,41 @@
             <p class="text-lg font-medium italic">Asuransi & Pembayaran</p>
             <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 py-2">
               <div class="grouphelperPagination">
-                <Label for="asuransi" class="block mb-2"
-                  >Asuransi: <span class="text-red-500 text-lg">*</span></Label
-                >
-                <Input
-                  id="asuransi"
-                  name="asuransi"
-                  placeholder="Masukkan Asuransi"
-                />
-              </div>
-              <div class="grouphelperPagination">
-                <Label for="nama_asuransi" class="block mb-2"
+                <Label for="" class="block mb-2"
                   >Nama Asuransi: <span class="text-red-500 text-lg">*</span
                   ></Label
                 >
                 <Input
+                  disabled
                   id="nama_asuransi"
                   name="nama_asuransi"
+                  value={data?.informasi_pasien.nama_asuransi ?? ''}
                   placeholder="Masukkan Nama Asuransi"
                 />
               </div>
               <div class="grouphelperPagination">
-                <Label for="no_asuransi" class="block mb-2"
+                <Label for="" class="block mb-2"
                   >No Asuransi: <span class="text-red-500 text-lg">*</span
                   ></Label
                 >
                 <Input
-                  id="no_asuransi"
-                  name="no_asuransi"
+                  disabled
+                  id="nomor_asuransi"
+                  name="nomor_asuransi"
+                  value={data?.informasi_pasien.nomor_asuransi ?? ''}
                   placeholder="Masukkan Nomor Asuransi"
                 />
               </div>
               <div class="grouphelperPagination">
-                <Label for="status_asuransi" class="block mb-2"
+                <Label for="" class="block mb-2"
                   >Status Asuransi: <span class="text-red-500 text-lg">*</span
                   ></Label
                 >
                 <Input
+                  disabled
                   id="status_asuransi"
                   name="status_asuransi"
+                  value={data?.informasi_pasien.status_asuransi ? 'Peserta Aktif' : 'Peserta Tidak Aktif'}
                   placeholder="Masukkan Status Asuransi"
                 />
               </div>

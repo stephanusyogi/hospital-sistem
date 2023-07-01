@@ -1,5 +1,12 @@
+table {
+  border-collapse: separate;
+  border-spacing: 0;
+}
 thead {
   background: #fff;
+  text-transform: uppercase;
+  position: sticky;
+  inset-block-start: 0;
 }
 th div {
   justify-content: center !important;
@@ -40,6 +47,7 @@ header input {
   line-height: 1.25rem !important;
   border-radius: 0.5rem !important;
   border-color: #d1d5db !important;
+  margin-bottom: 1.5rem !important;
 }
 
 header aside {

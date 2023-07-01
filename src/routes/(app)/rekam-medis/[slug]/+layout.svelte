@@ -1,11 +1,15 @@
 <script>
   import { onMount, tick } from "svelte";
   import { page } from "$app/stores";
-  import { Button, Popover } from "flowbite-svelte";
+  import { Button, Dropdown, DropdownDivider, DropdownItem, Modal, Popover } from "flowbite-svelte";
   import Swal from "sweetalert2";
+  import Icon from "@iconify/svelte";
+
+  export let data
 
   const no_rm = $page.params.slug;
   const qrCodeUrl = $page.url.origin + "/rekam-medis/" + no_rm;
+  let QRModal = false
 
   $: activeUrl = $page.route.id.split("/(app)/rekam-medis/[slug]/")[1]
     ? $page.route.id.split("/(app)/rekam-medis/[slug]/")[1].split("/")[0]
@@ -30,7 +34,7 @@
     document.head.append(script);
 
     script.onload = function () {
-      qrcode = new QRCode("qrcode", {
+      qrcode = new QRCode(document.getElementById("qrcode"), {
         text: qrCodeUrl,
         width: 80,
         height: 80,
@@ -40,6 +44,20 @@
       });
     };
   });
+
+  const handleModalQR = () => {
+    QRModal = true
+    setTimeout(() => {
+      qrcodeChild = new QRCode(document.getElementById("qrcodeChild"), {
+        text: qrCodeUrl,
+        width: 500,
+        height: 500,
+        colorDark: "#000000",
+        colorLight: "#ffffff",
+        correctLevel: QRCode.CorrectLevel.H,
+      });
+    }, 1000);
+  }
 </script>
 
 <div class="overflow-y-auto relative max-h-screen p-6 sm:p-10 space-y-6">
@@ -49,23 +67,31 @@
     <div class="col-span-12 lg:col-span-4 p-2">
       <div class="flex items-center justify-center">
         <div class="p-4 border border-gray-300 w-max">
-          <div
-            class="flex flex-wrap sm:flex-nowrap justify-center sm:justify-between items-center gap-6"
-          >
-            <div id="qrcode" />
+          <div class="flex flex-wrap sm:flex-nowrap justify-center sm:justify-between items-center gap-6">
+            <!-- svelte-ignore a11y-click-events-have-key-events -->
+            <div id="qrcode" on:click={handleModalQR}/>
+            <Modal title="Kode QR Rekam Medis Pasien" bind:open={QRModal} autoclose size="xl">
+              <div id="qrcodeChild" class="mx-auto"/>
+              <svelte:fragment slot='footer'>
+                <div class="flex justify-between gap-2 w-full">
+                  <Button color="green"><a class="flex items-center gap-1" href="/print-qrcode/{no_rm}" target="_blank" rel="noreferrer"><Icon width="26" height="26" icon="material-symbols:print"/>Print</a></Button>
+                  <Button color="alternative">Tutup</Button>
+                </div>
+              </svelte:fragment>
+            </Modal>
             <div class="sm:order-first">
               <p class="font-bold text-xs my-1">No. RM: {no_rm}</p>
-              <p class="font-bold text-xs my-1 uppercase">Jon Snow (L) 23th</p>
-              <p class="font-bold text-xs my-1">Tgl. Lahir: 02/06/2000</p>
+              <p class="font-bold text-xs my-1 uppercase">{data?.patient.name ?? ''} ({data?.patient.jenis_kelamin === 'Laki-Laki' ? 'L' : 'P'}) {data?.patient.umur+'th' ?? ''}</p>
+              <p class="font-bold text-xs my-1">Tgl. Lahir: {data?.patient.tanggal_lahir ?? ''}</p>
               <p class="font-bold text-xs my-1">
-                Jln. Mayjend Pandjaitan No. 22 Malang
+                {data?.patient.alamat_ktp ?? ''}
               </p>
             </div>
           </div>
         </div>
       </div>
       <div
-        class="flex flex-wrap sm:flex-nowrap items-center justify-between gap-4 mt-2 lg:mt-5"
+        class="flex flex-nowrap items-center justify-between gap-4 mt-2 lg:mt-5"
       >
         <div>
           <h5
@@ -85,58 +111,19 @@
             >Dokumen Rekam Medis
           </h5>
           <p class="text-xs font-base italic text-red-600">
-            (*) Wajib diperiksa & diisi.
+            (*) Dokumen wajib diperiksa.
           </p>
         </div>
         <div class="flex items-center justify-between gap-4">
-          <Button
-            id="pasienPulang"
-            size="sm"
-            color="yellow"
-            on:click={handlePasienPulang}
-          >
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              width="20"
-              height="20"
-              viewBox="0 0 24 24"
-              ><path
-                fill="none"
-                stroke="currentColor"
-                stroke-linecap="round"
-                stroke-linejoin="round"
-                stroke-width="2"
-                d="M13 12v.01M3 21h18M5 21V5a2 2 0 0 1 2-2h7.5M17 13.5V21M14 7h7m-3-3l3 3l-3 3"
-              /></svg
-            >
-          </Button>
-          <Popover
-            class="text-sm font-light "
-            title="Perawatan Pasien Selesai"
-            triggeredBy="#pasienPulang"
-          />
-          <Button
-            id="billing"
-            size="sm"
-            color="purple"
-            href="/transaksi/00123141"
-          >
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              width="20"
-              height="20"
-              viewBox="0 0 256 256"
-              ><path
-                fill="currentColor"
-                d="M216 74H56a10 10 0 0 1 0-20h136a6 6 0 0 0 0-12H56a22 22 0 0 0-22 22v128a22 22 0 0 0 22 22h160a14 14 0 0 0 14-14V88a14 14 0 0 0-14-14Zm2 126a2 2 0 0 1-2 2H56a10 10 0 0 1-10-10V83.59A21.84 21.84 0 0 0 56 86h160a2 2 0 0 1 2 2Zm-28-60a10 10 0 1 1-10-10a10 10 0 0 1 10 10Z"
-              /></svg
-            >
-          </Button>
-          <Popover
-            class="text-sm font-light "
-            title="Nota Pembayaran Rawat Inap Pasien"
-            triggeredBy="#billing"
-          />
+          <button type="button" class="focus:outline-none whitespace-normal m-0.5 rounded-lg focus:ring-2 p-1.5 focus:ring-gray-400  hover:bg-gray-100 dark:hover:bg-gray-700 dots-menu dark:text-white" id="dots-menu">
+            <svg class="w-5 h-5" aria-hidden="true" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path d="M10 6a2 2 0 110-4 2 2 0 010 4zM10 12a2 2 0 110-4 2 2 0 010 4zM10 18a2 2 0 110-4 2 2 0 010 4z"></path></svg>
+          </button>
+          <Dropdown triggeredBy="#dots-menu" placement="left-start">
+            <DropdownItem on:click={handlePasienPulang}>Rawat Inap Selesai (<i>Pasien Pulang</i>)</DropdownItem>
+            <DropdownItem href="/transaksi/{no_rm}">Nota Rawat Inap Pasien</DropdownItem>
+            <DropdownDivider/>
+            <DropdownItem href="/">Download Rekam Medis Pasien</DropdownItem>
+          </Dropdown>
         </div>
       </div>
       <div
@@ -158,25 +145,25 @@
             >Informasi Pasien <span class="text-red-600">*</span></a
           >
           <a
-            href="/rekam-medis/{no_rm}/pemeriksaan-igd-poliklinik"
-            class="{activeUrl === 'pemeriksaan-igd-poliklinik'
+            href="/rekam-medis/{no_rm}/pemeriksaan-awal"
+            class="{activeUrl === 'pemeriksaan-awal'
               ? 'font-semibold'
               : ''} text-sm lg:text-md hover:text-gray-500"
-            >Pemeriksaan IGD/Poliklinik <span class="text-red-600">*</span></a
+            >Pemeriksaan Awal <span class="text-red-600">*</span></a
           >
           <a
             href="/rekam-medis/{no_rm}/asesmen-medis-awal"
             class="{activeUrl === 'asesmen-medis-awal'
               ? 'font-semibold'
               : ''} text-sm lg:text-md font-base hover:text-gray-500"
-            >Asesmen Medis Awal <span class="text-red-600">*</span></a
+            >Asesmen Medis Awal</a
           >
           <a
             href="/rekam-medis/{no_rm}/asesmen-rawat-inap"
             class="{activeUrl === 'asesmen-rawat-inap'
               ? 'font-semibold'
               : ''} text-sm lg:text-md font-base hover:text-gray-500"
-            >Asesmen Medis Rawat Inap <span class="text-red-600">*</span></a
+            >Asesmen Medis Rawat Inap</a
           >
           <a
             href="/rekam-medis/{no_rm}/edukasi-pasien"
@@ -201,14 +188,14 @@
             class="{activeUrl === 'hasil-pemeriksaan-penunjang'
               ? 'font-semibold'
               : ''} text-sm lg:text-md font-base hover:text-gray-500"
-            >Hasil Pemeriksaan Penunjang <span class="text-red-600">*</span></a
+            >Hasil Pemeriksaan Penunjang</a
           >
           <a
             href="/rekam-medis/{no_rm}/kopi-resep"
             class="{activeUrl === 'kopi-resep'
               ? 'font-semibold'
               : ''} text-sm lg:text-md font-base hover:text-gray-500"
-            >Kopi Resep <span class="text-red-600">*</span></a
+            >Kopi Resep</a
           >
           <a
             href="/rekam-medis/{no_rm}/catatan-perkembangan-pasien-terintegrasi"

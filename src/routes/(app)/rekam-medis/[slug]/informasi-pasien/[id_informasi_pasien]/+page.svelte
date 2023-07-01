@@ -1,34 +1,30 @@
 <script>
-  import { onMount } from "svelte";
+  import { page } from "$app/stores";
   import {
-  Alert,
-    Breadcrumb,
-    BreadcrumbItem,
     Button,
     Checkbox,
-    Helper,
     Input,
     Label,
-    Modal,
+    Helper,
     Radio,
+    Search,
+    Modal,
     Select,
     Textarea,
   } from "flowbite-svelte";
   import { goto } from "$app/navigation";
   import Swal from "sweetalert2";
-  import { page } from "$app/stores";
+  import { onMount } from 'svelte';
   import axios from 'axios';
   import bpjs from "$lib/images/bpjs.png";
 
-  
-  /** @type {import('./$types').PageData} */
-  export let data;
-  /** @type {import('./$types').ActionData} */
-  export let form;
+  export let data
+  export let form
 
-  let selectedJenisKelamin
+  const no_rm = $page.params.slug;
+  const id_informasi_pasien = $page.params.id_informasi_pasien;
 
-  let selectedAgamaPasien;
+  let SelectedAgamaPasien
   let agamaPasien = [
     { value: "Islam", name: "Islam" },
     { value: "Katolik", name: "Katolik" },
@@ -38,44 +34,54 @@
     { value: "Lain-Lain", name: "Lain-Lain" },
   ];
 
-  const no_rm = $page.params.slug;
-  const qrCodeUrl = $page.url.origin + "/rekam-medis/" + no_rm;
+  let SelectedJenisKelamin
 
-  const handleSubmitInformasiPasien = () => {
-    Swal.fire({
-      title: "Simpan Informasi Pasien?",
-      text: "Mohon berhati-hati, aksi ini bersifat permanen pada database.",
-      showDenyButton: true,
-      showCancelButton: false,
-      confirmButtonText: "Simpan",
-      denyButtonText: `Batal`,
-    }).then((result) => {
-      if (result.isConfirmed) {
-        const form = document.getElementById('form');
-        form.submit()
+  let alamat_ktp = '';
+  let alamat_domisili = '';
+  let isAlamatDomisiliSama = false;
+  const handleAlamat = () => {
+    if(isAlamatDomisiliSama){
+      if(alamat_ktp == ''){
+        isAlamatDomisiliSama = false
+        alert("Alamat KTP Tidak Boleh Kosong!")
+        return
+      }else{
+        alamat_domisili = alamat_ktp;
       }
-    });
+    }else{
+      alamat_domisili = ''
+    }
   };
+
+  let HubunganDenganPasien
 
   let cara_pembayaran
   let nomor_asuransi
-  let status_peserta
   let data_bpjs
   let requiredNomorAsuransi = true
   let requiredStatusPeserta
-  const handleCaraPembayaran = (event) => {
-    if(event.currentTarget.value === 'Umum/Mandiri'){
-      requiredNomorAsuransi = false
-      requiredStatusPeserta = false
-    }
-    cara_pembayaran = event.currentTarget.value;
-    nomor_asuransi = ''
-  };
-
+  
+  let status_peserta
   let statusPeserta = [
     { value: true, name: "Peserta Aktif" },
     { value: false, name: "Peserta Tidak Aktif" },
   ];
+
+  const handleCaraPembayaran = (event) => {
+    if(event.currentTarget.value === 'Umum/Mandiri' || cara_pembayaran === 'Umum/Mandiri'){
+      requiredNomorAsuransi = false
+      requiredStatusPeserta = false
+    }
+    cara_pembayaran = event.currentTarget.value;
+    if(cara_pembayaran === data.informasi_pasien.nama_asuransi){
+      nomor_asuransi = data.informasi_pasien.nomor_asuransi
+      status_peserta = data.informasi_pasien.status_asuransi ? true : false
+    }else{
+      nomor_asuransi = ''
+      status_peserta = ''
+    }
+  };
+
   
   const handleCheckBPJS = async (nik) => {
     const headers = {
@@ -98,42 +104,7 @@
   let SEPModal = false;
 
   
-  let alamat_ktp = '';
-  let alamat_domisili = '';
-  let isAlamatDomisiliSama = false;
-  const handleCheckboxChange = () => {
-    if(isAlamatDomisiliSama){
-      if(alamat_ktp == ''){
-        isAlamatDomisiliSama = false
-        alert("Alamat KTP Tidak Boleh Kosong!")
-        return
-      }else{
-        alamat_domisili = alamat_ktp;
-      }
-    }else{
-      alamat_domisili = ''
-    }
-  };
-
-  let qrcode;
   onMount(() => {
-
-    let script = document.createElement("script");
-    script.src =
-      "https://cdn.rawgit.com/davidshimjs/qrcodejs/gh-pages/qrcode.min.js";
-    document.head.append(script);
-
-    script.onload = function () {
-      qrcode = new QRCode("qrcode", {
-        text: qrCodeUrl,
-        width: 80,
-        height: 80,
-        colorDark: "#000000",
-        colorLight: "#ffffff",
-        correctLevel: QRCode.CorrectLevel.H,
-      }); 
-    };
-    
     if (form?.error) {
       Swal.fire({
         text: form.message,
@@ -143,160 +114,99 @@
       });
     }
 
-    if(data?.patient){
-      selectedAgamaPasien = data.patient.agama
-      selectedJenisKelamin = data.patient.jenis_kelamin
-    }
+    if(data){
+      SelectedAgamaPasien = data.informasi_pasien.agama
+      SelectedJenisKelamin = data.informasi_pasien.jenis_kelamin
+      alamat_ktp = data.informasi_pasien.alamat_ktp
+      alamat_domisili = data.informasi_pasien.alamat_domisili
+      isAlamatDomisiliSama = data.informasi_pasien.alamat_domisili === data.informasi_pasien.alamat_ktp ? true : false
 
-    setTimeout(() => {
-      const divElement = document.getElementById('scrollToDiv');
-      if (divElement) {
-        divElement.scrollIntoView({ behavior: 'smooth' });
-      }
-    }, 2000);
+      HubunganDenganPasien = data.informasi_pasien.hubungan_dengan_pasien
+
+      cara_pembayaran = data.informasi_pasien.nama_asuransi
+      nomor_asuransi = data.informasi_pasien.nomor_asuransi
+      status_peserta = data.informasi_pasien.status_asuransi ? true : false
+    }
   });
+
+  const handleSubmit = (no_rm) => {
+    Swal.fire({
+      title: "Simpan & Perbarui Informasi Pasien?",
+      text: "Mohon berhati-hati, aksi ini bersifat permanen pada database.",
+      showDenyButton: true,
+      showCancelButton: false,
+      confirmButtonText: "Simpan",
+      denyButtonText: `Batal`,
+    }).then((result) => {
+      if (result.isConfirmed) {
+        const form = document.getElementById('form');
+        form.submit()
+      }
+    });
+  };
 </script>
 
-<div class="overflow-y-auto relative max-h-screen p-6 sm:p-10 space-y-6">
-  <Breadcrumb
-    class="mt-10 overflow-x-auto"
-    aria-label="Solid background breadcrumb example"
-    solid
-  >
-    <BreadcrumbItem
-      spanClass="text-xs  ml-1 font-medium text-gray-500 md:ml-2 dark:text-gray-400"
-      homeClass="inline-flex items-center text-xs font-medium text-gray-700 hover:text-gray-900 dark:text-gray-400 dark:hover:text-white"
-      href="/"
-      home>Dashboard</BreadcrumbItem
+<main>
+  <form id="form" on:submit|preventDefault={() => handleSubmit(no_rm)} method="post">
+    <div
+      class="flex flex-wrap sm:flex-nowrap items-center justify-between gap-2"
     >
-    <BreadcrumbItem
-      spanClass="text-xs  ml-1 font-medium text-gray-500 md:ml-2 dark:text-gray-400"
-      >Loket Pasien</BreadcrumbItem
-    >
-    <BreadcrumbItem
-      spanClass="text-xs  ml-1 font-medium text-gray-500 md:ml-2 dark:text-gray-400"
-      >Admisi Rawat Inap</BreadcrumbItem
-    >
-  </Breadcrumb>
-  {#if data?.bpjs.length > 0}
-    <Alert color="green" dismissable>
-      <svg slot="icon" aria-hidden="true" class="w-5 h-5" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path fill-rule="evenodd" d="M18 10a8 8 0 11-16 0 8 8 0 0116 0zm-7-4a1 1 0 11-2 0 1 1 0 012 0zM9 9a1 1 0 000 2v3a1 1 0 001 1h1a1 1 0 100-2v-3a1 1 0 00-1-1H9z" clip-rule="evenodd"></path></svg>
-      Pasien terdeteksi sebagai peserta Layanan BPJS, <a href="#scrollToDiv" class="underline hover:font-weight-500">Check NIK</a> untuk memeriksa Surat Eligibelitas Peserta.
-    </Alert>
-  {/if}
-  <section>
-    <form id="form" on:submit|preventDefault={handleSubmitInformasiPasien} method="POST">
-      <div class="px-4 py-6 bg-gray-50 dark:bg-gray-800 shadow rounded-lg">
-        <div
-          class="flex flex-wrap justify-center lg:justify-between items-center"
-        >
-          <div class="grid grid-cols-2 gap-1">
-            <p
-              class="text-lg sm:text-xl md:text-2xl font-semibold col-span-2"
-            >
-              Pendaftaran Rawat Inap
-            </p>
-            <p class="text-red-500 text-xs lg:text-sm">(*) Wajib diisi.</p>
-            <div class="flex flex-wrap gap-2 items-center col-span-2">
-              <Button
-                class="w-fit text-sm sm:text-md lg:text-md"
-                size="md"
-                type="submit"
-                color="green">Daftarkan Pasien</Button
-              >
-              <Button
-                class="w-fit lg:order-first text-sm sm:text-md lg:text-md"
-                href="/pendaftaran/loket-pasien"
-                size="md"
-                color="yellow">Kembali</Button
-              >
-            </div>
-          </div>
-          <div class="p-4 border border-gray-300 w-max h-fit">
-            <div class="flex justify-between items-center gap-2 sm:gap-6">
-              <div class="font-bold text-xs">
-                <p class="my-1">No. RM: {no_rm}</p>
-                <p class="my-1 uppercase">{data?.patient.name} ({data?.patient.jenis_kelamin === 'Laki-Laki' ? 'L' : 'P'}) {data?.patient.umur+'th' ?? ''}</p>
-                <p class="my-1">Tgl. Lahir: {data?.patient.tanggal_lahir}</p>
-                <p class="my-1">{data?.patient.alamat_ktp}</p>
-              </div>
-              <div id="qrcode" />
-            </div>
-          </div>
-        </div>
-        <hr class="my-4 border-slate-500" />
-        <div class="my-2 border-b border-slate-500 py-4 px-2">
-          <p class="text-lg font-medium italic">Identitas Pasien</p>
-          <div
-            class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 py-2"
-          >
+      <div>
+        <p class="text-md sm:text-lg lg:text-xl font-semibold">
+          Informasi Pasien
+        </p>
+        <p class="text-red-500 text-sm">(*) Wajib diisi.</p>
+      </div>
+      <Button type="submit" size="sm" color="green">Simpan Perubahan</Button>
+    </div>
+    <hr class="my-5" />
+    <div class="overflow-y-auto max-h-screen">
+      <div class="border border-slate-300 rounded p-4 w-full">
+        <p class="text-xl font-semibold">Biodata Pasien</p>
+        <hr class="my-2" />
+        <div class="mb-2">
+          <p class="text-md sm:text-lg font-medium italic">Identitas</p>
+          <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 py-2">
             <div class="grouphelperPagination">
-              <Label for="" class="block mb-2"
-                >Nomor Rekam Medis: <span class="italic">(Auto-Generated)</span>
-                <span class="text-red-500 text-lg">*</span></Label
+              <Label for="no_rekam_medis" class="block mb-2"
+                >Nomor Rekam Medis: <span class="text-red-500 text-lg">*</span
+                ></Label
               >
               <Input
                 id="no_rekam_medis"
                 name="no_rekam_medis"
                 placeholder="Masukkan nomor rekam medis pasien"
-                value={no_rm}
-                readonly
+                value={data?.informasi_pasien.no_rekam_medis}
                 disabled
               />
             </div>
             <div class="grouphelperPagination">
-              <Label for="" class="block mb-2"
+              <Label for="name" class="block mb-2"
                 >Nama Lengkap Pasien: <span class="text-red-500 text-lg">*</span
                 ></Label
               >
               <Input
-                id="nama_lengkap"
-                name="nama_lengkap"
-                value={data?.patient.name}
+                required
+                id="name"
+                name="name"
                 placeholder="Masukkan nama lengkap pasien"
-                readonly
-                disabled
+                value={data?.informasi_pasien.name}
               />
             </div>
             <div class="grouphelperPagination">
-              <Label for="" class="block mb-2"
-                >NIK Pasien: <span class="text-red-500 text-lg">*</span
-                ></Label
-              >
-              <Input
-                id="nik"
-                name="nik"
-                value={data?.patient.nik}
-                placeholder="Masukkan nama lengkap pasien"
-                readonly
-                disabled
-              />
-            </div>
-            <div class="grouphelperPagination">
-              <Label for="" class="block mb-2"
+              <Label for="umur" class="block mb-2"
                 >Umur: <span class="text-red-500 text-lg">*</span></Label
               >
-              <Input
-                id="umur"
-                name="umur"
-                placeholder="Masukkan umur pasien"
-                value={data?.patient.umur}
-                readonly
-                disabled
-              />
+              <Input type="number" id="umur" name="umur" placeholder="Masukkan umur pasien" value={data?.informasi_pasien.umur} required/>
             </div>
             <div class="grouphelperPagination">
               <Label for="" class="block mb-2"
                 >Jenis Kelamin: <span class="text-red-500 text-lg">*</span
                 ></Label
               >
-              <div class="flex flex-col gap-2">
-                <Radio id="jenis_kelamin" name="jenis_kelamin"
-                disabled
-                checked={selectedJenisKelamin === 'Laki-Laki' ? true : false }>Laki-Laki</Radio>
-                <Radio name="jenis_kelamin"
-                disabled
-                checked={selectedJenisKelamin === 'Perempuan' ? true : false }>Perempuan</Radio>
+              <div class="flex gap-2">
+                <Radio checked={SelectedJenisKelamin === 'Laki-Laki' ? true : false} name="jenis_kelamin" value="Laki-Laki">Laki-Laki</Radio>
+                <Radio checked={SelectedJenisKelamin === 'Perempuan' ? true : false} name="jenis_kelamin" value="Perempuan">Perempuan</Radio>
               </div>
             </div>
             <div class="grouphelperPagination">
@@ -307,94 +217,80 @@
               >
               <div class="flex gap-2">
                 <Input
+                  required
                   id="tempat_lahir"
                   name="tempat_lahir"
                   placeholder="Masukkan tempat"
-                  value={data?.patient.tempat_lahir}
-                  readonly
-                  disabled
+                  value={data?.informasi_pasien.tempat_lahir}
                 />
-                <Input
-                  id="tanggal_lahir"
-                  name="tanggal_lahir"
-                  type="date"
-                  value={data?.patient.tanggal_lahir}
-                  readonly
-                  disabled
-                />
+                <Input id="tanggal_lahir" name="tanggal_lahir" type="date" value={data?.informasi_pasien.tanggal_lahir} required/>
               </div>
             </div>
             <div class="grouphelperPagination">
-              <Label for="" class="block mb-2"
+              <Label for="no_hp" class="block mb-2"
                 >Nomor Telepon/HP: <span class="text-red-500 text-lg">*</span
                 ></Label
               >
               <Input
-                id="no_telp_pasien"
-                name="no_telp_pasien"
+                required
+                id="no_hp"
+                name="no_hp"
                 placeholder="Masukkan nomor telepon / HP pasien"
-                value={data?.patient.no_hp}
-                readonly
-                disabled
+                value={data?.informasi_pasien.no_hp}
               />
             </div>
             <div class="grouphelperPagination">
-              <Label for=""
+              <Label
                 >Agama: <span class="text-red-500 text-lg">*</span>
-                <Select
-                  id="agama"
-                  disabled
-                  name="agama"
-                  class="mt-2"
-                  items={agamaPasien}
-                  bind:value={selectedAgamaPasien}
-                />
+                <Select required name="agama" class="mt-2" items={agamaPasien} bind:value={SelectedAgamaPasien}/>
               </Label>
             </div>
             <div class="grouphelperPagination">
-              <Label for="" class="block mb-2"
+              <Label for="alamat_ktp" class="block mb-2"
                 >Alamat KTP: <span class="text-red-500 text-lg">*</span></Label
               >
-              <Input
-                id="alamat_ktp"
-                name="alamat_ktp"
-                value={data?.patient.alamat_ktp}
-                readonly
-                disabled
+              <Textarea
+                required
+                name="alamat_tempat_tinggal"
+                id="alamat_tempat_tinggal"
+                placeholder="Masukkan alamat tempat tinggal pasien"
+                bind:value={alamat_ktp}
+                rows="1"
               />
             </div>
             <div class="grouphelperPagination">
-              <Label for="" class="block mb-2"
+              <Label for="alamat_tempat_tinggal" class="block mb-2"
                 >Alamat Domisili Tempat Tinggal: <span
                   class="text-red-500 text-lg">*</span
                 ></Label
               >
-              <Input
-                id="alamat_domisili"
+              <Textarea
                 name="alamat_domisili"
-                value={data?.patient.alamat_domisili}
-                readonly
-                disabled
+                id="alamat_domisili"
+                placeholder="Masukkan alamat sesuai domisili pasien"
+                bind:value={alamat_domisili}
+                rows="2"
               />
-              <Checkbox disabled checked={data?.patient.alamat_ktp === data?.patient.alamat_domisili ? true : false}>Alamat domisili sama dengan KTP</Checkbox>
+              <Checkbox on:change={handleAlamat} bind:checked={isAlamatDomisiliSama}>Alamat domisili sama dengan KTP</Checkbox>
             </div>
           </div>
         </div>
-        <div id="scrollToDiv" class="my-2 border-b border-slate-500 py-4 px-2">
-          <p class="text-lg font-medium italic">Identitas Penanggung Jawab</p>
-          <div
-            class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 py-2 mb-2"
-          >
+        <div class="mb-2">
+          <p class="text-md sm:text-lg font-medium italic">
+            Identitas Penanggung Jawab
+          </p>
+          <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 py-2 mb-2 border-b">
             <div class="grouphelperPagination">
-              <Label for="" class="block mb-2"
+              <Label for="nama_penanggungjawab" class="block mb-2"
                 >Penanggung Jawab: <span class="text-red-500 text-lg">*</span
                 ></Label
               >
               <Input
+                required
                 id="nama_penanggungjawab"
                 name="nama_penanggungjawab"
+                value={data?.informasi_pasien.nama_penanggungjawab}
                 placeholder="Masukkan nama penanggung jawab pasien"
-                required
               />
             </div>
             <div class="grouphelperPagination">
@@ -404,19 +300,19 @@
                 ></Label
               >
               <div class="flex flex-wrap gap-2">
-                <Radio name="hubungan_dengan_pasien" value="Orang Tua" required
+                <Radio checked={HubunganDenganPasien === 'Orang Tua' ? true : false} required name="hubungan_dengan_pasien" value="Orang Tua"
                   >Orang Tua</Radio
                 >
-                <Radio name="hubungan_dengan_pasien" value="Anak" required>Anak</Radio>
-                <Radio name="hubungan_dengan_pasien" value="Suami/Istri"
-                required>Suami/Istri</Radio
+                <Radio checked={HubunganDenganPasien === 'Anak' ? true : false} required name="hubungan_dengan_pasien" value="Anak">Anak</Radio>
+                <Radio checked={HubunganDenganPasien === 'Suami/Istri' ? true : false} required name="hubungan_dengan_pasien" value="Suami/Istri"
+                  >Suami/Istri</Radio
                 >
-                <Radio name="hubungan_dengan_pasien" value="Keluarga"
-                required>Keluarga</Radio
+                <Radio checked={HubunganDenganPasien === 'Keluarga' ? true : false} required name="hubungan_dengan_pasien" value="Keluarga"
+                  >Keluarga</Radio
                 >
-                <Radio name="hubungan_dengan_pasien" value="Teman" required>Teman</Radio>
-                <Radio name="hubungan_dengan_pasien" value="Lain-Lain"
-                required>Lain-Lain</Radio
+                <Radio checked={HubunganDenganPasien === 'Teman' ? true : false} required name="hubungan_dengan_pasien" value="Teman">Teman</Radio>
+                <Radio checked={HubunganDenganPasien === 'Lain-Lain' ? true : false} required name="hubungan_dengan_pasien" value="Lain-Lain"
+                  >Lain-Lain</Radio
                 >
               </div>
             </div>
@@ -427,10 +323,9 @@
               <Textarea
                 name="alamat_ktp_penanggungjawab"
                 id="alamat_ktp_penanggungjawab"
+                value={data?.informasi_pasien.alamat_domisili_penanggungjawab}
                 placeholder="Masukkan alamat sesuai ktp penanggung jawab pasien"
                 rows="2"
-                bind:value={alamat_ktp}
-                required
               />
             </div>
             <div class="grouphelperPagination">
@@ -440,31 +335,33 @@
                 ></Label
               >
               <Textarea
+                required
                 name="alamat_domisili_penanggungjawab"
                 id="alamat_domisili_penanggungjawab"
+                value={data?.informasi_pasien.alamat_domisili_penanggungjawab}
                 placeholder="Masukkan alamat tempat tinggal penanggung jawab pasien"
                 rows="2"
-                bind:value={alamat_domisili}
-                required
               />
-              <Checkbox on:change={handleCheckboxChange} bind:checked={isAlamatDomisiliSama}>Alamat domisili sama dengan KTP</Checkbox>
             </div>
             <div class="grouphelperPagination">
-              <Label for="no_hp_penanggungjawab" class="block mb-2"
+              <Label for="no_telp_pj" class="block mb-2"
                 >Nomor Telepon/HP: <span class="text-red-500 text-lg">*</span
                 ></Label
               >
               <Input
+                required
                 id="no_hp_penanggungjawab"
                 name="no_hp_penanggungjawab"
+                value={data?.informasi_pasien.no_hp_penanggungjawab}
                 placeholder="Masukkan nomor telepon / HP penanggung jawab pasien"
-                required
               />
             </div>
           </div>
         </div>
-        <div class="mb-2 border-b border-slate-500 py-4 px-2">
-          <p class="text-lg font-medium italic">Asuransi & Pembayaran</p>
+        <div class="mb-2">
+          <p class="text-md sm:text-lg font-medium italic">
+            Asuransi & Pembayaran
+          </p>
           <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 py-2">
             <div class="grouphelperPagination">
               <Label for="" class="block mb-2"
@@ -591,6 +488,6 @@
           </div>
         </div>
       </div>
-    </form>
-  </section>
-</div>
+    </div>
+  </form>
+</main>

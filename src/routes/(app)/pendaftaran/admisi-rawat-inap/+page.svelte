@@ -1,111 +1,23 @@
 <script>
   import { page } from "$app/stores";
   import { goto } from "$app/navigation";
-  import { Breadcrumb, BreadcrumbItem } from "flowbite-svelte";
+  import { Breadcrumb, BreadcrumbItem, Spinner } from "flowbite-svelte";
   import Pasien from "./Pasien.svelte";
   import "../../tableCustom.css";
   import { DataHandler, Datatable, Th, ThFilter } from "@vincjo/datatables";
+  import { onMount } from "svelte";
 
-  let dummyUsers = [
-    {
-      no_rm: "0000012023",
-      nama_pasien: "Jon Snow",
-      nik: "35730512371391",
-      jenis_kelamin: "Laki-Laki",
-      ttl: "Malang, 02 Juni 2000",
-      alamat: "Jln. Mayjend Pandjaitan No. 22",
-      cara_pembayaran: "BPJS",
-      nama_asuransi: "BPJS",
-      no_asuransi: "71623198313",
-      status_asuransi: "Aktif",
-    },
-    {
-      no_rm: "0000012023",
-      nama_pasien: "Jon Snow",
-      nik: "35730512371391",
-      jenis_kelamin: "Laki-Laki",
-      ttl: "Malang, 02 Juni 2000",
-      alamat: "Jln. Mayjend Pandjaitan No. 22",
-      cara_pembayaran: "BPJS",
-      nama_asuransi: "BPJS",
-      no_asuransi: "71623198313",
-      status_asuransi: "Aktif",
-    },
-    {
-      no_rm: "0000012023",
-      nama_pasien: "Jon Snow",
-      nik: "35730512371391",
-      jenis_kelamin: "Laki-Laki",
-      ttl: "Malang, 02 Juni 2000",
-      alamat: "Jln. Mayjend Pandjaitan No. 22",
-      cara_pembayaran: "BPJS",
-      nama_asuransi: "BPJS",
-      no_asuransi: "71623198313",
-      status_asuransi: "Aktif",
-    },
-    {
-      no_rm: "0000012023",
-      nama_pasien: "Jon Snow",
-      nik: "35730512371391",
-      jenis_kelamin: "Laki-Laki",
-      ttl: "Malang, 02 Juni 2000",
-      alamat: "Jln. Mayjend Pandjaitan No. 22",
-      cara_pembayaran: "Umum/Mandiri",
-      nama_asuransi: null,
-      no_asuransi: null,
-      status_asuransi: null,
-    },
-    {
-      no_rm: "0000012023",
-      nama_pasien: "Jon Snow",
-      nik: "35730512371391",
-      jenis_kelamin: "Laki-Laki",
-      ttl: "Malang, 02 Juni 2000",
-      alamat: "Jln. Mayjend Pandjaitan No. 22",
-      cara_pembayaran: "Lainnya",
-      nama_asuransi: "Prudential",
-      no_asuransi: "214142352",
-      status_asuransi: "Aktif",
-    },
-    {
-      no_rm: "0000012023",
-      nama_pasien: "Jon Snow",
-      nik: "35730512371391",
-      jenis_kelamin: "Laki-Laki",
-      ttl: "Malang, 02 Juni 2000",
-      alamat: "Jln. Mayjend Pandjaitan No. 22",
-      cara_pembayaran: "Umum/Mandiri",
-      nama_asuransi: null,
-      no_asuransi: null,
-      status_asuransi: null,
-    },
-    {
-      no_rm: "0000012023",
-      nama_pasien: "Jon Snow",
-      nik: "35730512371391",
-      jenis_kelamin: "Laki-Laki",
-      ttl: "Malang, 02 Juni 2000",
-      alamat: "Jln. Mayjend Pandjaitan No. 22",
-      cara_pembayaran: "Umum/Mandiri",
-      nama_asuransi: null,
-      no_asuransi: null,
-      status_asuransi: null,
-    },
-    {
-      no_rm: "0000012023",
-      nama_pasien: "Jon Snow",
-      nik: "35730512371391",
-      jenis_kelamin: "Laki-Laki",
-      ttl: "Malang, 02 Juni 2000",
-      alamat: "Jln. Mayjend Pandjaitan No. 22",
-      cara_pembayaran: "Lainnya",
-      nama_asuransi: "Prudential",
-      no_asuransi: "214142352",
-      status_asuransi: "Aktif",
-    },
-  ];
+  /** @type {import('./$types').PageData} */
+  export let data;
+  let isLoading = true;
+  
+  onMount(async () => {
+    setTimeout(async () => {
+      isLoading = false
+    }, 2000);
+  });
 
-  const handler = new DataHandler(dummyUsers, { rowsPerPage: 10 });
+  const handler = new DataHandler(data?.patients, { rowsPerPage: 10 });
   const rows = handler.getRows();
 </script>
 
@@ -135,36 +47,40 @@
       <p class="text-xl font-semibold">Antrean Pasien Admisi Rawat Inap</p>
     </div>
     <hr class="my-5" />
-    <section class="table-section">
-      <Datatable {handler}>
-        <table>
-          <thead>
-            <tr>
-              <Th {handler} orderBy="no">No</Th>
-              <Th {handler} orderBy="no_rm">No Rekam Medis</Th>
-              <Th {handler} orderBy="nik">NIK</Th>
-              <Th {handler} orderBy="nama_pasien">Nama</Th>
-              <Th {handler} orderBy="cara_pembayaran">Asuransi</Th>
-              <Th {handler} orderBy="aksi">Aksi</Th>
-            </tr>
-          </thead>
-          <tbody>
-            {#each $rows as { no_rm, nama_pasien, nik, jenis_kelamin, cara_pembayaran, nama_asuransi, status_asuransi, no_asuransi }, i}
-              <Pasien
-                tableRowNumber={i + 1}
-                {no_rm}
-                {nama_pasien}
-                {nik}
-                {jenis_kelamin}
-                {cara_pembayaran}
-                {nama_asuransi}
-                {no_asuransi}
-                {status_asuransi}
-              />
-            {/each}
-          </tbody>
-        </table>
-      </Datatable>
-    </section>
+    {#if isLoading}
+      <div class="text-center">
+        <Spinner />
+      </div>
+    {:else}
+      <section class="table-section">
+        <Datatable {handler}>
+          <table>
+            <thead>
+              <tr>
+                <Th {handler} orderBy="no">No Antrean</Th>
+                <Th {handler} orderBy="no_rm">No Rekam Medis</Th>
+                <Th {handler} orderBy="nama_pasien">Nama</Th>
+                <Th {handler} orderBy="nik">NIK</Th>
+                <Th {handler} orderBy="nama_asuransi">Asuransi</Th>
+                <Th {handler} orderBy="aksi">Aksi</Th>
+              </tr>
+            </thead>
+            <tbody>
+              {#each $rows as { name, no_rekam_medis, nik, nama_asuransi, nomor_asuransi, status_asuransi }, i}
+                <Pasien
+                  tableRowNumber={i + 1}
+                  {name}
+                  {no_rekam_medis}
+                  {nik}
+                  {nama_asuransi}
+                  {nomor_asuransi}
+                  {status_asuransi}
+                />
+              {/each}
+            </tbody>
+          </table>
+        </Datatable>
+      </section>
+    {/if}
   </div>
 </div>

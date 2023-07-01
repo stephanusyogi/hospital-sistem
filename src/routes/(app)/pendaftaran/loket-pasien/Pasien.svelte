@@ -1,12 +1,13 @@
 <script>
-  export let tableRowNumber, no_rm, nama_pasien, nik, jenis_kelamin, alamat;
+  export let tableRowNumber, no_rekam_medis, name, nik, jenis_kelamin, alamat_ktp;
   import { Button } from "flowbite-svelte";
   import { goto } from "$app/navigation";
   import Swal from "sweetalert2";
+
   const handlePasien = (id) => {
     Swal.fire({
       title: "Daftarkan Pasien Berikut Ke Admisi Rawat Inap?",
-      html: "<p>No. RM: 000012023</p><p>Nama: Jon Snow</p>",
+      html: `<p>No. RM: ${no_rekam_medis}</p><p>Nama: ${name}</p>`,
       showDenyButton: true,
       showCancelButton: false,
       confirmButtonText: "Daftarkan ke Admisi",
@@ -14,13 +15,6 @@
     }).then((result) => {
       if (result.isConfirmed) {
         goto(`/pendaftaran/loket-pasien/${id}`);
-      } else if (result.isDenied) {
-        Swal.fire({
-          icon: "info",
-          title: "Aksi Dibatalkan",
-          showConfirmButton: false,
-          timer: 1000,
-        });
       }
     });
   };
@@ -28,20 +22,20 @@
 
 <tr>
   <td>{tableRowNumber}</td>
-  <td>{no_rm}</td>
+  <td>{no_rekam_medis}</td>
   <td>{nik}</td>
   <td
-    >{nama_pasien} ,<span class="italic"
+    >{name} ,<span class="italic"
       >{jenis_kelamin === "Perempuan" ? "Nn." : "Tn."}</span
     ></td
   >
-  <td>{alamat}</td>
+  <td>{alamat_ktp}</td>
   <td>
     <Button
-      class="text-xs sm:text-md lg:text-lg"
+      class="text-xs sm:text-md lg:text-md"
       color="green"
       on:click={() => {
-        handlePasien("0000012023");
+        handlePasien(no_rekam_medis);
       }}
     >
       Pilih

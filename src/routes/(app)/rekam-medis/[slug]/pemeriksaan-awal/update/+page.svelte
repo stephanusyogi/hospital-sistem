@@ -140,7 +140,7 @@
 
   const handleSubmit = (no_rm) => {
     Swal.fire({
-      title: "Simpan & Perbarui Pemeriksaan IGD/Poliklinik?",
+      title: "Simpan & Perbarui Pemeriksaan Awal?",
       text: "Mohon berhati-hati, aksi ini bersifat permanen pada database.",
       showDenyButton: true,
       showCancelButton: false,
@@ -150,11 +150,11 @@
       if (result.isConfirmed) {
         Swal.fire({
           icon: "success",
-          title: "Pemeriksaan IGD/Poliklinik Disimpan & Diperbarui",
+          title: "Pemeriksaan Awal Disimpan & Diperbarui",
           showConfirmButton: false,
           timer: 1000,
         }).then(() => {
-          goto(`/rekam-medis/${no_rm}/pemeriksaan-igd-poliklinik`);
+          goto(`/rekam-medis/${no_rm}/pemeriksaan-awal`);
         });
       } else if (result.isDenied) {
         Swal.fire({
@@ -173,7 +173,7 @@
     <div class="flex flex-wrap sm:flex-nowrap items-center justify-between">
       <div>
         <p class="text-md sm:text-lg lg:text-xl font-semibold">
-          Pemeriksaan IGD/Poliklinik
+          Pemeriksaan Awal
         </p>
         <p class="text-red-500 text-sm">(*) Wajib diisi.</p>
       </div>

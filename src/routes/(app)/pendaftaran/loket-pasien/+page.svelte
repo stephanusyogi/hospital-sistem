@@ -1,78 +1,22 @@
 <script>
-  import { Breadcrumb, BreadcrumbItem, Button } from "flowbite-svelte";
+  import { Breadcrumb, BreadcrumbItem, Button, Spinner } from "flowbite-svelte";
+  import { onMount } from 'svelte';
   import "../../tableCustom.css";
   import Pasien from "./Pasien.svelte";
   import { DataHandler, Datatable, Th } from "@vincjo/datatables";
   import "../../tableCustom.css";
 
-  let dummyUsers = [
-    {
-      no_rm: "0000012021",
-      nama_pasien: "Jon Snow",
-      nik: "35730512371391",
-      jenis_kelamin: "Laki-Laki",
-      ttl: "Malang, 02 Juni 2000",
-      alamat: "Jln. Mayjend Pandjaitan No. 22",
-    },
-    {
-      no_rm: "0000012022",
-      nama_pasien: "Jon Snow",
-      nik: "35730512371391",
-      jenis_kelamin: "Laki-Laki",
-      ttl: "Malang, 02 Juni 2000",
-      alamat: "Jln. Mayjend Pandjaitan No. 22",
-    },
-    {
-      no_rm: "0000012024",
-      nama_pasien: "Jon Snow",
-      nik: "35730512371391",
-      jenis_kelamin: "Laki-Laki",
-      ttl: "Malang, 02 Juni 2000",
-      alamat: "Jln. Mayjend Pandjaitan No. 22",
-    },
-    {
-      no_rm: "0000012023",
-      nama_pasien: "Jon Snow",
-      nik: "35730512371391",
-      jenis_kelamin: "Laki-Laki",
-      ttl: "Malang, 02 Juni 2000",
-      alamat: "Jln. Mayjend Pandjaitan No. 22",
-    },
-    {
-      no_rm: "0000012023",
-      nama_pasien: "Jon Snow",
-      nik: "35730512371391",
-      jenis_kelamin: "Laki-Laki",
-      ttl: "Malang, 02 Juni 2000",
-      alamat: "Jln. Mayjend Pandjaitan No. 22",
-    },
-    {
-      no_rm: "0000012023",
-      nama_pasien: "Jon Snow",
-      nik: "35730512371391",
-      jenis_kelamin: "Laki-Laki",
-      ttl: "Malang, 02 Juni 2000",
-      alamat: "Jln. Mayjend Pandjaitan No. 22",
-    },
-    {
-      no_rm: "0000012023",
-      nama_pasien: "Jon Snow",
-      nik: "35730512371391",
-      jenis_kelamin: "Laki-Laki",
-      ttl: "Malang, 02 Juni 2000",
-      alamat: "Jln. Mayjend Pandjaitan No. 22",
-    },
-    {
-      no_rm: "0000012023",
-      nama_pasien: "Jon Snow",
-      nik: "35730512371391",
-      jenis_kelamin: "Laki-Laki",
-      ttl: "Malang, 02 Juni 2000",
-      alamat: "Jln. Mayjend Pandjaitan No. 22",
-    },
-  ];
+  /** @type {import('./$types').PageData} */
+  export let data;
+  let isLoading = true;
 
-  const handler = new DataHandler(dummyUsers, { rowsPerPage: 10 });
+  onMount(async () => {
+    setTimeout(async () => {
+      isLoading = false
+    }, 2000);
+  });
+
+  const handler = new DataHandler(data?.patients, { rowsPerPage: 10 });
   const rows = handler.getRows();
 </script>
 
@@ -103,8 +47,8 @@
         Loket Pendaftaran Pasien
       </p>
       <Button
-        class="text-xs sm:text-md lg:text-lg"
-        size="sm"
+        class="text-xs sm:text-md lg:text-md"
+        size="xs"
         href="/pendaftaran/pasien-baru"
       >
         <svg
@@ -126,33 +70,39 @@
       </Button>
     </div>
     <hr class="my-5" />
-    <section class="table-section">
-      <Datatable {handler}>
-        <table>
-          <thead>
-            <tr>
-              <Th {handler} orderBy="no">No</Th>
-              <Th {handler} orderBy="no_rm">No Rekam Medis</Th>
-              <Th {handler} orderBy="nik">NIK</Th>
-              <Th {handler} orderBy="nama_pasien">Nama</Th>
-              <Th {handler} orderBy="alamat">Alamat</Th>
-              <Th {handler} orderBy="aksi">Aksi</Th>
-            </tr>
-          </thead>
-          <tbody>
-            {#each $rows as { no_rm, nama_pasien, nik, jenis_kelamin, alamat }, i}
-              <Pasien
-                tableRowNumber={i + 1}
-                {no_rm}
-                {nama_pasien}
-                {nik}
-                {jenis_kelamin}
-                {alamat}
-              />
-            {/each}
-          </tbody>
-        </table>
-      </Datatable>
-    </section>
+    {#if isLoading}
+      <div class="text-center">
+        <Spinner />
+      </div>
+    {:else}
+      <section class="table-section">
+        <Datatable {handler}>
+          <table>
+            <thead>
+              <tr>
+                <Th {handler} orderBy="no">No.</Th>
+                <Th {handler} orderBy="no_rm">No Rekam Medis</Th>
+                <Th {handler} orderBy="nik">NIK</Th>
+                <Th {handler} orderBy="nama_pasien">Nama</Th>
+                <Th {handler} orderBy="alamat">Alamat</Th>
+                <Th {handler} orderBy="aksi">Aksi</Th>
+              </tr>
+            </thead>
+            <tbody>
+              {#each $rows as { no_rekam_medis, name, nik, jenis_kelamin, alamat_ktp }, i}
+                <Pasien
+                  tableRowNumber={i + 1}
+                  {no_rekam_medis}
+                  {name}
+                  {nik}
+                  {jenis_kelamin}
+                  {alamat_ktp}
+                />
+              {/each}
+            </tbody>
+          </table>
+        </Datatable>
+      </section>
+    {/if}
   </div>
 </div>

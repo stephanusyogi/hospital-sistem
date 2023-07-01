@@ -686,5 +686,23 @@
         </div>
       </div>
     </div>
+    <div class="border border-slate-300 rounded p-4 w-full">
+      <p class="text-xl font-semibold">Bagian 2: Analisa</p>
+      <hr class="my-2" />
+      <div class="mb-2">
+        <p class="text-lg font-semibold italic">Diagnosa Keperawatan (Urutan Menunjukan Prioritas)</p>
+        <div class="grid grid-cols-1 gap-2 sm:gap-6 py-2">
+          <div
+            class="grid grid-cols-1 gap-2 sm:gap-6 border p-4 text-sm sm:col-span-2"
+          >
+            <ul class="space-y-1 font-light list-disc list-inside dark:text-gray-400">
+              <li>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Cras vel</li>
+              <li>Proin mauris eros, hendrerit euismod faucibus sed</li>
+              <li>Etiam consectetur eleifend fermentum</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
   </div>
 </main>

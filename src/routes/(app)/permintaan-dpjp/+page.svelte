@@ -113,17 +113,17 @@
             <tbody>
               <tr>
                 <td>
-                  <div class="flex flex-wrap sm:flex-nowrap gap-4">
-                    <Button color="green" on:click={() => approveModal = true}>
+                  <div class="flex flex-wrap sm:flex-nowrap gap-2">
+                    <Button class="w-fit" color="green" on:click={() => approveModal = true}>
                       <Icon icon="mdi:approve" />
                     </Button>
-                    <Button color="red" on:click={() => cancelModal = true}>
+                    <Button class="w-fit" color="red" on:click={() => cancelModal = true}>
                       <Icon icon="material-symbols:cancel" />
                     </Button>
                   </div>
                 </td>
                 <td>
-                  <Button size="xs" href="/rekam-medis/0000012023">Rekam Medis</Button>
+                  <Button size="xs" href="/rekam-medis/0000012023">Rekam Medis Pasien</Button>
                 </td>
                 <td>Jon Snow</td>
                 <td>3571937091301123</td>

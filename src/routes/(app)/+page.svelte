@@ -6,6 +6,7 @@
   /** @type {import('./$types').PageData} */
   export let data;
   const user_data = data?.user_data;
+  const dashboard = data?.dashboard;
 </script>
 
 <div class="overflow-y-auto relative max-h-screen p-6 sm:p-10 space-y-6">
@@ -31,7 +32,7 @@
               loop
               autoplay
             />
-          {:else if user_data?.role === "Farmasi"}
+          {:else if user_data?.role === "Apoteker"}
             <lottie-player
               id="lottie-image"
               src="https://assets1.lottiefiles.com/packages/lf20_dgw6g3d8.json"
@@ -61,7 +62,7 @@
               <Icon icon="healthicons:outpatient" width="40" height="40" />
             </div>
             <div>
-              <span class="block text-2xl font-semibold">189</span>
+              <span class="block text-2xl font-semibold">{dashboard.pasien}</span>
               <span class="block text-lg text-gray-500">Pasien</span>
             </div>
           </div>
@@ -72,7 +73,7 @@
               <Icon icon="fa6-solid:user-doctor" width="40" height="40" />
             </div>
             <div>
-              <span class="block text-2xl font-semibold">45</span>
+              <span class="block text-2xl font-semibold">{dashboard.dokter}</span>
               <span class="block text-lg text-gray-500">Dokter</span>
             </div>
           </div>
@@ -83,7 +84,7 @@
               <Icon icon="mdi:doctor" width="40" height="40" />
             </div>
             <div>
-              <span class="block text-2xl font-semibold">10</span>
+              <span class="block text-2xl font-semibold">{dashboard.petugas}</span>
               <span class="block text-lg text-gray-500">Petugas</span>
             </div>
           </div>
@@ -94,7 +95,7 @@
               <Icon icon="medical-icon:i-inpatient" width="40" height="40" />
             </div>
             <div>
-              <span class="block text-2xl font-semibold">0</span>
+              <span class="block text-2xl font-semibold">{dashboard.pasien_inap}</span>
               <span class="block text-md text-gray-500">Pasien Inap</span>
             </div>
           </div>
@@ -105,7 +106,7 @@
               <Icon icon="mdi:bed-empty" width="40" height="40" />
             </div>
             <div>
-              <span class="block text-2xl font-semibold">0</span>
+              <span class="block text-2xl font-semibold">{dashboard.kamar}</span>
               <span class="block text-md text-gray-500">Kamar</span>
             </div>
           </div>
@@ -116,7 +117,7 @@
               <Icon icon="game-icons:medicines" width="40" height="40" />
             </div>
             <div>
-              <span class="block text-2xl font-semibold">0</span>
+              <span class="block text-2xl font-semibold">{dashboard.obat}</span>
               <span class="block text-md text-gray-500">Obat</span>
             </div>
           </div>
@@ -127,7 +128,7 @@
               <Icon icon="mdi:payment-clock" width="40" height="40" />
             </div>
             <div>
-              <span class="block text-2xl font-semibold">0</span>
+              <span class="block text-2xl font-semibold">{dashboard.transaksi}</span>
               <span class="block text-md text-gray-500">Transaksi</span>
             </div>
           </div>
@@ -138,7 +139,7 @@
               <Icon icon="mdi:file-cabinet" width="40" height="40" />
             </div>
             <div>
-              <span class="block text-2xl font-semibold">0</span>
+              <span class="block text-2xl font-semibold">{dashboard.dokumen}</span>
               <span class="block text-md text-gray-500">DRM</span>
             </div>
           </div>

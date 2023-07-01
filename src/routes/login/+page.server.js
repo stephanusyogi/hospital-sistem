@@ -1,26 +1,8 @@
 import { redirect } from '@sveltejs/kit';
+import { BACKEND_API } from '$env/static/private';
+import axios from 'axios';
 
 /** @type {import('./$types').Actions} */
-const dummyUsers = [
-  {
-    "name" : "Stephanus Yogi",
-    "username" : "stephanusyogi",
-    "password" : "test123",
-    "role" : "Perawat",
-  },
-  {
-    "name" : "Laurentius Vico",
-    "username" : "laurentiusvico",
-    "password" : "test123",
-    "role" : "Farmasi",
-  },
-  {
-    "name" : "dr. Viserys II S, Sp.KJ",
-    "username" : "viserys",
-    "password" : "test123",
-    "role" : "Dokter",
-  },
-];
 
 export function load({cookies}) {
   if(cookies.get('access')){
@@ -31,12 +13,23 @@ export function load({cookies}) {
 export const actions = {
   default: async ({cookies, request}) => {
     const formData = await request.formData()
-    const username = formData.get("username")
+    const email = formData.get("email")
     const password = formData.get("password")
 
-    const user = dummyUsers.find((user) => user.username === username && user.password === password);
+    const login = await axios.post(BACKEND_API+'/login', 
+    'email='+email+'&password='+password, {
+      headers: {
+        'Content-Type': 'application/x-www-form-urlencoded'
+      }
+    })
+    .then(function (response) {
+      return {status: response.status, data:response.data}
+    })
+    .catch(function (error) {
+      return {status:error.response.status, data:error.response.data}
+    });
 
-    if (user) {
+    if(login.status === 200){
       cookies.set("access", "true", {
         // send cookie for every page
         path: '/',
@@ -47,7 +40,7 @@ export const actions = {
         sameSite: 'strict',
         // set cookie to expire after a month
         maxAge: 60 * 60 * 24 * 30})
-      cookies.set("user_data_access", JSON.stringify(user), {
+      cookies.set("user_data_access", JSON.stringify(login.data), {
         path: '/',
         httpOnly: true,
         sameSite: 'strict',
@@ -56,8 +49,8 @@ export const actions = {
     }
 
     return {
-      username,
-      message: "Username atau password tidak valid!"
+      email,
+      message: login.data.message
     }
   }
 };
