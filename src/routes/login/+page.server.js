@@ -26,7 +26,8 @@ export const actions = {
       return {status: response.status, data:response.data}
     })
     .catch(function (error) {
-      return {status:error.response.status, data:error.response.data}
+      console.log(error)
+      // return {status:error.response.status, data:error.response.data}
     });
 
     if(login.status === 200){
