@@ -14,7 +14,7 @@ export const load = (async ({ cookies, params }) => {
   
   const patient = await axios.get(BACKEND_API+'/patient-norm/'+no_rm, { headers })
     .then((response) => {
-      return response.data;
+      return response.data[0];
     })
     .catch((error) => {
       return []
@@ -22,13 +22,16 @@ export const load = (async ({ cookies, params }) => {
     
   const bpjs = await axios.get(BACKEND_API+'/bpjs-norm/'+no_rm, { headers })
     .then((response) => {
-      return response.data[0];
+      if (response.data) {
+        return response.data[0];
+      } else {
+        return response.data; 
+      }
     })
     .catch((error) => {
       return []
     });
     
-  console.log(patient)
   return {
     user_data: user_cookies,
     patient: patient,
