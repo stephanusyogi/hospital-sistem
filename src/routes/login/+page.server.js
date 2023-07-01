@@ -41,7 +41,7 @@ export const actions = {
       throw redirect(302, "/")
     })
     .catch(function (error) {
-      console.log(error)
+      console.log(error.response)
       return {
         error:true,
         email: email,
