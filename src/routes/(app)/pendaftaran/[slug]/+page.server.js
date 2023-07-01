@@ -12,49 +12,81 @@ export const load = (async ({ cookies, params }) => {
     'Authorization': 'Bearer '+user_cookies.token
   };
 
-  try {
-    const response = await axios.get(BACKEND_API+'/patient-norm/'+no_rm, { headers,timeout: 5000 });
-    const patient = response.data;
-      try {
-        const responseInformasiPasien = await axios.get(BACKEND_API+'/rekam-medis/informasi-pasien-norm/'+no_rm, { headers });
-        const informasiPasien = responseInformasiPasien.data;
+  const patient = await axios.get(BACKEND_API+'/patient-norm/'+no_rm, { headers })
+    .then((response) => {
+      return response.data;
+    })
+    .catch((error) => {
+      return []
+    });
+    
+  const informasiPasien = await axios.get(BACKEND_API+'/rekam-medis/informasi-pasien-norm/'+no_rm, { headers })
+    .then((response) => {
+      return response.data;
+    })
+    .catch((error) => {
+      return []
+    });
+    
+  const doctors = await axios.get(BACKEND_API+'/doctor', { headers })
+    .then((response) => {
+      return response.data;
+    })
+    .catch((error) => {
+      return []
+    });
+    
+  const rooms = await axios.get(BACKEND_API+'/room', { headers })
+    .then((response) => {
+      return response.data;
+    })
+    .catch((error) => {
+      return []
+    });
+  
+  return {
+    user_data: user_cookies,
+    patient: patient,
+    informasi_pasien: informasiPasien[0],
+    dokter: doctors,
+    room: rooms
+  };
 
-        // Data Semua Dokter
-        const responseDokter = await axios.get(BACKEND_API+'/doctor', { headers });
-        // Data Semua Ruangan
-        const responseRuangan = await axios.get(BACKEND_API+'/room', { headers });
-        
+  // try {
+  //   const response = await axios.get(BACKEND_API+'/patient-norm/'+no_rm, { headers,timeout: 5000 });
+  //   const patient = response.data;
+  //     try {
+  //       const responseInformasiPasien = await axios.get(BACKEND_API+'/rekam-medis/informasi-pasien-norm/'+no_rm, { headers });
+  //       const informasiPasien = responseInformasiPasien.data;
 
-        let dataLog = {
-          'no_rekam_medis': no_rm,
-          'keterangan': 'Mengisi formulir pemeriksaan awal.',
-          'nama': user_cookies.name,
-          'role': user_cookies.role,
-        }
-        await axios.post(BACKEND_API+'/rekam-medis/log', dataLog ,{ headers });
+  //       // Data Semua Dokter
+  //       const responseDokter = await axios.get(BACKEND_API+'/doctor', { headers });
+  //       // Data Semua Ruangan
+  //       const responseRuangan = await axios.get(BACKEND_API+'/room', { headers });
+
         
-        return {
-          user_data: user_cookies,
-          patient: patient[0],
-          informasi_pasien: informasiPasien[0],
-          dokter: responseDokter.data,
-          room: responseRuangan.data
-        }; 
-      } catch (error) {
-        return {
-          user_data: user_cookies,
-          patient: patient[0],
-          informasi_pasien: []
-        }; 
-      }
-  } catch (error) {
-    return {
-      user_data: user_cookies,
-      patients: [],
-      informasi_pasien: [],
-      error: error.response.data
-    };
-  }
+  //       return {
+  //         user_data: user_cookies,
+  //         patient: patient[0],
+  //         informasi_pasien: informasiPasien[0],
+  //         dokter: responseDokter.data,
+  //         room: responseRuangan.data
+  //       }; 
+  //     } catch (error) {
+  //       return {
+  //         user_data: user_cookies,
+  //         patient: patient[0],
+  //         informasi_pasien: []
+  //       }; 
+  //     }
+  // } catch (error) {
+  //   return {
+  //     user_data: user_cookies,
+  //     patients: [],
+  //     informasi_pasien: [],
+  //     error: error.response.data
+  //   };
+  // }
 });
 
 export const actions = {
@@ -133,6 +165,14 @@ export const actions = {
 
 
     try {
+      let dataLog = {
+        'no_rekam_medis': no_rm,
+        'keterangan': 'Mengisi formulir pemeriksaan awal.',
+        'nama': user_cookies.name,
+        'role': user_cookies.role,
+      }
+      await axios.post(BACKEND_API+'/rekam-medis/log', dataLog , config);
+
       await axios.post(BACKEND_API+'/rekam-medis/pemeriksaan-awal', data , config);
     } catch (error) {
       return fail(400, {

@@ -11,43 +11,29 @@ export const load = (async ({ cookies, params }) => {
     'Accept': '*/*',
     'Authorization': 'Bearer '+user_cookies.token
   };
-
-  try {
-    const response = await axios.get(BACKEND_API+'/patient-norm/'+no_rm, { headers,timeout: 5000 });
-    const patient = response.data;
+  
+  const patient = await axios.get(BACKEND_API+'/patient-norm/'+no_rm, { headers })
+    .then((response) => {
+      return response.data;
+    })
+    .catch((error) => {
+      return []
+    });
     
-    try {
-      const response_bpjs = await axios.get(BACKEND_API+'/bpjs-norm/'+no_rm, { headers });
-      const data_bpjs = response_bpjs.data;
-
-      let dataLog = {
-        'no_rekam_medis': no_rm,
-        'keterangan': 'Mengisi formulir identitas dan informasi pasien rawat inap.',
-        'nama': user_cookies.name,
-        'role': user_cookies.role,
-      }
-      await axios.post(BACKEND_API+'/rekam-medis/log', dataLog ,{ headers });
-      
-      return {
-        user_data: user_cookies,
-        patient: patient[0],
-        bpjs: data_bpjs,
-      }; 
-    } catch (error) {
-      return {
-        user_data: user_cookies,
-        patient: patient[0],
-        bpjs: [],
-      }; 
-    }
-  } catch (error) {
-    return {
-      user_data: user_cookies,
-      patients: [],
-      bpjs: [],
-      error: error.response.data
-    };
-  }
+  const bpjs = await axios.get(BACKEND_API+'/bpjs-norm/'+no_rm, { headers })
+    .then((response) => {
+      return response.data[0];
+    })
+    .catch((error) => {
+      return []
+    });
+    
+  
+  return {
+    user_data: user_cookies,
+    patient: patient,
+    bpjs: bpjs
+  };
 });
 
 export const actions = {
@@ -83,7 +69,16 @@ export const actions = {
       const dataPasien = responsePasien.data[0];
       const informasiPasien = {...dataPasien, ...formValues, tgl_masuk:formattedDate}
       try {
+        let dataLog = {
+          'no_rekam_medis': no_rm,
+          'keterangan': 'Mengisi formulir identitas dan informasi pasien rawat inap.',
+          'nama': user_cookies.name,
+          'role': user_cookies.role,
+        }
+        await axios.post(BACKEND_API+'/rekam-medis/log', dataLog ,{ headers });
+
         await axios.post(BACKEND_API+'/rekam-medis/informasi-pasien', informasiPasien, config)  
+        
       } catch (error) {
         return fail(400, {
           error: true,

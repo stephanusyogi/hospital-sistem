@@ -21,21 +21,4 @@ export const load = (async ({ cookies }) => {
     user_data: user_cookies,
     patients: patients
   };
-
-
-  // try {
-  //   const response = await axios.get(BACKEND_API+'/patient', { headers,timeout: 5000 });
-  //   const patients = response.data;
-    
-  //   return {
-  //     user_data: user_cookies,
-  //     patients: patients
-  //   };
-  // } catch (error) {
-  //   return {
-  //     user_data: user_cookies,
-  //     patients: [],
-  //     error: error.response.data,
-  //   };
-  // }
 });
