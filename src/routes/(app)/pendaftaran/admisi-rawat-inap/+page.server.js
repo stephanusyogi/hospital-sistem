@@ -8,20 +8,16 @@ export const load = (async ({ cookies }) => {
     'Accept': '*/*',
     'Authorization': 'Bearer '+user_cookies.token
   };
+  const patients = await axios.get(BACKEND_API+'/rekam-medis/antrean-pasien', { headers })
+    .then((response) => {
+      return response.data;
+    })
+    .catch((error) => {
+      return []
+    });
 
-  try {
-    const response = await axios.get(BACKEND_API+'/rekam-medis/antrean-pasien', { headers });
-    const patients = response.data;
-    
-    return {
-      user_data: user_cookies,
-      patients: patients
-    };
-  } catch (error) {
-    return {
-      user_data: user_cookies,
-      patients: [],
-      error: error.response.data,
-    };
-  }
+  return {
+    user_data: user_cookies,
+    patients: patients
+  };
 });
