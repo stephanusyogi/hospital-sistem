@@ -1,4 +1,4 @@
-import { fail, redirect } from '@sveltejs/kit';
+import { redirect } from '@sveltejs/kit';
 import { BACKEND_API } from '$env/static/private';
 import axios from 'axios';
 
@@ -23,36 +23,32 @@ export const actions = {
       }
     })
     .then(function (response) {
-      // cookies.set("access", "true", {
-      //   // send cookie for every page
-      //   path: '/',
-      //   // server side only cookie so you can't use `document.cookie`
-      //   httpOnly: true,
-      //   // only requests from same site can send cookies
-      //   // https://developer.mozilla.org/en-US/docs/Glossary/CSRF
-      //   sameSite: 'strict',
-      //   // set cookie to expire after a month
-      //   maxAge: 60 * 60 * 24 * 30})
-      // cookies.set("user_data_access", JSON.stringify(response.data), {
-      //   path: '/',
-      //   httpOnly: true,
-      //   sameSite: 'strict',
-      //   maxAge: 60 * 60 * 24 * 30})
-      // throw redirect(302, "/")
+      return {success:true, data:response.data}
     })
     .catch(function (error) {
-      console.log(error.response)
-      // return {
-      //   error:true,
-      //   email: email,
-      //   message:"Invalid Username/Password"
-      // };
+      return {error:true, data:error.response}
     });
-    
+
+    // if(login.status === 200){
+    //   cookies.set("access", "true", {
+    //     // send cookie for every page
+    //     path: '/',
+    //     // server side only cookie so you can't use `document.cookie`
+    //     httpOnly: true,
+    //     // only requests from same site can send cookies
+    //     // https://developer.mozilla.org/en-US/docs/Glossary/CSRF
+    //     sameSite: 'strict',
+    //     // set cookie to expire after a month
+    //     maxAge: 60 * 60 * 24 * 30})
+    //   cookies.set("user_data_access", JSON.stringify(login.data), {
+    //     path: '/',
+    //     httpOnly: true,
+    //     sameSite: 'strict',
+    //     maxAge: 60 * 60 * 24 * 30})
+    //   throw redirect(302, "/")
+    // }
     return {
-      error:true,
-      email: email,
-      message:"Invalid Username/Password"
-    };;
+      email,login
+    }
   }
 };
