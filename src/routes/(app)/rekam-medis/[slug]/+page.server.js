@@ -11,19 +11,16 @@ export const load = (async ({ cookies, params }) => {
     'Authorization': 'Bearer '+user_cookies.token
   };
 
-  try {
-    const response = await axios.get(BACKEND_API+'/rekam-medis/log-norm/'+no_rm, { headers });
-    const logs = response.data;
-    
-    return {
-      user_data: user_cookies,
-      logs: logs,
-    }; 
-  } catch (error) {
-    return {
-      user_data: user_cookies,
-      logs: [],
-      error: error.response.data
-    };
-  }
+  const logs = await axios.get(BACKEND_API+'/patient-norm/'+no_rm, { headers })
+    .then((response) => {
+      return response.data;
+    })
+    .catch((error) => {
+      return []
+    });
+
+  return {
+    user_data: user_cookies,
+    logs: logs,
+  }; 
 });

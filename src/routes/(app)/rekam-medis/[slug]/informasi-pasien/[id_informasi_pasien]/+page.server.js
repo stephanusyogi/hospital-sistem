@@ -13,33 +13,18 @@ export const load = (async ({ cookies, params }) => {
   };
 
 
-  // const informasiPasien = await axios.get(BACKEND_API+'/rekam-medis/informasi-pasien-norm/'+no_rm, config)
-  // .then((response) => {
-  //   return response.data[0];
-  // })
-  // .catch((error) => {
-  //   return []
-  // });
+  const informasiPasien = await axios.get(BACKEND_API+'/rekam-medis/informasi-pasien-norm/'+no_rm, { headers })
+  .then((response) => {
+    return informasi_pasien ? response.data[0] : response.data;
+  })
+  .catch((error) => {
+    return []
+  });
 
-  // return {
-  //   user_data: user_cookies,
-  //   informasi_pasien: informasiPasien,
-  // };
-  try {
-    const response = await axios.get(BACKEND_API+'/rekam-medis/informasi-pasien-norm/'+no_rm, { headers });
-    const informasi_pasien = response.data[0];
-    
-    return {
-      user_data: user_cookies,
-      informasi_pasien: informasi_pasien ? response.data[0] : response.data,
-    }; 
-  } catch (error) {
-    return {
-      user_data: user_cookies,
-      informasi_pasien: [],
-      error: error.response.data
-    };
-  }
+  return {
+    user_data: user_cookies,
+    informasi_pasien: informasiPasien,
+  };
 });
 
 export const actions = {

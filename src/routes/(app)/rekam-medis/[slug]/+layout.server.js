@@ -10,19 +10,17 @@ export const load = (async ({ cookies, params }) => {
     'Authorization': 'Bearer '+user_cookies.token
   };
 
-  try {
-    const response = await axios.get(BACKEND_API+'/patient-norm/'+no_rm, { headers });
-    const patient = response.data;
-    
-    return {
-      user_data: user_cookies,
-      patient: patient[0],
-    }; 
-  } catch (error) {
-    return {
-      user_data: user_cookies,
-      patients: [],
-      error: error.response.data
-    };
-  }
+  
+  const patient = await axios.get(BACKEND_API+'/patient-norm/'+no_rm, { headers })
+    .then((response) => {
+      return response.data[0];
+    })
+    .catch((error) => {
+      return []
+    });
+
+  return {
+    user_data: user_cookies,
+    patient: patient,
+  };
 });

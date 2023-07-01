@@ -98,6 +98,6 @@ export const actions = {
       console.log(error)
     }
     
-    // throw redirect(303, '/pendaftaran/admisi-rawat-inap')
+    throw redirect(303, '/pendaftaran/admisi-rawat-inap')
   }
 };
