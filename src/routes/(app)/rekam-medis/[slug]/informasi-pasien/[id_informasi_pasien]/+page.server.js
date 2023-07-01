@@ -12,6 +12,19 @@ export const load = (async ({ cookies, params }) => {
     'Authorization': 'Bearer '+user_cookies.token
   };
 
+
+  // const informasiPasien = await axios.get(BACKEND_API+'/rekam-medis/informasi-pasien-norm/'+no_rm, config)
+  // .then((response) => {
+  //   return response.data[0];
+  // })
+  // .catch((error) => {
+  //   return []
+  // });
+
+  // return {
+  //   user_data: user_cookies,
+  //   informasi_pasien: informasiPasien,
+  // };
   try {
     const response = await axios.get(BACKEND_API+'/rekam-medis/informasi-pasien-norm/'+no_rm, { headers });
     const informasi_pasien = response.data[0];

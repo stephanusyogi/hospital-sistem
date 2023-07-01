@@ -22,7 +22,7 @@ export const load = (async ({ cookies, params }) => {
     
   const informasiPasien = await axios.get(BACKEND_API+'/rekam-medis/informasi-pasien-norm/'+no_rm, { headers })
     .then((response) => {
-      return response.data;
+      return response.data[0];
     })
     .catch((error) => {
       return []
@@ -47,46 +47,11 @@ export const load = (async ({ cookies, params }) => {
   return {
     user_data: user_cookies,
     patient: patient,
-    informasi_pasien: informasiPasien[0],
+    informasi_pasien: informasiPasien,
     dokter: doctors,
     room: rooms
   };
 
-  // try {
-  //   const response = await axios.get(BACKEND_API+'/patient-norm/'+no_rm, { headers,timeout: 5000 });
-  //   const patient = response.data;
-  //     try {
-  //       const responseInformasiPasien = await axios.get(BACKEND_API+'/rekam-medis/informasi-pasien-norm/'+no_rm, { headers });
-  //       const informasiPasien = responseInformasiPasien.data;
-
-  //       // Data Semua Dokter
-  //       const responseDokter = await axios.get(BACKEND_API+'/doctor', { headers });
-  //       // Data Semua Ruangan
-  //       const responseRuangan = await axios.get(BACKEND_API+'/room', { headers });
-
-        
-  //       return {
-  //         user_data: user_cookies,
-  //         patient: patient[0],
-  //         informasi_pasien: informasiPasien[0],
-  //         dokter: responseDokter.data,
-  //         room: responseRuangan.data
-  //       }; 
-  //     } catch (error) {
-  //       return {
-  //         user_data: user_cookies,
-  //         patient: patient[0],
-  //         informasi_pasien: []
-  //       }; 
-  //     }
-  // } catch (error) {
-  //   return {
-  //     user_data: user_cookies,
-  //     patients: [],
-  //     informasi_pasien: [],
-  //     error: error.response.data
-  //   };
-  // }
 });
 
 export const actions = {

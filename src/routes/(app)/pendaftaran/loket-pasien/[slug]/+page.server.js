@@ -28,7 +28,7 @@ export const load = (async ({ cookies, params }) => {
       return []
     });
     
-  
+  console.log(patient)
   return {
     user_data: user_cookies,
     patient: patient,
