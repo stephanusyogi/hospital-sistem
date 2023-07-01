@@ -1,4 +1,4 @@
-import { redirect } from '@sveltejs/kit';
+import { fail, redirect } from '@sveltejs/kit';
 import { BACKEND_API } from '$env/static/private';
 import axios from 'axios';
 
@@ -23,14 +23,6 @@ export const actions = {
       }
     })
     .then(function (response) {
-      return {status: response.status, data:response.data}
-    })
-    .catch(function (error) {
-      console.log(error)
-      // return {status:error.response.status, data:error.response.data}
-    });
-
-    if(login.status === 200){
       cookies.set("access", "true", {
         // send cookie for every page
         path: '/',
@@ -41,17 +33,21 @@ export const actions = {
         sameSite: 'strict',
         // set cookie to expire after a month
         maxAge: 60 * 60 * 24 * 30})
-      cookies.set("user_data_access", JSON.stringify(login.data), {
+      cookies.set("user_data_access", JSON.stringify(response.data), {
         path: '/',
         httpOnly: true,
         sameSite: 'strict',
         maxAge: 60 * 60 * 24 * 30})
       throw redirect(302, "/")
-    }
-
-    return {
-      email,
-      message: login.data.message
-    }
+    })
+    .catch(function (error) {
+      return {
+        error:true,
+        email: email,
+        message:error.response.data,message
+      };
+    });
+    
+    return login;
   }
 };

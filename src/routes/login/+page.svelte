@@ -1,18 +1,23 @@
 <script>
-  export let form;
 
   import { Button, FloatingLabelInput, Helper } from "flowbite-svelte";
   import logo from "$lib/images/logo-icon-tab.png";
   import Swal from "sweetalert2";
+  // import { onMount } from "svelte";
 
-  if (form?.message) {
+  export let form;
+  console.log(form)
+  
+  if (form?.error) {
     Swal.fire({
       icon: "error",
-      text: form?.message,
+      text: form.message,
       showConfirmButton: false,
       timer: 2000,
     });
   }
+  // onMount(() => {
+  // })
 </script>
 
 <div
