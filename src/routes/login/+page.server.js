@@ -41,10 +41,11 @@ export const actions = {
       throw redirect(302, "/")
     })
     .catch(function (error) {
+      console.log(error)
       return {
         error:true,
         email: email,
-        message:error.response.data,message
+        message:"Invalid Username/Password"
       };
     });
     
