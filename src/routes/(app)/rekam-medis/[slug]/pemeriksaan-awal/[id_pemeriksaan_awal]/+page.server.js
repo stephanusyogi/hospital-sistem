@@ -6,28 +6,22 @@ import axios from 'axios';
 export const load = (async ({ cookies, params }) => {
   const user_cookies = JSON.parse(cookies.get('user_data_access'));
   const no_rm = params.slug
+  const id_pemeriksaan_awal = params.id_pemeriksaan_awal
 
   const headers = {
     'Accept': '*/*',
     'Authorization': 'Bearer '+user_cookies.token
   };
 
-  const patient = await axios.get(BACKEND_API+'/patient-norm/'+no_rm, { headers })
-    .then((response) => {
-      return response.data[0];
-    })
-    .catch((error) => {
-      return []
-    });
-    
-  const informasiPasien = await axios.get(BACKEND_API+'/rekam-medis/informasi-pasien-norm/'+no_rm, { headers })
-    .then((response) => {
-      return response.data[0];
-    })
-    .catch((error) => {
-      return []
-    });
-    
+
+  const pemeriksaanAwal = await axios.get(BACKEND_API+'/rekam-medis/pemeriksaan-awal-norm/'+no_rm, { headers })
+  .then((response) => {
+    return response.data.length > 0 ? response.data[0] : response.data;
+  })
+  .catch((error) => {
+    return []
+  });
+
   const doctors = await axios.get(BACKEND_API+'/doctor', { headers })
     .then((response) => {
       return response.data;
@@ -43,16 +37,15 @@ export const load = (async ({ cookies, params }) => {
     .catch((error) => {
       return []
     });
-  
+
   return {
     user_data: user_cookies,
-    patient: patient,
-    informasi_pasien: informasiPasien,
+    pemeriksaan_awal: pemeriksaanAwal,
     dokter: doctors,
     room: rooms
   };
-
 });
+
 
 export const actions = {
   default: async ({request, cookies, params}) => {
@@ -92,6 +85,7 @@ export const actions = {
     });
 
     const no_rm = params.slug
+    const id_pemeriksaan_awal = params.id_pemeriksaan_awal
     const user_cookies = JSON.parse(cookies.get('user_data_access'));
     const formValues = {};
     for (const [name, value] of formData.entries()) {
@@ -132,13 +126,13 @@ export const actions = {
     try {
       let dataLog = {
         'no_rekam_medis': no_rm,
-        'keterangan': 'Mengisi formulir pemeriksaan awal.',
+        'keterangan': 'Memperbarui formulir pemeriksaan awal.',
         'nama': user_cookies.name,
         'role': user_cookies.role,
       }
       await axios.post(BACKEND_API+'/rekam-medis/log', dataLog , config);
 
-      await axios.post(BACKEND_API+'/rekam-medis/pemeriksaan-awal', data , config);
+      await axios.put(BACKEND_API+'/rekam-medis/pemeriksaan-awal/'+id_pemeriksaan_awal, data , config);
     } catch (error) {
       return fail(400, {
         error: true,
@@ -146,6 +140,6 @@ export const actions = {
       }); 
     }
     
-    throw redirect(303, `/rekam-medis/${no_rm}`)
+    throw redirect(303, `/rekam-medis/${no_rm}/pemeriksaan-awal`)
   }
 };

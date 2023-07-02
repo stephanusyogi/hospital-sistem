@@ -7,6 +7,7 @@ export const load = (async ({ cookies, params }) => {
   const user_cookies = JSON.parse(cookies.get('user_data_access'));
   const no_rm = params.slug
 
+
   const headers = {
     'Accept': '*/*',
     'Authorization': 'Bearer '+user_cookies.token
@@ -15,7 +16,7 @@ export const load = (async ({ cookies, params }) => {
 
   const informasiPasien = await axios.get(BACKEND_API+'/rekam-medis/informasi-pasien-norm/'+no_rm, { headers })
   .then((response) => {
-    return informasi_pasien ? response.data[0] : response.data;
+    return response.data.length > 0 ? response.data[0] : response.data;
   })
   .catch((error) => {
     return []

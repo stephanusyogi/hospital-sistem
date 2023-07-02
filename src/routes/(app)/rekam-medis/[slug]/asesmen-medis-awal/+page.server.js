@@ -11,15 +11,15 @@ export const load = (async ({ cookies, params }) => {
     'Authorization': 'Bearer '+user_cookies.token
   };
 
-  const logs = await axios.get(BACKEND_API+'/rekam-medis/log-norm/'+no_rm, { headers })
+  const asesmenMedisAwal = await axios.get(BACKEND_API+'/rekam-medis/asesmen-medis-awal-norm/'+no_rm, { headers })
     .then((response) => {
-      return response.data;
+      return response.data.length > 0 ? response.data[0] : response.data;
     })
     .catch((error) => {
       return []
     });
   return {
     user_data: user_cookies,
-    logs: logs,
+    asesmen_medis_awal: asesmenMedisAwal,
   }; 
 });

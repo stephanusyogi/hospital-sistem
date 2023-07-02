@@ -1,5 +1,6 @@
 <script>
   import { Button } from "flowbite-svelte";
+  export let data
 </script>
 
 <main>
@@ -9,7 +10,7 @@
         Pemeriksaan Awal
       </p>
     </div>
-    <Button href="pemeriksaan-awal/update" size="sm" color="green">
+    <Button href="pemeriksaan-awal/{data?.pemeriksaan_awal._id}" size="sm" color="green">
       <svg
         xmlns="http://www.w3.org/2000/svg"
         class="sm:mr-2"
@@ -35,14 +36,30 @@
             class="grid grid-cols-1 sm:grid-cols-2 gap-2 sm:gap-6 border p-4 text-sm"
           >
             <p class="font-medium">Unit Penerima</p>
-            <p class="font-light sm:text-right">IGD</p>
+            <p class="font-light sm:text-right">{data?.pemeriksaan_awal.unit_penerima ?? ''}</p>
           </div>
+          {#if data?.pemeriksaan_awal.unit_penerima === 'Poliklinik'}
+            <div
+              class="grid grid-cols-1 sm:grid-cols-2 gap-2 sm:gap-6 border p-4 text-sm"
+            >
+              <p class="font-medium">Poliklinik Penerima</p>
+              <p class="font-light sm:text-right">{data?.pemeriksaan_awal.poliklinik_penerima ?? ''}</p>
+            </div>
+          {/if}
           <div
             class="grid grid-cols-1 sm:grid-cols-2 gap-2 sm:gap-6 border p-4 text-sm"
           >
             <p class="font-medium">Asal Rujukan</p>
-            <p class="font-light sm:text-right">Datang Sendiri</p>
+            <p class="font-light sm:text-right">{data?.pemeriksaan_awal.asal_rujukan ?? ''}</p>
           </div>
+          {#if data?.pemeriksaan_awal.asal_rujukan === 'Rujukan'}
+            <div
+              class="grid grid-cols-1 sm:grid-cols-2 gap-2 sm:gap-6 border p-4 text-sm"
+            >
+              <p class="font-medium">Unit Rujukan</p>
+              <p class="font-light sm:text-right">{data?.pemeriksaan_awal.unit_asal_rujukan ?? ''}</p>
+            </div>
+          {/if}
           <div
             class="grid grid-cols-1 sm:grid-cols-2 gap-2 sm:gap-6 border p-4 text-sm sm:col-span-2"
           >
@@ -50,29 +67,29 @@
             <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 col-span-2">
               <p class="font-medium">DPJP:</p>
               <p class="font-light sm:text-right">
-                dr. Khal Drogo, M.Biomed, Sp.PD
+                {data?.pemeriksaan_awal.dpjp ?? ''}
               </p>
             </div>
             <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 col-span-2">
               <p class="font-medium">Diagnosa Sementara:</p>
               <div class="font-light sm:text-right">
-                <div class="my-1">
-                  <p>ICD-10 Code: AA.1</p>
-                  <p>Deskripsi: Pilek</p>
-                </div>
-                <div class="my-1">
-                  <p>ICD-10 Code: AA.2</p>
-                  <p>Deskripsi: Batuk</p>
-                </div>
+                {#each data?.pemeriksaan_awal.icd_10 as icd_10}
+                  <div class="my-1">
+                    <p>ICD-10 Code: {icd_10.kode}</p>
+                    <p>Deskripsi: {icd_10.desc}</p>
+                  </div>
+                {/each}
               </div>
             </div>
             <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 col-span-2">
               <p class="font-medium">Tindakan:</p>
               <div class="font-light sm:text-right">
-                <div class="my-1">
-                  <p>ICD-9 Code: BB.1</p>
-                  <p>Deskripsi: Rawat Mandiri</p>
-                </div>
+                {#each data?.pemeriksaan_awal.icd_9 as icd_9}
+                  <div class="my-1">
+                    <p>ICD-9 Code: {icd_9.kode}</p>
+                    <p>Deskripsi: {icd_9.desc}</p>
+                  </div>
+                {/each}
               </div>
             </div>
           </div>
@@ -80,13 +97,13 @@
             class="grid grid-cols-1 sm:grid-cols-2 gap-2 sm:gap-6 border p-4 text-sm"
           >
             <p class="font-medium">Jenis Kamar:</p>
-            <p class="font-light sm:text-right">Kelas 1</p>
+            <p class="font-light sm:text-right">{data?.pemeriksaan_awal.jenis_kamar ?? ''}</p>
           </div>
           <div
             class="grid grid-cols-1 sm:grid-cols-2 gap-2 sm:gap-6 border p-4 text-sm"
           >
             <p class="font-medium">Nama Kamar:</p>
-            <p class="font-light sm:text-right">Kamar Wisnu</p>
+            <p class="font-light sm:text-right">{data?.pemeriksaan_awal.nama_kamar ?? ''}</p>
           </div>
         </div>
       </div>
