@@ -33,6 +33,8 @@ router.put("/log/:id", protect, Log.updateLog);
 router.get("/log-norm/:id", protect, Log.getLogByNoRM);
 router.get("/log-id/:id", protect, Log.getLogByID);
 
+// History RM Pasien
+router.post("/riwayat", protect, InformasiPasien.getRiwayatPasien);
 
 // Informasi Pasien
 router.get("/", protect, InformasiPasien.getRekamMedis);
