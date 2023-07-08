@@ -78,6 +78,12 @@ const InformasiPasienSchema = new Schema({
   tgl_pulang: {
     type: String,
   },
+  jenis_kamar: {
+    type: String,
+  },
+  nama_kamar: {
+    type: String,
+  },
   status_pembayaran: {
     type: Boolean,
   },

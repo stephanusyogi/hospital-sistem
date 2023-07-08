@@ -16,4 +16,6 @@ router.put("/patient/:id", protect, patient.updatePatient);
 // Delete Patient
 router.delete("/patient/:id", protect, patient.deletePatient);
 
+router.get("/check-patient/:id", protect, patient.checkPatient);
+
 module.exports = router;

@@ -1,4 +1,5 @@
 const Patient = require("../models/patients");
+const InformasiPasien = require("../models/rekam_medis_informasi_pasien");
 
 const createPatient = async (req, res) => {
   try {
@@ -140,7 +141,23 @@ const deletePatient = async (req, res) => {
   }
 };
 
+const checkPatient = async (req, res) => {
+  try {
+    const { id } = req.params;
+    const patient = await InformasiPasien.find({no_rekam_medis: id, status_pulang: false});
+
+    if (patient.length > 0) {
+      res.status(200).send({status: true});
+    }else{
+      res.status(200).send({status: false});
+    }
+  } catch (error) {
+    res.status(500).send({ message: error.message });
+  }
+};
+
 module.exports = {
+  checkPatient,
   createPatient,
   getPatientByNoRM,
   getPatient,

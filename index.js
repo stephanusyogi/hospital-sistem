@@ -41,6 +41,7 @@ const icdRoutes = require("./routes/icdRoute");
 const bpjsRoutes = require("./routes/bpjsRoute");
 const rekamMedisRoutes = require("./routes/rekamMedisRoute");
 const receiptRoutes = require("./routes/receiptRoute");
+const adminRoutes = require("./routes/adminRoute");
 
 app.get("/api/dashboard", protect, Dashboard.getDashboard);
 app.use("/api", authRoutes);
@@ -52,6 +53,7 @@ app.use("/api", patientRoutes);
 app.use("/api", icdRoutes);
 app.use("/api", bpjsRoutes);
 app.use("/api", receiptRoutes);
+app.use("/api", adminRoutes);
 app.use("/api/rekam-medis", rekamMedisRoutes);
 
 // MongoDB

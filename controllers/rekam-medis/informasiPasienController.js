@@ -7,29 +7,6 @@ const Receipt = require("../../models/receipts");
 const getRekamMedis = async (req, res) => {
   try {
     const informasi_pasien = await InformasiPasien.find({status_pulang: false});
-    
-    // const dataPemeriksaanAwal = await PemeriksaanAwal.find({status_pulang: false});
-
-    // const data = await Promise.all(dataPemeriksaanAwal.map(async (item) => {
-    //   const informasi_pasien = await InformasiPasien.find({no_rekam_medis: item.no_rekam_medis, status_pulang: false})
-    //   return {
-    //     no_rekam_medis: item.no_rekam_medis,
-    //     jenis_kamar: item.jenis_kamar,
-    //     nama_kamar: item.nama_kamar,
-    //     nama: informasi_pasien[0].nama,
-    //     nik: informasi_pasien[0].nik,
-    //     umur: informasi_pasien[0].umur,
-    //     jenis_kelamin: informasi_pasien[0].jenis_kelamin,
-    //     tempat_tanggal_lahir: informasi_pasien[0].tempat_tanggal_lahir,
-    //     agama: informasi_pasien[0].agama,
-    //     nama_asuransi: informasi_pasien[0].nama_asuransi,
-    //     nomor_asuransi: informasi_pasien[0].nomor_asuransi,
-    //     status_asuransi: informasi_pasien[0].status_asuransi,
-    //     status_pembayaran: informasi_pasien[0].status_pembayaran,
-    //     status_pulang: informasi_pasien[0].status_pulang
-    //   };
-    // }));
-    
 
     res.status(200).send(informasi_pasien);
   } catch (error) {

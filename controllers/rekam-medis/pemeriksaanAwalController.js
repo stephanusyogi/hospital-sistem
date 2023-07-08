@@ -1,5 +1,6 @@
 const AntreanPasien = require("../../models/rekam_medis_antrean_pasien");
 const PemeriksaanAwal = require("../../models/rekam_medis_pemeriksaan_awal");
+const InformasiPasien = require("../../models/rekam_medis_informasi_pasien");
 
 
 const createPemeriksaanAwal = async (req, res) => {
@@ -7,6 +8,7 @@ const createPemeriksaanAwal = async (req, res) => {
     const data = req.body;
 
     const existingData = await PemeriksaanAwal.findOne({ $or: [{ no_rekam_medis: data.no_rekam_medis, status_pulang: false }] });
+    const informasi_pasien = await InformasiPasien.findOne({ $or: [{ no_rekam_medis: data.no_rekam_medis, status_pulang: false }] });
 
     if (existingData) {
       throw new Error("Data already exist!");
@@ -23,12 +25,24 @@ const createPemeriksaanAwal = async (req, res) => {
       asal_rujukan: data.asal_rujukan,
       unit_asal_rujukan: data.unit_asal_rujukan,
       dpjp: data.dpjp,
+      id_dokter: data.id_dokter,
       icd_10: data.icd_10.map(item_icd_10 => ({ kode: item_icd_10.kode, desc: item_icd_10.desc })),
       icd_9: data.icd_9.map(item_item_9 => ({ kode: item_item_9.kode, desc: item_item_9.desc })),
+      id_kamar: data.id_kamar,
       jenis_kamar: data.jenis_kamar,
       nama_kamar: data.nama_kamar
     });
 
+    if(informasi_pasien){
+      // Add Kamar to Informasi Pasien
+      const dataInformasiPasien = {
+        jenis_kamar: data.jenis_kamar,
+        nama_kamar: data.nama_kamar
+      }
+      const updatedData = await InformasiPasien.findByIdAndUpdate(informasi_pasien._id, dataInformasiPasien, {
+        new: true,
+      });
+    }
 
     const savedData = await newData.save();
     res

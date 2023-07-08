@@ -27,7 +27,7 @@ const createRoom = async (req, res) => {
 
 const getRoom = async (req, res) => {
   try {
-    const rooms = await Room.find({ is_deleted: false });
+    const rooms = await Room.find({ is_deleted: false }).sort({ kelas: 1 });
 
     res.status(200).send(rooms);
   } catch (error) {
