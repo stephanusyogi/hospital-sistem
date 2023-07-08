@@ -1,6 +1,8 @@
 <script>
   import { Button } from "flowbite-svelte";
+  import { page } from "$app/stores";
   export let data
+  const no_rm = $page.params.slug;
 </script>
 
 <main>
@@ -10,7 +12,7 @@
         Pemeriksaan Awal
       </p>
     </div>
-    <Button href="pemeriksaan-awal/{data?.pemeriksaan_awal._id}" size="sm" color="green">
+    <Button href="pemeriksaan-awal/{data?.pemeriksaan_awal._id ? data?.pemeriksaan_awal._id : no_rm}" size="sm" color="green">
       <svg
         xmlns="http://www.w3.org/2000/svg"
         class="sm:mr-2"
@@ -27,86 +29,92 @@
   </div>
   <hr class="my-5" />
   <div class="overflow-y-auto max-h-screen">
-    <div class="border border-slate-300 rounded p-4 w-full">
-      <div class="mb-2">
-        <p class="text-xl font-semibold">Data Pemeriksaan</p>
-        <hr class="my-2" />
-        <div class="grid grid-cols-1 sm:grid-cols-2 gap-6 py-2">
-          <div
-            class="grid grid-cols-1 sm:grid-cols-2 gap-2 sm:gap-6 border p-4 text-sm"
-          >
-            <p class="font-medium">Unit Penerima</p>
-            <p class="font-light sm:text-right">{data?.pemeriksaan_awal.unit_penerima ?? ''}</p>
-          </div>
-          {#if data?.pemeriksaan_awal.unit_penerima === 'Poliklinik'}
+    {#if data?.pemeriksaan_awal}
+      <div class="border border-slate-300 rounded p-4 w-full">
+        <div class="mb-2">
+          <p class="text-xl font-semibold">Data Pemeriksaan</p>
+          <hr class="my-2" />
+          <div class="grid grid-cols-1 sm:grid-cols-2 gap-6 py-2">
             <div
               class="grid grid-cols-1 sm:grid-cols-2 gap-2 sm:gap-6 border p-4 text-sm"
             >
-              <p class="font-medium">Poliklinik Penerima</p>
-              <p class="font-light sm:text-right">{data?.pemeriksaan_awal.poliklinik_penerima ?? ''}</p>
+              <p class="font-medium">Unit Penerima</p>
+              <p class="font-light sm:text-right">{data?.pemeriksaan_awal.unit_penerima ?? ''}</p>
             </div>
-          {/if}
-          <div
-            class="grid grid-cols-1 sm:grid-cols-2 gap-2 sm:gap-6 border p-4 text-sm"
-          >
-            <p class="font-medium">Asal Rujukan</p>
-            <p class="font-light sm:text-right">{data?.pemeriksaan_awal.asal_rujukan ?? ''}</p>
-          </div>
-          {#if data?.pemeriksaan_awal.asal_rujukan === 'Rujukan'}
+            {#if data?.pemeriksaan_awal.unit_penerima === 'Poliklinik'}
+              <div
+                class="grid grid-cols-1 sm:grid-cols-2 gap-2 sm:gap-6 border p-4 text-sm"
+              >
+                <p class="font-medium">Poliklinik Penerima</p>
+                <p class="font-light sm:text-right">{data?.pemeriksaan_awal.poliklinik_penerima ?? ''}</p>
+              </div>
+            {/if}
             <div
               class="grid grid-cols-1 sm:grid-cols-2 gap-2 sm:gap-6 border p-4 text-sm"
             >
-              <p class="font-medium">Unit Rujukan</p>
-              <p class="font-light sm:text-right">{data?.pemeriksaan_awal.unit_asal_rujukan ?? ''}</p>
+              <p class="font-medium">Asal Rujukan</p>
+              <p class="font-light sm:text-right">{data?.pemeriksaan_awal.asal_rujukan ?? ''}</p>
             </div>
-          {/if}
-          <div
-            class="grid grid-cols-1 sm:grid-cols-2 gap-2 sm:gap-6 border p-4 text-sm sm:col-span-2"
-          >
-            <p class="font-medium col-span-2">Diagnosa & Tindakan</p>
-            <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 col-span-2">
-              <p class="font-medium">DPJP:</p>
-              <p class="font-light sm:text-right">
-                {data?.pemeriksaan_awal.dpjp ?? ''}
-              </p>
-            </div>
-            <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 col-span-2">
-              <p class="font-medium">Diagnosa Sementara:</p>
-              <div class="font-light sm:text-right">
-                {#each data?.pemeriksaan_awal.icd_10 as icd_10}
-                  <div class="my-1">
-                    <p>ICD-10 Code: {icd_10.kode}</p>
-                    <p>Deskripsi: {icd_10.desc}</p>
-                  </div>
-                {/each}
+            {#if data?.pemeriksaan_awal.asal_rujukan === 'Rujukan'}
+              <div
+                class="grid grid-cols-1 sm:grid-cols-2 gap-2 sm:gap-6 border p-4 text-sm"
+              >
+                <p class="font-medium">Unit Rujukan</p>
+                <p class="font-light sm:text-right">{data?.pemeriksaan_awal.unit_asal_rujukan ?? ''}</p>
+              </div>
+            {/if}
+            <div
+              class="grid grid-cols-1 sm:grid-cols-2 gap-2 sm:gap-6 border p-4 text-sm sm:col-span-2"
+            >
+              <p class="font-medium col-span-2">Diagnosa & Tindakan</p>
+              <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 col-span-2">
+                <p class="font-medium">DPJP:</p>
+                <p class="font-light sm:text-right">
+                  {data?.pemeriksaan_awal.dpjp ?? ''}
+                </p>
+              </div>
+              <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 col-span-2">
+                <p class="font-medium">Diagnosa Sementara:</p>
+                <div class="font-light sm:text-right">
+                  {#each data?.pemeriksaan_awal.icd_10 as icd_10}
+                    <div class="my-1">
+                      <p>ICD-10 Code: {icd_10.kode}</p>
+                      <p>Deskripsi: {icd_10.desc}</p>
+                    </div>
+                  {/each}
+                </div>
+              </div>
+              <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 col-span-2">
+                <p class="font-medium">Tindakan:</p>
+                <div class="font-light sm:text-right">
+                  {#each data?.pemeriksaan_awal.icd_9 as icd_9}
+                    <div class="my-1">
+                      <p>ICD-9 Code: {icd_9.kode}</p>
+                      <p>Deskripsi: {icd_9.desc}</p>
+                    </div>
+                  {/each}
+                </div>
               </div>
             </div>
-            <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 col-span-2">
-              <p class="font-medium">Tindakan:</p>
-              <div class="font-light sm:text-right">
-                {#each data?.pemeriksaan_awal.icd_9 as icd_9}
-                  <div class="my-1">
-                    <p>ICD-9 Code: {icd_9.kode}</p>
-                    <p>Deskripsi: {icd_9.desc}</p>
-                  </div>
-                {/each}
-              </div>
+            <div
+              class="grid grid-cols-1 sm:grid-cols-2 gap-2 sm:gap-6 border p-4 text-sm"
+            >
+              <p class="font-medium">Kelas Kamar:</p>
+              <p class="font-light sm:text-right">Kelas {data?.pemeriksaan_awal.jenis_kamar ?? ''}</p>
             </div>
-          </div>
-          <div
-            class="grid grid-cols-1 sm:grid-cols-2 gap-2 sm:gap-6 border p-4 text-sm"
-          >
-            <p class="font-medium">Jenis Kamar:</p>
-            <p class="font-light sm:text-right">{data?.pemeriksaan_awal.jenis_kamar ?? ''}</p>
-          </div>
-          <div
-            class="grid grid-cols-1 sm:grid-cols-2 gap-2 sm:gap-6 border p-4 text-sm"
-          >
-            <p class="font-medium">Nama Kamar:</p>
-            <p class="font-light sm:text-right">{data?.pemeriksaan_awal.nama_kamar ?? ''}</p>
+            <div
+              class="grid grid-cols-1 sm:grid-cols-2 gap-2 sm:gap-6 border p-4 text-sm"
+            >
+              <p class="font-medium">Nama Kamar:</p>
+              <p class="font-light sm:text-right">{data?.pemeriksaan_awal.nama_kamar ?? ''}</p>
+            </div>
           </div>
         </div>
       </div>
-    </div>
+    {:else}
+      <div class="text-center p-10">
+        <h2 class="text-lg font-semibold">Data Tidak Ditemukan</h2>
+      </div>
+    {/if}
   </div>
 </main>

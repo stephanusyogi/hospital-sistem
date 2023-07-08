@@ -3,51 +3,10 @@
   import Pasien from "./Pasien.svelte";
   import { DataHandler, Datatable, Th } from "@vincjo/datatables";
   import "../tableCustom.css";
+  
+  export let data
 
-  let dummyUsers = [
-    {
-      no_rm: "000001-2023",
-      nama_pasien: "Jon Snow",
-      pronounce: "Tn",
-      tgl_masuk: "2023-01-01",
-      tgl_pulang: "-",
-      ruangan: "Ayodya",
-      jenis_ruangan: "Kelas VVIP",
-      status_rawat: 1,
-    },
-    {
-      no_rm: "000256-2023",
-      nama_pasien: "Tyrion Lanister",
-      pronounce: "Tn",
-      tgl_masuk: "2023-01-01",
-      tgl_pulang: "-",
-      ruangan: "Ayodya",
-      jenis_ruangan: "Kelas VVIP",
-      status_rawat: 1,
-    },
-    {
-      no_rm: "000523-2023",
-      nama_pasien: "Sansa Stark",
-      pronounce: "Nn",
-      tgl_masuk: "2023-01-01",
-      tgl_pulang: "2023-01-02",
-      ruangan: "Ayodya",
-      jenis_ruangan: "Kelas VVIP",
-      status_rawat: 0,
-    },
-    {
-      no_rm: "000526-2023",
-      nama_pasien: "Lyanna Mormont",
-      pronounce: "Nn",
-      tgl_masuk: "2023-01-01",
-      tgl_pulang: "2023-01-02",
-      ruangan: "Ayodya",
-      jenis_ruangan: "Kelas VVIP",
-      status_rawat: 0,
-    },
-  ];
-
-  const handler = new DataHandler(dummyUsers, { rowsPerPage: 10 });
+  const handler = new DataHandler(data?.patients, { rowsPerPage: 10 });
   const rows = handler.getRows();
 </script>
 
@@ -80,8 +39,8 @@
         <table>
           <thead>
             <tr>
-              <Th {handler} orderBy="no_rm">No Rekam Medis</Th>
-              <Th {handler} orderBy="nama_pasien">Nama</Th>
+              <Th {handler} orderBy="no_rekam_medis">No Rekam Medis</Th>
+              <Th {handler} orderBy="name">Nama</Th>
               <Th {handler} orderBy="tgl_masuk">Tanggal Masuk</Th>
               <Th {handler} orderBy="tgl_pulang">Tanggal Keluar</Th>
               <Th {handler} orderBy="ruangan">Ruangan</Th>
@@ -90,16 +49,16 @@
             </tr>
           </thead>
           <tbody>
-            {#each $rows as { no_rm, nama_pasien, pronounce, tgl_masuk, tgl_pulang, ruangan, jenis_ruangan, status_rawat }}
+            {#each $rows as { no_rekam_medis, name, jenis_kelamin, tgl_masuk, tgl_pulang, nama_kamar, jenis_kamar, status_pulang }}
               <Pasien
-                {no_rm}
-                {nama_pasien}
-                {pronounce}
+                {no_rekam_medis}
+                {name}
+                {jenis_kelamin}
                 {tgl_masuk}
                 {tgl_pulang}
-                {ruangan}
-                {jenis_ruangan}
-                {status_rawat}
+                {nama_kamar}
+                {jenis_kamar}
+                {status_pulang}
               />
             {/each}
           </tbody>

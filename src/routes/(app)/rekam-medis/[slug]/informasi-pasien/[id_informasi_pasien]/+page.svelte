@@ -56,6 +56,7 @@
   let HubunganDenganPasien
 
   let cara_pembayaran
+  let nama_asuransi
   let nomor_asuransi
   let data_bpjs
   let requiredNomorAsuransi = true
@@ -123,9 +124,15 @@
 
       HubunganDenganPasien = data.informasi_pasien.hubungan_dengan_pasien
 
-      cara_pembayaran = data.informasi_pasien.nama_asuransi
+      cara_pembayaran = (data.informasi_pasien.nama_asuransi !== 'Umum/Mandiri' || data.informasi_pasien.nama_asuransi !== 'BPJS') ? 'Lainnya' : data.informasi_pasien.nama_asuransi
       nomor_asuransi = data.informasi_pasien.nomor_asuransi
+      nama_asuransi = data.informasi_pasien.nama_asuransi
       status_peserta = data.informasi_pasien.status_asuransi ? true : false
+      
+      if(cara_pembayaran === 'Umum/Mandiri'){
+        requiredNomorAsuransi = false
+        requiredStatusPeserta = false
+      }
     }
   });
 
@@ -404,7 +411,7 @@
                 id="nama_asuransi"
                 name="nama_asuransi"
                 placeholder="Masukkan nama asuransi"
-                value={cara_pembayaran === 'Lainnya' ? '' : cara_pembayaran}
+                value={nama_asuransi}
               />
             </div>
             <div class="grouphelperPagination">

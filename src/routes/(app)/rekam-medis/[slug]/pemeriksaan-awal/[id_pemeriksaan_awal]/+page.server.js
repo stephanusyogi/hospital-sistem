@@ -7,43 +7,49 @@ export const load = (async ({ cookies, params }) => {
   const user_cookies = JSON.parse(cookies.get('user_data_access'));
   const no_rm = params.slug
   const id_pemeriksaan_awal = params.id_pemeriksaan_awal
-
-  const headers = {
-    'Accept': '*/*',
-    'Authorization': 'Bearer '+user_cookies.token
-  };
-
-
-  const pemeriksaanAwal = await axios.get(BACKEND_API+'/rekam-medis/pemeriksaan-awal-norm/'+no_rm, { headers })
-  .then((response) => {
-    return response.data.length > 0 ? response.data[0] : response.data;
-  })
-  .catch((error) => {
-    return []
-  });
-
-  const doctors = await axios.get(BACKEND_API+'/doctor', { headers })
+  if (no_rm === id_pemeriksaan_awal) {
+    return {
+      user_data: user_cookies,
+      asesmen_medis_awal: [],
+    };
+  } else {
+    const headers = {
+      'Accept': '*/*',
+      'Authorization': 'Bearer '+user_cookies.token
+    };
+  
+  
+    const pemeriksaanAwal = await axios.get(BACKEND_API+'/rekam-medis/pemeriksaan-awal-norm/'+no_rm, { headers })
     .then((response) => {
-      return response.data;
+      return response.data.length > 0 ? response.data[0] : response.data;
     })
     .catch((error) => {
       return []
     });
-    
-  const rooms = await axios.get(BACKEND_API+'/room', { headers })
-    .then((response) => {
-      return response.data;
-    })
-    .catch((error) => {
-      return []
-    });
-
-  return {
-    user_data: user_cookies,
-    pemeriksaan_awal: pemeriksaanAwal,
-    dokter: doctors,
-    room: rooms
-  };
+  
+    const doctors = await axios.get(BACKEND_API+'/doctor', { headers })
+      .then((response) => {
+        return response.data;
+      })
+      .catch((error) => {
+        return []
+      });
+      
+    const rooms = await axios.get(BACKEND_API+'/room', { headers })
+      .then((response) => {
+        return response.data;
+      })
+      .catch((error) => {
+        return []
+      });
+  
+    return {
+      user_data: user_cookies,
+      pemeriksaan_awal: pemeriksaanAwal,
+      dokter: doctors,
+      room: rooms
+    };
+  }
 });
 
 

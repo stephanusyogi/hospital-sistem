@@ -19,8 +19,9 @@
   const day = formattedDateTime.split(',')[0]; // Mendapatkan nama hari
   const date = formattedDateTime.split(',')[1].trim(); // Mendapatkan tanggal
 
-  const time = formattedDateTime.split(' ')[1]; // Memisahkan bagian waktu dari format tanggal
-  const formattedTimeWithPkl = `Pkl. ${time}`; // Menambahkan "Pkl." di depan nilai jam
+  const dateTimeParts = formattedDateTime.split(", ");
+  const timeString = dateTimeParts[2];
+  const formattedTimeWithPkl = `Pkl. ${timeString}`; // Menambahkan "Pkl." di depan nilai jam
 
   const formattedDateTimeWithPkl = `${day}, ${date} ${formattedTimeWithPkl}`;
 

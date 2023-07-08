@@ -271,8 +271,134 @@
         </div>
       </div>
       <hr class="my-5" />
-      <div class="flex flex-wrap lg:flex-nowrap gap-6">
-        <div class="border border-slate-300 rounded p-4 w-full">
+      <div class="grid grid-cols-1 lg:grid-cols-3 gap-6">
+        <!-- <div class="border border-slate-300 rounded p-4 w-full lg:order-first">
+          <p class="text-xl font-semibold">Biodata Pasien</p>
+          <hr class="my-2" />
+          <div class="mb-2">
+            <p class="text-lg font-medium italic">Asuransi & Pembayaran</p>
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 py-2">
+              <div class="grouphelperPagination">
+                <Label for="" class="block mb-2"
+                  >Nama Asuransi: <span class="text-red-500 text-lg">*</span
+                  ></Label
+                >
+                <Input
+                  disabled
+                  id="nama_asuransi"
+                  name="nama_asuransi"
+                  value={data?.informasi_pasien.nama_asuransi ?? ''}
+                  placeholder="Masukkan Nama Asuransi"
+                />
+              </div>
+              <div class="grouphelperPagination">
+                <Label for="" class="block mb-2"
+                  >No Asuransi: <span class="text-red-500 text-lg">*</span
+                  ></Label
+                >
+                <Input
+                  disabled
+                  id="nomor_asuransi"
+                  name="nomor_asuransi"
+                  value={data?.informasi_pasien.nomor_asuransi ?? ''}
+                  placeholder="Masukkan Nomor Asuransi"
+                />
+              </div>
+              <div class="grouphelperPagination">
+                <Label for="" class="block mb-2"
+                  >Status Asuransi: <span class="text-red-500 text-lg">*</span
+                  ></Label
+                >
+                <Input
+                  disabled
+                  id="status_asuransi"
+                  name="status_asuransi"
+                  value={data?.informasi_pasien.status_asuransi ? 'Peserta Aktif' : 'Peserta Tidak Aktif'}
+                  placeholder="Masukkan Status Asuransi"
+                />
+              </div>
+            </div>
+          </div>
+        </div> -->
+        <div class="border border-slate-300 rounded p-4">
+          <p class="text-xl font-semibold">Biodata Pasien</p>
+          <hr class="my-2" />
+          <div class="my-2 border">
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-2 sm:gap-6 p-2 text-sm">
+              <p class="font-medium">Nomor Rekam Medis:</p>
+              <p class="font-light sm:text-right">{data?.patient.no_rekam_medis ?? ''}</p>
+            </div>
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-2 sm:gap-6 p-2 text-sm">
+              <p class="font-medium">Nama:</p>
+              <p class="font-light sm:text-right">{data?.patient.name ?? ''}</p>
+            </div>
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-2 sm:gap-6 p-2 text-sm">
+              <p class="font-medium">Umur:</p>
+              <p class="font-light sm:text-right">{data?.patient.umur+' TH' ?? ''}</p>
+            </div>
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-2 sm:gap-6 p-2 text-sm">
+              <p class="font-medium">Jenis Kelamin:</p>
+              <p class="font-light sm:text-right">{data?.patient.jenis_kelamin ?? ''}</p>
+            </div>
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-2 sm:gap-6 p-2 text-sm">
+              <p class="font-medium">TTL:</p>
+              <p class="font-light sm:text-right">{data?.patient.tempat_lahir+' ,'+data?.patient.tanggal_lahir ?? ''}</p>
+            </div>
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-2 sm:gap-6 p-2 text-sm">
+              <p class="font-medium">No Hp:</p>
+              <p class="font-light sm:text-right">{data?.patient.no_hp ?? ''}</p>
+            </div>
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-2 sm:gap-6 p-2 text-sm">
+              <p class="font-medium">Agama:</p>
+              <p class="font-light sm:text-right">{data?.patient.agama ?? ''}</p>
+            </div>
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-2 sm:gap-6 p-2 text-sm">
+              <p class="font-medium">Alamat KTP:</p>
+              <p class="font-light sm:text-right">{data?.patient.alamat_ktp ?? ''}</p>
+            </div>
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-2 sm:gap-6 p-2 text-sm">
+              <p class="font-medium">Alamat Domisili:</p>
+              <p class="font-light sm:text-right">{data?.patient.alamat_domisili ?? ''}</p>
+            </div>
+          </div>
+          <div class="my-2 border">
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-2 sm:gap-6 p-2 text-sm">
+              <p class="font-medium">Penanggung Jawab:</p>
+              <p class="font-light sm:text-right">{data?.informasi_pasien.nama_penanggungjawab ?? ''}</p>
+            </div>
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-2 sm:gap-6 p-2 text-sm">
+              <p class="font-medium">Hubungan dengan Pasien:</p>
+              <p class="font-light sm:text-right">{data?.informasi_pasien.hubungan_dengan_pasien ?? ''}</p>
+            </div>
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-2 sm:gap-6 p-2 text-sm">
+              <p class="font-medium">Alamat KTP:</p>
+              <p class="font-light sm:text-right">{data?.informasi_pasien.alamat_ktp_penanggungjawab ?? ''}</p>
+            </div>
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-2 sm:gap-6 p-2 text-sm">
+              <p class="font-medium">Alamat Domisili:</p>
+              <p class="font-light sm:text-right">{data?.informasi_pasien.alamat_domisili_penanggungjawab ?? ''}</p>
+            </div>
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-2 sm:gap-6 p-2 text-sm">
+              <p class="font-medium">No Hp:</p>
+              <p class="font-light sm:text-right">{data?.informasi_pasien.no_hp_penanggungjawab ?? ''}</p>
+            </div>
+          </div>
+          <div class="my-2 border">
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-2 sm:gap-6 p-2 text-sm">
+              <p class="font-medium">Nama Asuransi:</p>
+              <p class="font-light sm:text-right">{data?.informasi_pasien.nama_asuransi ?? ''}</p>
+            </div>
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-2 sm:gap-6 p-2 text-sm">
+              <p class="font-medium">No Asuransi:</p>
+              <p class="font-light sm:text-right">{data?.informasi_pasien.nomor_asuransi ?? '-'}</p>
+            </div>
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-2 sm:gap-6 p-2 text-sm">
+              <p class="font-medium">Status Asuransi:</p>
+              <p class="font-light sm:text-right">{data?.informasi_pasien.status_asuransi ? data?.informasi_pasien.status_asuransi ? 'Peserta Aktif' : 'Peserta Tidak Aktif' : '-' }</p>
+            </div>
+          </div>
+        </div>
+        <div class="lg:col-span-2 border border-slate-300 rounded p-4 w-full">
           <p class="text-xl font-semibold">Data Pemeriksaan</p>
           <hr class="my-2" />
           <div class="mb-2">
@@ -499,257 +625,6 @@
                     items={kamar}
                   />
                 </Label>
-              </div>
-            </div>
-          </div>
-        </div>
-        <div class="border border-slate-300 rounded p-4 w-full lg:order-first">
-          <p class="text-xl font-semibold">Biodata Pasien</p>
-          <hr class="my-2" />
-          <div class="mb-2">
-            <p class="text-lg font-medium italic">Identitas</p>
-            <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 py-2">
-              <div class="grouphelperPagination">
-                <Label for="" class="block mb-2"
-                  >Nomor Rekam Medis: <span class="text-red-500 text-lg">*</span
-                  ></Label
-                >
-                <Input
-                  disabled
-                  id="no_rekam_medis"
-                  name="no_rekam_medis"
-                  placeholder="Masukkan nomor rekam medis pasien"
-                  value={data?.patient.no_rekam_medis ?? ''}
-                />
-              </div>
-              <div class="grouphelperPagination">
-                <Label for="" class="block mb-2"
-                  >Nama Lengkap Pasien: <span class="text-red-500 text-lg"
-                    >*</span
-                  ></Label
-                >
-                <Input
-                  disabled
-                  id="name"
-                  name="name"
-                  placeholder="Masukkan nama lengkap pasien"
-                  value={data?.patient.name ?? ''}
-                />
-              </div>
-              <div class="grouphelperPagination">
-                <Label for="" class="block mb-2"
-                  >Umur: <span class="text-red-500 text-lg">*</span></Label
-                >
-                <Input
-                  disabled
-                  id="umur"
-                  name="umur"
-                  placeholder="Masukkan umur pasien"
-                  value={data?.patient.umur ?? ''}
-                />
-              </div>
-              <div class="grouphelperPagination">
-                <Label for="" class="block mb-2"
-                  >Jenis Kelamin: <span class="text-red-500 text-lg">*</span
-                  ></Label
-                >
-                <div class="flex gap-2">
-                  <Radio checked={selectedJenisKelaminPasien === 'Laki-Laki' ? true : false } id="jenis_kelamin" name="jenis_kelamin" disabled value="Laki-Laki">Laki-Laki</Radio
-                  >
-                  <Radio checked={selectedJenisKelaminPasien === 'Perempuan' ? true : false } name="jenis_kelamin" disabled value="Perempuan">Perempuan</Radio
-                  >
-                </div>
-              </div>
-              <div class="grouphelperPagination">
-                <Label for="" class="block mb-2"
-                  >Tempat / Tanggal Lahir: <span class="text-red-500 text-lg"
-                    >*</span
-                  ></Label
-                >
-                <div class="flex gap-2">
-                  <Input
-                    disabled
-                    id="tempat_lahir"
-                    name="tempat_lahir"
-                    value={data?.patient.tempat_lahir ?? ''}
-                    placeholder="Masukkan tempat"
-                  />
-                  <Input disabled id="tanggal_lahir" name="tanggal_lahir" type="date" value={data?.patient.tanggal_lahir ?? ''}/>
-                </div>
-              </div>
-              <div class="grouphelperPagination">
-                <Label for="" class="block mb-2"
-                  >Nomor Telepon/HP: <span class="text-red-500 text-lg">*</span
-                  ></Label
-                >
-                <Input
-                  disabled
-                  id="no_hp"
-                  name="no_hp"
-                  value={data?.patient.no_hp ?? ''}
-                  placeholder="Masukkan nomor telepon / HP pasien"
-                />
-              </div>
-              <div class="grouphelperPagination">
-                <Label for="">Agama: <span class="text-red-500 text-lg">*</span>
-                  <Select disabled id="agama" name="agama" class="mt-2" items={agamaPasien} bind:value={selectedAgamaPasien}/>
-                </Label>
-              </div>
-              <div class="grouphelperPagination">
-                <Label for="" class="block mb-2"
-                  >Alamat KTP: <span class="text-red-500 text-lg">*</span
-                  ></Label
-                >
-                <Input
-                  disabled
-                  name="alamat_ktp"
-                  id="alamat_ktp"
-                  value={data?.patient.alamat_ktp ?? ''}
-                  placeholder="Masukkan alamat tempat tinggal pasien"
-                />
-              </div>
-              <div class="grouphelperPagination">
-                <Label for="" class="block mb-2"
-                  >Alamat Domisili Tempat Tinggal: <span
-                    class="text-red-500 text-lg">*</span
-                  ></Label
-                >
-                <Input
-                  disabled
-                  value={data?.patient.alamat_domisili ?? ''}
-                  name="alamat_domisili"
-                  id="alamat_domisili"
-                  placeholder="Masukkan alamat sesuai ktp pasien"
-                />
-                <Checkbox checked>Alamat domisili sama dengan KTP</Checkbox>
-              </div>
-            </div>
-          </div>
-          <div class="mb-2">
-            <p class="text-lg font-medium italic">Identitas Penanggung Jawab</p>
-            <div
-              class="grid grid-cols-1 sm:grid-cols-2 gap-4 py-2 mb-2 border-b"
-            >
-              <div class="grouphelperPagination">
-                <Label for="" class="block mb-2"
-                  >Penanggung Jawab: <span class="text-red-500 text-lg">*</span
-                  ></Label
-                >
-                <Input
-                  disabled
-                  id="nama_penanggungjawab"
-                  name="nama_penanggungjawab"
-                  value={data?.informasi_pasien.nama_penanggungjawab ?? ''}
-                  placeholder="Masukkan nama penanggung jawab pasien"
-                />
-              </div>
-              <div class="grouphelperPagination">
-                <Label for="" class="block mb-2"
-                  >Hubungan dengan Pasien: <span class="text-red-500 text-lg"
-                    >*</span
-                  ></Label
-                >
-                <div class="flex flex-wrap gap-2">
-                  <Radio checked={selectedHubunganPasien === 'Orang Tua' ? true : false} disabled name="hubungan_dengan_pasien" value="Orang Tua"
-                    >Orang Tua</Radio
-                  >
-                  <Radio checked={selectedHubunganPasien === 'Anak' ? true : false} disabled name="hubungan_dengan_pasien" value="Anak">Anak</Radio>
-                  <Radio checked={selectedHubunganPasien === 'Suami/Istri' ? true : false} disabled name="hubungan_dengan_pasien" value="Suami/Istri"
-                    >Suami/Istri</Radio
-                  >
-                  <Radio checked={selectedHubunganPasien === 'Keluarga' ? true : false} disabled name="hubungan_dengan_pasien" value="Keluarga"
-                    >Keluarga</Radio
-                  >
-                  <Radio checked={selectedHubunganPasien === 'Teman' ? true : false} disabled name="hubungan_dengan_pasien" value="Teman">Teman</Radio>
-                  <Radio checked={selectedHubunganPasien === 'Lain-Lain' ? true : false} disabled name="hubungan_dengan_pasien" value="Lain-Lain"
-                    >Lain-Lain</Radio
-                  >
-                </div>
-              </div>
-              <div class="grouphelperPagination">
-                <Label for="" class="block mb-2"
-                  >Alamat KTP: <span class="text-red-500 text-lg">*</span
-                  ></Label
-                >
-                <Input
-                  disabled
-                  name="alamat_ktp_penanggungjawab"
-                  id="alamat_ktp_penanggungjawab"
-                  value={data?.informasi_pasien.alamat_ktp_penanggungjawab ?? ''}
-                  placeholder="Masukkan nama penanggung jawab pasien"
-                />
-              </div>
-              <div class="grouphelperPagination">
-                <Label for="" class="block mb-2"
-                  >Alamat Tempat Tinggal: <span class="text-red-500 text-lg"
-                    >*</span
-                  ></Label
-                >
-                <Input
-                  disabled
-                  name="alamat_domisili_penanggungjawab"
-                  id="alamat_domisili_penanggungjawab"
-                  value={data?.informasi_pasien.alamat_domisili_penanggungjawab ?? ''}
-                  placeholder="Masukkan alamat tempat tinggal penanggung jawab pasien"
-                />
-                <Checkbox disabled checked={data?.informasi_pasien.alamat_domisili_penanggungjawab === data?.informasi_pasien.alamat_ktp_penanggungjawab ? true : false}>Alamat domisili sama dengan KTP</Checkbox>
-              </div>
-              <div class="grouphelperPagination">
-                <Label for="" class="block mb-2"
-                  >Nomor Telepon/HP: <span class="text-red-500 text-lg">*</span
-                  ></Label
-                >
-                <Input
-                  disabled
-                  id="no_hp_penanggungjawab"
-                  name="no_hp_penanggungjawab"
-                  value={data?.informasi_pasien.no_hp_penanggungjawab ?? ''}
-                  placeholder="Masukkan nomor telepon / HP penanggung jawab pasien"
-                />
-              </div>
-            </div>
-          </div>
-          <div class="mb-2">
-            <p class="text-lg font-medium italic">Asuransi & Pembayaran</p>
-            <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 py-2">
-              <div class="grouphelperPagination">
-                <Label for="" class="block mb-2"
-                  >Nama Asuransi: <span class="text-red-500 text-lg">*</span
-                  ></Label
-                >
-                <Input
-                  disabled
-                  id="nama_asuransi"
-                  name="nama_asuransi"
-                  value={data?.informasi_pasien.nama_asuransi ?? ''}
-                  placeholder="Masukkan Nama Asuransi"
-                />
-              </div>
-              <div class="grouphelperPagination">
-                <Label for="" class="block mb-2"
-                  >No Asuransi: <span class="text-red-500 text-lg">*</span
-                  ></Label
-                >
-                <Input
-                  disabled
-                  id="nomor_asuransi"
-                  name="nomor_asuransi"
-                  value={data?.informasi_pasien.nomor_asuransi ?? ''}
-                  placeholder="Masukkan Nomor Asuransi"
-                />
-              </div>
-              <div class="grouphelperPagination">
-                <Label for="" class="block mb-2"
-                  >Status Asuransi: <span class="text-red-500 text-lg">*</span
-                  ></Label
-                >
-                <Input
-                  disabled
-                  id="status_asuransi"
-                  name="status_asuransi"
-                  value={data?.informasi_pasien.status_asuransi ? 'Peserta Aktif' : 'Peserta Tidak Aktif'}
-                  placeholder="Masukkan Status Asuransi"
-                />
               </div>
             </div>
           </div>

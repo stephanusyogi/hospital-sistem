@@ -11,15 +11,16 @@ export const load = (async ({ cookies, params }) => {
     'Authorization': 'Bearer '+user_cookies.token
   };
 
-  const asesmenMedisAwal = await axios.get(BACKEND_API+'/rekam-medis/asesmen-medis-awal-norm/'+no_rm, { headers })
+  const asesmenMedisRawatInap = await axios.get(BACKEND_API+'/rekam-medis/asesmen-medis-rawat-inap-norm/'+no_rm, { headers })
     .then((response) => {
-      return response.data;
+      return response.data.length > 0 ? response.data[0] : response.data;
     })
     .catch((error) => {
       return []
     });
+  
   return {
     user_data: user_cookies,
-    asesmen_medis_awal: asesmenMedisAwal,
+    asesmen_medis_rawat_inap: asesmenMedisRawatInap,
   }; 
 });

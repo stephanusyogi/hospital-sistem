@@ -81,11 +81,19 @@ export const actions = {
         await axios.post(BACKEND_API+'/rekam-medis/log', dataLog ,config)
           .catch(error => {
             console.error(error);
+            return fail(400, {
+              error: true,
+              message: error.response.data.message,
+            }); 
           });
 
         await axios.post(BACKEND_API+'/rekam-medis/informasi-pasien', informasiPasien, config)
           .catch(error => {
             console.error(error);
+            return fail(400, {
+              error: true,
+              message: error.response.data.message,
+            }); 
           });
         
       } catch (error) {
@@ -96,6 +104,10 @@ export const actions = {
       }
     } catch (error) {
       console.log(error)
+      return fail(400, {
+        error: true,
+        message: error.response.data.message,
+      }); 
     }
     
     throw redirect(303, '/pendaftaran/admisi-rawat-inap')

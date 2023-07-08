@@ -140,6 +140,7 @@ export const actions = {
 
       await axios.post(BACKEND_API+'/rekam-medis/pemeriksaan-awal', data , config);
     } catch (error) {
+      console.log(error)
       return fail(400, {
         error: true,
         message: error.response.data.message,

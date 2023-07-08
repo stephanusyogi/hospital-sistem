@@ -26,11 +26,16 @@ export const actions = {
         'Content-Type': 'application/json'
       }
     };
-
-    axios.post(BACKEND_API+'/patient', formValues, config)
-      .catch(error => {
-        console.error(error);
-      });
+    try {
+      await axios.post(BACKEND_API+'/patient', formValues, config)
+    } catch (error) {
+      console.error(error);
+      return fail(400, {
+        error: true,
+        message: `NIK telah digunakan!`,
+        data: formValues
+      }); 
+    }
 
     return {
       success: true,

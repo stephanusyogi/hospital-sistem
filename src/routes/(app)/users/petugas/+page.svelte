@@ -31,7 +31,7 @@
   <section class="px-4 py-6 bg-gray-50 dark:bg-gray-800 shadow rounded-lg">
     <div class="flex items-center justify-between">
       <p class="text-lg sm:text-md lg:text-2xl font-semibold">Master Data Petugas RSI Aisyah</p>
-      <Button size="sm" color="blue" on:click={() => goto("/users/petugas/tambah")}><Icon icon="material-symbols:add-circle" width="25" height="25" class="sm:mr-2"/><span class="hidden sm:bloc">Tambah Petugas</span></Button>
+      <Button size="sm" color="blue" on:click={() => goto("/users/petugas/tambah")}><Icon icon="material-symbols:add-circle" width="25" height="25" class="sm:mr-2"/><span class="hidden sm:block">Tambah Petugas</span></Button>
     </div>
     <hr class="my-5">
     <section class="table-section">

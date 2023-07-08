@@ -92,6 +92,7 @@
               {#each $rows as { no_rekam_medis, name, nik, jenis_kelamin, alamat_ktp }, i}
                 <Pasien
                   tableRowNumber={i + 1}
+                  {data}
                   {no_rekam_medis}
                   {name}
                   {nik}
