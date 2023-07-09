@@ -5,12 +5,6 @@ const createRekonsiliasi = async (req, res) => {
   try {
     const data = req.body;
 
-    const existingData = await Rekonsiliasi.findOne({ $or: [{ no_rekam_medis: data.no_rekam_medis, status_pulang: false }] });
-
-    if (existingData) {
-      throw new Error("Data already exist!");
-    }
-
     data.status_pulang = false
     const newData = new Rekonsiliasi(data);
 
@@ -68,8 +62,20 @@ const updateRekonsiliasi = async (req, res) => {
     res.status(500).send({ message: error.message });
   }
 };
+const deleteRekonsiliasi = async (req, res) => {
+  try {
+    const { id } = req.params;
+
+    const deletedData = await Rekonsiliasi.findByIdAndDelete(id)
+
+    res.status(200).send({ message: "Data Deleted", data:deletedData });
+  } catch (error) {
+    res.status(500).send({ message: error.message });
+  }
+};
 
 module.exports = {
+  deleteRekonsiliasi,
   createRekonsiliasi,
   getRekonsiliasiByNoRM,
   getRekonsiliasiByID,

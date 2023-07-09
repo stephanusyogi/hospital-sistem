@@ -282,9 +282,6 @@ const pemeriksaanNyeriSchema = new Schema({
 const diagnosaKeperawatanSchema = new Schema({
   keterangan: {
     type: String
-  },
-  prioritas: {
-    type: Boolean
   }
 });
 

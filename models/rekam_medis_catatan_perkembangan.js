@@ -40,9 +40,14 @@ const CatatanPerkembanganSchema = new Schema({
     type: String,
   },
   verifikasi_dpjp: {
+    type: String,
+  },
+  instruksi: {
+    type: String,
+  },
+  visitasi_dokter: {
     type: Boolean,
   },
-  instruksi: [instruksiSchema],
 }, { timestamps: true });
 
 module.exports = mongoose.model("RekamMedisCatatanPerkembangan", CatatanPerkembanganSchema);

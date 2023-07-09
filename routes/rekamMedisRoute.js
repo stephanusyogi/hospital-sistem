@@ -89,35 +89,41 @@ router.put("/transfer-pasien-internal/:id", protect, TransferPasienInternal.upda
 router.get("/transfer-pasien-internal-norm/:id", protect, TransferPasienInternal.getTransferPasienInternalByNoRM);
 router.get("/transfer-pasien-internal-id/:id", protect, TransferPasienInternal.getTransferPasienInternalByID);
 
+
 // Catatan Perkembangan Pasien Terintegrasi
 router.post("/catatan-perkembangan", protect, CatatanPerkembangan.createCatatanPerkembangan);
 router.put("/catatan-perkembangan/:id", protect, CatatanPerkembangan.updateCatatanPerkembangan);
 router.get("/catatan-perkembangan-norm/:id", protect, CatatanPerkembangan.getCatatanPerkembanganByNoRM);
 router.get("/catatan-perkembangan-id/:id", protect, CatatanPerkembangan.getCatatanPerkembanganByID);
+router.delete("/catatan-perkembangan/:id", protect, CatatanPerkembangan.deleteCatatanPerkembangan);
 
 // Catatan Keperawatan
 router.post("/catatan-keperawatan", protect, CatatanKeperawatan.createCatatanKeperawatan);
 router.put("/catatan-keperawatan/:id", protect, CatatanKeperawatan.updateCatatanKeperawatan);
 router.get("/catatan-keperawatan-norm/:id", protect, CatatanKeperawatan.getCatatanKeperawatanByNoRM);
 router.get("/catatan-keperawatan-id/:id", protect, CatatanKeperawatan.getCatatanKeperawatanByID);
+router.delete("/catatan-keperawatan/:id", protect, CatatanKeperawatan.deleteCatatanKeperawatan);
 
 // Observasi Cairan
 router.post("/observasi-cairan", protect, ObservasiCairan.createObservasiCairan);
 router.put("/observasi-cairan/:id", protect, ObservasiCairan.updateObservasiCairan);
 router.get("/observasi-cairan-norm/:id", protect, ObservasiCairan.getObservasiCairanByNoRM);
 router.get("/observasi-cairan-id/:id", protect, ObservasiCairan.getObservasiCairanByID);
+router.delete("/observasi-cairan/:id", protect, ObservasiCairan.deleteObservasiCairan);
 
 // Pemberian Obat
 router.post("/pemberian-obat", protect, PemberianObat.createPemberianObat);
 router.put("/pemberian-obat/:id", protect, PemberianObat.updatePemberianObat);
 router.get("/pemberian-obat-norm/:id", protect, PemberianObat.getPemberianObatByNoRM);
 router.get("/pemberian-obat-id/:id", protect, PemberianObat.getPemberianObatByID);
+router.delete("/pemberian-obat/:id", protect, PemberianObat.deletePemberianObat);
 
 // Rekonsiliasi
 router.post("/rekonsiliasi", protect, Rekonsiliasi.createRekonsiliasi);
 router.put("/rekonsiliasi/:id", protect, Rekonsiliasi.updateRekonsiliasi);
 router.get("/rekonsiliasi-norm/:id", protect, Rekonsiliasi.getRekonsiliasiByNoRM);
 router.get("/rekonsiliasi-id/:id", protect, Rekonsiliasi.getRekonsiliasiByID);
+router.delete("/rekonsiliasi/:id", protect, Rekonsiliasi.deleteRekonsiliasi);
 
 // DPJP
 router.post("/pengajuan-dpjp", protect, DPJP.createPengajuanDPJP);

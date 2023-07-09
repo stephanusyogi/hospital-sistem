@@ -135,6 +135,22 @@ const edukasiPasienSchema= new Schema({
   }
 })
 
+// const RingkasanPasienPulangSchema = new Schema({
+//   status_pulang: {
+//     type: Boolean,
+//   },
+//   no_rekam_medis: {
+//     type: String,
+//     required: true,
+//     ref: 'Patient',
+//     field: 'no_rekam_medis'
+//   },
+//   ringkasan_informasi: [ringkasanInformasiSchema],
+//   kondisi_pasien_pulang: [kondisiPasienPulangSchema],
+//   instruksi_tindak_lanjut: [instruksiTindakLanjutSchema],
+//   edukasi_pasien: [edukasiPasienSchema],
+// }, { timestamps: true });
+
 const RingkasanPasienPulangSchema = new Schema({
   status_pulang: {
     type: Boolean,
@@ -145,10 +161,27 @@ const RingkasanPasienPulangSchema = new Schema({
     ref: 'Patient',
     field: 'no_rekam_medis'
   },
-  ringkasan_informasi: [ringkasanInformasiSchema],
-  kondisi_pasien_pulang: [kondisiPasienPulangSchema],
-  instruksi_tindak_lanjut: [instruksiTindakLanjutSchema],
-  edukasi_pasien: [edukasiPasienSchema],
+  keadaan_umum_t: {
+    type: String
+  },
+  keadaan_umum_s: {
+    type: String
+  },
+  keadaan_umum_n: {
+    type: String
+  },
+  keadaan_umum_spo2: {
+    type: String
+  },
+  keadaan_umum_rr: {
+    type: String
+  },
+  cara_pulang: {
+    type: String
+  },
+  keadaan_pulang: {
+    type: String
+  },
 }, { timestamps: true });
 
 module.exports = mongoose.model("RekamMedisRingkasanPasienPulang", RingkasanPasienPulangSchema);

@@ -26,7 +26,7 @@ const getRingkasanPasienPulangByNoRM = async (req, res) => {
   try {
     const { id } = req.params;
 
-    const data = await RingkasanPasienPulang.find({no_rekam_medis: id, status_pulang: false});
+    const data = await RingkasanPasienPulang.findOne({no_rekam_medis: id, status_pulang: false});
 
     if (!data) {
       throw new Error("Data not found!");

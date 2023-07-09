@@ -27,7 +27,7 @@ const getAsesmenMedisRawatInapByNoRM = async (req, res) => {
   try {
     const { id } = req.params;
 
-    const data = await AsesmenMedisRawatInap.find({no_rekam_medis: id, status_pulang: false});
+    const data = await AsesmenMedisRawatInap.findOne({no_rekam_medis: id, status_pulang: false});
 
     if (!data) {
       throw new Error("Data not found!");

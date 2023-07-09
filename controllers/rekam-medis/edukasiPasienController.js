@@ -29,7 +29,7 @@ const getEdukasiPasienByNoRM = async (req, res) => {
   try {
     const { id } = req.params;
 
-    const data = await EdukasiPasien.find({no_rekam_medis: id, status_pulang: false});
+    const data = await EdukasiPasien.findOne({no_rekam_medis: id, status_pulang: false});
 
     if (!data) {
       throw new Error("Data not found!");

@@ -17,7 +17,7 @@ const RekonsiliasiSchema = new Schema({
   nama_obat: {
     type: String,
   },
-  dosis_obat: {
+  dosis: {
     type: String,
   },
   kandungan: {
@@ -32,7 +32,7 @@ const RekonsiliasiSchema = new Schema({
   tanggal_mulai: {
     type: String,
   },
-  tanggal_obat: {
+  tanggal_stop: {
     type: String,
   },
   jumlah_obat_tersisa: {

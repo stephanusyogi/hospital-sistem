@@ -5,12 +5,6 @@ const createCatatanKeperawatan = async (req, res) => {
   try {
     const data = req.body;
 
-    const existingData = await CatatanKeperawatan.findOne({ $or: [{ no_rekam_medis: data.no_rekam_medis, status_pulang: false }] });
-
-    if (existingData) {
-      throw new Error("Data already exist!");
-    }
-
     data.status_pulang = false
     const newData = new CatatanKeperawatan(data);
 
@@ -53,6 +47,17 @@ const getCatatanKeperawatanByID = async (req, res) => {
     res.status(500).send({ message: error.message });
   }
 };
+const deleteCatatanKeperawatan = async (req, res) => {
+  try {
+    const { id } = req.params;
+
+    const deletedData = await CatatanKeperawatan.findByIdAndDelete(id)
+
+    res.status(200).send({ message: "Data Deleted", data:deletedData });
+  } catch (error) {
+    res.status(500).send({ message: error.message });
+  }
+};
 const updateCatatanKeperawatan = async (req, res) => {
   try {
     const { id } = req.params;
@@ -70,6 +75,7 @@ const updateCatatanKeperawatan = async (req, res) => {
 };
 
 module.exports = {
+  deleteCatatanKeperawatan,
   createCatatanKeperawatan,
   getCatatanKeperawatanByNoRM,
   getCatatanKeperawatanByID,

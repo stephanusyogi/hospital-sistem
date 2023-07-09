@@ -111,7 +111,7 @@ const getInformasiPasienByNoRM = async (req, res) => {
   try {
     const { id } = req.params;
 
-    const data = await InformasiPasien.find({no_rekam_medis: id, status_pulang: false});
+    const data = await InformasiPasien.findOne({no_rekam_medis: id, status_pulang: false});
 
     if (!data) {
       throw new Error("Data not found!");

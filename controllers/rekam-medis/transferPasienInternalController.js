@@ -26,7 +26,7 @@ const getTransferPasienInternalByNoRM = async (req, res) => {
   try {
     const { id } = req.params;
 
-    const data = await TransferPasienInternal.find({no_rekam_medis: id, status_pulang: false});
+    const data = await TransferPasienInternal.findOne({no_rekam_medis: id, status_pulang: false});
 
     if (!data) {
       throw new Error("Data not found!");
