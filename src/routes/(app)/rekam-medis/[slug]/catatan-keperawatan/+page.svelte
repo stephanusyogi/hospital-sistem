@@ -3,26 +3,8 @@
   import Catatan from "./Catatan.svelte";
   import { DataHandler, Datatable, Th } from "@vincjo/datatables";
   import "../../../tableCustom.css";
-
-  let dummyCatatan = [
-    {
-      "tgl_jam": "2023-03-19 08:00:00",
-      "catatan": "Pemberian Infus",
-      "identitas": "Stephanus Yogi",
-    },
-    {
-      "tgl_jam": "2023-03-19 08:00:00",
-      "catatan": "Pemberian Infus Kedua",
-      "identitas": "Stephanus Yogi",
-    },
-    {
-      "tgl_jam": "2023-03-19 08:00:00",
-      "catatan": "Pasien minta selimut",
-      "identitas": "Stephanus Yogi",
-    },
-  ];
-
-  const handler = new DataHandler(dummyCatatan, { rowsPerPage: 10 });
+  export let data
+  const handler = new DataHandler(data?.catatan_keperawatan, { rowsPerPage: 10 });
   const rows = handler.getRows();
 </script>
 <div>
@@ -40,14 +22,15 @@
     <table>
       <thead>
         <tr>
-          <Th {handler} orderBy="tgl_jam">Tanggal & Jam</Th>
+          <Th {handler} orderBy="createdAt">Tanggal & Jam</Th>
           <Th {handler} orderBy="catatan">Catatan</Th>
-          <Th {handler} orderBy="identitas">Identitas Perawat</Th>
+          <Th {handler} orderBy="perawat">Identitas Perawat</Th>
+          <Th {handler} orderBy="">Aksi</Th>
         </tr>
       </thead>
       <tbody>
-        {#each $rows as { tgl_jam, catatan, identitas }}
-          <Catatan tgl_jam={tgl_jam} catatan={catatan} identitas={identitas}/>
+        {#each $rows as {_id, createdAt, catatan, perawat }}
+          <Catatan _id={_id} createdAt={createdAt} catatan={catatan} perawat={perawat} data={data}/>
         {/each}   
       </tbody>
     </table>

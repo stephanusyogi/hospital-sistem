@@ -180,12 +180,13 @@
               />
             </svelte:fragment>
           </SidebarItem>
+          <hr class="my-1" />
           <SidebarItem
             class={!openSideBar ? "justify-center" : ""}
             {aClass}
-            label="Obat"
-            href="/obat"
-            active={activeUrl === "/obat"}
+            label="Data Pasien"
+            href="/users/pasien"
+            active={activeUrl === "/users/pasien"}
             spanClass={openSideBar
               ? "ml-1 text-left text-sm sm:text-md lg:text-lg"
               : "hidden"}
@@ -196,57 +197,46 @@
             }}
           >
             <svelte:fragment slot="icon">
-              <Icon icon="game-icons:medicines" width="32" height="32" />
-            </svelte:fragment>
-          </SidebarItem>
-          <hr class="my-1" />
-          <SidebarDropdownWrapper
-            {btnClass}
-            isOpen={!openSideBar ? false : false}
-            label="Users Management"
-            spanClass={openSideBar
-              ? "ml-1 text-left text-sm sm:text-md lg:text-lg"
-              : "hidden"}
-          >
-            <svelte:fragment slot="icon">
               <Icon icon="ph:users-four-bold" width="32" height="32" />
             </svelte:fragment>
-            <SidebarDropdownItem
-              class="text-sm sm:text-md lg:text-lg"
-              href="/users/pasien"
-              label="Pasien"
-              active={activeUrl === "/users/pasien"}
-              on:click={() => {
-                if (openSideBar) {
-                  openSideBar = false;
-                }
-              }}
-            />
-            <SidebarDropdownItem
-              class="text-sm sm:text-md lg:text-lg"
-              href="/users/dokter"
-              label="Dokter"
-              active={activeUrl === "/users/dokter"}
-              on:click={() => {
-                if (openSideBar) {
-                  openSideBar = false;
-                }
-              }}
-            />
-            <SidebarDropdownItem
-              class="text-sm sm:text-md lg:text-lg"
-              href="/users/petugas"
-              label="Petugas"
-              active={activeUrl === "/users/petugas"}
-              on:click={() => {
-                if (openSideBar) {
-                  openSideBar = false;
-                }
-              }}
-            />
-          </SidebarDropdownWrapper>
+          </SidebarItem>
         </div>
       </SidebarGroup>
+    {:else if user_data?.role === "Admin"}
+      <SidebarDropdownWrapper
+        {btnClass}
+        isOpen={!openSideBar ? false : false}
+        label="Users Management"
+        spanClass={openSideBar
+          ? "ml-1 text-left text-sm sm:text-md lg:text-lg"
+          : "hidden"}
+      >
+        <svelte:fragment slot="icon">
+          <Icon icon="ph:users-four-bold" width="32" height="32" />
+        </svelte:fragment>
+        <SidebarDropdownItem
+          class="text-sm sm:text-md lg:text-lg"
+          href="/users/dokter"
+          label="Dokter"
+          active={activeUrl === "/users/dokter"}
+          on:click={() => {
+            if (openSideBar) {
+              openSideBar = false;
+            }
+          }}
+        />
+        <SidebarDropdownItem
+          class="text-sm sm:text-md lg:text-lg"
+          href="/users/petugas"
+          label="Petugas"
+          active={activeUrl === "/users/petugas"}
+          on:click={() => {
+            if (openSideBar) {
+              openSideBar = false;
+            }
+          }}
+        />
+      </SidebarDropdownWrapper>
     {:else if user_data?.role === "Apoteker"}
       <SidebarGroup ulClass="space-y-2">
         <!-- List Menu -->

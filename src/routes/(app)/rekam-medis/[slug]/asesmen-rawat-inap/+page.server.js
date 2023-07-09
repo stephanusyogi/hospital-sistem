@@ -13,12 +13,11 @@ export const load = (async ({ cookies, params }) => {
 
   const asesmenMedisRawatInap = await axios.get(BACKEND_API+'/rekam-medis/asesmen-medis-rawat-inap-norm/'+no_rm, { headers })
     .then((response) => {
-      return response.data.length > 0 ? response.data[0] : response.data;
+      return response.data;
     })
     .catch((error) => {
       return []
     });
-  
   return {
     user_data: user_cookies,
     asesmen_medis_rawat_inap: asesmenMedisRawatInap,

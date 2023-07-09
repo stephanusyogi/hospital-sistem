@@ -16,7 +16,7 @@ export const load = (async ({ cookies, params }) => {
 
   const informasiPasien = await axios.get(BACKEND_API+'/rekam-medis/informasi-pasien-norm/'+no_rm, { headers })
   .then((response) => {
-    return response.data.length > 0 ? response.data[0] : response.data;
+    return response.data;
   })
   .catch((error) => {
     return []

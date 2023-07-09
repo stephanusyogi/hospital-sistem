@@ -2,19 +2,8 @@
 
   import Swal from "sweetalert2";
   import { goto } from '$app/navigation';
-  import { Button, Label, Select, Textarea } from "flowbite-svelte";
-
-  let dpjp = [
-    {value:"dr. Khal Drogo, Sp PD FINASIM", name: "dr. Khal Drogo, Sp PD FINASIM"},
-    {value:"dr. Ramsay Bolton, Sp AN", name: "dr. Ramsay Bolton, Sp AN"},
-    {value:"dr. Viserys II S, Sp.KJ", name: "dr. Viserys II S, Sp.KJ"},
-  ]
-
-  let obat = [
-    {value:"Artesunate tablet", name: "Artesunate tablet"},
-    {value:"Amodiaquine anhydrida tablet", name: "Amodiaquine anhydrida tablet"},
-    {value:"Albendazol", name: "Albendazol"},
-  ]
+  import { Button,Input, Label, Select, Textarea } from "flowbite-svelte";
+  import { onMount } from "svelte";
 
   const handleSubmit = () => {
     Swal.fire({
@@ -26,28 +15,36 @@
       denyButtonText: `Batal`,
     }).then((result) => {
       if (result.isConfirmed) {
-        Swal.fire({
-          icon: 'success',
-          title: 'Obat Berhasil Ditambahkan',
-          showConfirmButton: false,
-          timer: 1000
-        }).then(()=>{
-          goto("/rekam-medis/00123141/pemberian-obat-pasien")
-        })
-      } else if (result.isDenied) {
-        Swal.fire({
-          icon: 'info',
-          title: 'Aksi Dibatalkan',
-          showConfirmButton: false,
-          timer: 1000
-        })
+        const form = document.getElementById('form');
+        form.submit()
       }
     })
   }
+  export let data
+  export let form
+  let obat = []
+  onMount(()=>{
+    if (form?.error) {
+      Swal.fire({
+        text: form.message,
+        icon: 'error',
+        showConfirmButton: false,
+        timer: 3000,
+      });
+    }
+    if(data?.obat){
+      data.obat.forEach((item) => {
+        obat.push({
+          value: item.nama_obat,
+          name: `${item.nama_obat} - ${item.harga}`,
+        });
+      })
+    }
+  })
 </script>
 
 <main>
-  <form on:submit|preventDefault={handleSubmit}>
+  <form id="form" on:submit|preventDefault={handleSubmit} method="post">
     <div class="flex flex-wrap items-center justify-between">
       <div>
         <p class="text-md sm:text-lg lg:text-xl font-semibold">Form 12.37 Pemberian Obat Pasien</p>
@@ -57,24 +54,19 @@
         Tambahkan</Button>
     </div>
     <hr class="my-5">
-    <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
-      <div class="my-2">
-        <Label>DPJP:  <span class="text-sm text-red-500 italic">*</span>
-          <Select class="mt-2" items={dpjp}/>
-        </Label>
-      </div>
+    <div class="grid grid-cols-1 sm:grid-cols-3 gap-4">
       <div class="my-2">
         <Label>Obat:  <span class="text-sm text-red-500 italic">*</span>
-          <Select class="mt-2" items={obat}/>
+          <Select name="nama_obat" class="mt-2" items={obat} required/>
         </Label>
       </div>
       <div class="my-2">
         <Label for="" class="mb-2">Dosis Obat: <span class="text-sm text-red-500 italic">*</span></Label>
-        <Textarea id="" placeholder="" rows="2" name=""/>
+        <Input id="" placeholder="" name="dosis" required/>
       </div>
       <div class="my-2">
         <Label for="" class="mb-2">Rute Obat: <span class="text-sm text-red-500 italic">*</span></Label>
-        <Textarea id="" placeholder="" rows="2" name=""/>
+        <Input id="" placeholder="" name="rute" required/>
       </div>
     </div>
   </form>

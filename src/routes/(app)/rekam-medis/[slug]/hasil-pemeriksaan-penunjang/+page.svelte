@@ -1,24 +1,15 @@
 <script>
   import { Button } from 'flowbite-svelte';
   import Hasil from './Hasil.svelte';
+  import { onMount } from 'svelte';
 
-
-  let dummyHasilPemeriksaan = [
-    {
-      "uraian" : "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Cras vel ex neque. Proin mauris eros, hendrerit euismod faucibus sed, molestie vitae massa. Etiam consectetur eleifend fermentum.",
-      "created_at": "05/28/2023",
-    },
-    {
-      "uraian" : "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Cras vel ex neque. Proin mauris eros, hendrerit euismod faucibus sed, molestie vitae massa. Etiam consectetur eleifend fermentum.",
-      "created_at": "05/28/2023",
-    },
-    {
-      "uraian" : "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Cras vel ex neque. Proin mauris eros, hendrerit euismod faucibus sed, molestie vitae massa. Etiam consectetur eleifend fermentum.",
-      "created_at": "05/28/2023",
-    },
-  ];
-
-  let noTable = 1
+  export let data
+  let hasilPemeriksaan = [];
+  onMount(() => {
+    if(data?.hasil_pemeriksaan){
+      hasilPemeriksaan = data.hasil_pemeriksaan
+    }
+  })
 </script>
 
 <main>
@@ -31,10 +22,16 @@
   </div>
   <hr class="my-5">
   <div class="overflow-y-auto max-h-screen">
-    <div class="border border-slate-300 rounded p-4 w-full">
-      {#each dummyHasilPemeriksaan as {uraian, created_at}}
-        <Hasil uraian={uraian} created_at={created_at}/>
-      {/each}   
-    </div>
+    {#if hasilPemeriksaan.length !== 0}
+      <div class="border border-slate-300 rounded p-4 w-full">
+        {#each hasilPemeriksaan as {uraian, createdAt, file_dir, _id}}
+          <Hasil uraian={uraian} createdAt={createdAt} data={data} file_dir={file_dir} _id={_id}/>
+        {/each}   
+      </div>
+    {:else}
+      <div class="text-center p-10">
+        <h2 class="text-lg font-semibold">Data Tidak Ditemukan</h2>
+      </div>
+    {/if}
   </div>
 </main>

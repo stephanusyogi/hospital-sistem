@@ -4,28 +4,8 @@
   import { DataHandler, Datatable, Th } from "@vincjo/datatables";
   import "../../../tableCustom.css";
 
-  let dummyObat = [
-    {
-      "tgl_jam": "2023-03-19 08:00:00",
-      "deskripsi_obat": {
-        "nama": "Lorem ipsum",
-        "dosis": "250 mL",
-        "rute": "-",
-      },
-      "dpjp": "dr. Khal Drogo, Sp PD FINASIM"
-    },
-    {
-      "tgl_jam": "2023-03-19 08:00:00",
-      "deskripsi_obat": {
-        "nama": "Lorem ipsum",
-        "dosis": "250 mL",
-        "rute": "-",
-      },
-      "dpjp": "dr. Khal Drogo, Sp PD FINASIM"
-    },
-  ];
-
-  const handler = new DataHandler(dummyObat, { rowsPerPage: 10 });
+  export let data
+  const handler = new DataHandler(data?.pemberian_obat, { rowsPerPage: 10 });
   const rows = handler.getRows();
 </script>
 <main>
@@ -42,15 +22,16 @@
       <table>
         <thead>
           <tr>
-            <Th {handler} orderBy="tgl_jam">Tanggal & Jam</Th>
-            <Th {handler} orderBy="deskripsi_obat">Deskripsi Obat</Th>
-            <Th {handler} orderBy="dpjp">DPJP</Th>
+            <Th {handler} orderBy="createdAt">Tanggal & Jam</Th>
+            <Th {handler} orderBy="nama_obat">Nama Obat</Th>
+            <Th {handler} orderBy="dosis">Dosis Obat</Th>
+            <Th {handler} orderBy="rute">Rute Obat</Th>
             <Th {handler} orderBy="aksi">Aksi</Th>
           </tr>
         </thead>
         <tbody>
-          {#each $rows as { tgl_jam, deskripsi_obat, dpjp }}
-            <Obat tgl_jam={tgl_jam} deskripsi_obat={deskripsi_obat} dpjp={dpjp}/>
+          {#each $rows as { _id, createdAt, nama_obat, dosis, rute }}
+            <Obat _id={_id} createdAt={createdAt} nama_obat={nama_obat} dosis={dosis} rute={rute} data={data}/>
           {/each}   
         </tbody>
       </table>

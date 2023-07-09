@@ -121,8 +121,8 @@
           <Dropdown triggeredBy="#dots-menu" placement="left-start">
             <DropdownItem on:click={handlePasienPulang}>Rawat Inap Selesai (<i>Pasien Pulang</i>)</DropdownItem>
             <DropdownItem href="/transaksi/{no_rm}">Nota Rawat Inap Pasien</DropdownItem>
-            <DropdownDivider/>
-            <DropdownItem href="/">Download Rekam Medis Pasien</DropdownItem>
+            <!-- <DropdownDivider/>
+            <DropdownItem href="/">Download Rekam Medis Pasien</DropdownItem> -->
           </Dropdown>
         </div>
       </div>

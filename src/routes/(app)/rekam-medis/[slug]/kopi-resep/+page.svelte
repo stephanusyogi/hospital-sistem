@@ -1,22 +1,15 @@
 <script>
   import { Button } from 'flowbite-svelte';
   import Resep from './Resep.svelte';
+  import { onMount } from 'svelte';
 
-
-  let dummyResep = [
-    {
-      "uraian" : "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Cras vel ex neque. Proin mauris eros, hendrerit euismod faucibus sed, molestie vitae massa. Etiam consectetur eleifend fermentum.",
-      "created_at": "05/28/2023",
-    },
-    {
-      "uraian" : "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Cras vel ex neque. Proin mauris eros, hendrerit euismod faucibus sed, molestie vitae massa. Etiam consectetur eleifend fermentum.",
-      "created_at": "05/28/2023",
-    },
-    {
-      "uraian" : "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Cras vel ex neque. Proin mauris eros, hendrerit euismod faucibus sed, molestie vitae massa. Etiam consectetur eleifend fermentum.",
-      "created_at": "05/28/2023",
-    },
-  ];
+  export let data
+  let kopiResep = [];
+  onMount(() => {
+    if(data?.kopi_resep){
+      kopiResep = data.kopi_resep
+    }
+  })
 </script>
 
 <main>
@@ -29,10 +22,16 @@
   </div>
   <hr class="my-5">
   <div class="overflow-y-auto max-h-screen">
-    <div class="border border-slate-300 rounded p-4 w-full">
-      {#each dummyResep as {uraian, created_at}}
-        <Resep uraian={uraian} created_at={created_at}/>
-      {/each}   
-    </div>
+    {#if kopiResep.length !== 0}
+      <div class="border border-slate-300 rounded p-4 w-full">
+        {#each kopiResep as {uraian, createdAt, file_dir, _id}}
+          <Resep uraian={uraian} createdAt={createdAt} data={data} file_dir={file_dir} _id={_id}/>
+        {/each}   
+      </div>
+    {:else}
+      <div class="text-center p-10">
+        <h2 class="text-lg font-semibold">Data Tidak Ditemukan</h2>
+      </div>
+    {/if}
   </div>
 </main>

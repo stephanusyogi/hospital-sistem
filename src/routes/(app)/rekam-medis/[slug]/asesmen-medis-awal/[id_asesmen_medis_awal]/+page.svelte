@@ -11,8 +11,10 @@
   } from "flowbite-svelte";
   import { page } from "$app/stores";
   import Swal from "sweetalert2";
+  import { onMount } from "svelte";
 
   export let data
+  export let form
 
   const no_rm = $page.params.slug;
 
@@ -31,53 +33,74 @@
       }
     });
   };
+  let keluhan_utama
+  let riwayat_penyakit_sekarang
+  let riwayat_penyakit_keluarga
+  let riwayat_pengobatan
+  let riwayat_alergi
+  let masalah
+  let diagnosis
+  onMount(() => {
+    if (form?.error) {
+      Swal.fire({
+        text: form.message,
+        icon: 'error',
+        showConfirmButton: false,
+        timer: 3000,
+      });
+    }
+    if(data?.asesmen_medis_awal){
+      keluhan_utama = data.asesmen_medis_awal.anamnesa[0].keluhan_utama
+      riwayat_penyakit_sekarang = data.asesmen_medis_awal.anamnesa[0].riwayat_penyakit_sekarang
+      riwayat_penyakit_keluarga = data.asesmen_medis_awal.anamnesa[0].riwayat_penyakit_keluarga
+      riwayat_pengobatan = data.asesmen_medis_awal.anamnesa[0].riwayat_pengobatan
+      riwayat_alergi = data.asesmen_medis_awal.anamnesa[0].riwayat_alergi
+      masalah = data.asesmen_medis_awal.masalah
+      diagnosis = data.asesmen_medis_awal.diagnosis
+    }
+  })
 
-  let keluhan_utama = data?.asesmen_medis_awal.anamnesa[0]?.keluhan_utama || "";
-  let riwayat_penyakit_sekarang = data?.asesmen_medis_awal.anamnesa[0]?.riwayat_penyakit_sekarang || "";
-  let riwayat_penyakit_keluarga = data?.asesmen_medis_awal.anamnesa[0]?.riwayat_penyakit_keluarga || "";
-  let riwayat_pengobatan = data?.asesmen_medis_awal.anamnesa[0]?.riwayat_pengobatan || "";
-  let riwayat_alergi = data?.asesmen_medis_awal.anamnesa[0]?.riwayat_alergi || "";
 
-  let keadaan_umum = data?.asesmen_medis_awal.pemeriksaan_fisik[0]?.keadaan_umum || "";
-  let kepala_leher = data?.asesmen_medis_awal.pemeriksaan_fisik[0]?.kepala_leher || "";
-  let ekstremitas = data?.asesmen_medis_awal.pemeriksaan_fisik[0]?.ekstremitas || "";
-  let genitalia = data?.asesmen_medis_awal.pemeriksaan_fisik[0]?.genitalia || "";
-  let kesadaran = data?.asesmen_medis_awal.pemeriksaan_fisik[0]?.kesadaran || "";
-  let gcs = data?.asesmen_medis_awal.pemeriksaan_fisik[0]?.gcs || "";
-  let status_gizi = data?.asesmen_medis_awal.pemeriksaan_fisik[0]?.status_gizi || "";
-  let bb = data?.asesmen_medis_awal.pemeriksaan_fisik[0]?.bb || "";
-  let thorax_cor = data?.asesmen_medis_awal.pemeriksaan_fisik[0]?.thorax_cor || "";
-  let thorax_pulmo = data?.asesmen_medis_awal.pemeriksaan_fisik[0]?.thorax_pulmo || "";
-  let abdomen_inspeksi = data?.asesmen_medis_awal.pemeriksaan_fisik[0]?.abdomen_inspeksi || "";
-  let abdomen_palpasi = data?.asesmen_medis_awal.pemeriksaan_fisik[0]?.abdomen_palpasi || "";
-  let abdomen_auskultasi = data?.asesmen_medis_awal.pemeriksaan_fisik[0]?.abdomen_auskultasi || "";
-  let abdomen_perkusi = data?.asesmen_medis_awal.pemeriksaan_fisik[0]?.abdomen_perkusi || "";
-  let vital_sign_tensi = data?.asesmen_medis_awal.pemeriksaan_fisik[0]?.vital_sign_tensi || "";
-  let vital_sign_nadi = data?.asesmen_medis_awal.pemeriksaan_fisik[0]?.vital_sign_nadi || "";
-  let vital_sign_suhu = data?.asesmen_medis_awal.pemeriksaan_fisik[0]?.vital_sign_suhu || "";
-  let vital_sign_rr = data?.asesmen_medis_awal.pemeriksaan_fisik[0]?.vital_sign_rr || "";
+  // let keadaan_umum = data?.asesmen_medis_awal.pemeriksaan_fisik[0]?.keadaan_umum || "";
+  // let kepala_leher = data?.asesmen_medis_awal.pemeriksaan_fisik[0]?.kepala_leher || "";
+  // let ekstremitas = data?.asesmen_medis_awal.pemeriksaan_fisik[0]?.ekstremitas || "";
+  // let genitalia = data?.asesmen_medis_awal.pemeriksaan_fisik[0]?.genitalia || "";
+  // let kesadaran = data?.asesmen_medis_awal.pemeriksaan_fisik[0]?.kesadaran || "";
+  // let gcs = data?.asesmen_medis_awal.pemeriksaan_fisik[0]?.gcs || "";
+  // let status_gizi = data?.asesmen_medis_awal.pemeriksaan_fisik[0]?.status_gizi || "";
+  // let bb = data?.asesmen_medis_awal.pemeriksaan_fisik[0]?.bb || "";
+  // let thorax_cor = data?.asesmen_medis_awal.pemeriksaan_fisik[0]?.thorax_cor || "";
+  // let thorax_pulmo = data?.asesmen_medis_awal.pemeriksaan_fisik[0]?.thorax_pulmo || "";
+  // let abdomen_inspeksi = data?.asesmen_medis_awal.pemeriksaan_fisik[0]?.abdomen_inspeksi || "";
+  // let abdomen_palpasi = data?.asesmen_medis_awal.pemeriksaan_fisik[0]?.abdomen_palpasi || "";
+  // let abdomen_auskultasi = data?.asesmen_medis_awal.pemeriksaan_fisik[0]?.abdomen_auskultasi || "";
+  // let abdomen_perkusi = data?.asesmen_medis_awal.pemeriksaan_fisik[0]?.abdomen_perkusi || "";
+  // let vital_sign_tensi = data?.asesmen_medis_awal.pemeriksaan_fisik[0]?.vital_sign_tensi || "";
+  // let vital_sign_nadi = data?.asesmen_medis_awal.pemeriksaan_fisik[0]?.vital_sign_nadi || "";
+  // let vital_sign_suhu = data?.asesmen_medis_awal.pemeriksaan_fisik[0]?.vital_sign_suhu || "";
+  // let vital_sign_rr = data?.asesmen_medis_awal.pemeriksaan_fisik[0]?.vital_sign_rr || "";
 
-  let masalah = data?.asesmen_medis_awal.masalah || "";
-  let diagnosis = data?.asesmen_medis_awal.diagnosis || "";
-  let sasaran = data?.asesmen_medis_awal.sasaran || "";
-  let rencana_monitoring = data?.asesmen_medis_awal.rencana_monitoring || "";
-  let efek_samping = data?.asesmen_medis_awal.efek_samping || "";
-  let prognosa = data?.asesmen_medis_awal.prognosa || "";
+  // let masalah = data?.asesmen_medis_awal.masalah || "";
+  // let diagnosis = data?.asesmen_medis_awal.diagnosis || "";
+  // let sasaran = data?.asesmen_medis_awal.sasaran || "";
+  // let rencana_monitoring = data?.asesmen_medis_awal.rencana_monitoring || "";
+  // let efek_samping = data?.asesmen_medis_awal.efek_samping || "";
+  // let prognosa = data?.asesmen_medis_awal.prognosa || "";
 
-  let laboratorium = data?.asesmen_medis_awal.pemeriksaan_penunjang[0]?.laboratorium || "";
-  let radiologi = data?.asesmen_medis_awal.pemeriksaan_penunjang[0]?.radiologi || "";
-  let lain_lain = data?.asesmen_medis_awal.pemeriksaan_penunjang[0]?.lain_lain || "";
+  // let laboratorium = data?.asesmen_medis_awal.pemeriksaan_penunjang[0]?.laboratorium || "";
+  // let radiologi = data?.asesmen_medis_awal.pemeriksaan_penunjang[0]?.radiologi || "";
+  // let lain_lain = data?.asesmen_medis_awal.pemeriksaan_penunjang[0]?.lain_lain || "";
 
-  let uraian_rencana_asuhan = data?.asesmen_medis_awal.rencana_asuhan_pemeriksaan_penunjang[0]?.uraian_rencana_asuhan || "";
-  let terapi = data?.asesmen_medis_awal.rencana_asuhan_pemeriksaan_penunjang[0]?.terapi || "";
-  let tindakan = data?.asesmen_medis_awal.rencana_asuhan_pemeriksaan_penunjang[0]?.tindakan || "";
-  let nutrisi = data?.asesmen_medis_awal.rencana_asuhan_pemeriksaan_penunjang[0]?.nutrisi || "";
-  let konsultasi = data?.asesmen_medis_awal.rencana_asuhan_pemeriksaan_penunjang[0]?.konsultasi || "";
+  // let uraian_rencana_asuhan = data?.asesmen_medis_awal.rencana_asuhan_pemeriksaan_penunjang[0]?.uraian_rencana_asuhan || "";
+  // let terapi = data?.asesmen_medis_awal.rencana_asuhan_pemeriksaan_penunjang[0]?.terapi || "";
+  // let tindakan = data?.asesmen_medis_awal.rencana_asuhan_pemeriksaan_penunjang[0]?.tindakan || "";
+  // let nutrisi = data?.asesmen_medis_awal.rencana_asuhan_pemeriksaan_penunjang[0]?.nutrisi || "";
+  // let konsultasi = data?.asesmen_medis_awal.rencana_asuhan_pemeriksaan_penunjang[0]?.konsultasi || "";
 
-  let usia_lanjut = data?.asesmen_medis_awal.pengkajian_rencana_pemulangan_pasien[0]?.usia_lanjut || false;
-  let hambatan_mobilitasi = data?.asesmen_medis_awal.pengkajian_rencana_pemulangan_pasien[0]?.hambatan_mobilitasi || false;
-  let membutuhkan_perawatan_lanjutan = data?.asesmen_medis_awal.pengkajian_rencana_pemulangan_pasien[0]?.membutuhkan_perawatan_lanjutan || false;
-  let ketergantungan_orang_lain = data?.asesmen_medis_awal.pengkajian_rencana_pemulangan_pasien[0]?.ketergantungan_orang_lain || false;
+  // let usia_lanjut = data?.asesmen_medis_awal.pengkajian_rencana_pemulangan_pasien[0]?.usia_lanjut || false;
+  // let hambatan_mobilitasi = data?.asesmen_medis_awal.pengkajian_rencana_pemulangan_pasien[0]?.hambatan_mobilitasi || false;
+  // let membutuhkan_perawatan_lanjutan = data?.asesmen_medis_awal.pengkajian_rencana_pemulangan_pasien[0]?.membutuhkan_perawatan_lanjutan || false;
+  // let ketergantungan_orang_lain = data?.asesmen_medis_awal.pengkajian_rencana_pemulangan_pasien[0]?.ketergantungan_orang_lain || false;
 
 
 </script>
@@ -164,7 +187,8 @@
         />
       </div>
     </div>
-    <p class="text-lg font-semibold italic">Pemeriksaan Fisik</p>
+    <!-- Untuk Pengembangan Selanjutnya -->
+    <!-- <p class="text-lg font-semibold italic">Pemeriksaan Fisik</p>
     <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
       <div class="my-2">
         <Label for="keadaan_umum" class="mb-2"
@@ -484,7 +508,8 @@
           bind:value={lain_lain}
         />
       </div>
-    </div>
+    </div> -->
+    <hr>
     <p class="text-lg font-semibold italic">Masalah</p>
     <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
       <div class="my-2">
@@ -501,6 +526,7 @@
         />
       </div>
     </div>
+    <hr>
     <p class="text-lg font-semibold italic">Diagnosis</p>
     <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
       <div class="my-2">
@@ -518,7 +544,8 @@
         />
       </div>
     </div>
-    <p class="text-lg font-semibold italic">Rencana Asuhan Pemeriksaan Penunjang</p>
+    <!-- Untuk Pengembangan Selanjutnya -->
+    <!-- <p class="text-lg font-semibold italic">Rencana Asuhan Pemeriksaan Penunjang</p>
     <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
       <div class="my-2">
         <Label for="uraian_rencana_asuhan" class="mb-2"
@@ -654,8 +681,8 @@
           bind:value={prognosa}
         />
       </div>
-    </div>
-    <p class="text-lg font-semibold italic">Pengkajian Rencana Pemulangan Pasien</p>
+    </div> -->
+    <!-- <p class="text-lg font-semibold italic">Pengkajian Rencana Pemulangan Pasien</p>
     <p class="text-sm font-medium italic">
       Catatan: jika satu terpenuhi maka pasien membutuhkan perencanaan
       pemulangan khusus.
@@ -701,6 +728,6 @@
           >
         </div>
       </div>
-    </div>
+    </div> -->
   </form>
 </main>

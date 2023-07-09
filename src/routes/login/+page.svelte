@@ -6,7 +6,6 @@
   // import { onMount } from "svelte";
 
   export let form;
-  console.log(form)
   
   if (form?.error) {
     Swal.fire({

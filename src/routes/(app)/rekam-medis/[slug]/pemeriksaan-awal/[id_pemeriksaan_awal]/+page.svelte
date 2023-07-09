@@ -166,8 +166,6 @@
           name: `${item.name} - ${item.spesialis}`,
         });
       })
-      console.log(data)
-      console.log(dpjpUtama)
 
       selectedkamar = data.pemeriksaan_awal.id_kamar
       // Load Data Kamar

@@ -25,12 +25,12 @@
           fill="currentColor"
           d="m19.3 8.925l-4.25-4.2l1.4-1.4q.575-.575 1.413-.575t1.412.575l1.4 1.4q.575.575.6 1.388t-.55 1.387L19.3 8.925ZM17.85 10.4L7.25 21H3v-4.25l10.6-10.6l4.25 4.25Z"
         /></svg
-      ><span class="hidden sm:block">Update</span></Button
+      ><span class="hidden sm:block">Isi Dokumen</span></Button
     >
   </div>
   <hr class="my-5" />
   <div class="overflow-y-auto max-h-screen">
-    {#if data?.asesmen_medis_awal.length > 0}
+    {#if data?.asesmen_medis_awal.length !== 0}
       <div class="border border-slate-300 rounded p-4 w-full">
         <div class="mb-2">
           <p class="text-lg font-semibold italic">Anamnesa</p>
@@ -77,7 +77,7 @@
             </div>
           </div>
         </div>
-        <div class="mb-2">
+        <!-- <div class="mb-2">
           <p class="text-lg font-semibold italic">Pemeriksaan Fisik</p>
           <div class="grid grid-cols-1 sm:grid-cols-2 gap-6 py-2">
             <div
@@ -236,8 +236,8 @@
               </div>
             </div>
           </div>
-        </div>
-        <div class="mb-2">
+        </div> -->
+        <!-- <div class="mb-2">
           <p class="text-lg font-semibold italic">Pemeriksaan Penunjang</p>
           <div class="grid grid-cols-1 sm:grid-cols-2 gap-6 py-2">
             <div
@@ -265,7 +265,7 @@
               </p>
             </div>
           </div>
-        </div>
+        </div> -->
         <div class="mb-2">
           <p class="text-lg font-semibold italic">Masalah</p>
           <div class="grid grid-cols-1 sm:grid-cols-2 gap-6 py-2">
@@ -292,7 +292,7 @@
             </div>
           </div>
         </div>
-        <div class="mb-2">
+        <!-- <div class="mb-2">
           <p class="text-lg font-semibold italic">
             Rencana Asuhan Pemeriksaan Penunjang
           </p>
@@ -428,7 +428,7 @@
               <p class="font-light text-right">{data?.asesmen_medis_awal.pengkajian_rencana_pemulangan_pasien[0].ketergantungan_orang_lain ? 'Ya' : 'Tidak'}</p>
             </div>
           </div>
-        </div>
+        </div> -->
       </div>
     {:else}
       <div class="text-center p-10">

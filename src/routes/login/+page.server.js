@@ -1,4 +1,4 @@
-import { redirect } from '@sveltejs/kit';
+import { fail, redirect } from '@sveltejs/kit';
 import { BACKEND_API } from '$env/static/private';
 import axios from 'axios';
 

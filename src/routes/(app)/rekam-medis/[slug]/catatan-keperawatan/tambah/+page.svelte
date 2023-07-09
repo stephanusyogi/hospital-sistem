@@ -3,6 +3,9 @@
   import Swal from "sweetalert2";
   import { goto } from '$app/navigation';
   import { Button, Label, Select, Textarea } from "flowbite-svelte";
+  import { onMount } from "svelte";
+
+  export let form
 
 
   const handleSubmit = () => {
@@ -15,28 +18,25 @@
       denyButtonText: `Batal`,
     }).then((result) => {
       if (result.isConfirmed) {
-        Swal.fire({
-          icon: 'success',
-          title: 'Catatan Berhasil Ditambahkan',
-          showConfirmButton: false,
-          timer: 1000
-        }).then(()=>{
-          goto("/rekam-medis/00123141/catatan-keperawatan")
-        })
-      } else if (result.isDenied) {
-        Swal.fire({
-          icon: 'info',
-          title: 'Aksi Dibatalkan',
-          showConfirmButton: false,
-          timer: 1000
-        })
+        const form = document.getElementById('form');
+        form.submit()
       }
     })
   }
+  onMount(() => {
+    if (form?.error) {
+      Swal.fire({
+        text: form.message,
+        icon: 'error',
+        showConfirmButton: false,
+        timer: 3000,
+      });
+    }
+  })
 </script>
 
 <main>
-  <form on:submit|preventDefault={handleSubmit}>
+  <form id="form" on:submit|preventDefault={handleSubmit} method="post">
     <div class="flex flex-wrap sm:flex-nowrap items-center justify-between">
       <div>
         <p class="text-md sm:text-lg lg:text-xl font-semibold">Catatan Keperawatan</p>
@@ -51,7 +51,7 @@
     <div class="grid grid-cols-1 gap-4">
       <div class="my-2">
         <Label>Catatan Perawat:  <span class="text-sm text-red-500 italic">*</span></Label>
-        <Textarea id="" placeholder="" name="" row="4"/>
+        <Textarea id="" placeholder="" name="catatan" row="4" required/>
       </div>
     </div>
   </form>

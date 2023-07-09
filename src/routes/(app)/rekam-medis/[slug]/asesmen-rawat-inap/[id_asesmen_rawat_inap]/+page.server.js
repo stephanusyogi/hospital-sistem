@@ -22,15 +22,14 @@ export const load = (async ({ cookies, params }) => {
   
     const asesmenRawatInap = await axios.get(BACKEND_API+'/rekam-medis/asesmen-medis-rawat-inap-norm/'+no_rm, { headers })
     .then((response) => {
-      return response.data.length > 0 ? response.data[0] : response.data;
+      return response.data;
     })
     .catch((error) => {
       return []
     });
-  
     return {
       user_data: user_cookies,
-      asesmen_rawat_inap: asesmenRawatInap,
+      asesmen_medis_rawat_inap: asesmenRawatInap,
     };
   }
 });
@@ -42,13 +41,27 @@ export const actions = {
     const no_rm = params.slug
     const id_asesmen_rawat_inap = params.id_asesmen_rawat_inap
     const user_cookies = JSON.parse(cookies.get('user_data_access'));
-    
-    
+
 
     // Membentuk objek rekam medis berdasarkan nilai-nilai yang diambil
+    const diagnosaMasuk = formData.get('diagnosa_masuk');
+    const keluhanUtama = formData.get('keluhan_utama');
+
     const data = {
       no_rekam_medis: no_rm,
+      status_fisik_riwayat:{
+        diagnosa_masuk: diagnosaMasuk,
+        keluhan_utama: keluhanUtama
+      },
+      diagnosa_keperawatan: []
     };
+
+    formData.getAll('keterangan[]').forEach((keterangan, index) => {
+      data.diagnosa_keperawatan.push({
+        keterangan: keterangan || '',
+      });
+    });
+
     
     const config = {
       headers: {
@@ -71,6 +84,10 @@ export const actions = {
         await axios.post(BACKEND_API+'/rekam-medis/asesmen-medis-rawat-inap', data, config)  
       } catch (error) {
         console.log(error)
+        return fail(400, {
+          error: true,
+          message: error.response.data.message,
+        }); 
       }
     } else {
       try {
@@ -85,6 +102,10 @@ export const actions = {
         await axios.put(BACKEND_API+'/rekam-medis/asesmen-medis-rawat-inap/'+id_asesmen_rawat_inap, data, config)  
       } catch (error) {
         console.log(error)
+        return fail(400, {
+          error: true,
+          message: error.response.data.message,
+        }); 
       }
     }
     
