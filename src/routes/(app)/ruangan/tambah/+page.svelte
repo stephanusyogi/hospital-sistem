@@ -1,18 +1,8 @@
 <script>
 
   import { Breadcrumb, BreadcrumbItem, Button, Input, Label, Select } from "flowbite-svelte";
-  import { goto } from '$app/navigation';
   import Swal from "sweetalert2";
 
-  let jenisRuangan = [
-    {value:"Kelas VVIP", name: "Kelas VVIP"},
-    {value:"Kelas VIP", name: "Kelas VIP"},
-    {value:"Kelas 1", name: "Kelas 1"},
-    {value:"Kelas 2", name: "Kelas 2"},
-    {value:"Kelas 3", name: "Kelas 3"},
-    {value:"Kelas Khusus Anak", name: "Kelas Khusus Anak"},
-  ]
-  
   const handleSubmit = () => {
     Swal.fire({
       title: 'Tambahkan Ruangan?',
@@ -23,21 +13,8 @@
       denyButtonText: `Batal`,
     }).then((result) => {
       if (result.isConfirmed) {
-        Swal.fire({
-          icon: 'success',
-          title: 'Ruangan Berhasil Ditambahkan',
-          showConfirmButton: false,
-          timer: 1000
-        }).then(()=>{
-          goto("/ruangan")
-        })
-      } else if (result.isDenied) {
-        Swal.fire({
-          icon: 'info',
-          title: 'Aksi Dibatalkan',
-          showConfirmButton: false,
-          timer: 1000
-        })
+        const form = document.getElementById('form');
+        form.submit()
       }
     })
   }
@@ -54,23 +31,18 @@
       <p class="font-semibold text-2xl">Formulir Ruangan Baru</p>
     </div>
     <hr class="my-5">
-    <form on:submit|preventDefault={handleSubmit}>
+    <form id="form" on:submit|preventDefault={handleSubmit} method="post">
       <div class="group mb-4">
-        <Label for='nama' class='block mb-2'>Nama Ruangan:</Label>
-        <Input id="nama" name="nama" placeholder="Masukkan nama ruangan"/>
+        <Label for='nama_ruangan' class='block mb-2'>Nama Ruangan:</Label>
+        <Input id="nama_ruangan" name="nama_ruangan" placeholder="Masukkan nama ruangan" required/>
       </div>
       <div class="group mb-4">
-        <Label>Jenis
-          <Select name="jenis" class="mt-2" items={jenisRuangan}/>
-        </Label>
+        <Label for='kelas' class='block mb-2'>Kelas Ruangan:</Label>
+        <Input id="kelas" name="kelas" placeholder="Masukkan kelas ruangan" required/>
       </div>
       <div class="group mb-4">
         <Label for='harga' class='block mb-2'>Harga:</Label>
-        <Input type="number" id="harga" name="harga" placeholder="Masukkan harga ruangan"/>
-      </div>
-      <div class="group mb-4">
-        <Label for='kuota' class='block mb-2'>Kuota:</Label>
-        <Input type="number" id="kuota" name="kuota" placeholder="Masukkan kuota ruangan"/>
+        <Input type="number" id="harga" name="harga" placeholder="Masukkan harga ruangan" required/>
       </div>
       <div class="text-right">
         <Button type="submit" color="green">Simpan</Button>

@@ -4,15 +4,16 @@ import axios from 'axios';
 /** @type {import('./$types').PageLoad} */
 export const load = (async ({ cookies, params }) => {
   const user_cookies = JSON.parse(cookies.get('user_data_access'));
+  const id_receipt = params.id_receipt
 
   const headers = {
     'Accept': '*/*',
     'Authorization': 'Bearer '+user_cookies.token
   };
 
-  const obat = await axios.get(BACKEND_API+'/drug', { headers })
+  const transaksi = await axios.get(BACKEND_API+'/receipt-id/'+id_receipt, { headers })
     .then((response) => {
-      return response.data;
+      return response.data[0];
     })
     .catch((error) => {
       return []
@@ -20,6 +21,6 @@ export const load = (async ({ cookies, params }) => {
 
   return {
     user_data: user_cookies,
-    obat: obat,
+    transaksi: transaksi,
   }; 
 });

@@ -36,7 +36,7 @@
       data.obat.forEach((item) => {
         obat.push({
           value: item.nama_obat,
-          name: `${item.nama_obat} - ${item.harga}`,
+          name: `${item.nama_obat} || ${item.harga}`,
         });
       })
     }
@@ -57,7 +57,7 @@
     <div class="grid grid-cols-1 sm:grid-cols-3 gap-4">
       <div class="my-2">
         <Label>Obat:  <span class="text-sm text-red-500 italic">*</span>
-          <Select name="nama_obat" class="mt-2" items={obat} required/>
+          <Select name="obat" class="mt-2" items={obat} required/>
         </Label>
       </div>
       <div class="my-2">

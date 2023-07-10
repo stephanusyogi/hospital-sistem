@@ -128,6 +128,15 @@ export const actions = {
       'nama_kamar': room.nama_ruangan,
       'jenis_kamar': room.kelas,
     }
+    
+    let dataReceipt = {
+      ruang_perawatan: {
+        deskripsi: 'Kamar '+room.nama_ruangan+' - Kelas '+room.kelas,
+        tanggal: new Date().toISOString().split("T")[0],
+        harga_satuan: room.harga,
+        quantity:1
+      }
+    }
 
 
     try {
@@ -138,6 +147,8 @@ export const actions = {
         'role': user_cookies.role,
       }
       await axios.post(BACKEND_API+'/rekam-medis/log', dataLog , config);
+
+      await axios.put(BACKEND_API+'/receipt-norm/'+no_rm, dataReceipt , config);
 
       await axios.put(BACKEND_API+'/rekam-medis/pemeriksaan-awal/'+id_pemeriksaan_awal, data , config);
     } catch (error) {

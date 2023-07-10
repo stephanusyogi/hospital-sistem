@@ -6,45 +6,10 @@
   import { page } from '$app/stores';
   import { DataHandler, Datatable, Th } from "@vincjo/datatables";
   import "../tableCustom.css"
-  
-  let dummyRuangan = [
-    {
-      "nama": "Ayodya",
-      "jenis": "Kelas VVIP",
-      "harga": "2.500.000",
-      "kuota": "4",
-      "tersedia": "3"
-    },
-    {
-      "nama": "Wisnu",
-      "jenis": "Kelas VVIP",
-      "harga": "2.250.000",
-      "kuota": "7",
-      "tersedia": "full"
-    },
-    {
-      "nama": "Amarta",
-      "jenis": "Kelas VIP",
-      "harga": "2.000.000",
-      "kuota": "8",
-      "tersedia": "2"
-    },
-    {
-      "nama": "Rama",
-      "jenis": "Kelas VIP",
-      "harga": "2.000.000",
-      "kuota": "8",
-      "tersedia": "full"
-    },
-    {
-      "nama": "Krisna",
-      "jenis": "Kelas 1",
-      "harga": "1.750.000",
-      "kuota": "15",
-      "tersedia": "2"
-    },
-  ];
-  const handler = new DataHandler(dummyRuangan, { rowsPerPage: 50 })
+
+  export let data 
+
+  const handler = new DataHandler(data?.ruangan, { rowsPerPage: 10 })
   const rows = handler.getRows()
 </script>
 <div class="overflow-y-auto relative max-h-screen p-6 sm:p-10 space-y-6">
@@ -65,16 +30,14 @@
           <thead>
             <tr>
               <Th {handler} orderBy="nama">Nama Ruangan</Th>
-              <Th {handler} orderBy="jenis">Jenis Ruangan</Th>
+              <Th {handler} orderBy="jenis">Kelas Ruangan</Th>
               <Th {handler} orderBy="harga">Harga</Th>
-              <Th {handler} orderBy="kuota">Kuota</Th>
-              <Th {handler} orderBy="tersedia">Tersedia</Th>
               <Th {handler} orderBy="aksi">Aksi</Th>
             </tr>
           </thead>
           <tbody>
-            {#each $rows as { nama, jenis, harga, kuota, tersedia }}
-              <Ruangan nama={nama} jenis={jenis} harga={harga} kuota={kuota} tersedia={tersedia}/>
+            {#each $rows as { _id, nama_ruangan, kelas, harga }}
+              <Ruangan _id={_id} nama_ruangan={nama_ruangan} kelas={kelas} harga={harga} data={data}/>
             {/each}   
           </tbody>
         </table>

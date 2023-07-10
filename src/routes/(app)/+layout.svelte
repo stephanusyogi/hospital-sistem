@@ -43,7 +43,6 @@
 
   /** @type {import('./$types').LayoutData} */
   export let data;
-  console.log(data)
 
   async function handleUpdateProfile(e){
     const formData = new FormData(e.target)
@@ -104,7 +103,7 @@
   <PageLoader />
 {/if}
 <div class="flex bg-gray-100 min-h-screen">
-  <SidebarComponent user_data={data?.user_data} />
+  <SidebarComponent user_data={data?.user_data} data={data}/>
 
   <div class="relative overflow-x-auto w-full bg-gray-100">
     <NavbarComponent user_data={data?.user_data} bind:hidden2 bind:updateProfilModal/>
@@ -226,27 +225,34 @@
               </SidebarItem>
             </div>
           </SidebarGroup>
-          {:else if data?.user_data.role === "Admin"}
-            <SidebarDropdownWrapper label="Users Management" class="text-sm">
-              <svelte:fragment slot="icon">
-                <Icon icon="ph:users-four-bold" width="32" height="32" />
-              </svelte:fragment>
-              <SidebarDropdownItem
-                class="text-sm"
-                href="/users/dokter"
-                label="Dokter"
-                active={activeUrl === "/users/dokter"}
-                on:click={() => (hidden2 = true)}
-              />
-              <SidebarDropdownItem
-                class="text-sm"
-                href="/users/petugas"
-                label="Perawat"
-                active={activeUrl === "/users/petugas"}
-                on:click={() => (hidden2 = true)}
-              />
-            </SidebarDropdownWrapper>
-          {:else if data?.user_data.role === "Apoteker"}
+        {:else if data?.user_data.role === "Admin"}
+          <SidebarDropdownWrapper label="Users Management" class="text-sm">
+            <svelte:fragment slot="icon">
+              <Icon icon="ph:users-four-bold" width="32" height="32" />
+            </svelte:fragment>
+            <SidebarDropdownItem
+              class="text-sm"
+              href="/users/dokter"
+              label="Dokter"
+              active={activeUrl === "/users/dokter"}
+              on:click={() => (hidden2 = true)}
+            />
+            <SidebarDropdownItem
+              class="text-sm"
+              href="/users/perawat"
+              label="Perawat"
+              active={activeUrl === "/users/perawat"}
+              on:click={() => (hidden2 = true)}
+            />
+            <SidebarDropdownItem
+              class="text-sm"
+              href="/users/apoteker"
+              label="Apoteker"
+              active={activeUrl === "/users/apoteker"}
+              on:click={() => (hidden2 = true)}
+            />
+          </SidebarDropdownWrapper>
+        {:else if data?.user_data.role === "Apoteker"}
           <SidebarGroup ulClass="space-y-2">
             <!-- List Menu -->
             <div>
@@ -303,7 +309,7 @@
                 <svelte:fragment slot="subtext">
                   <span
                     class="inline-flex justify-center items-center p-3 ml-3 w-3 h-3 text-sm font-medium bg-yellow-300 rounded-full"
-                    >1</span
+                    >{data?.count_pengajuan}</span
                   >
                 </svelte:fragment>
               </SidebarItem>

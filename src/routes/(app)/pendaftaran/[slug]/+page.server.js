@@ -22,7 +22,7 @@ export const load = (async ({ cookies, params }) => {
     
   const informasiPasien = await axios.get(BACKEND_API+'/rekam-medis/informasi-pasien-norm/'+no_rm, { headers })
     .then((response) => {
-      return response.data[0];
+      return response.data;
     })
     .catch((error) => {
       return []
@@ -128,6 +128,15 @@ export const actions = {
       'jenis_kamar': room.kelas,
     }
 
+    // Update Receipt
+    const dataReceipt = {
+      ruang_perawatan: {
+        deskripsi: 'Kamar '+room.nama_ruangan+' - Kelas '+room.kelas,
+        tanggal: new Date().toISOString().split("T")[0],
+        harga_satuan: room.harga,
+        quantity:1
+      }
+    }
 
     try {
       let dataLog = {
@@ -137,6 +146,8 @@ export const actions = {
         'role': user_cookies.role,
       }
       await axios.post(BACKEND_API+'/rekam-medis/log', dataLog , config);
+
+      await axios.put(BACKEND_API+'/receipt-norm/'+no_rm, dataReceipt , config);
 
       await axios.post(BACKEND_API+'/rekam-medis/pemeriksaan-awal', data , config);
     } catch (error) {

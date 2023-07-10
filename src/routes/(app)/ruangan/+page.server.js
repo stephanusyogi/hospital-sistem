@@ -10,7 +10,7 @@ export const load = (async ({ cookies, params }) => {
     'Authorization': 'Bearer '+user_cookies.token
   };
 
-  const obat = await axios.get(BACKEND_API+'/drug', { headers })
+  const ruangan = await axios.get(BACKEND_API+'/room', { headers })
     .then((response) => {
       return response.data;
     })
@@ -20,6 +20,6 @@ export const load = (async ({ cookies, params }) => {
 
   return {
     user_data: user_cookies,
-    obat: obat,
+    ruangan: ruangan,
   }; 
 });

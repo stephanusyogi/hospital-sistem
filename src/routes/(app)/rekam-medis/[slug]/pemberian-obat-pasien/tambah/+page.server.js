@@ -50,7 +50,13 @@ export const actions = {
     
     const formValues = {};
     for (const [name, value] of formData.entries()) {
-      formValues[name] = value;
+      if(name === 'obat'){
+        let obatSelected = formData.get('obat').split("||")
+        formValues['nama_obat'] = obatSelected[0];
+        formValues['harga'] = obatSelected[1];
+      }else{
+        formValues[name] = value;
+      }
     }
 
     const data = {
@@ -58,6 +64,33 @@ export const actions = {
       ...formValues
     }
 
+    // Update Receipt
+    let updatedReceipt = {}
+    const receipt =  await axios.get(BACKEND_API+'/receipt-norm/'+no_rm, config)
+    let res_obat_bahan_habis_pakai = receipt.data[0].obat_bahan_habis_pakai
+      if(res_obat_bahan_habis_pakai.length !== 0){
+        updatedReceipt = {
+          obat_bahan_habis_pakai:[
+            ...res_obat_bahan_habis_pakai,
+            {
+              deskripsi: data.nama_obat,
+              tanggal: new Date().toISOString().split("T")[0],
+              harga_satuan: data.harga,
+              quantity:1
+            }
+          ]
+        }
+      }else{
+        updatedReceipt = {
+          obat_bahan_habis_pakai:{
+            deskripsi: data.nama_obat,
+            tanggal: new Date().toISOString().split("T")[0],
+            harga_satuan: data.harga_obat,
+            quantity:1
+          }
+        }
+      }
+      await axios.put(BACKEND_API+'/receipt-norm/'+no_rm, updatedReceipt , config);
     try {
       let dataLog = {
         'no_rekam_medis': no_rm,

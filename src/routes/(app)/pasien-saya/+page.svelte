@@ -5,59 +5,8 @@
   import "../tableCustom.css"
   import Pasien from "./Pasien.svelte";
 
-  let dummyUsers = [
-    {
-      "no_rm": "0000012023",
-      "nama_pasien": "Jon Snow",
-      "nik": "35730512371391",
-      "ruangan" : "Kamar Rendra - Kelas II",
-      "jenis_kelamin": "Laki-Laki",
-      "ttl": "Malang, 02 Juni 2000",
-      "asuransi": "UMUM/Mandiri",
-      "alamat": "Jln. Mayjend Pandjaitan No. 22",
-    },
-    {
-      "no_rm": "0000012023",
-      "nama_pasien": "Jon Snow",
-      "nik": "35730512371391",
-      "jenis_kelamin": "Laki-Laki",
-      "ruangan" : "Kamar Rendra - Kelas II",
-      "ttl": "Malang, 02 Juni 2000",
-      "asuransi": "UMUM/Mandiri",
-      "alamat": "Jln. Mayjend Pandjaitan No. 22",
-    },
-    {
-      "no_rm": "0000012023",
-      "nama_pasien": "Jon Snow",
-      "nik": "35730512371391",
-      "jenis_kelamin": "Laki-Laki",
-      "ruangan" : "Kamar Wisnu - Kelas III",
-      "ttl": "Malang, 02 Juni 2000",
-      "asuransi": "UMUM/Mandiri",
-      "alamat": "Jln. Mayjend Pandjaitan No. 22",
-    },
-    {
-      "no_rm": "0000012023",
-      "nama_pasien": "Jon Snow",
-      "nik": "35730512371391",
-      "jenis_kelamin": "Laki-Laki",
-      "ruangan" : "Kamar Wisnu - Kelas VVIIP",
-      "ttl": "Malang, 02 Juni 2000",
-      "asuransi": "UMUM/Mandiri",
-      "alamat": "Jln. Mayjend Pandjaitan No. 22",
-    },
-    {
-      "no_rm": "0000012023",
-      "nama_pasien": "Jon Snow",
-      "nik": "35730512371391",
-      "jenis_kelamin": "Laki-Laki",
-      "ruangan" : "Kamar Wisnu - Kelas VVIIP",
-      "ttl": "Malang, 02 Juni 2000",
-      "asuransi": "UMUM/Mandiri",
-      "alamat": "Jln. Mayjend Pandjaitan No. 22",
-    },
-  ];
-  const handler = new DataHandler(dummyUsers, { rowsPerPage: 50 })
+  export let data
+  const handler = new DataHandler(data?.pasien_saya, { rowsPerPage: 10 })
   const rows = handler.getRows()
 </script>
 <div class="overflow-y-auto relative max-h-screen p-6 sm:p-10 space-y-6">
@@ -79,17 +28,18 @@
           <table>
             <thead>
               <tr>
-                <Th {handler} orderBy="rekam_medis">Rekam Medis</Th>
-                <Th {handler} orderBy="no_rm">No. RM</Th>
+                <Th {handler} orderBy="aksi">Rekam Medis</Th>
+                <Th {handler} orderBy="no_rekam_medis">No. RM</Th>
                 <Th {handler} orderBy="nama_pasien">Nama</Th>
-                <Th {handler} orderBy="nik">NIK</Th>
                 <Th {handler} orderBy="ruangan">Ruangan</Th>
                 <Th {handler} orderBy="asuransi">Asuransi</Th>
+                <Th {handler} orderBy="tgl_mulai">Tanggal Mulai</Th>
+                <Th {handler} orderBy="tgl_selesai">Tanggal Selesai</Th>
               </tr>
             </thead>
             <tbody>
-              {#each $rows as {no_rm, nama_pasien, nik, ruangan, asuransi, jenis_kelamin}, i}
-                <Pasien no_rm={no_rm} nama_pasien={nama_pasien} nik={nik} jenis_kelamin={jenis_kelamin} ruangan={ruangan} asuransi={asuransi}/>
+              {#each $rows as {no_rekam_medis, nama_pasien, ruangan, asuransi, tgl_mulai, tgl_selesai}, i}
+                <Pasien no_rekam_medis={no_rekam_medis} nama_pasien={nama_pasien} ruangan={ruangan} asuransi={asuransi} tgl_mulai={tgl_mulai} tgl_selesai={tgl_selesai}/>
               {/each}   
             </tbody>
           </table>

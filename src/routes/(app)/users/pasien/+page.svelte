@@ -7,49 +7,8 @@
   import { DataHandler, Datatable, Th } from "@vincjo/datatables";
   import "../../tableCustom.css"
   
-  let dummyUsers = [
-    {
-      "no_rm": "0000012023",
-      "nama_pasien": "Jon Snow",
-      "nik": "35730512371391",
-      "jenis_kelamin": "Laki-Laki",
-      "ttl": "Malang, 02 Juni 2000",
-      "alamat": "Jln. Mayjend Pandjaitan No. 22",
-    },
-    {
-      "no_rm": "0000012023",
-      "nama_pasien": "Jon Snow",
-      "nik": "35730512371391",
-      "jenis_kelamin": "Laki-Laki",
-      "ttl": "Malang, 02 Juni 2000",
-      "alamat": "Jln. Mayjend Pandjaitan No. 22",
-    },
-    {
-      "no_rm": "0000012023",
-      "nama_pasien": "Jon Snow",
-      "nik": "35730512371391",
-      "jenis_kelamin": "Laki-Laki",
-      "ttl": "Malang, 02 Juni 2000",
-      "alamat": "Jln. Mayjend Pandjaitan No. 22",
-    },
-    {
-      "no_rm": "0000012023",
-      "nama_pasien": "Jon Snow",
-      "nik": "35730512371391",
-      "jenis_kelamin": "Laki-Laki",
-      "ttl": "Malang, 02 Juni 2000",
-      "alamat": "Jln. Mayjend Pandjaitan No. 22",
-    },
-    {
-      "no_rm": "0000012023",
-      "nama_pasien": "Jon Snow",
-      "nik": "35730512371391",
-      "jenis_kelamin": "Laki-Laki",
-      "ttl": "Malang, 02 Juni 2000",
-      "alamat": "Jln. Mayjend Pandjaitan No. 22",
-    },
-  ];
-  const handler = new DataHandler(dummyUsers, { rowsPerPage: 50 })
+  export let data
+  const handler = new DataHandler(data?.patients, { rowsPerPage: 10 })
   const rows = handler.getRows()
 </script>
 
@@ -70,18 +29,18 @@
           <thead>
             <tr>
               <Th {handler} orderBy="no">No.</Th>
-              <Th {handler} orderBy="nomor">No. RM</Th>
-              <Th {handler} orderBy="nama_pasien">Nama</Th>
+              <Th {handler} orderBy="no_rekam_medis">No. RM</Th>
+              <Th {handler} orderBy="name">Nama</Th>
               <Th {handler} orderBy="nik">NIK</Th>
               <Th {handler} orderBy="jenis_kelamin">Jenis Kelamin</Th>
               <Th {handler} orderBy="ttl">Tempat & Tanggal Lahir</Th>
-              <Th {handler} orderBy="alamat">Alamat</Th>
+              <Th {handler} orderBy="alamat_ktp">Alamat</Th>
               <Th {handler} orderBy="aksi">Aksi</Th>
             </tr>
           </thead>
           <tbody>
-            {#each $rows as {no_rm, nama_pasien, nik, jenis_kelamin, ttl, alamat}, i}
-              <Pasien tableRowNumber={i+1} no_rm={no_rm} nama_pasien={nama_pasien} nik={nik} jenis_kelamin={jenis_kelamin} ttl={ttl} alamat={alamat}/>
+            {#each $rows as {no_rekam_medis, name, nik, jenis_kelamin, tempat_lahir, tanggal_lahir, alamat_ktp}, i}
+              <Pasien tableRowNumber={i+1} no_rekam_medis={no_rekam_medis} name={name} nik={nik} jenis_kelamin={jenis_kelamin} tempat_lahir={tempat_lahir} tanggal_lahir={tanggal_lahir} alamat_ktp={alamat_ktp}/>
             {/each}   
           </tbody>
         </table>

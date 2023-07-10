@@ -5,33 +5,8 @@
   import { DataHandler, Datatable, Th } from "@vincjo/datatables";
   import "../tableCustom.css"
 
-  let dummyTransaksi = [
-    {
-      "tgl_transaksi": "2023-02-25",
-      "nomor": "TRS000001",
-      "pasien": "Jon Snow",
-      "asuransi": "UMUM/Mandiri",
-      "total": "3.000.000",
-      "status_bayar": 1,
-    },
-    {
-      "tgl_transaksi": "-",
-      "nomor": "TRS000002",
-      "pasien": "Arya Stark",
-      "asuransi": "BPJS",
-      "total": "500.000",
-      "status_bayar": 0,
-    },
-    {
-      "tgl_transaksi": "2023-02-25",
-      "nomor": "TRS000003",
-      "pasien": "Cersei Lannister",
-      "asuransi": "UMUM/Mandiri",
-      "total": "1.500.000",
-      "status_bayar": 1,
-    },
-  ];
-  const handler = new DataHandler(dummyTransaksi, { rowsPerPage: 50 })
+  export let data
+  const handler = new DataHandler(data?.transaksi, { rowsPerPage: 10 })
   const rows = handler.getRows()
 </script>
   
@@ -53,19 +28,16 @@
         <table>
           <thead>
             <tr>
-              <Th {handler} orderBy="tgl_transaksi">Tanggal Transaksi</Th>
-              <Th {handler} orderBy="nomor">Nomor Nota</Th>
-              <Th {handler} orderBy="pasien">Nama Pasien</Th>
-              <Th {handler} orderBy="asuransi">Asuransi</Th>
-              <Th {handler} orderBy="status_bayar">Total</Th>
-              <Th {handler} orderBy="total">Status</Th>
+              <Th {handler} orderBy="nama_pasien">Nama Pasien</Th>
+              <Th {handler} orderBy="no_rekam_medis">No. RM</Th>
+              <Th {handler} orderBy="tgl_masuk">Tanggal Masuk</Th>
+              <Th {handler} orderBy="nama_asuransi">Asuransi</Th>
               <Th {handler} orderBy="nota">Nota</Th>
-              <Th {handler} orderBy="aksi">Aksi</Th>
             </tr>
           </thead>
           <tbody>
-            {#each $rows as { tgl_transaksi, nomor, pasien, asuransi, status_bayar, total }}
-              <Transaksi tgl_transaksi={tgl_transaksi} nomor={nomor} pasien={pasien} asuransi={asuransi} status_bayar={status_bayar} total={total}/>
+            {#each $rows as { _id, nama_pasien, no_rekam_medis, tgl_masuk, nama_asuransi }}
+              <Transaksi _id={_id} nama_pasien={nama_pasien} no_rekam_medis={no_rekam_medis} tgl_masuk={tgl_masuk} nama_asuransi={nama_asuransi}/>
             {/each}   
           </tbody>
         </table>

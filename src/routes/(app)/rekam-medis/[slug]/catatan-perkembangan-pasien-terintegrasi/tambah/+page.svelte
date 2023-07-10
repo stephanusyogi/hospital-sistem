@@ -67,7 +67,7 @@
         <Textarea id="" placeholder="" name="sasaran" row="4" required/>
       </div>
       <div class="my-2">
-        <Label>Insturksi:  <span class="text-sm text-red-500 italic">*</span></Label>
+        <Label>Instruksi:  <span class="text-sm text-red-500 italic">*</span></Label>
         <Textarea id="" placeholder="" name="instruksi" row="4" required/>
       </div>
     </div>

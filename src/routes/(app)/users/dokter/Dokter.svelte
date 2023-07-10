@@ -1,9 +1,10 @@
 <script>
   import Icon from "@iconify/svelte";
-  import { TableBodyCell, TableBodyRow } from "flowbite-svelte";
+  import { Button, Input, Label, Modal, TableBodyCell, TableBodyRow } from "flowbite-svelte";
   import Swal from 'sweetalert2'
+  import axios from "axios";
 
-  export let nama_dokter, spesialis
+  export let _id, name, spesialis, email, data
 
   let tdClass = "text-center px-6 py-4 whitespace-nowrap font-medium"
   
@@ -15,32 +16,80 @@
       showCancelButton: false,
       confirmButtonText: 'Hapus',
       denyButtonText: `Batal`,
-    }).then((result) => {
+    }).then(async(result) => {
       if (result.isConfirmed) {
-        Swal.fire({
-          icon: 'success',
-          title: 'Dokter Berhasil Dihapus',
-          showConfirmButton: false,
-          timer: 1000
-        })
-      } else if (result.isDenied) {
-        Swal.fire({
-          icon: 'info',
-          title: 'Aksi Dibatalkan',
-          showConfirmButton: false,
-          timer: 1000
-        })
+        const headers = {
+          'Accept': '*/*',
+          'Authorization': 'Bearer '+ data.user_data.token
+        };
+
+        await axios.delete(data.api_base+'/doctor/'+id , { headers });
+        window.location.reload();
       }
     })
   }
+  let updateModal = false;
+  
+  async function handleUpdate(e){
+    const formData = new FormData(e.target)
+    const user_cookies = data.user_data
+
+    const config = {
+      headers: {
+        'Accept': '*/*',
+        'Authorization': 'Bearer '+user_cookies.token,
+        'Content-Type': 'application/x-www-form-urlencoded'
+      }
+    };
+
+    const updatedData = {
+      name: formData.get('name'), 
+      spesialis: formData.get('spesialis'), 
+      email: formData.get('email')
+    }
+
+    if(formData.get('password')){
+      await axios.put(data.api_base+'/doctor/update-password/'+_id, {newPassword:formData.get('password')}, config)    
+    }
+
+    await axios.put(data.api_base+'/doctor/'+_id, updatedData, config)
+    window.location.reload()
+  }
 </script>
 <tr>
-  <td>{nama_dokter}</td>
+  <td>{name}</td>
   <td>Dokter {spesialis}</td>
+  <td>{email}</td>
   <td>
     <div class="flex flex-wrap justify-center gap-2">
-      <a href="/users/dokter/1" class="text-blue-600 hover:underline dark:text-blue-500"><Icon icon="material-symbols:edit" width="25" height="25"/></a>
-      <button on:click={()=>handleDelete("1")} class="text-red-600 hover:underline dark:text-red-500"><Icon icon="ic:baseline-delete"  width="25" height="25"/></button>
+      <button on:click={() => updateModal = true} class="text-blue-600 hover:underline dark:text-blue-500"><Icon icon="material-symbols:edit" width="25" height="25"/></button>
+      <button on:click={()=>handleDelete(_id)} class="text-red-600 hover:underline dark:text-red-500"><Icon icon="ic:baseline-delete"  width="25" height="25"/></button>
     </div>
   </td>
 </tr>
+
+<Modal title="Update" bind:open={updateModal} autoclose={false}>
+  <form on:submit|preventDefault={handleUpdate}>
+    <div class="flex flex-wrap gap-2">
+      <div class="my-2">
+        <Label for="name" class="mb-2">Nama</Label>
+        <Input type="text" id="name" name="name"  required  bind:value={name}/>
+      </div>
+      <div class="my-2">
+        <Label for="spesialis" class="mb-2">Spesialis</Label>
+        <Input type="text" id="spesialis" name="spesialis" required bind:value={spesialis}/>
+      </div>
+      <div class="my-2">
+        <Label for="email" class="mb-2">Email</Label>
+        <Input type="email" id="email" name="email" required bind:value={email}/>
+      </div>
+      <div class="my-2">
+        <Label for="password" class="mb-2">Ubah Password</Label>
+        <Input type="password" id="password" name="password"/>
+      </div>
+    </div>
+    <div class="flex justify-end my-2">
+      <Button type="submit">Simpan</Button>
+    </div>
+  </form>
+</Modal>

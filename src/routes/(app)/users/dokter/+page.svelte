@@ -8,25 +8,8 @@
   import { DataHandler, Datatable, Th } from "@vincjo/datatables";
   import "../../tableCustom.css"
 
-  let dummyDoktor = [
-    {
-      "nama_dokter": "Khal Drogo",
-      "spesialis": "Umum",
-    },
-    {
-      "nama_dokter": "Viserys Targaryen",
-      "spesialis": "Spesialis Penyakit Dalam",
-    },
-    {
-      "nama_dokter": "Khal Drogo",
-      "spesialis": "Spesialis Saraf",
-    },
-    {
-      "nama_dokter": "Ramsay Bolton",
-      "spesialis": "Spesialis Bedah",
-    },
-  ];
-  const handler = new DataHandler(dummyDoktor, { rowsPerPage: 50 })
+  export let data
+  const handler = new DataHandler(data?.dokter, { rowsPerPage: 10 })
   const rows = handler.getRows()
 </script>
 
@@ -47,14 +30,15 @@
         <table>
           <thead>
             <tr>
-              <Th {handler} orderBy="nama_dokter">Nama</Th>
+              <Th {handler} orderBy="name">Nama</Th>
               <Th {handler} orderBy="spesialis">Spesialis</Th>
+              <Th {handler} orderBy="email">Email</Th>
               <Th {handler} orderBy="aksi">Aksi</Th>
             </tr>
           </thead>
           <tbody>
-            {#each $rows as {nama_dokter, spesialis}}
-            <Dokter nama_dokter={nama_dokter} spesialis={spesialis}/>
+            {#each $rows as {_id, name, spesialis, email}}
+            <Dokter _id={_id} name={name} spesialis={spesialis} email={email} data={data}/>
             {/each}   
           </tbody>
         </table>

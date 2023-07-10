@@ -31,6 +31,34 @@ export const actions = {
         ppa: user_cookies.name,
         identitas_ppa: user_cookies.role,
       };
+
+      // Update Receipt
+      let updatedReceipt = {}
+      const receipt =  await axios.get(BACKEND_API+'/receipt-norm/'+no_rm, config)
+      let res_visit_dokter = receipt.data[0].visit_dokter
+        if(res_visit_dokter.length !== 0){
+          updatedReceipt = {
+            visit_dokter:[
+              ...res_visit_dokter,
+              {
+                deskripsi: user_cookies.name,
+                tanggal: new Date().toISOString().split("T")[0],
+                harga_satuan: '100000',
+                quantity:1
+              }
+            ]
+          }
+        }else{
+          updatedReceipt = {
+            visit_dokter:{
+              deskripsi: user_cookies.name,
+              tanggal: new Date().toISOString().split("T")[0],
+              harga_satuan: '100000',
+              quantity:1
+            }
+          }
+        }
+        await axios.put(BACKEND_API+'/receipt-norm/'+no_rm, updatedReceipt , config);
     }else{
       data = {
         no_rekam_medis: no_rm,

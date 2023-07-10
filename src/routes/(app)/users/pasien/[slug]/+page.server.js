@@ -4,13 +4,14 @@ import axios from 'axios';
 /** @type {import('./$types').PageLoad} */
 export const load = (async ({ cookies, params }) => {
   const user_cookies = JSON.parse(cookies.get('user_data_access'));
+  const no_rm = params.slug
 
   const headers = {
     'Accept': '*/*',
     'Authorization': 'Bearer '+user_cookies.token
   };
 
-  const obat = await axios.get(BACKEND_API+'/drug', { headers })
+  const riwayat = await axios.get(BACKEND_API+'/rekam-medis/riwayat/'+no_rm, { headers })
     .then((response) => {
       return response.data;
     })
@@ -20,6 +21,6 @@ export const load = (async ({ cookies, params }) => {
 
   return {
     user_data: user_cookies,
-    obat: obat,
+    riwayat: riwayat,
   }; 
 });

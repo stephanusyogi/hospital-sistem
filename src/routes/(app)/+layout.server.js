@@ -21,7 +21,7 @@ export const load = (async ({ cookies }) => {
     return {
       user_data: user_cookies,
       api_base: BACKEND_API,
-      count_pengajuan: countPengajuan
+      count_pengajuan: countPengajuan.length
     };
   }else{
     return {

@@ -4,6 +4,8 @@
   import { Button, Dropdown, DropdownDivider, DropdownItem, Modal, Popover } from "flowbite-svelte";
   import Swal from "sweetalert2";
   import Icon from "@iconify/svelte";
+  import { goto } from '$app/navigation';
+  import axios from 'axios';
 
   export let data
 
@@ -15,19 +17,16 @@
     ? $page.route.id.split("/(app)/rekam-medis/[slug]/")[1].split("/")[0]
     : $page.route.id.split("/(app)/rekam-medis/[slug]/")[0];
 
-  const handlePasienPulang = () => {
-    Swal.fire({
-      title: "Perawatan Pasien Inap Selesai?",
-      text: "Periksa kembali kelengkapan dokumen rekam medis. Hati-hati, aksi ini bersifat permanen pada database.",
-      showDenyButton: true,
-      showCancelButton: false,
-      confirmButtonText: "Ubah Status Perawatan Selesai",
-      denyButtonText: `Batal`,
-    });
-  };
 
   let qrcode;
   onMount(() => {
+    // Redirect Akses Dokter
+    if(data.user_data.role === "Dokter"){
+      if(activeUrl !== qrCodeUrl+'/catatan-perkembangan-pasien-terintegrasi'){
+        goto(qrCodeUrl+'/catatan-perkembangan-pasien-terintegrasi')
+      }
+    }
+    
     let script = document.createElement("script");
     script.src =
       "https://cdn.rawgit.com/davidshimjs/qrcodejs/gh-pages/qrcode.min.js";
@@ -57,6 +56,30 @@
         correctLevel: QRCode.CorrectLevel.H,
       });
     }, 1000);
+  }
+  
+  const handlePasienPulang = (id) => {
+    Swal.fire({
+      title: "Perawatan Pasien Inap Selesai?",
+      text: "Periksa kembali kelengkapan dokumen rekam medis. Hati-hati, aksi ini bersifat permanen pada database.",
+      showDenyButton: true,
+      showCancelButton: false,
+      confirmButtonText: "Ubah Status Perawatan Selesai",
+      denyButtonText: `Batal`,
+    }).then(async(result) => {
+      if (result.isConfirmed) {
+        const config = {
+          headers: {
+            'Accept': '*/*',
+            'Content-Type': 'application/x-www-form-urlencoded'
+          }
+        };
+        
+        await axios.put(data.api_base+'/rekam-medis/pasien-pulang/'+id , config);
+        
+        window.location.href = $page.url.origin + "/rekam-medis"
+      }
+    });
   }
 </script>
 
@@ -121,7 +144,7 @@
             <svg class="w-5 h-5" aria-hidden="true" fill="currentColor" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg"><path d="M10 6a2 2 0 110-4 2 2 0 010 4zM10 12a2 2 0 110-4 2 2 0 010 4zM10 18a2 2 0 110-4 2 2 0 010 4z"></path></svg>
           </button>
           <Dropdown triggeredBy="#dots-menu" placement="left-start">
-            <DropdownItem on:click={handlePasienPulang}>Rawat Inap Selesai (<i>Pasien Pulang</i>)</DropdownItem>
+            <DropdownItem on:click={()=>handlePasienPulang(no_rm)}>Rawat Inap Selesai (<i>Pasien Pulang</i>)</DropdownItem>
             <DropdownItem href="/transaksi/{no_rm}">Nota Rawat Inap Pasien</DropdownItem>
             <!-- <DropdownDivider/>
             <DropdownItem href="/">Download Rekam Medis Pasien</DropdownItem> -->

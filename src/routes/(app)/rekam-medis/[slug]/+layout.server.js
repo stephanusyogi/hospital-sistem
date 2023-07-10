@@ -1,13 +1,11 @@
 import { BACKEND_API } from '$env/static/private';
+import { redirect } from '@sveltejs/kit';
 import axios from 'axios';
 
 export const load = (async ({ cookies, params }) => {
   const user_cookies = JSON.parse(cookies.get('user_data_access'));
   const no_rm = params.slug
   
-  if(user_cookies.role === "Dokter"){
-    throw redirect(302, `/rekam-medis/${no_rm}/daftar-dokter-penanggungjawab-pasien`)
-  }
 
   const headers = {
     'Accept': '*/*',
@@ -22,7 +20,6 @@ export const load = (async ({ cookies, params }) => {
     .catch((error) => {
       return []
     });
-
   return {
     user_data: user_cookies,
     patient: patient,

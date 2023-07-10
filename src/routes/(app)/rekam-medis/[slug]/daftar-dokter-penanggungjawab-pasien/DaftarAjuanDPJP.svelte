@@ -25,8 +25,8 @@
         </tr>
       </thead>
       <tbody>
-        {#each $rows as { _id, spesialis, status_permintaan, nama_dokter, keterangan_perawat, keterangan_permintaan, atas_permintaan_pasien }}
-          <AjuanDpjp _id={_id} spesialis={spesialis} status_permintaan={status_permintaan} nama_dokter={nama_dokter}  keterangan_perawat={keterangan_perawat} keterangan_permintaan={keterangan_permintaan} atas_permintaan_pasien={atas_permintaan_pasien} data={data}/>
+        {#each $rows as { _id, spesialis, status_permintaan, nama_dokter, keterangan_perawat, atas_permintaan_pasien }}
+          <AjuanDpjp _id={_id} spesialis={spesialis} status_permintaan={status_permintaan} nama_dokter={nama_dokter}  keterangan_perawat={keterangan_perawat} atas_permintaan_pasien={atas_permintaan_pasien} data={data}/>
         {/each}   
       </tbody>
     </table>

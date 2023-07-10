@@ -10,18 +10,6 @@
   import { goto } from "$app/navigation";
   import Swal from "sweetalert2";
 
-  let spesialis = [
-    { value: "Spesialis Penyakit Dalam", name: "Spesialis Penyakit Dal" },
-    { value: "Spesialis Anak", name: "Spesialis Anak" },
-    { value: "Spesialis Saraf", name: "Spesialis Saraf" },
-    {
-      value: "Spesialis Kandungan & Ginekologi",
-      name: "Spesialis Kandungan & Ginekologi",
-    },
-    { value: "Spesialis Bedah", name: "Spesialis Bedah" },
-    { value: "Spesialis Kulit & Kelamin", name: "Spesialis Kulit & Kelamin" },
-    { value: "Spesialis THT", name: "Spesialis THT" },
-  ];
 
   const handleSubmit = () => {
     Swal.fire({
@@ -33,21 +21,8 @@
       denyButtonText: `Batal`,
     }).then((result) => {
       if (result.isConfirmed) {
-        Swal.fire({
-          icon: "success",
-          title: "Dokter Berhasil Ditambahkan",
-          showConfirmButton: false,
-          timer: 1000,
-        }).then(() => {
-          goto("/users/dokter");
-        });
-      } else if (result.isDenied) {
-        Swal.fire({
-          icon: "info",
-          title: "Aksi Dibatalkan",
-          showConfirmButton: false,
-          timer: 1000,
-        });
+        const form = document.getElementById('form');
+        form.submit()
       }
     });
   };
@@ -64,32 +39,38 @@
       <p class="text-lg sm:text-md lg:text-2xl font-semibold">Formulir Dokter Baru</p>
     </div>
     <hr class="my-5" />
-    <form on:submit|preventDefault={handleSubmit}>
+    <form id="form" on:submit|preventDefault={handleSubmit} method="post">
       <div class="group mb-4">
-        <Label for="nama" class="block mb-2">Nama Dokter:</Label>
-        <Input id="nama" name="nama" placeholder="Masukkan nama dokter" />
+        <Label for="name" class="block mb-2">Nama Dokter:</Label>
+        <Input id="name" name="name" placeholder="Masukkan nama dokter" required/>
       </div>
       <div class="group mb-4">
-        <Label
-          >Spesialisasi
-          <Select name="spesialis" class="mt-2" items={spesialis} />
-        </Label>
+        <Label for="spesialis">Spesialisasi</Label>
+        <Input id="spesialis" name="spesialis" placeholder="Masukkan spesialis dokter" required/>
       </div>
       <div class="group mb-4">
-        <Label for="username" class="block mb-2">Username Akun:</Label>
+        <Label for="email" class="block mb-2">Email Akun:</Label>
         <Input
-          id="username"
-          name="username"
-          placeholder="Masukkan username akun dokter"
+          required
+          id="email"
+          name="email"
+          placeholder="Masukkan email akun dokter"
         />
       </div>
       <div class="group mb-4">
         <Label for="password" class="block mb-2">Password Akun:</Label>
         <Input
+          required
           id="password"
           name="password"
           type="password"
           placeholder="Masukkan password akun dokter"
+        />
+        <Input
+          type="hidden"
+          id="password"
+          name="role"
+          value="Dokter"
         />
       </div>
       <div class="text-right">

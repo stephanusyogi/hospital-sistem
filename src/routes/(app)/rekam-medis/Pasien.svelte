@@ -17,7 +17,7 @@
     ></td
   >
   <td>{tgl_masuk ?? '-'}</td>
-  <td>{tgl_pulang ?? '-'}</td>
+  <td>{tgl_pulang !== '0000-00-00' ? tgl_pulang ?? '-' : '-'}</td>
   <td>Kamar {nama_kamar}, Kelas {jenis_kamar}</td>
   <td>
     {#if !status_pulang}
@@ -27,7 +27,7 @@
     {/if}
   </td>
   <td>
-    <Button size="xs" on:click={() => handleGoToDokumen(no_rekam_medis)}>
+    <Button size="xs" on:click={() => handleGoToDokumen(no_rekam_medis)} disabled={status_pulang ? true: false}>
       <Icon icon="mdi:file-document-edit" width="27" height="27" />
       Rekam Medis
     </Button>

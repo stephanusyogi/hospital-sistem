@@ -1,6 +1,6 @@
 <script>
   import Icon from "@iconify/svelte";
-  export let _id, status_permintaan, nama_dokter, keterangan_perawat, keterangan_permintaan, atas_permintaan_pasien, data, spesialis
+  export let _id, status_permintaan, nama_dokter, keterangan_perawat, atas_permintaan_pasien, data, spesialis
   import { Button, Modal, TableBodyCell, TableBodyRow } from "flowbite-svelte";
   import Swal from "sweetalert2";
   import axios from 'axios';
@@ -36,12 +36,10 @@
     {:else if status_permintaan == "Disetujui"}
       <div class="flex flex-wrap justify-center gap-2">
         <Button color="green" size="sm">Disetujui</Button>
-        <Button on:click={() => keteranganModal = true} size="sm">Keterangan Dokter</Button>
       </div>
     {:else}
       <div class="flex flex-wrap justify-center gap-2">
         <Button color="red" size="sm">Ditolak</Button>
-        <Button on:click={() => keteranganModal = true} size="sm">Keterangan Dokter</Button>
       </div>
     {/if}
   </td>
@@ -60,9 +58,3 @@
     </div>
   </td>
 </tr>
-
-<Modal title="Keterangan Dokter" bind:open={keteranganModal} autoclose size="sm">
-  <p class="text-base leading-relaxed text-gray-500 dark:text-gray-400">
-    {keterangan_permintaan}
-  </p>
-</Modal>

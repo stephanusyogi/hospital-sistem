@@ -78,7 +78,26 @@ export const actions = {
           'nama': user_cookies.name,
           'role': user_cookies.role,
         }
+        
+        let dataReceipt = {
+          administrasi: {
+            deskripsi: 'Pendaftaran Layanan Rawat Inap',
+            tanggal: new Date().toISOString().split("T")[0],
+            harga_satuan: '100000',
+            quantity:1
+          }
+        }
+
         await axios.post(BACKEND_API+'/rekam-medis/log', dataLog ,config)
+          .catch(error => {
+            console.error(error);
+            return fail(400, {
+              error: true,
+              message: error.response.data.message,
+            }); 
+          });
+        
+        await axios.put(BACKEND_API+'/receipt-norm/'+no_rm, dataReceipt , config)
           .catch(error => {
             console.error(error);
             return fail(400, {
