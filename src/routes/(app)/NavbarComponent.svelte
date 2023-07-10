@@ -5,15 +5,19 @@
     NavHamburger,
     Avatar,
     Dropdown,
+    DropdownDivider,
     DropdownItem,
+    Modal,
+    Button,
     DropdownHeader,
+    Label,
+    Input
   } from "flowbite-svelte";
   import Icon from "@iconify/svelte";
   import { sineIn } from "svelte/easing";
 
   import userIcon from "$lib/images/user.png";
-
-  export let user_data, hidden2;
+  export let user_data, hidden2, updateProfilModal;
 </script>
 
 <Navbar
@@ -40,6 +44,10 @@
           {user_data?.role}
         </span>
       </DropdownHeader>
+      <DropdownItem on:click={() => updateProfilModal = true}>
+        Ubah Profil
+      </DropdownItem>
+      <DropdownDivider/>
       <DropdownItem>
         <form action="/logout" method="post">
           <button type="submit">Log out</button>

@@ -5,35 +5,10 @@
   import "../../../tableCustom.css";
   import DaftarAjuanDpjp from "./DaftarAjuanDPJP.svelte";
 
-
-  let dummyDPJP = [
-    {
-      "diagnosa" : "Pilek",
-      "nama_dokter": "dr. Khal Drogo, Sp PD FINASIM",
-      "spesialis": "Spesialis Penyakit Dalam",
-      "tgl_mulai": "05/28/2023",
-      "tgl_selesai": "08/28/2023",
-      "status_dpjp": "DPJP Utama",
-    },
-    {
-      "diagnosa" : "Pilek",
-      "nama_dokter": "dr. Ramsay Bolton, Sp AN",
-      "spesialis": "Spesialis Anestesi",
-      "tgl_mulai": "05/28/2023",
-      "tgl_selesai": "08/28/2023",
-      "status_dpjp": "DPJP",
-    },
-    {
-      "diagnosa" : "Pilek",
-      "nama_dokter": "dr. Viserys II S, Sp.KJ",
-      "spesialis": "Spesialis Penyakit Dalam",
-      "tgl_mulai": "05/28/2023",
-      "tgl_selesai": "08/28/2023",
-      "status_dpjp": "DPJP",
-    },
-  ];
+  export let data
+  // console.log(data)
   
-  const handler = new DataHandler(dummyDPJP, { rowsPerPage: 10 });
+  const handler = new DataHandler(data?.dpjpdisetujui, { rowsPerPage: 10 });
   const rows = handler.getRows();
 </script>
 
@@ -49,18 +24,16 @@
       <table>
         <thead>
           <tr>
-            <Th {handler} orderBy="diagnosa">Diagnosa</Th>
             <Th {handler} orderBy="nama_dokter">Nama Dokter</Th>
             <Th {handler} orderBy="spesialis">Spesialis</Th>
             <Th {handler} orderBy="tgl_mulai">Tanggal Mulai</Th>
             <Th {handler} orderBy="tgl_selesai">Tanggal Selesai</Th>
-            <Th {handler} orderBy="status_dpjp">Status DPJP</Th>
             <Th {handler} orderBy="aksi">Aksi</Th>
           </tr>
         </thead>
         <tbody>
-          {#each $rows as { diagnosa, nama_dokter, spesialis, tgl_mulai, tgl_selesai, status_dpjp }}
-          <Dpjp diagnosa={diagnosa} nama_dokter={nama_dokter} spesialis={spesialis} tgl_mulai={tgl_mulai} tgl_selesai={tgl_selesai} status_dpjp={status_dpjp}/>
+          {#each $rows as {_id, nama_dokter, spesialis, tgl_mulai, tgl_selesai, status_dpjp }}
+          <Dpjp _id={_id}, nama_dokter={nama_dokter} spesialis={spesialis} tgl_mulai={tgl_mulai} tgl_selesai={tgl_selesai} status_dpjp={status_dpjp} data={data}/>
           {/each}   
         </tbody>
       </table>
@@ -68,5 +41,5 @@
   </section>
   <br>
   <hr class="my-5">
-  <DaftarAjuanDpjp/>
+  <DaftarAjuanDpjp data={data}/>
 </main>

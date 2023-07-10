@@ -9,6 +9,10 @@
   import { loading } from "../../components/PageLoader/PageLoader";
   import PageLoader from "../../components/PageLoader/PageLoader.svelte";
   import {
+    Modal,
+    Input,
+    Label,
+    Button,
     CloseButton,
     Drawer,
     Sidebar,
@@ -21,6 +25,8 @@
   import Icon from "@iconify/svelte";
   import NavbarComponent from "./NavbarComponent.svelte";
   import SidebarComponent from "./SidebarComponent.svelte";
+  import axios from 'axios';
+  import Swal from "sweetalert2";
 
   $: loading.setNavigate(!!$navigating);
 
@@ -30,11 +36,64 @@
     duration: 200,
     easing: sineIn,
   };
+  
+  let updateProfilModal = false;
 
   $: activeUrl = $page.url.pathname;
 
   /** @type {import('./$types').LayoutData} */
   export let data;
+  console.log(data)
+
+  async function handleUpdateProfile(e){
+    const formData = new FormData(e.target)
+    const user_cookies = data.user_data
+
+    const config = {
+      headers: {
+        'Accept': '*/*',
+        'Authorization': 'Bearer '+user_cookies.token,
+        'Content-Type': 'application/x-www-form-urlencoded'
+      }
+    };
+    const updatedUser = {
+      name: formData.get('name'), 
+      email: formData.get('email'), 
+    }
+    if(user_cookies.role === "Dokter"){
+      // Update Password
+      if(formData.get('password')){
+        await axios.put(data.api_base+'/doctor/update-password/'+user_cookies._id, {newPassword:formData.get('password')}, config)    
+      }
+      await axios.put(data.api_base+'/doctor/'+user_cookies._id, updatedUser, config)  
+    }else if(user_cookies.role === "Admin"){
+      // Update Password
+      if(formData.get('password')){
+        await axios.put(data.api_base+'/admin/update-password/'+user_cookies._id, {newPassword:formData.get('password')}, config)    
+      }
+      await axios.put(data.api_base+'/admin/'+user_cookies._id, updatedUser, config)  
+    }else{
+      // Update Password
+      if(formData.get('password')){
+        await axios.put(data.api_base+'/nurse/update-password/'+user_cookies._id, {newPassword:formData.get('password')}, config)    
+      }
+      await axios.put(data.api_base+'/nurse/'+user_cookies._id, updatedUser, config)
+    }
+
+    const formLogout = document.createElement("form");
+    formLogout.action = "/logout";
+    formLogout.method = "POST";
+    document.body.appendChild(formLogout);
+    Swal.fire({
+      title: "Silahkan Login Kembali",
+      showDenyButton: false,
+      showCancelButton: false,
+      showConfirmButton: false,
+      timer: 1500
+    }).then(()=>{
+      formLogout.submit();
+    })
+  }
 </script>
 
 <svelte:head>
@@ -48,7 +107,7 @@
   <SidebarComponent user_data={data?.user_data} />
 
   <div class="relative overflow-x-auto w-full bg-gray-100">
-    <NavbarComponent user_data={data?.user_data} bind:hidden2 />
+    <NavbarComponent user_data={data?.user_data} bind:hidden2 bind:updateProfilModal/>
     <!-- Content -->
     <slot user_data={data?.user_data} />
   </div>
@@ -149,47 +208,45 @@
                   />
                 </svelte:fragment>
               </SidebarItem>
+              <hr class="my-1" />
               <SidebarItem
                 class="text-sm"
-                label="Obat"
-                href="/obat"
-                active={activeUrl === "/obat"}
+                label="Data Pasien"
+                active={activeUrl === "/users/pasien"}
+                href="/users/pasien"
                 on:click={() => (hidden2 = true)}
               >
                 <svelte:fragment slot="icon">
-                  <Icon icon="game-icons:medicines" width="32" height="32" />
+                  <Icon
+                    icon="ph:users-four-bold"
+                    width="32"
+                    height="32"
+                  />
                 </svelte:fragment>
               </SidebarItem>
-              <hr class="my-1" />
-              <SidebarDropdownWrapper label="Users Management" class="text-sm">
-                <svelte:fragment slot="icon">
-                  <Icon icon="ph:users-four-bold" width="32" height="32" />
-                </svelte:fragment>
-                <SidebarDropdownItem
-                  class="text-sm"
-                  href="/users/pasien"
-                  label="Pasien"
-                  active={activeUrl === "/users/pasien"}
-                  on:click={() => (hidden2 = true)}
-                />
-                <SidebarDropdownItem
-                  class="text-sm"
-                  href="/users/dokter"
-                  label="Dokter"
-                  active={activeUrl === "/users/dokter"}
-                  on:click={() => (hidden2 = true)}
-                />
-                <SidebarDropdownItem
-                  class="text-sm"
-                  href="/users/petugas"
-                  label="Petugas"
-                  active={activeUrl === "/users/petugas"}
-                  on:click={() => (hidden2 = true)}
-                />
-              </SidebarDropdownWrapper>
             </div>
           </SidebarGroup>
-        {:else if data?.user_data.role === "Apoteker"}
+          {:else if data?.user_data.role === "Admin"}
+            <SidebarDropdownWrapper label="Users Management" class="text-sm">
+              <svelte:fragment slot="icon">
+                <Icon icon="ph:users-four-bold" width="32" height="32" />
+              </svelte:fragment>
+              <SidebarDropdownItem
+                class="text-sm"
+                href="/users/dokter"
+                label="Dokter"
+                active={activeUrl === "/users/dokter"}
+                on:click={() => (hidden2 = true)}
+              />
+              <SidebarDropdownItem
+                class="text-sm"
+                href="/users/petugas"
+                label="Perawat"
+                active={activeUrl === "/users/petugas"}
+                on:click={() => (hidden2 = true)}
+              />
+            </SidebarDropdownWrapper>
+          {:else if data?.user_data.role === "Apoteker"}
           <SidebarGroup ulClass="space-y-2">
             <!-- List Menu -->
             <div>
@@ -268,3 +325,28 @@
     </Sidebar>
   </Drawer>
 </div>
+
+
+
+<Modal title="Profil Saya" bind:open={updateProfilModal} size="xl" autoclose={false} >
+  <form on:submit|preventDefault={handleUpdateProfile}>
+    <div class="flex flex-wrap gap-2">
+      <div class="my-2">
+        <Label for="name" class="mb-2">Nama Pengguna</Label>
+        <Input type="text" id="name" name="name"  required  value={data?.user_data.name}/>
+      </div>
+      <div class="my-2">
+        <Label for="email" class="mb-2">Email Pengguna</Label>
+        <Input type="email" id="email" name="email" required value={data?.user_data.email}/>
+        <Input type="hidden" name="role" required value={data?.user_data.role}/>
+      </div>
+      <div class="my-2">
+        <Label for="password" class="mb-2">Ubah Password</Label>
+        <Input type="password" id="password" name="password" />
+      </div>
+    </div>
+    <div class="flex justify-end my-2">
+      <Button type="submit">Simpan</Button>
+    </div>
+  </form>
+</Modal>

@@ -228,7 +228,7 @@
         <SidebarDropdownItem
           class="text-sm sm:text-md lg:text-lg"
           href="/users/petugas"
-          label="Petugas"
+          label="Perawat"
           active={activeUrl === "/users/petugas"}
           on:click={() => {
             if (openSideBar) {

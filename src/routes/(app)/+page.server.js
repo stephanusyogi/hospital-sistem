@@ -1,5 +1,6 @@
 import { BACKEND_API } from '$env/static/private';
 import axios from 'axios';
+import { fail, redirect } from '@sveltejs/kit';
 
 /** @type {import('./$types').PageLoad} */
 export const load = (async ({ cookies }) => {

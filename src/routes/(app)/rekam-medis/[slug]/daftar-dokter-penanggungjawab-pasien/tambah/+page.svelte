@@ -2,13 +2,12 @@
 
   import { Button, Checkbox, Input, Label, Select, Textarea } from "flowbite-svelte";
   import Swal from "sweetalert2";
-  import { goto } from '$app/navigation';
+  import { onMount } from "svelte";
 
-  let dpjp = [
-    {value:"dr. Khal Drogo, Sp PD FINASIM", name: "dr. Khal Drogo, Sp PD FINASIM"},
-    {value:"dr. Ramsay Bolton, Sp AN", name: "dr. Ramsay Bolton, Sp AN"},
-    {value:"dr. Viserys II S, Sp.KJ", name: "dr. Viserys II S, Sp.KJ"},
-  ]
+  export let form
+  export let data
+
+  let dpjp = []
   
   let status = [
     {value:"dpjp_utama", name: "DPJP Utama"},
@@ -25,29 +24,35 @@
       denyButtonText: `Batal`,
     }).then((result) => {
       if (result.isConfirmed) {
-        Swal.fire({
-          icon: 'success',
-          title: 'Dokter Berhasil Diajukan, Mohon Tunggu Kesediaan',
-          showConfirmButton: false,
-          timer: 1000
-        }).then(()=>{
-          goto("/rekam-medis/00123141/daftar-dokter-penanggungjawab-pasien")
-        })
-      } else if (result.isDenied) {
-        Swal.fire({
-          icon: 'info',
-          title: 'Aksi Dibatalkan',
-          showConfirmButton: false,
-          timer: 1000
-        })
+        const form = document.getElementById('form');
+        form.submit()
       }
     })
   }
+  onMount(() => {
+    if (form?.error) {
+      Swal.fire({
+        text: form.message,
+        icon: 'error',
+        showConfirmButton: false,
+        timer: 3000,
+      });
+    }
+    if(data?.dokter){
+      // Load Data Dokter
+      data.dokter.forEach((item) => {
+        dpjp.push({
+          value: item._id,
+          name: `${item.name} - ${item.spesialis}`,
+        });
+      })
+    }
+  })
 </script>
 
 
 <main>
-  <form on:submit|preventDefault={handleSubmit}>
+  <form id="form" on:submit|preventDefault={handleSubmit} method="post">
     <div class="flex flex-wrap sm:flex-nowrap items-center justify-between">
       <div>
         <p class="text-xl font-semibold">Form 12.54 Permintaan Kesediaan DPJP</p>
@@ -57,17 +62,25 @@
         Ajukan</Button>
     </div>
     <hr class="my-5">
-    <div class="my-2">
-      <Label>Nama DPJP:  <span class="text-sm text-red-500 italic">*</span>
-        <Select class="mt-2" items={dpjp}/>
-      </Label>
-    </div>
-    <div class="my-2">
-      <Label for="" class="mb-2">Keterangan: <span class="text-sm text-red-500 italic">*</span></Label>
-      <Textarea id="" placeholder="Masukkan Keterangan" rows="2" name="keterangan"/>
-    </div>
-    <div class="my-2">
-      <Checkbox>Permintaan Pribadi Pasien Rawat Inap</Checkbox>
+    <div class="grid grid-cols-1 lg:grid-cols-2 gap-4">
+      <div class="my-2">
+        <Label>Nama DPJP:  <span class="text-sm text-red-500 italic">*</span>
+          <Select class="mt-2" name="id_dokter" items={dpjp} required/>
+        </Label>
+      </div>
+      <div class="my-2">
+        <Label for="" class="mb-2">Keterangan Perawat: <span class="text-sm text-red-500 italic">*</span></Label>
+        <Textarea id="" placeholder="Masukkan Keterangan" rows="2" name="keterangan_perawat"/>
+        <Checkbox name="atas_permintaan_pasien">Permintaan Pribadi Pasien Rawat Inap</Checkbox>
+      </div>
+      <div class="my-2">
+        <Label for="" class="mb-2">Tanggal Mulai: <span class="text-sm text-red-500 italic">*</span></Label>
+        <Input name="tgl_mulai" type="date" required/>
+      </div>
+      <div class="my-2">
+        <Label for="" class="mb-2">Tanggal Selesai: <span class="text-sm text-red-500 italic">*</span></Label>
+        <Input name="tgl_selesai" type="date" required/>
+      </div>
     </div>
   </form>
 </main>
