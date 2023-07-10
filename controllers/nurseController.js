@@ -75,6 +75,17 @@ const getNurseByNoRM = async (req, res) => {
   }
 };
 
+const getNurseByRole = async (req, res) => {
+  try {
+    const { id } = req.params;
+    const nurse = await User.find({role: id});
+
+    res.status(200).send(nurse);
+  } catch (error) {
+    res.status(500).send({ message: error.message });
+  }
+};
+
 const updateNurse = async (req, res) => {
   try {
     const { id } = req.params;
@@ -100,23 +111,9 @@ const updatePasswordNurse = async (req, res) => {
   try {
     const { id } = req.params;
     const { userId } = req.user;
-    const { currentPassword, newPassword } = req.body;
-
-    if (userId.toString() !== id) {
-      throw new Error("You can only update your account!");
-    }
+    const { newPassword } = req.body;
 
     const user = await User.findById(userId);
-
-    if (!id) {
-      throw new Error("User not found!");
-    }
-
-    const isMatch = await bcrypt.compare(currentPassword, user.password);
-
-    if (!isMatch) {
-      throw new Error("Password don't match");
-    }
 
     const hashPassword = await bcrypt.hash(newPassword, 10);
 
@@ -154,6 +151,7 @@ const deleteNurse = async (req, res) => {
 };
 
 module.exports = {
+  getNurseByRole,
   getNurseByNoRM,
   createNurse,
   getNurse,

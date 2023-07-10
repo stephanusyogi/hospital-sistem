@@ -23,6 +23,7 @@ const createDPJP = async (req, res) => {
     const data = req.body;
 
     data.status_pulang = false
+    data.status_permintaan = "Pending"
     const newData = new DPJP(data);
 
     const savedData = await newData.save();
@@ -127,13 +128,10 @@ const getDPJPByNoRM = async (req, res) => {
   try {
     const { id } = req.params;
 
-    const data = await DPJP.find({no_rekam_medis: id, status_pulang: false});
+    const dpjpDisetujui = await DPJP.find({status_permintaan:"Disetujui", no_rekam_medis: id, status_pulang: false});
+    const dpjpTidakDisetujui = await DPJP.find({status_permintaan:{ $ne: "Disetujui" }, no_rekam_medis: id, status_pulang: false});
 
-    if (!data) {
-      throw new Error("Data not found!");
-    }
-
-    res.status(200).send(data);
+    res.status(200).send({disetujui: dpjpDisetujui, tidak_disetujui: dpjpTidakDisetujui});
   } catch (error) {
     res.status(500).send({ message: error.message });
   }
@@ -155,7 +153,24 @@ const getDPJPByID = async (req, res) => {
   }
 };
 
+const getDPJPByIDDokter = async (req, res) => {
+  try {
+    const { id } = req.params;
+    
+    const data = await DPJP.find({id_dokter: id, status_pulang: false});
+
+    if (!data) {
+      throw new Error("Data not found!");
+    }
+
+    res.status(200).send(data);
+  } catch (error) {
+    res.status(500).send({ message: error.message });
+  }
+};
+
 module.exports = {
+  getDPJPByIDDokter,
   createPengajuanDPJP,
   createDPJP,
   updatePengajuanDPJP,

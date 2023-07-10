@@ -28,7 +28,7 @@ const login = async (req, res) => {
         process.env.JWT_SECRET
       );
 
-      res.status(200).send({ token, id: user.id, name: user.name, email: user.email, role: user.role });
+      res.status(200).send({ token, _id: user.id, name: user.name, email: user.email, role: user.role });
     } else{
       throw new Error("Account Not Found!");
     }

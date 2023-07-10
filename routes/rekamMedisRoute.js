@@ -136,6 +136,7 @@ router.get("/pengajuan-dpjp-norm/:id", protect, DPJP.getPengajuanDPJPByNoRM);
 router.get("/pengajuan-dpjp-id/:id", protect, DPJP.getPengajuanDPJPByID);
 router.get("/dpjp-norm/:id", protect, DPJP.getDPJPByNoRM);
 router.get("/dpjp-id/:id", protect, DPJP.getDPJPByID);
+router.get("/dpjp-id-dokter/:id", protect, DPJP.getDPJPByIDDokter);
 
 // NEWS
 router.post("/news", protect, NEWS.createNEWS);

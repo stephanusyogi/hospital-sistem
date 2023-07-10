@@ -85,24 +85,9 @@ const updatePasswordAdmin = async (req, res) => {
   try {
     const { id } = req.params;
     const { userId } = req.user;
-    const { currentPassword, newPassword } = req.body;
-
-    if (userId.toString() !== id) {
-      throw new Error("You can only update your account!");
-    }
+    const { newPassword } = req.body;
 
     const user = await User.findById(userId);
-
-    if (!id) {
-      throw new Error("User not found!");
-    }
-
-    const isMatch = await bcrypt.compare(currentPassword, user.password);
-
-    if (!isMatch) {
-      throw new Error("Password don't match");
-    }
-
     const hashPassword = await bcrypt.hash(newPassword, 10);
 
     user.password = hashPassword;

@@ -14,11 +14,8 @@ const DpjpSchema = new Schema({
   },
   id_dokter: {
     type: String,
-    required: true,
-    ref: 'Doctor',
-    field: '_id'
   },
-  dokter: {
+  nama_dokter: {
     type: String,
   },
   spesialis: {
@@ -30,10 +27,16 @@ const DpjpSchema = new Schema({
   tgl_selesai: {
     type: String,
   },
-  status_dpjp: {
+  keterangan_perawat: {
     type: String,
   },
-  diagnosa: {
+  atas_permintaan_pasien: {
+    type: Boolean,
+  },
+  status_permintaan: {
+    type: String,
+  },
+  keterangan_permintaan: {
     type: String,
   }
 }, { timestamps: true });
