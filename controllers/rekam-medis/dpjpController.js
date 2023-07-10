@@ -1,4 +1,5 @@
 const DPJP = require("../../models/rekam_medis_dpjp");
+const InformasiPasien = require("../../models/rekam_medis_informasi_pasien");
 const PengajuanDPJP = require("../../models/rekam_medis_pengajuan_dpjp");
 
 const createPengajuanDPJP = async (req, res) => {
@@ -153,14 +154,51 @@ const getDPJPByID = async (req, res) => {
   }
 };
 
+
+const getPasienSaya = async (req, res) => {
+  try {
+    const { id } = req.params;
+    
+    const pengajuan_dpjp = await DPJP.find({id_dokter: id, status_pulang: false, status_permintaan:"Disetujui"});
+
+    
+    const data = []
+    for (let i = 0; i < pengajuan_dpjp.length; i++) {
+      const patient = await InformasiPasien.findOne({ no_rekam_medis: pengajuan_dpjp[i].no_rekam_medis, status_pulang:false });
+      if (patient) {
+        const patientInfo = {
+          ...pengajuan_dpjp[i].toObject(),
+          nama_pasien: patient.name,
+          ruangan: 'Kamar '+patient.nama_kamar+' Kelas '+patient.jenis_kamar,
+          asuransi: patient.nama_asuransi,
+        };
+        data.push(patientInfo);
+      }
+    }
+
+    res.status(200).send(data);
+  } catch (error) {
+    res.status(500).send({ message: error.message });
+  }
+};
+
 const getDPJPByIDDokter = async (req, res) => {
   try {
     const { id } = req.params;
     
-    const data = await DPJP.find({id_dokter: id, status_pulang: false});
-
-    if (!data) {
-      throw new Error("Data not found!");
+    const pengajuan_dpjp = await DPJP.find({id_dokter: id, status_pulang: false, status_permintaan: 'Pending'});
+    const data = []
+    for (let i = 0; i < pengajuan_dpjp.length; i++) {
+      const patient = await InformasiPasien.findOne({ no_rekam_medis: pengajuan_dpjp[i].no_rekam_medis, status_pulang:false });
+      if (patient) {
+        const patientInfo = {
+          ...pengajuan_dpjp[i].toObject(),
+          nama_pasien: patient.name,
+          ruangan: 'Kamar '+patient.nama_kamar+' Kelas '+patient.jenis_kamar,
+          asuransi: patient.nama_asuransi,
+        };
+        data.push(patientInfo);
+      }
     }
 
     res.status(200).send(data);
@@ -170,6 +208,7 @@ const getDPJPByIDDokter = async (req, res) => {
 };
 
 module.exports = {
+  getPasienSaya,
   getDPJPByIDDokter,
   createPengajuanDPJP,
   createDPJP,

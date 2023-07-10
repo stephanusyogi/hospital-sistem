@@ -16,7 +16,6 @@ const RoomSchema = new Schema({
   },
   kuota_kasur: {
     type: Number,
-    required: true,
   },
   is_deleted: {
     type: Boolean,

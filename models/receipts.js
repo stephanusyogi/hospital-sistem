@@ -33,7 +33,7 @@ const ruangPerawatanSchema = new Schema({
 })
 
 const visitDokterSchema = new Schema({
-  nama_dokter: {
+  deskripsi: {
     type: String
   },
   tanggal: {
@@ -96,16 +96,10 @@ const ReceiptSchema = new Schema({
   asuransi: {
     type: String,
   },
-  total_biaya: {
-    type: String,
-  },
   tgl_lahir: {
     type: String,
   },
   dokter_utama: {
-    type: String,
-  },
-  ruang_perawatan: {
     type: String,
   },
   kelas: {

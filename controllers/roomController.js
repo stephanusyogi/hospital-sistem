@@ -2,9 +2,9 @@ const Room = require("../models/rooms");
 
 const createRoom = async (req, res) => {
   try {
-    const { nama_ruangan, kelas, harga, kuota_kasur } = req.body;
+    const { nama_ruangan, kelas, harga } = req.body;
 
-    if (!nama_ruangan || !kelas || !harga || !kuota_kasur) {
+    if (!nama_ruangan || !kelas || !harga) {
       throw new Error("This field are required!");
     }
 
@@ -12,7 +12,6 @@ const createRoom = async (req, res) => {
       nama_ruangan,
       kelas,
       harga,
-      kuota_kasur,
       is_deleted: false,
     });
 

@@ -78,7 +78,7 @@ const getNurseByNoRM = async (req, res) => {
 const getNurseByRole = async (req, res) => {
   try {
     const { id } = req.params;
-    const nurse = await User.find({role: id});
+    const nurse = await User.find({role: id, accountActive: true});
 
     res.status(200).send(nurse);
   } catch (error) {
@@ -89,11 +89,6 @@ const getNurseByRole = async (req, res) => {
 const updateNurse = async (req, res) => {
   try {
     const { id } = req.params;
-    const { userId } = req.user;
-
-    if (userId.toString() !== id) {
-      throw new Error("You can only update your account!");
-    }
 
     const updatedFields = req.body;
 
@@ -130,11 +125,6 @@ const updatePasswordNurse = async (req, res) => {
 const deleteNurse = async (req, res) => {
   try {
     const { id } = req.params;
-    const { userId } = req.user;
-
-    if (userId.toString() !== id) {
-      throw new Error("You can only delete your account!");
-    }
 
     const updatedFields = {
       accountActive: false,

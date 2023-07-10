@@ -1,11 +1,20 @@
 const Receipt = require("../models/receipts");
+const InformasiPasien = require("../models/rekam_medis_informasi_pasien");
 
 const getReceipts = async (req, res) => {
   try {
-    const data = await Receipt.find().sort({ tgl_pembayaran: 1 });
+    const receipt = await Receipt.find().sort({ tgl_pembayaran: 1 });
 
-    if (!data) {
-      throw new Error("Data not found!");
+    const data = []
+    for (let i = 0; i < receipt.length; i++) {
+      const patient = await InformasiPasien.findOne({ no_rekam_medis: receipt[i].no_rekam_medis },{ _id: 0 });
+      if (patient) {
+        const patientInfo = {
+          ...receipt[i].toObject(),
+          ...patient.toObject(),
+        };
+        data.push(patientInfo);
+      }
     }
 
     res.status(200).send(data);
@@ -22,7 +31,6 @@ const createReceipt = async (req, res) => {
     if (existingData) {
       throw new Error("Data already exist!");
     }
-
     data.status_pulang = false
     const newData = new Receipt(data);
 
@@ -54,10 +62,15 @@ const getReceiptByID = async (req, res) => {
   try {
     const { id } = req.params;
     
-    const data = await Receipt.findById(id);
-
-    if (!data) {
-      throw new Error("Data not found!");
+    const receipt = await Receipt.findOne({_id: id});
+    const data = []
+    const patient = await InformasiPasien.findOne({ no_rekam_medis: receipt.no_rekam_medis },{ _id: 0 });
+    if (patient) {
+      const patientInfo = {
+        ...receipt.toObject(),
+        ...patient.toObject(),
+      };
+      data.push(patientInfo);
     }
 
     res.status(200).send(data);
@@ -81,7 +94,24 @@ const updateReceipt = async (req, res) => {
   }
 };
 
+const updateReceiptByNoRM = async (req, res) => {
+  try {
+    const { id } = req.params;
+
+    const updatedFields = req.body;
+
+    const updatedData = await Receipt.findOneAndUpdate(
+      {no_rekam_medis: id, status_pulang: false, }, 
+      updatedFields, {new: true,});
+
+    res.status(200).send({ data: updatedData });
+  } catch (error) {
+    res.status(500).send({ message: error.message });
+  }
+};
+
 module.exports = {
+  updateReceiptByNoRM,
   getReceipts,
   createReceipt,
   getReceiptByNoRM,

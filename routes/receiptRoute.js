@@ -9,6 +9,7 @@ router.get("/receipt", protect, Receipt.getReceipts);
 router.post("/receipt", protect, Receipt.createReceipt);
 router.put("/receipt/:id", protect, Receipt.updateReceipt);
 router.get("/receipt-norm/:id", protect, Receipt.getReceiptByNoRM);
+router.put("/receipt-norm/:id", protect, Receipt.updateReceiptByNoRM);
 router.get("/receipt-id/:id", protect, Receipt.getReceiptByID);
 
 module.exports = router;

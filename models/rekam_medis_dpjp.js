@@ -35,9 +35,6 @@ const DpjpSchema = new Schema({
   },
   status_permintaan: {
     type: String,
-  },
-  keterangan_permintaan: {
-    type: String,
   }
 }, { timestamps: true });
 

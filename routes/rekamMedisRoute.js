@@ -26,6 +26,7 @@ const multer = require("multer");
 const upload = multer({ storage: multer.memoryStorage() });
 
 router.get("/", protect, InformasiPasien.getRekamMedis);
+router.put("/pasien-pulang/:id", InformasiPasien.pasienPulang);
 
 // Log
 router.post("/log", protect, Log.createLog);
@@ -34,7 +35,7 @@ router.get("/log-norm/:id", protect, Log.getLogByNoRM);
 router.get("/log-id/:id", protect, Log.getLogByID);
 
 // History RM Pasien
-router.post("/riwayat", protect, InformasiPasien.getRiwayatPasien);
+router.get("/riwayat/:id", protect, InformasiPasien.getRiwayatPasien);
 
 // Informasi Pasien
 router.get("/", protect, InformasiPasien.getRekamMedis);
@@ -137,6 +138,7 @@ router.get("/pengajuan-dpjp-id/:id", protect, DPJP.getPengajuanDPJPByID);
 router.get("/dpjp-norm/:id", protect, DPJP.getDPJPByNoRM);
 router.get("/dpjp-id/:id", protect, DPJP.getDPJPByID);
 router.get("/dpjp-id-dokter/:id", protect, DPJP.getDPJPByIDDokter);
+router.get("/dpjp-pasien-saya/:id", protect, DPJP.getPasienSaya);
 
 // NEWS
 router.post("/news", protect, NEWS.createNEWS);
