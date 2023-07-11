@@ -53,8 +53,8 @@ export const actions = {
        const file_dir = formData.get(`file_dir`);
        const id_new_record = promises[1].data.data._id
        const formFile = new FormData();
-       formFile.append('file', file_dir);
-       await axios.post(BACKEND_API+'/rekam-medis/hasil-pemeriksaan-upload-file/'+id_new_record, formFile ,configFile);
+      formFile.append('file', file_dir);
+      axios.post(BACKEND_API+'/rekam-medis/hasil-pemeriksaan-upload-file/'+id_new_record, formFile ,configFile);
     } catch (error) {
       console.log(error)
       return fail(400, {
