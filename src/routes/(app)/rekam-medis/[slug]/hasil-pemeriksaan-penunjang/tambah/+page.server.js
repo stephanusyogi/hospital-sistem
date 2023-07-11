@@ -37,16 +37,24 @@ export const actions = {
         'nama': user_cookies.name,
         'role': user_cookies.role,
       }
-      await axios.post(BACKEND_API+'/rekam-medis/log', dataLog ,config);
+      
+      
+      
+      const promises = await Promise.all([
+        axios.post(BACKEND_API+'/rekam-medis/log', dataLog ,config),
+        axios.post(BACKEND_API+'/rekam-medis/hasil-pemeriksaan', data, config),
+      ])
+      
+      
 
-      let resHasilPemeriksaan = await axios.post(BACKEND_API+'/rekam-medis/hasil-pemeriksaan', data, config)  
+      // let resHasilPemeriksaan = await axios.post(BACKEND_API+'/rekam-medis/hasil-pemeriksaan', data, config)  
       
       // Upload File
-      // const file_dir = formData.get(`file_dir`);
-      // const id_new_record = resHasilPemeriksaan.data.data._id
-      // const formFile = new FormData();
-      // formFile.append('file', file_dir);
-      // await axios.post(BACKEND_API+'/rekam-medis/hasil-pemeriksaan-upload-file/'+id_new_record, formFile ,configFile);
+       const file_dir = formData.get(`file_dir`);
+       const id_new_record = promises[1].data.data._id
+       const formFile = new FormData();
+       formFile.append('file', file_dir);
+       await axios.post(BACKEND_API+'/rekam-medis/hasil-pemeriksaan-upload-file/'+id_new_record, formFile ,configFile);
     } catch (error) {
       console.log(error)
       return fail(400, {
