@@ -129,14 +129,16 @@ export const actions = {
           'nama': user_cookies.name,
           'role': user_cookies.role,
         }
-        await axios.post(BACKEND_API+'/rekam-medis/log', dataLog ,config);
+      
+        const promises = await Promise.all([
+          axios.post(BACKEND_API+'/rekam-medis/log', dataLog ,config),
+          axios.post(BACKEND_API+'/rekam-medis/log', dataLog ,config)
+        ])
 
         await axios.put(BACKEND_API+'/rekam-medis/edukasi-pasien/'+id_edukasi_pasien, data, config)  
         const formFile = new FormData();
         formFile.append('file', img_dir_penandaan_lokasi_operasi);
-        const resUploadFile = await axios.post(BACKEND_API+'/rekam-medis/edukasi-pasien-upload-file/'+id_edukasi_pasien, formFile ,configFile);
-        // Update
-        await axios.put(BACKEND_API+'/rekam-medis/edukasi-pasien/'+id_edukasi_pasien, {img_dir_penandaan_lokasi_operasi: resUploadFile.data.downloadURL}, config)  
+        axios.post(BACKEND_API+'/rekam-medis/edukasi-pasien-upload-file/'+id_edukasi_pasien, formFile ,configFile);
 
       } catch (error) {
         console.log(error)

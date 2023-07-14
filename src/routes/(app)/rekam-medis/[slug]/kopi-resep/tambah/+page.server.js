@@ -37,16 +37,18 @@ export const actions = {
         'nama': user_cookies.name,
         'role': user_cookies.role,
       }
-      await axios.post(BACKEND_API+'/rekam-medis/log', dataLog ,config);
-
-      let resKopiResep = await axios.post(BACKEND_API+'/rekam-medis/kopi-resep', data, config)  
+      
+      const promises = await Promise.all([
+        axios.post(BACKEND_API+'/rekam-medis/log', dataLog ,config),
+        axios.post(BACKEND_API+'/rekam-medis/kopi-resep', data, config)
+      ])
       
       // Upload File
       const file_dir = formData.get(`file_dir`);
-      const id_new_record = resKopiResep.data.data._id
+      const id_new_record = promises[1].data.data._id
       const formFile = new FormData();
       formFile.append('file', file_dir);
-      await axios.post(BACKEND_API+'/rekam-medis/kopi-resep-upload-file/'+id_new_record, formFile ,configFile);
+      axios.post(BACKEND_API+'/rekam-medis/kopi-resep-upload-file/'+id_new_record, formFile ,configFile);
     } catch (error) {
       console.log(error)
       return fail(400, {

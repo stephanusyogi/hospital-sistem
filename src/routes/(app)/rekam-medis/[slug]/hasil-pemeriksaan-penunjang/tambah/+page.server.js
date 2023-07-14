@@ -38,16 +38,10 @@ export const actions = {
         'role': user_cookies.role,
       }
       
-      
-      
       const promises = await Promise.all([
         axios.post(BACKEND_API+'/rekam-medis/log', dataLog ,config),
         axios.post(BACKEND_API+'/rekam-medis/hasil-pemeriksaan', data, config),
       ])
-      
-      
-
-      // let resHasilPemeriksaan = await axios.post(BACKEND_API+'/rekam-medis/hasil-pemeriksaan', data, config)  
       
       // Upload File
        const file_dir = formData.get(`file_dir`);
