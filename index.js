@@ -17,7 +17,7 @@ app.use("/api-docs", swaggerUI.serve, swaggerUI.setup(apiDocumentation));
 
 // middlewares
 var corsOptions = {
-  origin:  ["*"],
+  origin:  ["http://localhost:5173", "https://hospital-sistem.vercel.app", "hospital-sistem.vercel.app"],
 };
 app.use(cors(corsOptions));
 app.use(express.json()); // parse requests of content-type - application/json
