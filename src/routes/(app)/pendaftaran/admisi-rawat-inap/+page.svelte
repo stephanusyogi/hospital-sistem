@@ -11,6 +11,7 @@
   export let data;
   let isLoading = true;
   
+
   onMount(async () => {
     setTimeout(async () => {
       isLoading = false

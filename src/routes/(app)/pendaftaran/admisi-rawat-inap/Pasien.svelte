@@ -3,6 +3,7 @@
   import { Button } from "flowbite-svelte";
   import { goto } from "$app/navigation";
   import Swal from "sweetalert2";
+  import soundFile from "$lib/sound.mp3";
 
   const handlePasien = (id) => {
     Swal.fire({
@@ -17,6 +18,26 @@
         goto(`/pendaftaran/${id}`);
       }
     });
+  };
+
+  function playVoice(text) {
+    return new Promise((resolve) => {
+      responsiveVoice.speak(text, "Indonesian Female", {
+        onend: resolve, // Panggil resolve setelah suara selesai
+      });
+    });
+  }
+
+  const handlePasienCaller = async (nama_pasien) => {
+    const audio = new Audio(soundFile);
+    for (let i = 0; i < 2; i++) {
+      audio.play()
+      await new Promise((resolve) => {
+        audio.onended = resolve;
+      });
+      await playVoice("Pasien atas nama "+nama_pasien+", silahkan menuju ke ruang pemeriksaan.");
+      await new Promise((resolve) => setTimeout(resolve, 1000));
+    }
   };
 </script>
 
@@ -59,6 +80,11 @@
       on:click={() => {
         handlePasien(no_rekam_medis);
       }}>Pemeriksaan Awal</Button
+    >
+    <Button color="yellow"
+      on:click={() => {
+        handlePasienCaller(name);
+      }}>Panggil</Button
     >
   </td>
 </tr>
