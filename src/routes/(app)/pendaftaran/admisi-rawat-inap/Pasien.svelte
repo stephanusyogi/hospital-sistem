@@ -29,13 +29,34 @@
   }
 
   const handlePasienCaller = async (nama_pasien) => {
+    if(! 'speechSynthesis' in window){
+      alert('Speech cynth not supported!')
+      return false
+    }
+
     const audio = new Audio(soundFile);
+    const utterance = new SpeechSynthesisUtterance("Pasien atas nama "+nama_pasien+", silahkan menuju ke ruang pemeriksaan.");
+    utterance.lang = "id-ID"
+    const voices = speechSynthesis.getVoices();
+    const indonesianVoice = voices.find(voice => voice.lang === 'id-ID');
+    if (indonesianVoice) {
+      utterance.voice = indonesianVoice;
+    }else{
+      alert('Indonesia voice not supported!')
+    }
     for (let i = 0; i < 2; i++) {
+      audio.play();
+
       await new Promise((resolve) => {
         audio.onended = resolve;
-        audio.play();
       });
-      await playVoice("Pasien atas nama "+nama_pasien+", silahkan menuju ke ruang pemeriksaan.");
+
+      speechSynthesis.speak(utterance);
+      
+      await new Promise((resolve) => {
+        utterance.onend = resolve;
+      });
+      
       await new Promise((resolve) => setTimeout(resolve, 1000));
     }
   };
@@ -76,12 +97,12 @@
     </div>
   </td>
   <td>
-    <Button
+    <Button class="m-2"
       on:click={() => {
         handlePasien(no_rekam_medis);
       }}>Pemeriksaan Awal</Button
     >
-    <Button color="yellow"
+    <Button class="m-2" color="yellow"
       on:click={() => {
         handlePasienCaller(name);
       }}>Panggil</Button

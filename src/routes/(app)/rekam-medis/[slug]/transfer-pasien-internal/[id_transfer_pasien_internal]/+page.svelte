@@ -44,7 +44,7 @@
         timer: 3000,
       });
     }
-    if(data?.transfer_pasien_internal){
+    if(data?.transfer_pasien_internal.length !== 0){
       ruangan_asal = data.transfer_pasien_internal.general[0].ruangan_asal
       ruangan_tujuan = data.transfer_pasien_internal.general[0].ruangan_tujuan
       petugas_yang_menghubungi = data.transfer_pasien_internal.general[0].petugas_yang_menghubungi

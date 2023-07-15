@@ -106,14 +106,11 @@ export const actions = {
         await axios.post(BACKEND_API+'/rekam-medis/log', dataLog ,config);
 
         let resEdukasiPasien = await axios.post(BACKEND_API+'/rekam-medis/edukasi-pasien', data, config)  
-        
         // Upload File
-        const id_new_record = resEdukasiPasien.data._id
+        const id_new_record = resEdukasiPasien.data.data._id
         const formFile = new FormData();
         formFile.append('file', img_dir_penandaan_lokasi_operasi);
-        const resUploadFile = await axios.post(BACKEND_API+'/rekam-medis/edukasi-pasien-upload-file/'+id_new_record, formFile ,configFile);
-        // Update
-        await axios.put(BACKEND_API+'/rekam-medis/edukasi-pasien/'+id_edukasi_pasien, {img_dir_penandaan_lokasi_operasi: resUploadFile.data.downloadURL}, config)  
+        axios.post(BACKEND_API+'/rekam-medis/edukasi-pasien-upload-file/'+id_new_record, formFile ,configFile);
       } catch (error) {
         console.log(error)
         return fail(400, {

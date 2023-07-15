@@ -10,7 +10,6 @@
   /** @type {import('./$types').PageData} */
   export let data;
   let isLoading = true;
-  
 
   onMount(async () => {
     setTimeout(async () => {
