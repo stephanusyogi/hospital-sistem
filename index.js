@@ -27,6 +27,17 @@ app.get("/", (req, res) => {
   res.json({ message: "Welcome to the jungle!" });
 });
 
+// const Log = require("./models/rekam_medis_log");
+// app.get("/delete", async (req, res) => {
+//   try {
+//     await Log.deleteMany({});
+//     res.json({ message: "All data deleted successfully" });
+//   } catch (error) {
+//     console.log(error);
+//     res.status(500).json({ error: "Failed to delete data" });
+//   }
+// });
+
 const Dashboard = require("./controllers/dashboardController");
 const protect = require("./middlewares/protect");
 
