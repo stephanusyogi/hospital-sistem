@@ -75,7 +75,7 @@
           }
         };
         
-        await axios.put(data.api_base+'/rekam-medis/pasien-pulang/'+id , config);
+        axios.put(data.api_base+'/rekam-medis/pasien-pulang/'+id , config);
         
         window.location.href = $page.url.origin + "/rekam-medis"
       }
