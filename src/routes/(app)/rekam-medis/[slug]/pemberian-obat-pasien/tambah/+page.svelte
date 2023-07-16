@@ -35,8 +35,8 @@
     if(data?.obat){
       data.obat.forEach((item) => {
         obat.push({
-          value: item.nama_obat,
-          name: `${item.nama_obat} || ${item.harga}`,
+          value: `${item.nama_obat}-Rp.${item.harga}`,
+          name: `${item.nama_obat}-Rp.${item.harga}`,
         });
       })
     }

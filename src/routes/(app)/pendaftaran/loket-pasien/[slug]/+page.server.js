@@ -96,8 +96,8 @@ export const actions = {
               message: error.response.data.message,
             }); 
           });
-        
-        await axios.put(BACKEND_API+'/receipt-norm/'+no_rm, dataReceipt , config)
+
+        await axios.post(BACKEND_API+'/rekam-medis/informasi-pasien', informasiPasien, config)
           .catch(error => {
             console.error(error);
             return fail(400, {
@@ -105,8 +105,8 @@ export const actions = {
               message: error.response.data.message,
             }); 
           });
-
-        await axios.post(BACKEND_API+'/rekam-medis/informasi-pasien', informasiPasien, config)
+        
+        await axios.put(BACKEND_API+'/receipt-norm/'+no_rm, dataReceipt , config)
           .catch(error => {
             console.error(error);
             return fail(400, {

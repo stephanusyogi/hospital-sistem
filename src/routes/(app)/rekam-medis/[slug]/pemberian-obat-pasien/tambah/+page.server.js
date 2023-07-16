@@ -51,7 +51,7 @@ export const actions = {
     const formValues = {};
     for (const [name, value] of formData.entries()) {
       if(name === 'obat'){
-        let obatSelected = formData.get('obat').split("||")
+        let obatSelected = formData.get('obat').split("-Rp.")
         formValues['nama_obat'] = obatSelected[0];
         formValues['harga'] = obatSelected[1];
       }else{
