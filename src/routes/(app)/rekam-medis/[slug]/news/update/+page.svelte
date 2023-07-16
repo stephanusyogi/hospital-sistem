@@ -106,7 +106,7 @@
         timer: 3000,
       });
     }
-    if(data?.news){
+    if(data?.news.length){
       selected_rr = data.news.rr
       selected_spo2 = data.news.spo2
       selected_suhu = data.news.suhu

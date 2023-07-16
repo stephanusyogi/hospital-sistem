@@ -49,7 +49,7 @@
         timer: 3000,
       });
     }
-    if(data?.asesmen_medis_awal){
+    if(data?.asesmen_medis_awal.length !== 0){
       keluhan_utama = data.asesmen_medis_awal.anamnesa[0].keluhan_utama
       riwayat_penyakit_sekarang = data.asesmen_medis_awal.anamnesa[0].riwayat_penyakit_sekarang
       riwayat_penyakit_keluarga = data.asesmen_medis_awal.anamnesa[0].riwayat_penyakit_keluarga
