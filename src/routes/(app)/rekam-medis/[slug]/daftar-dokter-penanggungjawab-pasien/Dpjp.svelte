@@ -30,7 +30,6 @@
   <td>{spesialis}</td>
   <td>{tgl_mulai}</td>
   <td>{tgl_selesai}</td>
-  <td>{status_dpjp}</td>
   <td><button on:click={()=>handleDelete(_id)} class="text-red-600 hover:underline dark:text-red-500"><Icon icon="ic:baseline-delete"  width="25" height="25"/></button>
   </td>
 </tr>

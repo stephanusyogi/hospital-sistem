@@ -8,7 +8,7 @@
   export let data
   // console.log(data)
   
-  const handler = new DataHandler(data?.dpjpdisetujui, { rowsPerPage: 10 });
+  const handler = new DataHandler(data?.dpjp_disetujui, { rowsPerPage: 10 });
   const rows = handler.getRows();
 </script>
 
