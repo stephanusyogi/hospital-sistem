@@ -21,7 +21,7 @@ const Receipt = require("../../models/receipts");
 
 const getRekamMedis = async (req, res) => {
   try {
-    const informasi_pasien = await InformasiPasien.find().sort({ createdAt: 1 });
+    const informasi_pasien = await InformasiPasien.find().sort({ status_pulang: 0 });
 
     res.status(200).send(informasi_pasien);
   } catch (error) {
