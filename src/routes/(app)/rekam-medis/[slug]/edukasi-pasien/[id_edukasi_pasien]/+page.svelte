@@ -46,7 +46,7 @@
         timer: 3000,
       });
     }
-    if(data?.edukasi_pasien.length !== 0){
+    if(data?.edukasi_pasien){
       keyakinan_nilai = data.edukasi_pasien.pengkajian_kebutuhan_edukasi[0].keyakinan_nilai
       tingkat_edukasi = data.edukasi_pasien.pengkajian_kebutuhan_edukasi[0].tingkat_edukasi
       bahasa_yang_digunakan = data.edukasi_pasien.pengkajian_kebutuhan_edukasi[0].bahasa_yang_digunakan
