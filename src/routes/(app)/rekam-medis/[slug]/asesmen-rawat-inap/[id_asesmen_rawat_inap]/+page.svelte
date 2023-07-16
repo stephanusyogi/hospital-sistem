@@ -51,7 +51,7 @@
         timer: 3000,
       });
     }
-    if(data?.asesmen_medis_rawat_inap.length !== 0){
+    if(data?.asesmen_medis_rawat_inap){
       diagnosa_masuk = data.asesmen_medis_rawat_inap.status_fisik_riwayat[0].diagnosa_masuk
       keluhan_utama = data.asesmen_medis_rawat_inap.status_fisik_riwayat[0].keluhan_utama
       diagnosaPerawat = data.asesmen_medis_rawat_inap.diagnosa_keperawatan
