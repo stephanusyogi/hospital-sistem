@@ -179,14 +179,14 @@ const pasienPulang = async (req, res) => {
     };
 
     const receiptData = await Receipt.findOne({ $or: [{ no_rekam_medis: id, status_pulang: false }] });
-    const selisihWaktu = new Date().getTime() - new Date(receiptData.data[0].tgl_masuk).getTime();
+    const selisihWaktu = new Date().getTime() - new Date(receiptData.tgl_masuk).getTime();
     const jumlahMalam = Math.ceil(selisihWaktu / (1000 * 60 * 60 * 24));
     const updateReceipt = {
       $set: { status_pulang: true, 
         ruang_perawatan:{
-          deskripsi: receiptData.data[0].ruang_perawatan.deskripsi,
-          tanggal: receiptData.data[0].ruang_perawatan.tanggal,
-          harga_satuan: receiptData.data[0].ruang_perawatan.harga_satuan,
+          deskripsi: receiptData.ruang_perawatan[0].deskripsi,
+          tanggal: receiptData.ruang_perawatan[0].tanggal,
+          harga_satuan: receiptData.ruang_perawatan[0].harga_satuan,
           quantity: jumlahMalam,
         }
       }
