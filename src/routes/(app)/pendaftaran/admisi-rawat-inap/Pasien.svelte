@@ -42,7 +42,7 @@
     if (indonesianVoice) {
       utterance.voice = indonesianVoice;
     }else{
-      alert('Indonesia voice not supported!')
+      alert('Processing Indonesia Voice!')
     }
     for (let i = 0; i < 2; i++) {
       audio.play();
