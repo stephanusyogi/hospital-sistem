@@ -71,11 +71,12 @@
         const config = {
           headers: {
             'Accept': '*/*',
+            'withCredentials': false,
             'Content-Type': 'application/x-www-form-urlencoded'
           }
         };
         
-        axios.put(data.api_base+'/rekam-medis/pasien-pulang/'+id , config);
+        await axios.put(data.api_base+'/rekam-medis/pasien-pulang/'+id , config);
         
         window.location.href = $page.url.origin + "/rekam-medis"
       }
