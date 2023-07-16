@@ -39,7 +39,7 @@
   <form id="form" on:submit|preventDefault={handleSubmit} method="post">
     <div class="flex flex-wrap sm:flex-nowrap items-center justify-between">
       <div>
-        <p class="text-md sm:text-lg lg:text-xl font-semibold">Catatan Keperawatan</p>
+        <p class="text-md sm:text-lg lg:text-xl font-semibold">Observasu Cairan</p>
         <p class="text-red-500 text-sm">(*) Wajib diisi.</p>
       </div>
       <div class="flex flex-wrap gap-4">
@@ -62,7 +62,7 @@
         <Input name="nama_output" required/>
       </div>
       <div class="my-2">
-        <Label>Jumlah Cairan Input:  <span class="text-sm text-red-500 italic">*</span></Label>
+        <Label>Jumlah Cairan Output:  <span class="text-sm text-red-500 italic">*</span></Label>
         <Input name="jumlah_output" required/>
       </div>
     </div>
