@@ -39,7 +39,7 @@
   <form id="form" on:submit|preventDefault={handleSubmit} method="post">
     <div class="flex flex-wrap sm:flex-nowrap items-center justify-between">
       <div>
-        <p class="text-md sm:text-lg lg:text-xl font-semibold">Observasu Cairan</p>
+        <p class="text-md sm:text-lg lg:text-xl font-semibold">Observasi Cairan</p>
         <p class="text-red-500 text-sm">(*) Wajib diisi.</p>
       </div>
       <div class="flex flex-wrap gap-4">

@@ -155,7 +155,7 @@
             class="grid grid-cols-1 sm:grid-cols-2 gap-2 sm:gap-6 border p-4 text-sm"
           >
             <p class="font-medium">Status Asuransi:</p>
-            <p class="font-light sm:text-right">{data?.informasi_pasien.status_asuransi !== 'UMUM/Mandiri' ? data.informasi_pasien.status_asuransi ? 'Peserta Aktif' : 'Peserta Tidak Aktif' : '-'}</p>
+            <p class="font-light sm:text-right">{data?.informasi_pasien.nama_asuransi !== 'Umum/Mandiri' ? data.informasi_pasien.status_asuransi ? 'Peserta Aktif' : 'Peserta Tidak Aktif' : '-'}</p>
           </div>
         </div>
       </div>
