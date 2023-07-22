@@ -342,8 +342,8 @@
         <Input type="text" id="name" name="name"  required  value={data?.user_data.name}/>
       </div>
       <div class="my-2">
-        <Label for="email" class="mb-2">Email Pengguna</Label>
-        <Input type="email" id="email" name="email" required value={data?.user_data.email}/>
+        <Label for="" class="mb-2">Email Pengguna</Label>
+        <Input type="email" id="email" name="email" required value={data?.user_data.email} disabled/>
         <Input type="hidden" name="role" required value={data?.user_data.role}/>
       </div>
       <div class="my-2">
