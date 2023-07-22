@@ -103,10 +103,6 @@ const deleteDoctor = async (req, res) => {
     const { id } = req.params;
     const { userId } = req.user;
 
-    if (userId.toString() !== id) {
-      throw new Error("You can only delete your account!");
-    }
-
     const updatedFields = {
       accountActive: false,
     };
