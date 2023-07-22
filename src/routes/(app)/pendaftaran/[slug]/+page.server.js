@@ -145,11 +145,13 @@ export const actions = {
         'nama': user_cookies.name,
         'role': user_cookies.role,
       }
-      await axios.post(BACKEND_API+'/rekam-medis/log', dataLog , config);
+      axios.post(BACKEND_API+'/rekam-medis/log', dataLog , config);
 
-      await axios.put(BACKEND_API+'/receipt-norm/'+no_rm, dataReceipt , config);
-
+      axios.put(BACKEND_API+'/receipt-norm/'+no_rm, dataReceipt , config);
+      
       await axios.post(BACKEND_API+'/rekam-medis/pemeriksaan-awal', data , config);
+
+
     } catch (error) {
       console.log(error)
       return fail(400, {
